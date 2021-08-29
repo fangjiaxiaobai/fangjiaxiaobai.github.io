@@ -3,27 +3,119 @@
     <id>https://fangjiaxiaobai.github.io</id>
     <title>方家小白 • Posts by &#34;数据结构&#34; tag</title>
     <link href="https://fangjiaxiaobai.github.io" />
-    <updated>2021-08-19T06:48:55.000Z</updated>
-    <category term="源码" />
-    <category term="目录" />
+    <updated>2021-08-29T09:25:55.000Z</updated>
+    <category term="leetCode" />
+    <category term="数据结构" />
+    <category term="链表" />
+    <category term="面经之算法题" />
     <category term="MySQL" />
     <category term="Redis" />
-    <category term="git" />
-    <category term="数据结构" />
+    <category term="数组" />
+    <category term="目录" />
     <category term="雪花算法" />
     <category term="算法" />
+    <category term="git" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="String" />
-    <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
+    <category term="源码" />
     <category term="HashMap" />
+    <category term="String" />
     <category term="OOM" />
     <category term="JVM" />
     <category term="Java" />
     <category term="JDK" />
     <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</id>
+        <title>LC:反转链表I</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
+        <content type="html">&lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
+&lt;p&gt;给你单链表的头节点  &lt;code&gt;head&lt;/code&gt;  ，请你反转链表，并返回反转后的链表。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;示例一&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/reverseLinkedList1/reverseLinkedListCase1.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;输入：head = [1,2,3,4,5]&lt;br&gt;
+ 输出：[5,4,3,2,1]&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;示例二&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/reverseLinkedList1/reverseLinkedListCase2.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;输入：head = [1,2]&lt;br&gt;
+ 输出：[2,1]&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;示例三&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;输入：head = []&lt;br&gt;
+ 输出：[]&lt;/p&gt;
+&lt;p&gt;提示：&lt;/p&gt;
+&lt;p&gt;链表中节点的数目范围是 [0, 5000]&lt;br&gt;
+-5000 &amp;lt;= Node.val &amp;lt;= 5000&lt;/p&gt;
+&lt;p&gt;进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？&lt;/p&gt;
+&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）206.反转链表&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdA==&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdA==&#34;&gt;力扣（LeetCode）206.反转链表&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&#34;分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分析&#34;&gt;#&lt;/a&gt; 分析&lt;/h2&gt;
+&lt;p&gt;这是一道非常简单的题目。也是很容易出现&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTglQkUlQkUlRTUlODUlOEIlRTYlOTUlODglRTUlQkElOTQvNTYzOTE3OA==&#34;&gt;达克效应&lt;/span&gt;的一道题目。 为什么呢？应为这道题太简单了啊。 &lt;b&gt;思路&lt;/b&gt; 太简单了啊。 但是真正去写的话，可不见得真有那么简单。&lt;/p&gt;
+&lt;p&gt;简单的题目，我们还是 以图的形式来展示。&lt;/p&gt;
+&lt;h3 id=&#34;思路一-迭代链表-创建新节点重组成新链表&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路一-迭代链表-创建新节点重组成新链表&#34;&gt;#&lt;/a&gt; 思路一：迭代链表，创建新节点，重组成新链表&lt;/h3&gt;
+&lt;h4 id=&#34;思路解析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路解析&#34;&gt;#&lt;/a&gt; 思路解析&lt;/h4&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/reverseLinkedList1/solution1.png&#34; alt=&#34;一图胜千言&#34;&gt;&lt;/p&gt;
+&lt;p&gt;核心思路如标题。 首先将遍历的原链表中的节点值复制到新建的节点中 (a 步骤), 节点 next 指针指向是上一个节点，没有则为 null (b 步骤). 遍历链表的所有节点。&lt;/p&gt;
+&lt;p&gt;这样其实会生成一个新的链表。也就说会同时存在两条链表。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;✊时间复杂度为 O (n)， 空间复杂度为 O (n)&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;代码实现&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码实现&#34;&gt;#&lt;/a&gt; 代码实现&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; ListNode &lt;span class=&#34;title&#34;&gt;reverseList&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(ListNode head)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 非空判断&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head || &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head.next) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; head;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 遍历旧链表,新建节点，并且拼接成新链表。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ListNode pre = &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; != head) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            ListNode curr = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ListNode(head.val);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            curr.next = pre;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            pre = curr;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            head = head.next;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; pre;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;思路二-迭代变更链表的指针指向&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路二-迭代变更链表的指针指向&#34;&gt;#&lt;/a&gt; 思路二：迭代变更链表的指针指向&lt;/h3&gt;
+&lt;h4 id=&#34;思路解析-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路解析-2&#34;&gt;#&lt;/a&gt; 思路解析&lt;/h4&gt;
+&lt;p&gt;这种思路也是比较简单的，但是一定要想好喽之后，再看开始编码，要不然很容易思绪错乱。&lt;/p&gt;
+&lt;p&gt;图解:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/reverseLinkedList1/solution2.png&#34; alt=&#34;一图胜千言&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这种解法需要两个指针， pre 代表其前一个节点， cur 代表后一个节点。进行遍历，从而实现 指针指向的变更。 当然，还需要一个临时节点去帮忙 pre 和 cur 指针，向后移动。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;✊时间复杂度是 O (n); 空间复杂度是 O (3);&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;代码实现-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码实现-2&#34;&gt;#&lt;/a&gt; 代码实现&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution2&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; ListNode &lt;span class=&#34;title&#34;&gt;reverseList&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(ListNode head)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 非空判断&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head || &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head.next) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; head;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ListNode pre = head, cur = head.next;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// !!注意:断开头节点的next指针，避免产生环型链表。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        pre.next = &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; != cur) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            ListNode tempNode = cur.next;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            cur.next = pre;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            pre = cur;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            cur = tempNode;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; pre;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;思路三-递归方式-变更指针&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路三-递归方式-变更指针&#34;&gt;#&lt;/a&gt; 思路三：递归方式， 变更指针&lt;/h3&gt;
+&lt;h4 id=&#34;思路解析-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思路解析-3&#34;&gt;#&lt;/a&gt; 思路解析&lt;/h4&gt;
+&lt;p&gt;这思路三，其实是思路二的不同写法。 这种实现方法首先就需要将 链表 “递” 到底，然后在归的时候，把 节点链接到一起。如下图&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/reverseLinkedList1/solution3.png&#34; alt=&#34;一图胜千言&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这样说起来，递归这种方式来解决反转类的问题好像会有一种与生俱来的优势。  &lt;code&gt;首先递进去，然后归出来&lt;/code&gt; 。&lt;/p&gt;
+&lt;h4 id=&#34;代码实现-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码实现-3&#34;&gt;#&lt;/a&gt; 代码实现&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution3&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; ListNode &lt;span class=&#34;title&#34;&gt;reverseList&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(ListNode head)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 非空判断&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head || &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == head.next) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; head;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 递归入口&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; reverse(head, &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; ListNode &lt;span class=&#34;title&#34;&gt;reverse&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(ListNode currNode, ListNode preNode)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ListNode headNode = &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; == currNode) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            headNode = preNode;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            headNode = reverse(currNode.next, currNode);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            currNode.next = preNode;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; headNode;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;思考&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#思考&#34;&gt;#&lt;/a&gt; 思考&lt;/h2&gt;
+&lt;p&gt;这一道题考的是简单的逻辑问题，实属简单至极的题目。要注意 陷入 “达克效应”。&lt;/p&gt;
+&lt;p&gt;勿以题小而不做。&lt;/p&gt;
+&lt;p&gt;使用头递归来做反转类似的题目，好像是一种天然支持的特性。但是在实际的开发过程中，不建议过多的使用递归的方式，一方面不具备可读性。另一方面，递归方式对性能不太优化，还有重要的是要考虑栈溢出的风险。&lt;/p&gt;
+&lt;h2 id=&#34;相关题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#相关题目&#34;&gt;#&lt;/a&gt; 相关题目&lt;/h2&gt;
+&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）189.反转数组&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcm90YXRlLWFycmF5&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcm90YXRlLWFycmF5&#34;&gt;力扣（LeetCode）189.反转数组&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）92.反转链表II&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdC1paS8=&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdC1paS8=&#34;&gt;力扣（LeetCode）92.反转链表II&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）7.整数反转&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1pbnRlZ2VyLw==&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1pbnRlZ2VyLw==&#34;&gt;力扣（LeetCode）7.整数反转&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）344.反转字符串&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1zdHJpbmcv&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1zdHJpbmcv&#34;&gt;力扣（LeetCode）344.反转字符串&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="leetCode" />
+        <category term="数据结构" />
+        <category term="链表" />
+        <category term="面经之算法题" />
+        <updated>2021-08-29T09:25:55.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/</id>
         <title>LC:反转数组</title>
@@ -104,10 +196,10 @@
 &lt;p&gt;希望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
 </content>
-        <category term="数据结构" />
         <category term="leetCode" />
-        <category term="数组" />
+        <category term="数据结构" />
         <category term="面经之算法题" />
+        <category term="数组" />
         <updated>2021-08-19T06:48:55.000Z</updated>
     </entry>
     <entry>
@@ -278,8 +370,8 @@
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
 </content>
-        <category term="Redis" />
         <category term="数据结构" />
+        <category term="Redis" />
         <updated>2021-08-01T16:00:00.000Z</updated>
     </entry>
 </feed>
