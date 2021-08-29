@@ -1,0 +1,980 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Redis" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/">
+
+
+
+  <title>
+Redis 数据结构之有序集合 zset - Redis 数据库 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis 数据结构之有序集合 zset
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 18:38:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:38:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>14k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>13 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitf0kl1j20zk0m87fe.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="item" rel="index" title="分类于 Redis 数据库"><span itemprop="name">Redis 数据库</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="书接上回"><a class="markdownIt-Anchor" href="#书接上回">#</a> 书接上回</h2>
+<p>上一篇我们学习的  <code>set</code>  集合这一数据类型。其内部是由 <code>inset</code>  和 <code>hashtable</code>  这种两种数据结构编码的。<br>
+如果不记得了，那就来坐穿梭机回去看看吧。 <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/">开始穿梭</a></p>
+<p>接下来，我们继续学习一个新的数据类型，有序集合.  <code>zset</code> .</p>
+<h2 id="zset简介"><a class="markdownIt-Anchor" href="#zset简介">#</a>  <code>zset</code>  简介</h2>
+<p><code>zset</code>  , 中文名字叫 有序集合。序这个字，在 <code>Redis</code>  的实现是  <code>score</code>  字段。我们先不急这个字段，后面会介绍。</p>
+<p>在 <code>Redis</code>  中有序的数据类型，还有一个就是我们前面学习的  <code>list</code>  了。 它们还都可以获得某一定范围内的元素。</p>
+<p>而  <code>zset</code>  的优点是：  <code>list</code>  通过链表实现，在两端操作数据都很方便。但是操作中间的数据就比较慢了。  <code>zset</code>  是用  <code>hashtable</code>  和  <code>skiplist</code>  来实现的。即使是操作中间数据，速度也很快。时间复杂度为:  <code>O(logN)</code></p>
+<p><code>zset</code>  的缺点就是：就是比较耗费内存。</p>
+<h2 id="zset类型的应用场景"><a class="markdownIt-Anchor" href="#zset类型的应用场景">#</a>  <code>zset</code>  类型的应用场景</h2>
+<ul>
+<li>存储学生成绩快速做成绩排名功能。</li>
+<li>排行榜，比如：列出某用户当前的全球排名，比赛中胜场数排名。</li>
+<li>带权重的消息队列功能</li>
+</ul>
+<h2 id="zset的基本命令"><a class="markdownIt-Anchor" href="#zset的基本命令">#</a>  <code>zset</code>  的基本命令</h2>
+<h3 id="zadd"><a class="markdownIt-Anchor" href="#zadd">#</a>  <code>zadd</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZADD key [NX|XX] [CH] [INCR] score member [score member ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>将 <code>member</code>  添加有序集合中.</p>
+<p>如果 <code>member</code>  存在，会更新 <code>member</code>  的 <code>score</code>  值。</p>
+<ul>
+<li>
+<p><code>NX</code>  表示存在相同的 <code>member</code>  就会设置失败，NX 的作用就是 新增 <code>member</code> ，不会修改 <code>Member</code></p>
+</li>
+<li>
+<p><code>XX</code>  表示不存在相同的 <code>member</code>  就会设置失败。所以:  <code>XX</code>  总是更新元素。不会新增元素</p>
+</li>
+<li>
+<p><code>CH</code> ( <code>change</code> ): 返回修改的元素个数。更改的元素是添加的新元素以及已为其更新分数的现有元素。因此，命令行中指定的具有与过去相同分数的元素将不计算在内。注意：通常， <code>ZADD</code>  的返回值仅计算添加的新元素的数量。</p>
+</li>
+<li>
+<p><code>INCR</code> : 指定此选项后， <code>ZADD</code>  的行为类似于<a href="#ZINCRBY"> <code>ZINCRBY</code> </a>。在此模式下只能指定一对得分元素。</p>
+</li>
+<li>
+<p>演示</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置一个元素</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 1 m1</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 设置多个元素</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 2 m2 3 m3 4 m4 5 m5</span><br><span class="line">(integer) 4</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 演示 NX 语义,只能新增.</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 NX 5 m5</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 NX 6 m6</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 NX 6 m6</span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 演示 XX 语言,只能修改</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 XX 7 m7</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 7 m7</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 进行修改，注意返回值. 如果要返回个数，则加 CH</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 XX 7 m7</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 XX 77 m7</span><br><span class="line">(integer) 0</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 演示CH, 返回修改的个数</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 CH 8 m8 9 m9 10 m10</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 CH 8 m8 999 m9 10 m10</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 演示INCR, 增长</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 11 m11</span><br><span class="line">(integer) 1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 此时 score 表示的是步长</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k67 INCR 10 m11</span><br><span class="line">&quot;21&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查看设置的值。</span></span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k67 0 -1 WITHSCORES</span><br><span class="line"> 1) &quot;m1&quot;</span><br><span class="line"> 2) &quot;1&quot;</span><br><span class="line"> 3) &quot;m2&quot;</span><br><span class="line"> 4) &quot;2&quot;</span><br><span class="line"> 5) &quot;m3&quot;</span><br><span class="line"> 6) &quot;3&quot;</span><br><span class="line"> 7) &quot;m4&quot;</span><br><span class="line"> 8) &quot;4&quot;</span><br><span class="line"> 9) &quot;m5&quot;</span><br><span class="line">10) &quot;5&quot;</span><br><span class="line">11) &quot;m6&quot;</span><br><span class="line">12) &quot;6&quot;</span><br><span class="line">13) &quot;m8&quot;</span><br><span class="line">14) &quot;8&quot;</span><br><span class="line">15) &quot;m10&quot;</span><br><span class="line">16) &quot;10&quot;</span><br><span class="line">17) &quot;m11&quot;</span><br><span class="line">18) &quot;21&quot;</span><br><span class="line">19) &quot;m7&quot;</span><br><span class="line">20) &quot;77&quot;</span><br><span class="line">21) &quot;m9&quot;</span><br><span class="line">22) &quot;999&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="zscore"><a class="markdownIt-Anchor" href="#zscore">#</a>  <code>zscore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZSCORE key member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>zset score</code></p>
+<p>查看对应元素的 <code>score</code>  值</p>
+<pre><code>* 当`key`不存在或者`member`不存在的时候,返回`(nil)`
+</code></pre>
+<p>返回 <code>score</code>  的值。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 验证k68不存在的时候，返回nil</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE k68 m1</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; ZADD k68 1 m1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"><span class="comment"># 返回元素的score值</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE k68 m1</span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="comment"># 验证 member 不存在的时候，返回</span></span><br><span class="line">127.0.0.1:6379&gt; ZSCORE k68 m2</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
+<h3 id="zincrby"><a class="markdownIt-Anchor" href="#zincrby">#</a>  <code>zincrby</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZINCRBY key increment member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>zset increment by</code> <br>
+*  <code>increment</code> : 步长。<br>
+*  <code>member</code> : 指定的成员</p>
+<p>为有序集合 <code>key</code>  的成员 <code>member</code>  的 <code>score</code>  值加上  <code>increment</code> 。</p>
+<p>如果 <code>key</code>  或者 <code>member</code>  不存在，则新增一个元素。相当于  <code>zadd</code> .</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入一个不存在的key。</span></span><br><span class="line">127.0.0.1:6379&gt; ZINCRBY k69 10 m1</span><br><span class="line"><span class="string">&quot;10&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k69 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;10&quot;</span></span><br><span class="line"><span class="comment">#累加</span></span><br><span class="line">127.0.0.1:6379&gt; ZINCRBY k69 10 m1</span><br><span class="line"><span class="string">&quot;20&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k69 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;20&quot;</span></span><br><span class="line"><span class="comment"># 累加一个负数</span></span><br><span class="line">127.0.0.1:6379&gt; ZINCRBY k69 -30 m1</span><br><span class="line"><span class="string">&quot;-10&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k69 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;-10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zcard"><a class="markdownIt-Anchor" href="#zcard">#</a>  <code>zcard</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZCARD key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回 有序集合的 <code>key</code>  中的元素个数。即 <code>member</code>  的个数。<br>
+不存在的时候，返回 <code>0</code> .</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 返回member的个数</span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k70 1 m1 2 m2 3 m3</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; ZCARD k70</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6379&gt; ZADD k70 4 m4 5 m5</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6379&gt; ZCARD k70</span><br><span class="line">(integer) 5</span><br><span class="line"><span class="meta">#</span><span class="bash"> 不存在的时候，返回0</span></span><br><span class="line">127.0.0.1:6379&gt; EXISTS k70_1</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6379&gt; ZCARD k70_1</span><br><span class="line">(integer) 0</span><br></pre></td></tr></table></figure>
+<h3 id="zcount"><a class="markdownIt-Anchor" href="#zcount">#</a>  <code>zcount</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZCOUNT key min max</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回  <code>score</code>  值在 <code>min</code>  和  <code>max</code>  之间的元素的个数。包括等于  <code>min</code>  和  <code>max</code></p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k71 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; ZCOUNT k71 2 5</span><br><span class="line">(<span class="built_in">integer</span>) 4</span><br><span class="line"><span class="comment">#不存在的key或者不在区间内时，返回0</span></span><br><span class="line">127.0.0.1:6379&gt; zcount k71_1 0 10</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; zcount k71 11 12</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; zcount k71 12 11</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+<h3 id="zrange"><a class="markdownIt-Anchor" href="#zrange">#</a>  <code>zrange</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZRANGE key start stop [WITHSCORES]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>这个命令我们已经用过，就是返回指定开始结束位置上的元素。从  <code>0</code>  开始。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZRANGE k72 1 3</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">3) <span class="string">&quot;m4&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k72 1 3 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;2&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;3&quot;</span></span><br><span class="line">5) <span class="string">&quot;m4&quot;</span></span><br><span class="line">6) <span class="string">&quot;4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zrevrange"><a class="markdownIt-Anchor" href="#zrevrange">#</a>  <code>zrevrange</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREVRANGE key start stop [WITHSCORES]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回有序集合中指定区间的成员。<br>
+其中成员的位置按  <code>score</code>  值递减 (从大到小) 来排列。 具有相同  <code>score</code>  值的成员按字典序的逆序 ( <code>reverse lexicographical order</code> ) 排列。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k73 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 使用 zrange 正序返回数据</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k73 0 3 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;1&quot;</span></span><br><span class="line">3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">4) <span class="string">&quot;2&quot;</span></span><br><span class="line">5) <span class="string">&quot;m3&quot;</span></span><br><span class="line">6) <span class="string">&quot;3&quot;</span></span><br><span class="line">7) <span class="string">&quot;m4&quot;</span></span><br><span class="line">8) <span class="string">&quot;4&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 zrevrange 倒序返回数据</span></span><br><span class="line">127.0.0.1:6379&gt; ZREVRANGE k73 0 3 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m10\x11&quot;</span></span><br><span class="line">2) <span class="string">&quot;10&quot;</span></span><br><span class="line">3) <span class="string">&quot;m9&quot;</span></span><br><span class="line">4) <span class="string">&quot;9&quot;</span></span><br><span class="line">5) <span class="string">&quot;m8&quot;</span></span><br><span class="line">6) <span class="string">&quot;8&quot;</span></span><br><span class="line">7) <span class="string">&quot;m7&quot;</span></span><br><span class="line">8) <span class="string">&quot;7&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zrangebyscore"><a class="markdownIt-Anchor" href="#zrangebyscore">#</a>  <code>zrangebyscore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>zset range by score</code></p>
+<p>类似  <code>zrange</code> , 不过是按照  <code>score</code>  的值进行排序的。</p>
+<p><code>[LIMIT offset count]</code> , 是从 offset 开始，返回 <code>count</code>  个。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 返回 score值在 [9,10]之间的member。</span></span><br><span class="line">127.0.0.1:6379&gt; ZADD k74 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; ZRANGEBYSCORE k74 9 10 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m9&quot;</span></span><br><span class="line">2) <span class="string">&quot;9&quot;</span></span><br><span class="line">3) <span class="string">&quot;m10\x11&quot;</span></span><br><span class="line">4) <span class="string">&quot;10&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从第2个(区间内索引为1)开始，返回1个元素</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGEBYSCORE k74 9 10 WITHSCORES LIMIT 1 1</span><br><span class="line">1) <span class="string">&quot;m10\x11&quot;</span></span><br><span class="line">2) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zrevrangebyscore"><a class="markdownIt-Anchor" href="#zrevrangebyscore">#</a>  <code>zrevrangebyscore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回有序集  <code>key</code>  中，  <code>score</code>  值介于  <code>max</code>  和  <code>min</code>  之间 (默认包括等于  <code>max</code>  或  <code>min</code>  ) 的所有的成员。有序集成员按  <code>score</code>  值递减 (从大到小) 的次序排列。</p>
+<p>注意各个参数的位置哦。这里和  <code>zrevrange</code>  的参数不一样。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k75 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE k75 8 6 WITHSCORES </span><br><span class="line">1) <span class="string">&quot;m8&quot;</span></span><br><span class="line">2) <span class="string">&quot;8&quot;</span></span><br><span class="line">3) <span class="string">&quot;m7&quot;</span></span><br><span class="line">4) <span class="string">&quot;7&quot;</span></span><br><span class="line">5) <span class="string">&quot;m6&quot;</span></span><br><span class="line">6) <span class="string">&quot;6&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; ZREVRANGEBYSCORE k75 8 6 WITHSCORES  LIMIT 1  1</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;7&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zrank"><a class="markdownIt-Anchor" href="#zrank">#</a>  <code>zrank</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZRANK key member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回有序集  <code>key</code>  中成员  <code>member</code>  的排名。其中有序集成员按  <code>score</code>  值递增 (从小到大) 顺序排列</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k76 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; zrank k76 m4</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; zrank k76 m10</span><br><span class="line">(<span class="built_in">integer</span>) 9</span><br></pre></td></tr></table></figure>
+<h3 id="zrevrank"><a class="markdownIt-Anchor" href="#zrevrank">#</a>  <code>zrevrank</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREVRANK key member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回有序集  <code>key</code>  中成员  <code>member</code>  的排名。其中有序集成员按  <code>score</code>  值递减 (从大到小) 排序。</p>
+<p>排名以  <code>0</code>  为底，也就是说，  <code>score</code>  值最大的成员排名为  <code>0</code>  。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k77 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; ZREVRANK k77 m10</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; ZREVRANK k77 m4</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br></pre></td></tr></table></figure>
+<h3 id="zrem"><a class="markdownIt-Anchor" href="#zrem">#</a>  <code>zrem</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREM key member [member ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>zset remove</code></p>
+<p>移除有序集  <code>key</code>  中的一个或多个成员，不存在的成员将被忽略。</p>
+<p>当  <code>key</code>  存在但不是有序集类型时，返回一个错误。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k78 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 删除m2,m3,m4</span></span><br><span class="line">127.0.0.1:6379&gt; ZREM k78 m2 m3 m4</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k78 0 -1 WITHSCORES</span><br><span class="line"> 1) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;1&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m5&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;5&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;6&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m7&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;7&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m8&quot;</span></span><br><span class="line">10) <span class="string">&quot;8&quot;</span></span><br><span class="line">11) <span class="string">&quot;m9&quot;</span></span><br><span class="line">12) <span class="string">&quot;9&quot;</span></span><br><span class="line">13) <span class="string">&quot;m10&quot;</span></span><br><span class="line">14) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zremrangebyrank"><a class="markdownIt-Anchor" href="#zremrangebyrank">#</a>  <code>zremrangebyrank</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREMRANGEBYRANK key start stop</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>移除有序集  <code>key</code>  中，指定排名 ( <code>rank</code> ) 区间内的所有成员。</p>
+<p>区间分别以下标参数  <code>start</code>  和  <code>stop</code>  指出，包含  <code>start</code>  和  <code>stop</code>  在内。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k79 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 删除排名第2到排名第4的member</span></span><br><span class="line">127.0.0.1:6379&gt; ZREMRANGEBYRANK k79 1 3</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k79 0 -1 WITHSCORES</span><br><span class="line"> 1) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;1&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m5&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;5&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;6&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m7&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;7&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m8&quot;</span></span><br><span class="line">10) <span class="string">&quot;8&quot;</span></span><br><span class="line">11) <span class="string">&quot;m9&quot;</span></span><br><span class="line">12) <span class="string">&quot;9&quot;</span></span><br><span class="line">13) <span class="string">&quot;m10&quot;</span></span><br><span class="line">14) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zremrangebyscore"><a class="markdownIt-Anchor" href="#zremrangebyscore">#</a> zremrangebyscore</h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREMRANGEBYSCORE key min max</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>移除有序集  <code>key</code>  中，所有  <code>score</code>  值介于  <code>min</code>  和  <code>max</code>  之间 (包括等于  <code>min</code>  或  <code>max</code>  ) 的成员。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k80 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 删除 score&gt;=1 and score &lt;=9 的元素</span></span><br><span class="line">127.0.0.1:6379&gt; ZREMRANGEBYSCORE k80 1 9</span><br><span class="line">(<span class="built_in">integer</span>) 9</span><br><span class="line">127.0.0.1:6379&gt; zrange k80 0 -1  WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m10&quot;</span></span><br><span class="line">2) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zrangebylex"><a class="markdownIt-Anchor" href="#zrangebylex">#</a> zrangebylex</h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZRANGEBYLEX key min max [LIMIT offset count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>当有序集合的所有成员都具有相同的分值时， 有序集合的元素会根据成员的字典序（ <code>lexicographical ordering</code> ）来进行排序， 而这个命令则可以返回给定的有序集合键  <code>key</code>  中， 值介于  <code>min</code>  和  <code>max</code>  之间的成员。</p>
+<p>注意:</p>
+<p>合法的  <code>min</code>  和  <code>max</code>  参数必须包含 ( 或者  <code>[</code>  ， 其中  <code>(</code>  表示开区间（指定的值不会被包含在范围之内）， 而  <code>[</code>  则表示闭区间（指定的值会被包含在范围之内）。</p>
+<p>特殊值  <code>+</code>  和  <code>-</code>  在  <code>min</code>  参数以及  <code>max</code>  参数中具有特殊的意义， 其中  <code>+</code>  表示正无限， 而  <code>-</code>  表示负无限。 因此， 向一个所有成员的分值都相同的有序集合发送命令  <code>ZRANGEBYLEX &lt;zset&gt; - + </code> ， 命令将返回有序集合中的所有元素</p>
+<blockquote>
+<p><code>lex</code> :<br>
+ 表示如果 <code>score</code>  相等，则按照 <code>member</code>  的字典顺序排序。<br>
+此外这个命令，比如 <code>ZRANGBYSCORE</code>  稍微强大一点儿。可以指定区间范围，当只知道 <code>member</code> ，不知道 score 的时候，可以是使用带有  <code>lex</code>  的命令。</p>
+</blockquote>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd k81 1 a 2 b 3 c 4 d 5 f 6 g</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line"><span class="comment"># 返回 score值在a的score值和c的score值之间的member</span></span><br><span class="line"><span class="comment"># 即: score&gt; Score(a) &amp;&amp; score &lt;= Score(c)</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGEBYLEX k81 (a  [c </span><br><span class="line">1) <span class="string">&quot;b&quot;</span></span><br><span class="line">2) <span class="string">&quot;c&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回 小于等于c的Score值的元素</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGEBYLEX k81 -  [c </span><br><span class="line">1) <span class="string">&quot;a&quot;</span></span><br><span class="line">2) <span class="string">&quot;b&quot;</span></span><br><span class="line">3) <span class="string">&quot;c&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回所有元素</span></span><br><span class="line">127.0.0.1:6379&gt; ZRANGEBYLEX k81 - + </span><br><span class="line">1) <span class="string">&quot;a&quot;</span></span><br><span class="line">2) <span class="string">&quot;b&quot;</span></span><br><span class="line">3) <span class="string">&quot;c&quot;</span></span><br><span class="line">4) <span class="string">&quot;d&quot;</span></span><br><span class="line">5) <span class="string">&quot;f&quot;</span></span><br><span class="line">6) <span class="string">&quot;g&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zlexcount"><a class="markdownIt-Anchor" href="#zlexcount">#</a>  <code>zlexcount</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZLEXCOUNT key min max</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>对于一个所有成员的分值都相同的有序集合键  <code>key</code>  来说， 这个命令会返回该集合中， 成员介于  <code>min</code>  和  <code>max</code>  范围内的元素数量。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd k82 1 a 2 b 3 c 4 d 5 f 6 g</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line">127.0.0.1:6379&gt; ZLEXCOUNT k82 2 5</span><br><span class="line">(error) ERR min or max not valid string range item</span><br><span class="line">127.0.0.1:6379&gt; ZLEXCOUNT k82 a b</span><br><span class="line"><span class="comment"># 大于Score(a),小于等于Score(b)的member,只有b.</span></span><br><span class="line">127.0.0.1:6379&gt; ZLEXCOUNT k82 (a [b</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"><span class="comment"># 大于Score(a),小于等于Score(d)的member,有b.c.d，三个</span></span><br><span class="line">127.0.0.1:6379&gt; ZLEXCOUNT k82 (a [d</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure>
+<h3 id="zremrangebylex"><a class="markdownIt-Anchor" href="#zremrangebylex">#</a>  <code>zremrangebylex</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZREMRANGEBYLEX key min max</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>对于一个所有成员的分值都相同的有序集合键  <code>key</code>  来说， 这个命令会移除该集合中， 成员介于  <code>min</code>  和  <code>max</code>  范围内的所有元素。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd k83 1 a 2 b 3 c 4 d 5 f 6 g</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line"><span class="comment"># 删除 score值在 (Score(a),Score(c)] 之间的member</span></span><br><span class="line">127.0.0.1:6379&gt; ZREMRANGEBYLEX k83 (a [c</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line"><span class="comment"># 删除了，b,c</span></span><br><span class="line">127.0.0.1:6379&gt; zrange k83 0 -1</span><br><span class="line">1) <span class="string">&quot;a&quot;</span></span><br><span class="line">2) <span class="string">&quot;d&quot;</span></span><br><span class="line">3) <span class="string">&quot;f&quot;</span></span><br><span class="line">4) <span class="string">&quot;g&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zscan"><a class="markdownIt-Anchor" href="#zscan">#</a> zscan</h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZSCAN key cursor [MATCH pattern] [COUNT count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>这是一个查询命令。 同  <code>SCAN</code>  命令。可以参考这篇文章 <a href="./010-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4.md">010 - 其他命令</a></p>
+<p><code>SCAN</code>  命令是一个基于游标的迭代器（ <code>cursor based iterator</code> ）：  <code>SCAN</code>  命令每次被调用之后， 都会向用户返回一个新的游标， 用户在下次迭代时需要使用这个新游标作为  <code>SCAN</code>  命令的游标参数， 以此来延续之前的迭代过程。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k84 1 m1 2 m2 3 m3 4 m4 5 m5 6 m6 7 m7 8 m8 9 m9 10 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; zscan k84 0 MATCH m* COUNT 3</span><br><span class="line">1) <span class="string">&quot;0&quot;</span></span><br><span class="line">2)  1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">    2) <span class="string">&quot;1&quot;</span></span><br><span class="line">    3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">    4) <span class="string">&quot;2&quot;</span></span><br><span class="line">    5) <span class="string">&quot;m3&quot;</span></span><br><span class="line">    6) <span class="string">&quot;3&quot;</span></span><br><span class="line">    7) <span class="string">&quot;m4&quot;</span></span><br><span class="line">    8) <span class="string">&quot;4&quot;</span></span><br><span class="line">    9) <span class="string">&quot;m5&quot;</span></span><br><span class="line">   10) <span class="string">&quot;5&quot;</span></span><br><span class="line">   11) <span class="string">&quot;m6&quot;</span></span><br><span class="line">   12) <span class="string">&quot;6&quot;</span></span><br><span class="line">   13) <span class="string">&quot;m7&quot;</span></span><br><span class="line">   14) <span class="string">&quot;7&quot;</span></span><br><span class="line">   15) <span class="string">&quot;m8&quot;</span></span><br><span class="line">   16) <span class="string">&quot;8&quot;</span></span><br><span class="line">   17) <span class="string">&quot;m9&quot;</span></span><br><span class="line">   18) <span class="string">&quot;9&quot;</span></span><br><span class="line">   19) <span class="string">&quot;m10&quot;</span></span><br><span class="line">   20) <span class="string">&quot;10&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zunionstore"><a class="markdownIt-Anchor" href="#zunionstore">#</a>  <code>zunionstore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]</code></p>
+<ul>
+<li>
+<p>解释<br>
+计算给定的一个或多个有序集合的并集，其中给定 key 的数量必须以 numkeys 参数指定，并将该并集 (结果集) 储存到 destination 。<br>
+如果 key 相同的时候，对应的 score 值会相加。</p>
+<ul>
+<li><code>WEIGHTS</code> : 使用  <code>WEIGHTS</code>  选项，你可以为 每个 给定有序集 分别 指定一个乘法因子 ( <code>multiplication factor</code> )，每个给定有序集的所有成员的  <code>score</code>  值在传递给聚合函数 ( <code>aggregation function</code> ) 之前都要先乘以该有序集的因子。</li>
+<li><code>AGGREGATE</code> : 使用  <code>AGGREGATE</code>  选项，你可以指定并集的结果集的聚合方式。<br>
+默认使用的参数  <code>SUM</code>  ，可以将所有集合中某个成员的  <code>score</code>  值之 和 作为结果集中该成员的  <code>score</code>  值；使用参数  <code>MIN</code>  ，可以将所有集合中某个成员的 最小  <code>score</code>  值作为结果集中该成员的  <code>score</code>  值；而参数  <code>MAX</code>  则是将所有集合中某个成员的 最大  <code>score</code>  值作为结果集中该成员的  <code>score</code>  值。</li>
+</ul>
+</li>
+<li>
+<p>演示</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ZADD k85_1 1 m1 2 m2 3 m3</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; ZADD k85_2 1 m1 4 m4 5 m5</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; ZUNIONSTORE k85 2 k85_1 k85_2</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; zrange k85 0 -1 WITHSCORES</span><br><span class="line"> 1) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;2&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m2&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;2&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m3&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;3&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m4&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;4&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m5&quot;</span></span><br><span class="line">10) <span class="string">&quot;5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 演示 Weights参数： WEIGHTS 2 3</span></span><br><span class="line"><span class="comment"># 指: 第一个zset的所有元素 *2 ，第二个有序集合中的元素 *3</span></span><br><span class="line">127.0.0.1:6379&gt; ZUNIONSTORE k85 2 k85_1 k85_2 WEIGHTS 2 3</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k85 0 -1 WITHSCORES</span><br><span class="line"> 1) <span class="string">&quot;m2&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;4&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;5&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m3&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;6&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m4&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;12&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m5&quot;</span></span><br><span class="line">10) <span class="string">&quot;15&quot;</span></span><br><span class="line"><span class="comment"># 演示 Weights参数： WEIGHTS 2 4</span></span><br><span class="line"><span class="comment"># 指: 第一个zset的所有元素 *2 ，第二个有序集合中的元素 *3</span></span><br><span class="line">127.0.0.1:6379&gt; ZUNIONSTORE k85 2 k85_1 k85_2 WEIGHTS 2 4</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k85 0 -1 WITHSCORES</span><br><span class="line"> 1) <span class="string">&quot;m2&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;4&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;6&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m3&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;6&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m4&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;16&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m5&quot;</span></span><br><span class="line">10) <span class="string">&quot;20&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="zinterstore"><a class="markdownIt-Anchor" href="#zinterstore">#</a> zinterstore</h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>ZINTERSTORE destination numkeys key [key …] [WEIGHTS weight [weight …]] [AGGREGATE SUM|MIN|MAX]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>计算给定的一个或多个有序集的交集，其中给定  <code>key</code>  的数量必须以  <code>numkeys</code>  参数指定，并将该交集 (结果集) 储存到  <code>destination</code>  。</p>
+<p>默认情况下，结果集中某个成员的  <code>score</code>  值是所有给定集下该成员  <code>score</code>  值之和.</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd k86_1 1 m1 2 m2 3 m3 4 m4</span><br><span class="line">(<span class="built_in">integer</span>) 4</span><br><span class="line">127.0.0.1:6379&gt; ZADD k86_2 20 m2 30 m3 50 m5</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; ZINTERSTORE k86 2 k86_1 k86_2 </span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line"><span class="comment"># 取交集(默认相加)</span></span><br><span class="line">127.0.0.1:6379&gt; zrange k86 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;22&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;33&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># WEIGTHS 参数和上面的 ZUNIONSTORE命令一样.</span></span><br><span class="line"><span class="comment"># 这里演示一下, AGGREGATE参数</span></span><br><span class="line"><span class="comment"># 默认使用的是SUM. 就是本命令中上面的例子了.</span></span><br><span class="line"><span class="comment"># 下面演示MIN 和 MAX</span></span><br><span class="line">127.0.0.1:6379&gt; ZINTERSTORE k86 2 k86_1 k86_2 AGGREGATE MIN</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k86 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;2&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; ZINTERSTORE k86 2 k86_1 k86_2 AGGREGATE MAX</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; ZRANGE k86 0 -1 WITHSCORES</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;20&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">4) <span class="string">&quot;30&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="zset的内部结构"><a class="markdownIt-Anchor" href="#zset的内部结构">#</a>  <code>zset</code>  的内部结构</h2>
+<p>这里我们主要看 <code>skiplist</code> ，如果忘记了 <code>hashtable</code> ，就看着<a href="2021/08/01/Redis%E7%B3%BB%E5%88%97/C-8-Redis%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%AD%97%E5%85%B8Dict/">这篇文章</a></p>
+<p>我们从命令 <code>zadd</code>  入手，找到 <code>zset</code>  的 <code>add</code>  通用方法 <code>zaddGenericCommand(c,ZADD_NONE);</code>  来看一下。省略了部分代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (server.zset_max_ziplist_entries == <span class="number">0</span> ||</span><br><span class="line">            server.zset_max_ziplist_value &lt; <span class="built_in">sdslen</span>(c-&gt;argv[scoreidx+<span class="number">1</span>]-&gt;ptr))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/// 创建 OBJ_ENCODING_SKIPLIST 编码的结构</span></span><br><span class="line">    zobj = <span class="built_in">createZsetObject</span>();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">/// 创建 OBJ_ZSET 编码的结构</span></span><br><span class="line">    zobj = <span class="built_in">createZsetZiplistObject</span>();</span><br><span class="line">&#125;</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<p>来看一下  <code>createZsetObject()</code>  方法的实现，就再清晰不过了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 创建 Zset 对象。</span></span><br><span class="line"><span class="function">robj *<span class="title">createZsetObject</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    zset *zs = <span class="built_in">zmalloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(*zs));</span><br><span class="line">    robj *o;</span><br><span class="line"></span><br><span class="line">    zs-&gt;dict = <span class="built_in">dictCreate</span>(&amp;zsetDictType, <span class="literal">NULL</span>);</span><br><span class="line">    zs-&gt;zsl = <span class="built_in">zslCreate</span>();</span><br><span class="line">    o = <span class="built_in">createObject</span>(OBJ_ZSET, zs);</span><br><span class="line">    o-&gt;encoding = OBJ_ENCODING_SKIPLIST;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里，就是我们和  <code>zset</code>  这种数据类型的初次深入见面了。 我们先看下  <code>zset</code>  这种结构体的定义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 有序集合的结构定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zset</span> &#123;</span></span><br><span class="line">    <span class="comment">/// 字典，键为成员,值为score</span></span><br><span class="line">    <span class="comment">/// 用于支持 O(1) 复杂度的按成员分值操作。</span></span><br><span class="line">    dict *dict;</span><br><span class="line">    <span class="comment">/// 跳跃表,按分值排序成员</span></span><br><span class="line">    <span class="comment">/// 用于支持平均复杂度为 O(logN)的按分值定位成员以及范围的操作。</span></span><br><span class="line">    zskiplist *zsl;</span><br><span class="line">&#125; zset;</span><br></pre></td></tr></table></figure>
+<p><code>dict</code>  前面已经看过了，这里来看下 <code>zskiplist</code> 。</p>
+<h3 id="skiplist"><a class="markdownIt-Anchor" href="#skiplist">#</a>  <code>skiplist</code></h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 跳跃表</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">/// 表头，表尾</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span></span><br><span class="line">    <span class="comment">/// 表中节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;</span><br><span class="line">    <span class="comment">/// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="keyword">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    sds ele;</span><br><span class="line">    <span class="comment">/// 分数</span></span><br><span class="line">    <span class="keyword">double</span> score;</span><br><span class="line">    <span class="comment">/// 后退的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">/// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">/// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">/// 跨度</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">long</span> span;</span><br><span class="line">    &#125; level[];</span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h2>
+<ul>
+<li>本章是一个新的常用数据类型， <code>ZSET</code>  有序集合。底层的数据结构是使用的是  <code>skipList</code>  和  <code>hashtable</code>  . 关于 <code>Skiplist</code>  的初步了解文章<a href="#">穿梭机</a> 和  <code>Redis</code>  中  <code>skiplist</code>  的实现源码解读<a href="">穿梭机</a></li>
+<li>然后简单介绍了  <code>Redis ZSET</code>  数据类型的基础使用场景。关键字有  <code>有序</code> ， <code>排名</code> ， <code>权重</code> 等.</li>
+<li><code>ZSET</code>  的  <code>20</code>  个常有命令。 后面我会针对这  <code>20</code>  个命令的实现进行简单的分享.</li>
+<li>然后简单的看了一下 <code>Redis</code>  中的数据结构的实现，还是那句话， <code>Redis</code>  的数据结构是动态编码的，  <code>ZSET</code>  是有 <code>hashtable</code>  和  <code>skiplist</code>  实现的。 skiplist 是一个非常高效的数据结构，增删查的效率都是  <code>O(logN)</code> . 实现原理可以参考这篇文章<a href="#">直通车</a>，里面有几种流行的语言的实现，可以针对自己擅长的语言进行查看。</li>
+</ul>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-19 12:39:22" itemprop="dateModified" datetime="2021-08-19T12:39:22+08:00">2021-08-19</time>
+  </span>
+  <span id="2021/08/01/Redis系列/B-5-Redis的数据类型之有序集合zset/" class="item leancloud_visitors" data-flag-title="Redis 数据结构之有序集合 zset" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis 数据结构之有序集合 zset">https://fangjiaxiaobai.github.io/2021/08/01/Redis系列/B-5-Redis的数据类型之有序集合zset/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwrdwyaj20zk0m8are.jpg" title="Redis数据结构之集合 Set">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之集合 Set</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhpw3lwj20zk0m8gvw.jpg" title="Redis数据结构之位图 BitMap">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之位图 BitMap</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E6%8E%A5%E4%B8%8A%E5%9B%9E"><span class="toc-number">1.</span> <span class="toc-text"> 书接上回</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zset%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">  zset  简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zset%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">  zset  类型的应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zset%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">  zset  的基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zadd"><span class="toc-number">4.1.</span> <span class="toc-text">  zadd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zscore"><span class="toc-number">4.2.</span> <span class="toc-text">  zscore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zincrby"><span class="toc-number">4.3.</span> <span class="toc-text">  zincrby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zcard"><span class="toc-number">4.4.</span> <span class="toc-text">  zcard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zcount"><span class="toc-number">4.5.</span> <span class="toc-text">  zcount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrange"><span class="toc-number">4.6.</span> <span class="toc-text">  zrange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrevrange"><span class="toc-number">4.7.</span> <span class="toc-text">  zrevrange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrangebyscore"><span class="toc-number">4.8.</span> <span class="toc-text">  zrangebyscore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrevrangebyscore"><span class="toc-number">4.9.</span> <span class="toc-text">  zrevrangebyscore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrank"><span class="toc-number">4.10.</span> <span class="toc-text">  zrank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrevrank"><span class="toc-number">4.11.</span> <span class="toc-text">  zrevrank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrem"><span class="toc-number">4.12.</span> <span class="toc-text">  zrem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zremrangebyrank"><span class="toc-number">4.13.</span> <span class="toc-text">  zremrangebyrank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zremrangebyscore"><span class="toc-number">4.14.</span> <span class="toc-text"> zremrangebyscore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zrangebylex"><span class="toc-number">4.15.</span> <span class="toc-text"> zrangebylex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zlexcount"><span class="toc-number">4.16.</span> <span class="toc-text">  zlexcount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zremrangebylex"><span class="toc-number">4.17.</span> <span class="toc-text">  zremrangebylex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zscan"><span class="toc-number">4.18.</span> <span class="toc-text"> zscan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zunionstore"><span class="toc-number">4.19.</span> <span class="toc-text">  zunionstore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zinterstore"><span class="toc-number">4.20.</span> <span class="toc-text"> zinterstore</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zset%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">  zset  的内部结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#skiplist"><span class="toc-number">5.1.</span> <span class="toc-text">  skiplist</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" rel="bookmark" title="Redis 开篇 & 说明">Redis 开篇 & 说明</a></li><li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" rel="bookmark" title="Redis 开篇杂谈">Redis 开篇杂谈</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="bookmark" title="Redis的单机部署">Redis的单机部署</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" rel="bookmark" title="Redis 简介">Redis 简介</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="bookmark" title="Redis 多个数据库">Redis 多个数据库</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" rel="bookmark" title="Redis数据结构之 String">Redis数据结构之 String</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="bookmark" title="Redis数据结构之 List">Redis数据结构之 List</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="bookmark" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="bookmark" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></li><li class="active"><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="bookmark" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="bookmark" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" rel="bookmark" title="Redis数据结构之 `HyperLogLogs`">Redis数据结构之 `HyperLogLogs`</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="bookmark" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" rel="bookmark" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">39</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">20</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
+</div>
+
+    <span><a href="/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/" title="雪花算法">雪花算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">202k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/01/Redis系列/B-5-Redis的数据类型之有序集合zset/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

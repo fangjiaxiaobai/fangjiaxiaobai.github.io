@@ -1,0 +1,915 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Redis" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">
+
+
+
+  <title>
+Redis 数据结构之 Hash - Redis 数据库 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis 数据结构之 Hash
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 15:18:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T15:18:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>7.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="item" rel="index" title="分类于 Redis 数据库"><span itemprop="name">Redis 数据库</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="书接上回"><a class="markdownIt-Anchor" href="#书接上回">#</a> 书接上回</h2>
+<p>前一篇文章，我们学习的是 <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/">Redis 的数据结构 list</a>， 学习了其基本的操作和使用内部数据结构是 <code>quicklist</code>  和 <code>ziplist</code> ，这两种数据结构虽然起得名字是 <code>list</code> ，但是其内部结构却是链表。如果不记得了其内部构成，就再看看看着<a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/">上篇文章</a>吧。现在我们继续学习下一个数据类型  <code>hash</code></p>
+<h2 id="hash简介"><a class="markdownIt-Anchor" href="#hash简介">#</a>  <code>hash</code>  简介</h2>
+<p><code>hash</code>  是一个键值对集合。是  <code>string</code>  类型的  <code>key</code>  和  <code>value</code>  的映射表，hash 特别适合用于存储对象，每个 <code>hash</code>  类型可以存储  <code>2^32-1</code>  个键值对。</p>
+<p><code>hash</code>  实际上就是一个 哈希表。类似于  <code>Java</code>  里的 <code>HashTable</code> 。</p>
+<p>但是  <code>Redis</code>  的哈希是有两种数据结构 (内部编码) 来表示的。</p>
+<ul>
+<li>
+<p>一种是  <code>ziplist</code>  , 上篇文章中我们简单的介绍了 <code>ziplist</code>  的内部构成，见 <a href="./06-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist.md">Redis 的数据结构 list</a>, 以及 <code>ziplist</code>  的编码方式，可以看这篇文章 <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/">10-Redis 的数据结构之 ziplist.md</a>. 那么  <code>Redis</code>  什么时候会使用 <code>ziplist</code>  这种编码方式呢？</p>
+<ul>
+<li>当  <code>hash</code>  类型的元素的个数小于  <code>hash-max-ziplist-enties</code>  配置，默认 <code>512</code> .</li>
+<li>所有的值都小于 <code>hash-max-ziplist-value</code>  的值，默认是 <code>64</code>  个字节的时候。<br>
+当同时满足以上两个条件的时候， 就会使用  <code>ziplist</code>  这种结构。</li>
+</ul>
+</li>
+</ul>
+<p>这种方式最大的优点就是节约空间。</p>
+<ul>
+<li>另一种就是使用  <code>hashtable</code>  来编码了。当不满足上面提及的两个条件时，就会使用  <code>hashtable</code>  来编码。实际上是  <code>dict</code>  这种数据结构。这里我们又可以学习到一个新的数据结构  <code>dict</code></li>
+</ul>
+<h2 id="hash的应用场景"><a class="markdownIt-Anchor" href="#hash的应用场景">#</a> hash 的应用场景</h2>
+<ul>
+<li>缓存对象信息：对象的每个属性对应着 <code>hash</code>  的一个键值对。改变的时候，只需要改变对应的某个 <code>filed-value</code>  即可。</li>
+<li>缓存购物车的信息：用户的 <code>id</code>  为 <code>key</code> ， 商品的 <code>id</code>  为  <code>field</code> . 商品的数量为 <code>value</code> 。 比如:  <code>hset userId productId productCount</code></li>
+</ul>
+<h2 id="hash的基本命令"><a class="markdownIt-Anchor" href="#hash的基本命令">#</a>  <code>hash</code>  的基本命令</h2>
+<h3 id="hset"><a class="markdownIt-Anchor" href="#hset">#</a>  <code>hset</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>hset key field value</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>将哈希表  <code>hash</code>  中域  <code>field</code>  的值设置为  <code>value</code>  。</p>
+<p>如果给定的哈希表并不存在， 那么一个新的哈希表将被创建并执行  <code>HSET</code>  操作。</p>
+<p>如果域  <code>field</code>  已经存在于哈希表中， 那么它的旧值将被新值  <code>value</code>  覆盖。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 设置一个hash结构</span></span><br><span class="line">127.0.0.1:6379&gt; HSET k38 f1 v38</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"><span class="comment"># 获取一个字段</span></span><br><span class="line">127.0.0.1:6379&gt; HGET k38 f1</span><br><span class="line"><span class="string">&quot;v38&quot;</span></span><br><span class="line"><span class="comment"># 设置一个已经存在的值, 注意返回的值。</span></span><br><span class="line">127.0.0.1:6379&gt; HSET k38 f1 v38v38</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; HGET k38 f1</span><br><span class="line"><span class="string">&quot;v38v38&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hsetnx"><a class="markdownIt-Anchor" href="#hsetnx">#</a>  <code>hsetnx</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HSETNX key field value</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>当且仅当域  <code>field</code>  尚未存在于哈希表的情况下， 将它的值设置为  <code>value</code>  。</p>
+<p>如果给定域已经存在于哈希表当中， 那么命令将放弃执行设置操作。</p>
+<p>如果哈希表  <code>hash</code>  不存在， 那么一个新的哈希表将被创建并执行  <code>HSETNX</code>  命令。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一个不存在的 key</span></span><br><span class="line">127.0.0.1:6379&gt; HSETNX k39 f1 v39</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HGET k39 f1</span><br><span class="line"><span class="string">&quot;v39&quot;</span></span><br><span class="line"><span class="comment"># 再次设置</span></span><br><span class="line">127.0.0.1:6379&gt; HSETNX k39 f1 v39v39</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; HGET k39 f1</span><br><span class="line"><span class="string">&quot;v39&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hget"><a class="markdownIt-Anchor" href="#hget">#</a>  <code>hget</code></h3>
+<p>这个命令上面已经用到了。这里就不浪费时间了。</p>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HGET key field</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>获取对应的  <code>key</code>  下的域  <code>field</code>  的值。不存在的时候，返回  <code>nil</code></p>
+<h3 id="hgetall"><a class="markdownIt-Anchor" href="#hgetall">#</a>  <code>hgetall</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HGETALL key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回哈希表  <code>key</code>  中，所有的域和值。</p>
+<p>在返回值里，紧跟每个域名 ( <code>field name</code> ) 之后是域的值 ( <code>value</code> )，所以返回值的长度是哈希表大小的两倍。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HGETALL k39 </span><br><span class="line">1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v39&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; hset k39 f2 v39_2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HGETALL k39 </span><br><span class="line">1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v39&quot;</span></span><br><span class="line">3) <span class="string">&quot;f2&quot;</span></span><br><span class="line">4) <span class="string">&quot;v39_2&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hexists"><a class="markdownIt-Anchor" href="#hexists">#</a>  <code>hexists</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code> HEXISTS key field</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>检查给定域  <code>field</code>  是否存在于哈希表  <code>hash</code>  当中。</p>
+<p>存在返回 <code>1</code> , 不存在返回 <code>0</code> 。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HEXISTS k40 f1</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; HSET k40 f1 v40</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HEXISTS k40 f1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+<h3 id="del"><a class="markdownIt-Anchor" href="#del">#</a>  <code>del</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HDEL key field [field ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HSET k41 f1 v41_1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HSET k41 f2 v41_2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HSET k41 f3 v41_3</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HGETALL k41</span><br><span class="line">1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v41_1&quot;</span></span><br><span class="line">3) <span class="string">&quot;f2&quot;</span></span><br><span class="line">4) <span class="string">&quot;v41_2&quot;</span></span><br><span class="line">5) <span class="string">&quot;f3&quot;</span></span><br><span class="line">6) <span class="string">&quot;v41_3&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; HDEL k41 f1 f3 f4 </span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; HGETALL k41</span><br><span class="line">1) <span class="string">&quot;f2&quot;</span></span><br><span class="line">2) <span class="string">&quot;v41_2&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hlen"><a class="markdownIt-Anchor" href="#hlen">#</a>  <code>hlen</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HLEN key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回哈希表  <code>key</code>  中域的数量。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HSET k42 f1 v42_1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HSET k42 f2 v42_2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HSET k42 f3 v42_3</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; hlen k42</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br></pre></td></tr></table></figure>
+<h3 id="hstrlen"><a class="markdownIt-Anchor" href="#hstrlen">#</a>  <code>hstrlen</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HSTRLEN key field</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回哈希表  <code>key</code>  中， 与给定域  <code>field</code>  相关联的值的字符串长度（ <code>string length</code> ）。</p>
+<p>如果给定的键或者域不存在， 那么命令返回  <code>0</code>  。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HSET k43 f1 <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HSTRLEN k43 f1</span><br><span class="line">(<span class="built_in">integer</span>) 11</span><br><span class="line">127.0.0.1:6379&gt; HSTRLEN k43 f2</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure>
+<h3 id="hincrby"><a class="markdownIt-Anchor" href="#hincrby">#</a> hincrby</h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HINCRBY key field increment</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>为哈希表  <code>key</code>  中的域  <code>field</code>  的值加上增量  <code>increment</code>  。</p>
+<p>增量也可以为负数，相当于对给定域进行减法操作。</p>
+<p>如果  <code>key</code>  不存在，一个新的哈希表被创建并执行  <code>HINCRBY</code>  命令。</p>
+<p>如果域  <code>field</code>  不存在，那么在执行命令前，域的值被初始化为  <code>0</code>  。</p>
+<p>对一个储存字符串值的域  <code>field</code>  执行  <code>HINCRBY</code>  命令将造成一个错误。</p>
+<p>本操作的值被限制在  <code>64</code>  位 ( <code>bit</code> ) 有符号数字表示之内。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不存在的key与域 field</span></span><br><span class="line">127.0.0.1:6379&gt; HINCRBY k45 f1 100</span><br><span class="line">(<span class="built_in">integer</span>) 100</span><br><span class="line">127.0.0.1:6379&gt; HINCRBY k45 f1 -200</span><br><span class="line">(<span class="built_in">integer</span>) -100</span><br><span class="line">127.0.0.1:6379&gt; HINCRBY k45 f1 200</span><br><span class="line">(<span class="built_in">integer</span>) 100</span><br><span class="line"><span class="comment"># 错误的类型</span></span><br><span class="line">127.0.0.1:6379&gt; HSET k45 f2 v45</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; HINCRBY k45 f2 100</span><br><span class="line">(error) ERR <span class="built_in">hash</span> value is not an <span class="built_in">integer</span></span><br></pre></td></tr></table></figure>
+<h3 id="hincrbyfloat"><a class="markdownIt-Anchor" href="#hincrbyfloat">#</a>  <code>hincrbyfloat</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HINCRBYFLOAT  key field increment</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>为哈希表  <code>key</code>  中的域  <code>field</code>  加上浮点数增量  <code>increment</code>  。</p>
+<p>如果哈希表中没有域  <code>field</code>  ，那么  <code>HINCRBYFLOAT</code>  会先将域  <code>field</code>  的值设为  <code>0</code>  ，然后再执行加法操作。</p>
+<p>如果键  <code>key</code>  不存在，那么  <code>HINCRBYFLOAT</code>  会先创建一个哈希表，再创建域  <code>field</code>  ，最后再执行加法操作。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HINCRBYFLOAT  k46 f1 100.5</span><br><span class="line"><span class="string">&quot;100.5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; HINCRBYFLOAT  k46 f1 100.5</span><br><span class="line"><span class="string">&quot;201&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; HINCRBYFLOAT  k46 f1 -100.5</span><br><span class="line"><span class="string">&quot;100.5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; HSET k46 f2 v46_2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+<h3 id="hmset"><a class="markdownIt-Anchor" href="#hmset">#</a>  <code>hmset</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HMSET key field value [field value ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>同时将多个  <code>field-value</code>  (域 - 值) 对设置到哈希表  <code>key</code>  中。</p>
+<p>此命令会覆盖哈希表中已存在的域。</p>
+<p>如果  <code>key</code>  不存在，一个空哈希表被创建并执行  <code>HMSET</code>  操作。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HMSET k47  f1 v47_1 f2 v47_2 f3 v47_3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; HGETALL k47</span><br><span class="line">1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v47_1&quot;</span></span><br><span class="line">3) <span class="string">&quot;f2&quot;</span></span><br><span class="line">4) <span class="string">&quot;v47_2&quot;</span></span><br><span class="line">5) <span class="string">&quot;f3&quot;</span></span><br><span class="line">6) <span class="string">&quot;v47_3&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hmget"><a class="markdownIt-Anchor" href="#hmget">#</a>  <code>hmget</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HMGET key field [field ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回哈希表  <code>key</code>  中，一个或多个给定域的值。</p>
+<p>如果给定的域不存在于哈希表，那么返回一个  <code>nil</code>  值。</p>
+<p>因为不存在的  <code>key</code>  被当作一个空哈希表来处理，所以对一个不存在的  <code>key</code>  进行  <code>HMGET</code>  操作将返回一个只带有  <code>nil</code>  值的表。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HMSET k48 f1 v1 f2 v2 f3 v3 f4 v4</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; hmget k48 f1 f3 f4</span><br><span class="line">1) <span class="string">&quot;v1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v3&quot;</span></span><br><span class="line">3) <span class="string">&quot;v4&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+<h3 id="hkeys"><a class="markdownIt-Anchor" href="#hkeys">#</a>  <code>hkeys</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HKEYS key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回哈希表  <code>key</code>  中的所有域。</p>
+<p>当  <code>key</code>  不存在时，返回一个空表。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HMSET k49 f1 v1 f2 v2 f3 v3 f4 v4</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; HKEYS k49</span><br><span class="line">1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">2) <span class="string">&quot;f2&quot;</span></span><br><span class="line">3) <span class="string">&quot;f3&quot;</span></span><br><span class="line">4) <span class="string">&quot;f4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hvals"><a class="markdownIt-Anchor" href="#hvals">#</a>  <code>hvals</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HVALS key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回  <code>key</code>  对应的所有的 <code>value</code></p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HMSET k50 f1 v1 f2 v2 f3 v3 f4 v4 </span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; HVALS k50</span><br><span class="line">1) <span class="string">&quot;v1&quot;</span></span><br><span class="line">2) <span class="string">&quot;v2&quot;</span></span><br><span class="line">3) <span class="string">&quot;v3&quot;</span></span><br><span class="line">4) <span class="string">&quot;v4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="hscan"><a class="markdownIt-Anchor" href="#hscan">#</a>  <code>hscan</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>HSCAN key cursor [MATCH pattern] [COUNT count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>这是一个查询命令。 同 SCAN 命令。可以参考这篇文章 <a href="./010-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4.md">010 - 其他命令</a></p>
+<p><code>SCAN</code>  命令是一个基于游标的迭代器（ <code>cursor based iterator</code> ）：  <code>SCAN</code>  命令每次被调用之后， 都会向用户返回一个新的游标， 用户在下次迭代时需要使用这个新游标作为  <code>SCAN</code>  命令的游标参数， 以此来延续之前的迭代过程。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; HMSET k51  f1 v1 f2 v2 f3 v3 f4 v4 f5 v5 f6 v6 f7 v7 f8 v8</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; hscan k51 0 </span><br><span class="line">1) <span class="string">&quot;0&quot;</span></span><br><span class="line">2)  1) <span class="string">&quot;f1&quot;</span></span><br><span class="line">    2) <span class="string">&quot;v1&quot;</span></span><br><span class="line">    3) <span class="string">&quot;f2&quot;</span></span><br><span class="line">    4) <span class="string">&quot;v2&quot;</span></span><br><span class="line">    5) <span class="string">&quot;f3&quot;</span></span><br><span class="line">    6) <span class="string">&quot;v3&quot;</span></span><br><span class="line">    7) <span class="string">&quot;f4&quot;</span></span><br><span class="line">    8) <span class="string">&quot;v4&quot;</span></span><br><span class="line">    9) <span class="string">&quot;f5&quot;</span></span><br><span class="line">   10) <span class="string">&quot;v5&quot;</span></span><br><span class="line">   11) <span class="string">&quot;f6&quot;</span></span><br><span class="line">   12) <span class="string">&quot;v6&quot;</span></span><br><span class="line">   13) <span class="string">&quot;f7&quot;</span></span><br><span class="line">   14) <span class="string">&quot;v7&quot;</span></span><br><span class="line">   15) <span class="string">&quot;f8&quot;</span></span><br><span class="line">   16) <span class="string">&quot;v8&quot;</span></span><br></pre></td></tr></table></figure>
+<p>以上，就是  <code>Redis</code>  中 <code>hash</code>  类型相关的 <code>15</code>  个命令了。务必熟记～</p>
+<h2 id="hash的内部结构"><a class="markdownIt-Anchor" href="#hash的内部结构">#</a>  <code>hash</code>  的内部结构</h2>
+<p>在  <code>hash</code>  类型简介的时候，我们就说过  <code>hash</code>  是用两种数据结构来编码的。</p>
+<ul>
+<li>
+<p><code>ziplist</code></p>
+</li>
+<li>
+<p><code>hashtable</code> ( <code>dict</code> )</p>
+</li>
+</ul>
+<p><code>ziplist</code>  之前已经分享过了。具体参考之前的文章吧。 <a href="./06-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist.md">链接</a></p>
+<p>这里我们就简单的来看下  <code>hashtable</code> .</p>
+<p>我们直接搜索  <code>hash</code>  , 可以发现  <code>t_hash.c</code>  这个文件，引入了  <code>server.h</code>  . 大体看了一下，都是函数的实现。那我们看下  <code>server.h</code>  ，应该存在对  <code>hastable</code>  的定义吧。然而，并没有。</p>
+<p>那我们来看下 <code>t_hash.c</code>  中添加方法的实现吧.  <code>int hashTypeSet(robj *o, sds field, sds value, int flags)</code></p>
+<p>源码太长了，这里就不粘了， 可以看<span class="exturl" data-url="aHR0cHM6Ly9naXRlZS5jb20vZmFuZ2ppYXhpYW9iYWkvcmVkaXMvYmxvYi9yZWRpczUuMF9jaGluZXNlX3RyYW5zbGF0ZS9zcmMvdF9oYXNoLmM=">源码</span></p>
+<p>通过查看源码可以得出:</p>
+<ul>
+<li><code>hash</code>  类型的默认编码是  <code>OBJ_ZIPLIST</code> . 即默认是使用  <code>ziplist</code>  这种数据结构进行编码存储的。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">robj *<span class="title">createHashObject</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *zl = <span class="built_in">ziplistNew</span>();</span><br><span class="line">    robj *o = <span class="built_in">createObject</span>(OBJ_HASH, zl);</span><br><span class="line">    o-&gt;encoding = OBJ_ENCODING_ZIPLIST;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当 <code>hash</code>  元素的个数大于  <code>hash_max_ziplist_entries</code>  时会，转换成  <code>hashTable</code> ( <code>OBJ_ENCODING_HT</code> ),</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"> <span class="keyword">if</span> (<span class="built_in">hashTypeLength</span>(o) &gt; server.hash_max_ziplist_entries)</span><br><span class="line">            <span class="built_in">hashTypeConvert</span>(o, OBJ_ENCODING_HT);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>但是在  <code>redis 5.0.7</code>  中暂时不支持这种方式，还没有实现。(<b>没有实现从 <code>ziplist</code>  编码转化成 <code>hash</code>  编码。</b>)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hashTypeConvert</span><span class="params">(robj *o, <span class="keyword">int</span> enc)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o-&gt;encoding == OBJ_ENCODING_ZIPLIST) &#123;</span><br><span class="line">        <span class="built_in">hashTypeConvertZiplist</span>(o, enc);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">/// 这里！！！</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (o-&gt;encoding == OBJ_ENCODING_HT) &#123;</span><br><span class="line">        <span class="built_in">serverPanic</span>(<span class="string">&quot;Not implemented&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">serverPanic</span>(<span class="string">&quot;Unknown hash encoding&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当创建的 <code>hash</code>  类型是  <code>hashtable</code>  编码 ( <code>OBJ_ENCODING_HT</code> ) 时，是使用 <code>dict</code>  这种类型存储的.</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// dict类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">/// 2个哈希表来实现</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">long</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> iterators; <span class="comment">/* number of iterators currently running */</span></span><br><span class="line">&#125; dict;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 哈希表实现</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span></span><br><span class="line">    dictEntry **table; <span class="comment">/// 哈希表节点指针数据(java源码中的桶的概念)</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size; <span class="comment">/// 指针数组的大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask; <span class="comment">/// 指针数据的长度掩码,用于计算索引值</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used; <span class="comment">/// 哈希表现有的节点数量</span></span><br><span class="line">&#125; dictht;</span><br><span class="line"></span><br><span class="line"><span class="comment">///哈希表的节点</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">    <span class="comment">/// 键</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="comment">/// 值</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">        <span class="keyword">double</span> d;</span><br><span class="line">    &#125; v;</span><br><span class="line">    <span class="comment">/// 下一个节点: dictht 是使用链地址法来处理hash冲突。</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; dictEntry;</span><br></pre></td></tr></table></figure>
+<p>整个  <code>dict</code>  结构就可以这么表示:</p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/Redis-01-dict%E7%BB%93%E6%9E%84%E5%AD%98%E5%82%A8.png" alt="Redis-01-dict结构存储"></p>
+<p>到这里，我们就知道了  <code>hash</code>  这种类型，是如何存储的了。 如果你还想了解<br>
+ <code>dict</code>  是如何  <code>rehash</code> , 扩容，缩容。以及  <code>dict api</code>  相关实现的话，移驾这篇文章吧。 <a href="./Redis%E4%B8%AD%E7%9A%84dict%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md">起驾～</a></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h2>
+<ul>
+<li><code>hash</code>  结构，是一种哈希表结构。通过两种数据结构 <code>ziplist</code>  和  <code>hashtable</code> ( <code>dict</code> ) 实现。</li>
+<li>要熟练掌握的  <code>hash</code>  相关的 <code>15</code>  个命令。</li>
+<li><code>hashtable</code>  的编码格式，实际上就是使用的  <code>dict</code>  这种编码方式。我们简单的学习了 <code>Redis</code>  中 <code>dict</code>  结构的实现。还有一篇专门的文章，来介绍  <code>dict</code>  的详细内容。</li>
+</ul>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-19 12:39:04" itemprop="dateModified" datetime="2021-08-19T12:39:04+08:00">2021-08-19</time>
+  </span>
+  <span id="2021/08/01/Redis系列/B-3-Redis的数据类型之hash/" class="item leancloud_visitors" data-flag-title="Redis 数据结构之 Hash" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis 数据结构之 Hash">https://fangjiaxiaobai.github.io/2021/08/01/Redis系列/B-3-Redis的数据类型之hash/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="Redis数据结构之 List">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之 List</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipex2cdtbj20zk0m8x6p.jpg" title="Redis数据结构之集合 Set">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之集合 Set</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E6%8E%A5%E4%B8%8A%E5%9B%9E"><span class="toc-number">1.</span> <span class="toc-text"> 书接上回</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">  hash  简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text"> hash 的应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">  hash  的基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hset"><span class="toc-number">4.1.</span> <span class="toc-text">  hset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hsetnx"><span class="toc-number">4.2.</span> <span class="toc-text">  hsetnx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hget"><span class="toc-number">4.3.</span> <span class="toc-text">  hget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hgetall"><span class="toc-number">4.4.</span> <span class="toc-text">  hgetall</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexists"><span class="toc-number">4.5.</span> <span class="toc-text">  hexists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#del"><span class="toc-number">4.6.</span> <span class="toc-text">  del</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hlen"><span class="toc-number">4.7.</span> <span class="toc-text">  hlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hstrlen"><span class="toc-number">4.8.</span> <span class="toc-text">  hstrlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hincrby"><span class="toc-number">4.9.</span> <span class="toc-text"> hincrby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hincrbyfloat"><span class="toc-number">4.10.</span> <span class="toc-text">  hincrbyfloat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hmset"><span class="toc-number">4.11.</span> <span class="toc-text">  hmset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hmget"><span class="toc-number">4.12.</span> <span class="toc-text">  hmget</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hkeys"><span class="toc-number">4.13.</span> <span class="toc-text">  hkeys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hvals"><span class="toc-number">4.14.</span> <span class="toc-text">  hvals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hscan"><span class="toc-number">4.15.</span> <span class="toc-text">  hscan</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hash%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">  hash  的内部结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" rel="bookmark" title="Redis 开篇 & 说明">Redis 开篇 & 说明</a></li><li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" rel="bookmark" title="Redis 开篇杂谈">Redis 开篇杂谈</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="bookmark" title="Redis的单机部署">Redis的单机部署</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" rel="bookmark" title="Redis 简介">Redis 简介</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="bookmark" title="Redis 多个数据库">Redis 多个数据库</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" rel="bookmark" title="Redis数据结构之 String">Redis数据结构之 String</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="bookmark" title="Redis数据结构之 List">Redis数据结构之 List</a></li><li class="active"><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="bookmark" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="bookmark" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="bookmark" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="bookmark" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" rel="bookmark" title="Redis数据结构之 `HyperLogLogs`">Redis数据结构之 `HyperLogLogs`</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="bookmark" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" rel="bookmark" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">39</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">20</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">202k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/01/Redis系列/B-3-Redis的数据类型之hash/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

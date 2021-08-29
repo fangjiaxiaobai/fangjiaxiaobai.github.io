@@ -1,0 +1,746 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Redis" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/">
+
+
+
+  <title>
+Redis 数据结构之详解 ziplist - Redis 数据库 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis 数据结构之详解 ziplist
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-02 18:18:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-02T18:18:55+08:00">2021-08-02</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="item" rel="index" title="分类于 Redis 数据库"><span itemprop="name">Redis 数据库</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="解密-ziplist"><a class="markdownIt-Anchor" href="#解密-ziplist">#</a> 解密 ziplist.</h2>
+<p>为什么叫解密  <code>ziplist</code>  呢？因为从 ziplist 中取到我们预期的值，真的和解密一样！烧脑，但是极其有趣！！</p>
+<h3 id="引题"><a class="markdownIt-Anchor" href="#引题">#</a> 引题</h3>
+<p>在介绍  <code>Redis</code>  的数据类型  <code>list</code>  的时候，是我们第一次接触  <code>ziplist</code>  这一数据结构。</p>
+<p>不知道是否还记得  <code>ziplist</code>  这种数据结构的特性。如果不记得也没有关系，今天我们来详细的看下这个数据结构。</p>
+<h3 id="重读-ziplist-数据结构"><a class="markdownIt-Anchor" href="#重读-ziplist-数据结构">#</a> 重读 ziplist 数据结构</h3>
+<p><code>ziplist</code>  是经过特殊编码的双向链接列表，旨在提高内存效率。 它同时存储字符串和整数值，其中整数被编码为实际整数，而不是一系列字符。它允许在  <code>O(1)</code>  时间在列表的任一侧进行推和弹出操作。</p>
+<p>但是，由于每个操作都需要重新分配 <code>ziplist</code>  使用的内存，因此实际的复杂性与 <code>ziplist</code>  使用的内存量有关。</p>
+<p><code>ziplist</code>  的数据结构总览。如下图</p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-01-Ziplist%E7%9A%84%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>我来依次解释下这  <code>5</code>  个部分.</p>
+<ul>
+<li>
+<p><code>&lt;uint32_t zlbytes&gt;</code>  : 存储的  <code>ziplist</code>  占用的字节数 (包含  <code>zlbytes</code>  字段本身的  <code>4</code>  个字节)。因此：无需遍历就能直接知道这个数据结构的大小。</p>
+</li>
+<li>
+<p><code>&lt;uint32_t zltail&gt;</code>  是列表中最后一个条目的偏移量。 这允许在列表的另一端进行弹出操作，而无需完全遍历。在任意一端进行  <code>pop</code>  和  <code>push</code>  操作的时间复杂度都是  <code>O(1)</code>  .</p>
+</li>
+<li>
+<p><code>&lt;uint16_t zllen&gt;</code>  是条目数。当条目数超过 <code>2 ^ 16-2</code>  时，此值将设置为 <code>2 ^ 16-1</code> ，这时，我们需要遍历整个列表以了解其包含多少项了。</p>
+</li>
+<li>
+<p><code>&lt;uint8_t zlend&gt;</code>  是代表 <code>ziplist</code>  末尾的特殊条目。编码为等于 <code>255</code>  的单个字节。</p>
+</li>
+<li>
+<p><code>&lt;entry&gt;</code>  : 往下看.</p>
+</li>
+</ul>
+<h4 id="entry"><a class="markdownIt-Anchor" href="#entry">#</a>  <code>Entry</code></h4>
+<p><code>ziplist</code>  中的每个条目都以包含两个信息的元数据作为前缀。首先，存储前一个  <code>entry</code>  的长度，以便能够从后到前遍历列表。第二，提供  <code>entry</code>  编码。 它表示条目类型，整数或字符串，对于字符串，还表示字符串有效负载的长度。因此，能够像下面这样存储一个完整的  <code>entry</code> .</p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-01-entry%E7%9A%84%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>有时， <code>encoding</code>  也可以代表 <code>entry</code>  本身，就像后面将要看到的小整数一样。在这种情况下， <code>&lt;entry-data&gt;</code>  部分丢失了，我们的 <code>Entry</code>  结构是这样的：</p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-01-entry%E7%9A%84%E7%BB%93%E6%9E%842.png" alt=""></p>
+<p>我们来具体看下  <code>Entry</code>  的编码方式.</p>
+<h5 id="prevlen"><a class="markdownIt-Anchor" href="#prevlen">#</a>  <code>prevlen</code></h5>
+<p><code>&lt;prevlen&gt;</code>  表示 前一个  <code>entry</code>  的长度。</p>
+<ul>
+<li>
+<p>如果 前一个  <code>entry</code>  的长度小于 254 个字节，那么这个  <code>Entry</code>  只会消耗一个字节来表示该长度。一个无符号的  <code>8</code>  位整数。</p>
+</li>
+<li>
+<p>如果前一个  <code>entry</code>  长度大于或等于 <code>254</code>  字节的时候，它将占用 5 个字节。第一个字节设置为  <code>254</code> ( <code>FE</code> ), 以指示随后的值更大。 其他的四个字节将作为前一个 entry 的长度的值。</p>
+</li>
+</ul>
+<p>所以，我们就能知道了 下面这种编码方式.</p>
+<p><code>&lt;prevlen form 9 to 253&gt; &lt;encoding&gt; &lt;entry-data&gt;</code></p>
+<p>或者</p>
+<p><code>&lt;prevlen 4 bytes unsigned little endian prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;</code></p>
+<h5 id="encoding"><a class="markdownIt-Anchor" href="#encoding">#</a>  <code>encoding</code></h5>
+<p><code>entry</code>  中的  <code>encoding</code>  字段取决于  <code>entry-data</code>  的内容。</p>
+<ul>
+<li>
+<p>如果  <code>entry-data</code>  是字符串的时候， <code>encoding</code>  第一个字节的前两位用于存储字符串长度的编码类型。然后是字符串的实际长度。</p>
+</li>
+<li>
+<p>如果  <code>entry</code>  是整数时，前 <code>2</code>  位都是 <code>1</code> ,。 接下来的两位用于指定在此标头之后将存储哪种类型.</p>
+</li>
+</ul>
+<p>由上面的两点，就足以确定  <code>entry-data</code>  的类型.</p>
+<p>不同的类型和编码的概述如下:</p>
+<h6 id="字符串类型"><a class="markdownIt-Anchor" href="#字符串类型">#</a> 字符串类型</h6>
+<ul>
+<li>
+<p><code>a</code> .  <code>| 00pppppp |</code>  : 含义是占用 <code>1</code>  个字节来表示长度小于或等于 <code>63</code>  个字节（ <code>6</code>  位）的字符串值。   <code>pppppp</code>  表示无符号的 6 位长度。</p>
+</li>
+<li>
+<p><code>b</code> . <code>|01pppppp|qqqqqqqq|</code>  含义是用 <code>2</code>  个字节来表示小于等于  <code>16383(2^14)</code>  个字节的字符串的长度. (<b>这里使用大端法计数</b>)</p>
+</li>
+<li>
+<p><code>c</code> . <code>|10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt|</code>  含义是 使用 5 个字节来表示大于等于 16384 个字节长度的字符串，只有 4 个字节表示其最大长度为  <code>2^32-1</code> . 低位的 6 位被设置成  <code>0</code> .(<b>这里使用大端法计数</b>)</p>
+</li>
+</ul>
+<h6 id="整数类型"><a class="markdownIt-Anchor" href="#整数类型">#</a> 整数类型</h6>
+<ul>
+<li><code>d</code> . <code>|11000000|</code> : 含义是用 <code>3</code>  个字节表示一个 <code>16</code>  位的有符号的短整形数 ( <code>short</code> )。</li>
+<li><code>e</code> . <code>|11010000|</code>  : 含义是用 <code>5</code>  个字节 表示一个 <code>32</code>  位的有符合整数型 ( <code>int</code> ).</li>
+<li><code>f</code> . <code>|11100000|</code>  : 含义是用 <code>9</code>  个字节，表示一个 <code>64</code>  位的有符合长整数 ( <code>long</code> )</li>
+<li><code>g</code> . <code>|11110000|</code>  : 含义是用 <code>4</code>  个字节表示 <code>24</code>  位有符号整数 (只占用 3 个字节)。PS: 有什么作用呢？前面说的小整形数。节约空间。即如图</li>
+<li><code>h</code> . <code>|11111110|</code>  :  含义是用 <code>2</code>  个字节表示一个 <code>8</code>  位的有符号小整形数。 <code>1</code>  个字节。</li>
+<li><code>i</code> . <code>|1111xxxx|</code>  :<br>
+ 除去上面列举的几类编码标识，还有 <code>|1111xxxx|</code>  的类别。<br>
+( <code>xxxx</code>  在 <code>0000</code>  和 <code>1101</code>  之间) 立即 <code>4</code>  位整数。  <code>0</code>  到 <code>12</code>  之间的无符号整数。编码值实际上是 <code>1</code>  到 <code>13</code> ，因为不能使用 <code>0000</code>  和 <code>1111</code> ，因此应从编码的 <code>4</code>  位值中减去 <code>1</code>  以获得正确的值。</li>
+<li><code>j</code> . <code>|11111111| </code> - 表示  <code>ziplist</code>  的特殊  <code>entry</code></li>
+</ul>
+<p>这样，整个 <code>Entry</code>  的编码方式我们就搞明白了。<br>
+这些都是  <code>Redis</code>  中定义的规定， 所以我们记住就行了。如果让我们自己去设计一套编码方案的时候，我们就可以参考这种思路去设计。</p>
+<h3 id="那我们来举两个例子来试试身手吧"><a class="markdownIt-Anchor" href="#那我们来举两个例子来试试身手吧">#</a> 那我们来举两个例子来试试身手吧。</h3>
+<h4 id="例子1-25"><a class="markdownIt-Anchor" href="#例子1-25">#</a> 例子 1:  <code>25</code></h4>
+<h5 id="编码方式"><a class="markdownIt-Anchor" href="#编码方式">#</a> 编码方式</h5>
+<p><code>[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]</code></p>
+<h5 id="解析过程"><a class="markdownIt-Anchor" href="#解析过程">#</a> 解析过程</h5>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-01-Ziplist%E4%BE%8B%E5%AD%90%E7%9A%84%E7%BB%93%E6%9E%841.png" alt="ziplist-01-Ziplist例子的结构1.png"></p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE.png" alt=""></p>
+<h4 id="例子2-hello-world"><a class="markdownIt-Anchor" href="#例子2-hello-world">#</a> 例子 2:  <code>Hello World</code></h4>
+<p>这里我们还是接着上面例子来讲，我们再设置一个 字符串  <code>Hello World</code>  。</p>
+<h5 id="编码格式"><a class="markdownIt-Anchor" href="#编码格式">#</a> 编码格式</h5>
+<p><code>[02] [0b] [48 65 6c 6c 6f 20 57 6f 72 6c 64]</code></p>
+<h5 id="解析过程-2"><a class="markdownIt-Anchor" href="#解析过程-2">#</a> 解析过程</h5>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-01-Ziplist%E4%BE%8B%E5%AD%90%E7%9A%84%E7%BB%93%E6%9E%842.png" alt="ziplist-01-Ziplist例子的结构2.png"></p>
+<h5 id="附录-ascii码表可展示字符"><a class="markdownIt-Anchor" href="#附录-ascii码表可展示字符">#</a> 附录，ASCII 码表 (可展示字符)</h5>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/ziplist-ASCII%E7%A0%81%E5%AD%97%E7%AC%A6%E8%A1%A8.png" alt=""></p>
+<p>以上内容，就是 <code>Redis</code>  的 <code>ziplist</code>  结构的内容了。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h3>
+<p>本篇文章的内容主要是更加详细的分享了 <code>ziplist</code>  的这种数据结构的内部结构以及编码方式.</p>
+<ul>
+<li><code>ziplist</code>  由 <code>5</code>  部分组成。存储了相关信息:  <code>&lt;整个ziplist的长度&gt;&lt;最后一个entry的偏移量&gt;&lt;entry的总数&gt;&lt;entries&gt;&lt;表示结束的特殊entry&gt;</code></li>
+<li>一个 <code>entry</code>  由 <code>3</code>  部分组成， <code>&lt;前一个entry的长度&gt;&lt;编码方式&gt;&lt;entry的内容&gt;</code></li>
+<li>其中 编码方式 是由 entry 的内容 决定的。有 10 条标准 (规定 / 协议)</li>
+<li>引用了两个示例 ( <code>25</code>  和 <code>Hello World</code> )，根据 <code>Redis</code>  的方式来解码.</li>
+</ul>
+<h3 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h3>
+<p>期待您的关注，希望和你一起遇见更好的自己</p>
+<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/qrcode.jpg" alt="二维码"></p>
+
+      <div class="tags">
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-19 12:21:03" itemprop="dateModified" datetime="2021-08-19T12:21:03+08:00">2021-08-19</time>
+  </span>
+  <span id="2021/08/02/Redis系列/C-1-Redis的数据结构之ziplist/" class="item leancloud_visitors" data-flag-title="Redis 数据结构之详解 ziplist" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis 数据结构之详解 ziplist">https://fangjiaxiaobai.github.io/2021/08/02/Redis系列/C-1-Redis的数据结构之ziplist/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4fomxoj20zk0m8axp.jpg" title="Redis中的数据结构之跳表及其原理">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis中的数据结构之跳表及其原理</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclj61ylzj20zk0m8b29.jpg" title="JDK的内置线程池">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 面经</span>
+  <h3>JDK的内置线程池</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86-ziplist"><span class="toc-number">1.</span> <span class="toc-text"> 解密 ziplist.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text"> 引题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E8%AF%BB-ziplist-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text"> 重读 ziplist 数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#entry"><span class="toc-number">1.2.1.</span> <span class="toc-text">  Entry</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#prevlen"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">  prevlen</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#encoding"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">  encoding</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.1.2.1.</span> <span class="toc-text"> 字符串类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.1.2.2.</span> <span class="toc-text"> 整数类型</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%A3%E6%88%91%E4%BB%AC%E6%9D%A5%E4%B8%BE%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90%E6%9D%A5%E8%AF%95%E8%AF%95%E8%BA%AB%E6%89%8B%E5%90%A7"><span class="toc-number">1.3.</span> <span class="toc-text"> 那我们来举两个例子来试试身手吧。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%901-25"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 例子 1:  25</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.1.</span> <span class="toc-text"> 编码方式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.1.2.</span> <span class="toc-text"> 解析过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%902-hello-world"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 例子 2:  Hello World</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.2.1.</span> <span class="toc-text"> 编码格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B-2"><span class="toc-number">1.3.2.2.</span> <span class="toc-text"> 解析过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%99%84%E5%BD%95-ascii%E7%A0%81%E8%A1%A8%E5%8F%AF%E5%B1%95%E7%A4%BA%E5%AD%97%E7%AC%A6"><span class="toc-number">1.3.2.3.</span> <span class="toc-text"> 附录，ASCII 码表 (可展示字符)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">1.5.</span> <span class="toc-text"> 最后</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" rel="bookmark" title="Redis 开篇 & 说明">Redis 开篇 & 说明</a></li><li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" rel="bookmark" title="Redis 开篇杂谈">Redis 开篇杂谈</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="bookmark" title="Redis的单机部署">Redis的单机部署</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" rel="bookmark" title="Redis 简介">Redis 简介</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="bookmark" title="Redis 多个数据库">Redis 多个数据库</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" rel="bookmark" title="Redis数据结构之 String">Redis数据结构之 String</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="bookmark" title="Redis数据结构之 List">Redis数据结构之 List</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="bookmark" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="bookmark" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="bookmark" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="bookmark" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" rel="bookmark" title="Redis数据结构之 `HyperLogLogs`">Redis数据结构之 `HyperLogLogs`</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="bookmark" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></li><li class="active"><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" rel="bookmark" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">39</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">20</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">202k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/02/Redis系列/C-1-Redis的数据结构之ziplist/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

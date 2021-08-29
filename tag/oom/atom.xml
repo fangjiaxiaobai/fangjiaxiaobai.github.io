@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fangjiaxiaobai.github.io</id>
+    <title>方家小白 • Posts by &#34;oom&#34; tag</title>
+    <link href="https://fangjiaxiaobai.github.io" />
+    <updated>2021-08-19T09:13:55.000Z</updated>
+    <category term="源码" />
+    <category term="目录" />
+    <category term="leetCode" />
+    <category term="数据结构" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="MySQL" />
+    <category term="git" />
+    <category term="Redis" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="HashMap" />
+    <category term="String" />
+    <category term="OOM" />
+    <category term="JVM" />
+    <category term="Java" />
+    <category term="JDK" />
+    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/</id>
+        <title>JVM之你没见过的OOM</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/"/>
+        <content type="html">&lt;p&gt;一文搞懂内存溢出，保内存平安，防止你被祭天:[手动滑稽]:&lt;/p&gt;
+&lt;h2 id=&#34;释义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#释义&#34;&gt;#&lt;/a&gt; 释义&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;OOM&lt;/code&gt;  的含义，到底是什么意思？&lt;br&gt;
+ 是 JVM 独有的吗？  &lt;code&gt;linux&lt;/code&gt;  是否也会存在，那又是怎么肥事？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;OOM&lt;/code&gt;  :  &lt;code&gt;Out Of Memory&lt;/code&gt;  .  内存溢出。内存溢出来了，也就是说内存不够用了，就会发生这个问题了。&lt;/p&gt;
+&lt;h3 id=&#34;内存又是什么呢&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#内存又是什么呢&#34;&gt;#&lt;/a&gt; 内存又是什么呢？&lt;/h3&gt;
+&lt;p&gt;1、 内存 是计算机的重要部件之一。它用于暂时存放 CPU 中的运算数据，与硬盘等外部存储交换数据。是外存与 &lt;code&gt;CPU&lt;/code&gt;  进行沟通的桥梁。&lt;/p&gt;
+&lt;p&gt;2、 &lt;code&gt;Java&lt;/code&gt;  内存。说到这里我们就不得说一下 java 的内存模型 (JMM) 了。如下图。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/JMM.png&#34; alt=&#34;JMM&#34;&gt;&lt;/p&gt;
+&lt;p&gt;就这个一个图就很不下几十个面试考点：比如 &lt;code&gt;votitle&lt;/code&gt;  关键字，内存栅栏，指令重排，5 项 &lt;code&gt;Happen-Before&lt;/code&gt;  原则，内存原子操作，数据 &lt;code&gt;IO&lt;/code&gt;  操作等等。&lt;/p&gt;
+&lt;p&gt;闲话少扯，抛个问题， &lt;code&gt;OOM&lt;/code&gt;  发生区域会上图中那个部分发生呢？&lt;/p&gt;
+&lt;h2 id=&#34;前言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;java&lt;/code&gt;  运行时内存区域  &lt;code&gt;JAVA RUNTIME MEMEORY AREA&lt;/code&gt; , 注意区分 &lt;code&gt;JMM&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;大家都知道的， &lt;code&gt;java&lt;/code&gt;  运行时内存区域，分为程序计数器 (PC 寄存器)，java 虚拟机栈，本地方法栈，堆，方法区，运行时常量池，堆外内存 (直接内存)&lt;/p&gt;
+&lt;p&gt;1、程序计数器是一块较小的内存空间，是当前线程正在执行的那条字节码指令的地址。若当前线程正在执行的是一个本地方法，那么此时程序计数器为 &lt;code&gt;Undefined&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;2、 &lt;code&gt;Java&lt;/code&gt;  虚拟机栈是描述  &lt;code&gt;Java&lt;/code&gt;  方法运行过程的内存模型。 &lt;code&gt;Java&lt;/code&gt;  虚拟机栈会为每一个即将运行的  &lt;code&gt;Java&lt;/code&gt;  方法创建一块叫做 “栈帧” 的区域，用于存放该方法运行过程中的一些信息，比如：局部变量表，操作数栈，动态链接，方法出口信息等，方法执行的过程即为栈帧压栈出栈的过程。&lt;/p&gt;
+&lt;p&gt;3、本地方法栈是为  &lt;code&gt;JVM&lt;/code&gt;  运行  &lt;code&gt;Native&lt;/code&gt;  方法准备的空间，由于很多  &lt;code&gt;Native&lt;/code&gt;  方法都是用  &lt;code&gt;C&lt;/code&gt;  语言实现的，所以它通常又叫  &lt;code&gt;C&lt;/code&gt;  栈。它与  &lt;code&gt;Java&lt;/code&gt;  虚拟机栈实现的功能类似，只不过本地方法栈是描述本地方法运行过程的内存模型。&lt;/p&gt;
+&lt;p&gt;4、堆是用来存放对象的内存空间，几乎所有的对象都存储在堆中。这一区域是线程共享，整个  &lt;code&gt;Java&lt;/code&gt;  虚拟机只有一个堆，所有的线程都访问同一个堆。堆又可划分为年轻代和老年代，年轻代内存又可以分为 &lt;code&gt;Eden&lt;/code&gt; ,  &lt;code&gt;from Surivor&lt;/code&gt; , &lt;code&gt;to Surivor&lt;/code&gt; , 并且默认以 8:1:1 的比例进行分配。&lt;/p&gt;
+&lt;p&gt;5、方法区： &lt;code&gt;Java&lt;/code&gt;  虚拟机规范中定义方法区是堆的一个逻辑部分。方法区存放以下信息：已经被虚拟机加载的类信息，常亮，静态变量，即时编译编译器编译后的代码。线程共享的区域。为了与堆区分，方法还有一个别名： &lt;code&gt;Non-Heap&lt;/code&gt;  (非堆)。&lt;/p&gt;
+&lt;p&gt;5.1 、运行时常量池：存放常量的区域。 在运行期间，可以向常量池中添加新的变量，如  &lt;code&gt;String&lt;/code&gt;  类的 &lt;code&gt;intern()&lt;/code&gt;  方法。&lt;/p&gt;
+&lt;p&gt;6、堆外内存是 &lt;code&gt;java&lt;/code&gt;  虚拟机之外的内容，但也可能被 &lt;code&gt;java&lt;/code&gt;  使用。需要注意的是，这部分内容也会因内存不足而抛出  &lt;code&gt;OutOfMemoryError&lt;/code&gt; 、&lt;/p&gt;
+&lt;p&gt;知道了 &lt;code&gt;Java&lt;/code&gt;  运行内存区域，那么可能发生  &lt;code&gt;OOM&lt;/code&gt;  的区域有哪些呢？&lt;/p&gt;
+&lt;p&gt;我们都知道 &lt;code&gt;OOM&lt;/code&gt;  只的是内存溢出，所以 堆，非堆即方法区，本地方法栈，以及堆外内存 都是会发生  &lt;code&gt;OOM&lt;/code&gt;  的。&lt;/p&gt;
+&lt;p&gt;那 &lt;code&gt;java&lt;/code&gt;  虚拟机栈呢？不会发生内容溢出吗？   会！但是 栈发生内容溢出的时候，报的错误是  &lt;code&gt;StackOverflowError&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;那程序计数器呢？  程序计数器，是不会发送内容溢出的。 因为 存储的是：当前线程正在执行的那条字节码指令的地址啊。&lt;/p&gt;
+&lt;p&gt;如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/OOM%E5%8C%BA%E5%9F%9F%E5%9B%BE.png&#34; alt=&#34;OOM区域图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在上图中还指定了各区域大小的参数配置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-Xms&lt;/code&gt;  设置堆的最小空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-Xmx&lt;/code&gt;  设置堆的最大空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-XX:NewSize&lt;/code&gt;  设置新生代最小空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-XX:MaxNewSize&lt;/code&gt;  设置新生代最大空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-XX:PermSize&lt;/code&gt;  设置永久代最小空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-XX:MaxPermSize&lt;/code&gt;  设置永久代最大空间大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-Xss&lt;/code&gt;  设置每个线程的堆栈大小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;没有直接设置老年代的参数，但是可以设置堆空间大小和新生代空间大小两个参数来间接控制。  &lt;code&gt;老年代空间大小=堆空间大小-年轻代大空间大小&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;场景分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#场景分析&#34;&gt;#&lt;/a&gt; 场景分析&lt;/h2&gt;
+&lt;p&gt;我们挨个分析下发生 &lt;code&gt;OOM&lt;/code&gt;  的 9 种场景&lt;/p&gt;
+&lt;p&gt;什么时候会发生 &lt;code&gt;OOM&lt;/code&gt;  呢？  当内存严重不够用的时候就会发生   &lt;code&gt;java.lang.OutOfMemoryError&lt;/code&gt;  。&lt;/p&gt;
+&lt;p&gt;我们来看下每个区域都有可能出现内存溢出问题.&lt;/p&gt;
+&lt;h3 id=&#34;javaheap-space&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#javaheap-space&#34;&gt;#&lt;/a&gt;  &lt;code&gt;JavaHeap space&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;当堆内存（ &lt;code&gt;Heap Space&lt;/code&gt; ）没有足够空间存放新创建的对象时，就会抛出  &lt;code&gt;java.lang.OutOfMemoryError:Javaheap space&lt;/code&gt;  错误。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Javaheap space&lt;/code&gt;  错误产生的常见原因可以分为以下几类：&lt;/p&gt;
+&lt;p&gt;1. 请求创建一个超大对象，通常是一个大数组。&lt;br&gt;
+2. 超出预期的访问量 / 数据量，通常是上游系统请求流量飙升，常见于各类促销 / 秒杀活动，可以结合业务流量指标排查是否有尖状峰值。&lt;br&gt;
+3. 过度使用终结器（ &lt;code&gt;Finalizer&lt;/code&gt; ），该对象没有立即被  &lt;code&gt;GC&lt;/code&gt; 。&lt;br&gt;
+4. 内存泄漏（ &lt;code&gt;Memory Leak&lt;/code&gt; ），大量对象引用没有释放， &lt;code&gt;JVM&lt;/code&gt;  无法对其自动回收，常见于使用了  &lt;code&gt;File&lt;/code&gt;  等资源没有回收。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;p&gt;针对大部分情况，通常只需要通过  &lt;code&gt;-Xmx&lt;/code&gt;  参数调高  &lt;code&gt;JVM&lt;/code&gt;  堆内存空间即可。如果仍然没有解决，可以参考以下情况做进一步处理：&lt;/p&gt;
+&lt;p&gt;1、如果是超大对象，可以检查其合理性，比如是否一次性查询了数据库全部结果，而没有做结果数限制。&lt;br&gt;
+2、如果是业务峰值压力，可以考虑添加机器资源，或者做限流降级。&lt;br&gt;
+3、如果是内存泄漏，需要找到持有的对象，修改代码设计，比如关闭没有释放的连接。&lt;/p&gt;
+&lt;h4 id=&#34;代码案例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码案例&#34;&gt;#&lt;/a&gt; 代码案例&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示大对象&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * -Xms128M -Xmx128M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;bigObject&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 21 可以，22就会OOM&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 4* 1024 * 1024 = 4M * 32 = 128M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] integers = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[&lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt;*&lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt;*&lt;span class=&#34;number&#34;&gt;32&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/heapSpaceError.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;gc-overhead-limit-exceeded&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gc-overhead-limit-exceeded&#34;&gt;#&lt;/a&gt;  &lt;code&gt;GC overhead limit exceeded&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;当  &lt;code&gt;Java&lt;/code&gt;  进程花费  &lt;code&gt;98%&lt;/code&gt;  以上的时间执行  &lt;code&gt;GC&lt;/code&gt; ，但只恢复了不到  &lt;code&gt;2%&lt;/code&gt;  的内存，且该动作连续重复了  &lt;code&gt;5&lt;/code&gt;  次，就会抛出  &lt;code&gt;java.lang.OutOfMemoryError:GC overhead limit exceeded&lt;/code&gt;  错误。简单地说，就是应用程序已经基本耗尽了所有可用内存，  &lt;code&gt;GC&lt;/code&gt;  也无法回收。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-2&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;p&gt;同  &lt;code&gt;JavaHeap space&lt;/code&gt;  部分的异常解决方案。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示 频繁GC&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * -Xms128M -Xmx128M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;overHead&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Map map = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; HashMap();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Random r = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; Random();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        map.put(r.nextInt(), &lt;span class=&#34;string&#34;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容:&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/gcOverHead.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;permgen-spacejdk8-已废弃-see-元空间&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#permgen-spacejdk8-已废弃-see-元空间&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Permgen space&lt;/code&gt; ( &lt;code&gt;JDK8&lt;/code&gt;  已废弃， &lt;code&gt;see&lt;/code&gt;  元空间。)&lt;/h3&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;为什么会废弃 永久代？     &lt;code&gt;see&lt;/code&gt; ： &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL29wZW5qZGsuamF2YS5uZXQvamVwcy8xMjI=&#34;&gt;http://openjdk.java.net/jeps/122&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;该错误表示永久代（ &lt;code&gt;Permanent Generation&lt;/code&gt; ）已用满，通常是因为加载的  &lt;code&gt;class&lt;/code&gt;  数目太多或体积太大。&lt;/p&gt;
+&lt;p&gt;永久代存储对象主要包括以下几类：&lt;/p&gt;
+&lt;p&gt;加载 / 缓存到内存中的  &lt;code&gt;class&lt;/code&gt;  定义，包括类的名称，字段，方法和字节码；&lt;br&gt;
+常量池；&lt;br&gt;
+对象数组 / 类型数组所关联的  &lt;code&gt;class&lt;/code&gt; ；&lt;br&gt;
+ &lt;code&gt;JIT&lt;/code&gt;  编译器优化后的  &lt;code&gt;class&lt;/code&gt;  信息。&lt;br&gt;
+ &lt;code&gt;PermGen&lt;/code&gt;  的使用量与加载到内存的  &lt;code&gt;class&lt;/code&gt;  的数量 / 大小正相关。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-3&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;p&gt;根据  &lt;code&gt;Permgen space&lt;/code&gt;  报错的时机，可以采用不同的解决方案，如下所示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;程序启动报错，修改  &lt;code&gt;-XX:MaxPermSize&lt;/code&gt;  启动参数，调大永久代空间。&lt;/li&gt;
+&lt;li&gt;应用重新部署时报错，很可能是没有应用没有重启，导致加载了多份  &lt;code&gt;class&lt;/code&gt;  信息，只需重启 JVM 即可解决。&lt;/li&gt;
+&lt;li&gt;运行时报错，应用程序可能会动态创建大量  &lt;code&gt;class&lt;/code&gt; ，而这些  &lt;code&gt;class&lt;/code&gt;  的生命周期很短暂，但是 JVM 默认不会卸载  &lt;code&gt;class&lt;/code&gt; ，可以设置  &lt;code&gt;-XX:+CMSClassUnloadingEnabled&lt;/code&gt;  和  &lt;code&gt;-XX:+UseConcMarkSweepGC&lt;/code&gt;  这两个参数允许  &lt;code&gt;JVM&lt;/code&gt;  卸载  &lt;code&gt;class&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;如果上述方法无法解决，可以通过  &lt;code&gt;jmap&lt;/code&gt;  命令  &lt;code&gt;dump&lt;/code&gt;  内存对象  &lt;code&gt;jmap-dump:format=b,file=dump.hprof&lt;/code&gt;  ，然后利用  &lt;code&gt;Eclipse MAT https://www.eclipse.org/mat&lt;/code&gt;  功能逐一分析开销最大的  &lt;code&gt;classloader&lt;/code&gt;  和重复  &lt;code&gt;class&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;metaspace&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#metaspace&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Metaspace&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;JDK 1.8&lt;/code&gt;  使用  &lt;code&gt;Metaspace&lt;/code&gt;  替换了永久代（ &lt;code&gt;Permanent Generation&lt;/code&gt; ）&lt;/p&gt;
+&lt;p&gt;该错误表示  &lt;code&gt;Metaspace&lt;/code&gt;  已被用满，通常是因为加载的  &lt;code&gt;class&lt;/code&gt;  数目太多或体积太大。&lt;/p&gt;
+&lt;p&gt;此类问题的原因与解决方法跟  &lt;code&gt;PermGenspace&lt;/code&gt;  非常类似，可以参考上文。&lt;/p&gt;
+&lt;p&gt;需要特别注意的是调整  &lt;code&gt;Metaspace&lt;/code&gt;  空间大小的启动参数为  &lt;code&gt;-XX:MaxMetaspaceSize&lt;/code&gt; 。&lt;/p&gt;
+&lt;h4 id=&#34;代码案例-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码案例-2&#34;&gt;#&lt;/a&gt; 代码案例&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示  元数据区&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * &amp;lt;p&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 在 `for` 循环中, 动态生成很多class, 最终将这些class加载到 Metaspace 中&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; *&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 注意配置: -XX:MaxMetaspaceSize=64m&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; *&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * &lt;span class=&#34;doctag&#34;&gt;@throws&lt;/span&gt; Exception&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;metaSpace&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;throws&lt;/span&gt; Exception &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; ; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        Class c = cp.makeClass(&lt;span class=&#34;string&#34;&gt;&amp;quot;eu.plumbr.demo.Generated&amp;quot;&lt;/span&gt; + i).toClass();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        System.out.println(i);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/metaSpace.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;unable-to-create-new-native-thread&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#unable-to-create-new-native-thread&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Unable to create new native thread&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;每个  &lt;code&gt;Java&lt;/code&gt;  线程都需要占用一定的内存空间，当  &lt;code&gt;JVM&lt;/code&gt;  向底层操作系统请求创建一个新的  &lt;code&gt;native&lt;/code&gt;  线程时，如果没有足够的资源分配就会报此类错误。&lt;/p&gt;
+&lt;h4 id=&#34;原因分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原因分析&#34;&gt;#&lt;/a&gt; 原因分析&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;JVM&lt;/code&gt;  向  &lt;code&gt;OS&lt;/code&gt;  请求创建  &lt;code&gt;native&lt;/code&gt;  线程失败，就会抛出  &lt;code&gt;Unable to create new native thread&lt;/code&gt; ，常见的原因包括以下几类：&lt;/p&gt;
+&lt;p&gt;线程数超过操作系统最大线程数  &lt;code&gt;ulimit&lt;/code&gt;  限制；&lt;br&gt;
+线程数超过  &lt;code&gt;kernel.pid_max&lt;/code&gt; （只能重启）；&lt;br&gt;
+ &lt;code&gt;native&lt;/code&gt;  内存不足；&lt;/p&gt;
+&lt;p&gt;该问题发生的常见过程主要包括以下几步：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;JVM&lt;/code&gt;  内部的应用程序请求创建一个新的  &lt;code&gt;Java&lt;/code&gt;  线程；&lt;br&gt;
+ &lt;code&gt;JVM native&lt;/code&gt;  方法代理了该次请求，并向操作系统请求创建一个  &lt;code&gt;native&lt;/code&gt;  线程；&lt;br&gt;
+操作系统尝试创建一个新的  &lt;code&gt;native&lt;/code&gt;  线程，并为其分配内存；&lt;br&gt;
+如果操作系统的虚拟内存已耗尽，或是受到 32 位进程的地址空间限制，操作系统就会拒绝本次  &lt;code&gt;native&lt;/code&gt;  内存分配；&lt;br&gt;
+ &lt;code&gt;JVM&lt;/code&gt;  将抛出  &lt;code&gt;java.lang.OutOfMemoryError:Unableto createnewnativethread&lt;/code&gt;  错误。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-4&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;升级配置，为机器提供更多的内存；&lt;/li&gt;
+&lt;li&gt;降低  &lt;code&gt;Java Heap Space&lt;/code&gt;  大小；&lt;/li&gt;
+&lt;li&gt;修复应用程序的线程泄漏问题；&lt;/li&gt;
+&lt;li&gt;限制线程池大小；&lt;/li&gt;
+&lt;li&gt;使用  &lt;code&gt;-Xss&lt;/code&gt;  参数减少线程栈的大小；&lt;/li&gt;
+&lt;li&gt;调高  &lt;code&gt;OS&lt;/code&gt;  层面的线程最大数：执行  &lt;code&gt;ulimit -a&lt;/code&gt;  查看最大线程数限制，使用  &lt;code&gt;ulimit -u xxx&lt;/code&gt;  调整最大线程数限制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;代码案例-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码案例-3&#34;&gt;#&lt;/a&gt; 代码案例&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示: Unable to create new native thread&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;nativeThread&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; Thread(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; Runnable() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                    Thread.sleep(&lt;span class=&#34;number&#34;&gt;10000000&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#125; &lt;span class=&#34;keyword&#34;&gt;catch&lt;/span&gt; (InterruptedException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;).start();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/unableCreateNative.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;out-of-swap-space&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#out-of-swap-space&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Out of swap space&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;该错误表示所有可用的虚拟内存已被耗尽。虚拟内存（ &lt;code&gt;Virtual Memory&lt;/code&gt; ）由物理内存（ &lt;code&gt;Physical Memory&lt;/code&gt; ）和交换空间（ &lt;code&gt;Swap Space&lt;/code&gt; ）两部分组成。当运行时程序请求的虚拟内存溢出时就会报  &lt;code&gt;Outof swap space&lt;/code&gt;  错误。&lt;/p&gt;
+&lt;p&gt;这个错误通常是操作系统层面的原因。&lt;/p&gt;
+&lt;h4 id=&#34;原因分析-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原因分析-2&#34;&gt;#&lt;/a&gt; 原因分析&lt;/h4&gt;
+&lt;p&gt;该错误出现的常见原因包括以下几类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;地址空间不足；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;2. 物理内存已耗光；&lt;/li&gt;
+&lt;li&gt;3. 应用程序的本地内存泄漏（ &lt;code&gt;native leak&lt;/code&gt; ），例如不断申请本地内存，却不释放。&lt;/li&gt;
+&lt;li&gt;4. 执行  &lt;code&gt;jmap-histo:live&lt;/code&gt;  命令，强制执行  &lt;code&gt;Full GC&lt;/code&gt; ；如果几次执行后内存明显下降，则基本确认为  &lt;code&gt;Direct ByteBuffer&lt;/code&gt;  问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;解决方案-5&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-5&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;p&gt;根据错误原因可以采取如下解决方案：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;升级地址空间为  &lt;code&gt;64 bit&lt;/code&gt; ；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;使用  &lt;code&gt;Arthas&lt;/code&gt;  检查是否为  &lt;code&gt;Inflater/Deflater&lt;/code&gt;  解压缩问题，如果是，则显式调用  &lt;code&gt;end&lt;/code&gt;  方法。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;&lt;code&gt;Direct ByteBuffer&lt;/code&gt;  问题可以通过启动参数  &lt;code&gt;-XX:MaxDirectMemorySize&lt;/code&gt;  调低阈值。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;升级服务器配置 / 隔离部署，避免争用。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;kill-process-or-sacrifice-child&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#kill-process-or-sacrifice-child&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Kill process or sacrifice child&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;有一种内核作业（ &lt;code&gt;Kernel Job&lt;/code&gt; ）名为  &lt;code&gt;Out of Memory Killer&lt;/code&gt; ，它会在可用内存极低的情况下 “杀死”（ &lt;code&gt;kill&lt;/code&gt; ）某些进程。 &lt;code&gt;OOM Killer&lt;/code&gt;  会对所有进程进行打分，然后将评分较低的进程 “杀死”，具体的评分规则可以参考  &lt;code&gt;Surviving the Linux OOM Killer&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;不同于其他的  &lt;code&gt;OOM&lt;/code&gt;  错误，  &lt;code&gt;Killprocessorsacrifice child&lt;/code&gt;  错误不是由  &lt;code&gt;JVM&lt;/code&gt;  层面触发的，而是由操作系统层面触发的。&lt;/p&gt;
+&lt;h4 id=&#34;原因分析-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原因分析-3&#34;&gt;#&lt;/a&gt; 原因分析&lt;/h4&gt;
+&lt;p&gt;默认情况下， &lt;code&gt;Linux&lt;/code&gt;  内核允许进程申请的内存总量大于系统可用内存，通过这种 “错峰复用” 的方式可以更有效的利用系统资源。&lt;/p&gt;
+&lt;p&gt;然而，这种方式也会无可避免地带来一定的 “超卖” 风险。例如某些进程持续占用系统内存，然后导致其他进程没有可用内存。此时，系统将自动激活  &lt;code&gt;OOM Killer&lt;/code&gt; ，寻找评分低的进程，并将其 “杀死”，释放内存资源。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案-6&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-6&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;升级服务器配置 / 隔离部署，避免争用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;OOM Killer&lt;/code&gt;  调优。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;代码案例-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码案例-4&#34;&gt;#&lt;/a&gt; 代码案例&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示:Kill process or sacrifice child&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    java.util.List&amp;lt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;gt; l = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; java.util.ArrayList();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;10000&lt;/span&gt;; i &amp;lt; &lt;span class=&#34;number&#34;&gt;100000&lt;/span&gt;; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            l.add(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[&lt;span class=&#34;number&#34;&gt;100000000&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125; &lt;span class=&#34;keyword&#34;&gt;catch&lt;/span&gt; (Throwable t) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            t.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/killprocess.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;requested-array-size-exceeds-vm-limit&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#requested-array-size-exceeds-vm-limit&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Requested array size exceeds VM limit&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;JVM 限制了数组的最大长度，该错误表示程序请求创建的数组超过最大长度限制。&lt;/p&gt;
+&lt;p&gt;JVM 在为数组分配内存前，会检查要分配的数据结构在系统中是否可寻址，通常为  &lt;code&gt;Integer.MAX_VALUE-2&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;此类问题比较罕见，通常需要检查代码，确认业务是否需要创建如此大的数组，是否可以拆分为多个块，分批执行。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;; i &amp;gt;= &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i--) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] arr = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[Integer.MAX_VALUE-i];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            System.out.format(&lt;span class=&#34;string&#34;&gt;&amp;quot;Successfully initialized an array with %,d elements.\n&amp;quot;&lt;/span&gt;, Integer.MAX_VALUE-i);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125; &lt;span class=&#34;keyword&#34;&gt;catch&lt;/span&gt; (Throwable t) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            t.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/requestArraySize.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;direct-buffer-memory&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#direct-buffer-memory&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Direct buffer memory&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;java&lt;/code&gt;  允许应用程序通过  &lt;code&gt;Direct ByteBuffer&lt;/code&gt;  直接访问堆外内存，许多高性能程序通过  &lt;code&gt;Direct ByteBuffer&lt;/code&gt;  结合内存映射文件（ &lt;code&gt;Memory Mapped File&lt;/code&gt; ）实现高速  &lt;code&gt;IO&lt;/code&gt; 。&lt;/p&gt;
+&lt;h4 id=&#34;原因分析-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#原因分析-4&#34;&gt;#&lt;/a&gt; 原因分析&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Direct ByteBuffer&lt;/code&gt;  的默认大小为  &lt;code&gt;64 MB&lt;/code&gt; ，一旦使用超出限制，就会抛出  &lt;code&gt;Directbuffer memory&lt;/code&gt;  错误。&lt;/p&gt;
+&lt;h4 id=&#34;解决方案-7&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-7&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Java&lt;/code&gt;  只能通过  &lt;code&gt;ByteBuffer&lt;/code&gt; . &lt;code&gt;allocateDirect&lt;/code&gt;  方法使用  &lt;code&gt;Direct ByteBuffer&lt;/code&gt; ，因此，可以通过  &lt;code&gt;Arthas&lt;/code&gt;  等在线诊断工具拦截该方法进行排查。&lt;/li&gt;
+&lt;li&gt;检查是否直接或间接使用了  &lt;code&gt;NIO&lt;/code&gt; ，如  &lt;code&gt;netty&lt;/code&gt; ， &lt;code&gt;jetty&lt;/code&gt;  等。&lt;/li&gt;
+&lt;li&gt;通过启动参数  &lt;code&gt;-XX:MaxDirectMemorySize&lt;/code&gt;  调整  &lt;code&gt;Direct ByteBuffer&lt;/code&gt;  的上限值。&lt;/li&gt;
+&lt;li&gt;检查  &lt;code&gt;JVM&lt;/code&gt;  参数是否有  &lt;code&gt;-XX:+DisableExplicitGC&lt;/code&gt;  选项，如果有就去掉，因为该参数会使  &lt;code&gt;System.gc()&lt;/code&gt;  失效。&lt;/li&gt;
+&lt;li&gt;检查堆外内存使用代码，确认是否存在内存泄漏；或者通过反射调用  &lt;code&gt;sun.misc.Cleaner&lt;/code&gt;  的  &lt;code&gt;clean()&lt;/code&gt;  方法来主动释放被  &lt;code&gt;Direct ByteBuffer&lt;/code&gt;  持有的内存空间。&lt;/li&gt;
+&lt;li&gt;内存容量确实不足，升级配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;代码案例-5&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代码案例-5&#34;&gt;#&lt;/a&gt; 代码案例&lt;/h4&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示对外内存溢出&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * -Xms10m -Xmx10m -XX:+PrintGCDetails -XX:MaxDirectMemorySize=5m&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.println(&lt;span class=&#34;string&#34;&gt;&amp;quot;maxDirectMemory : &amp;quot;&lt;/span&gt; + (sun.misc.VM.maxDirectMemory() / (&lt;span class=&#34;keyword&#34;&gt;double&lt;/span&gt;) (&lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt;)) + &lt;span class=&#34;string&#34;&gt;&amp;quot;MB&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ByteBuffer byteBuffer = ByteBuffer.allocateDirect(&lt;span class=&#34;number&#34;&gt;6&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.println(byteBuffer);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;报错内容&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/directBuffer.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;排查思路&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排查思路&#34;&gt;#&lt;/a&gt; 排查思路&lt;/h2&gt;
+&lt;p&gt;分享遇到 &lt;code&gt;OOM&lt;/code&gt;  类问题如何快速定位问题，具体哪行代码发生了问题&lt;/p&gt;
+&lt;p&gt;什么表现会发生 &lt;code&gt;OOM&lt;/code&gt;  呢？&lt;/p&gt;
+&lt;p&gt;最直接的～，有报错， &lt;code&gt;outOfMemoryError&lt;/code&gt; 。 就是发生了。&lt;br&gt;
+有频繁 &lt;code&gt;GC&lt;/code&gt;  的事件发生的时候，也要注意下，可能是在  &lt;code&gt;OOM&lt;/code&gt;  的边缘疯狂试探。 比如  &lt;code&gt;FullGC&lt;/code&gt; ，  &lt;code&gt;Young GC&lt;/code&gt; , 等。&lt;br&gt;
+ &lt;code&gt;CPU&lt;/code&gt;  占用率较高。&lt;br&gt;
+先说一个思路哈～&lt;/p&gt;
+&lt;h3 id=&#34;止损&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#止损&#34;&gt;#&lt;/a&gt; 止损。&lt;/h3&gt;
+&lt;p&gt;如果你在线上遇到了这个问题， 请，务必！ 先将服务重启！立刻，马上。 及时止损。  &lt;code&gt;ps&lt;/code&gt; : 可以留一台机器做案发现场，记得下掉该机器，不对外提供服务。&lt;/p&gt;
+&lt;h3 id=&#34;问题排查&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#问题排查&#34;&gt;#&lt;/a&gt; 问题排查&lt;/h3&gt;
+&lt;p&gt;注意观察线上服务情况，如果再次出现 &lt;code&gt;OOM&lt;/code&gt; , 影响业务，再问题没有解决完成之前，还是采用重启的方式解决。&lt;br&gt;
+可以通过  &lt;code&gt;glowroot&lt;/code&gt;  等可视化的监控工具，观察。&lt;br&gt;
+也可以通过在机器上 使用   &lt;code&gt;jstat -gc pid&lt;/code&gt;  来查看 &lt;code&gt;GC&lt;/code&gt;  情况。&lt;br&gt;
+分析造成 &lt;code&gt;OOM&lt;/code&gt;  的问题。(具体如何排查，可参考案例模块)&lt;/p&gt;
+&lt;p&gt;查到对应 &lt;code&gt;JVM&lt;/code&gt;  进程 =&amp;gt;  排查到占用内存打的 &lt;code&gt;jvm&lt;/code&gt;  线程 =&amp;gt; 查看对应线程栈信息 =&amp;gt; 使用 &lt;code&gt;Jmap&lt;/code&gt;  来生成线程堆栈信息文件 =&amp;gt; 分析大对象 &lt;code&gt;or&lt;/code&gt;  占用内存大的原因 =&amp;gt;  基本上改代码或者 &lt;code&gt;jvm&lt;/code&gt;  配置。&lt;/p&gt;
+&lt;p&gt;其他排查问题思路和这个也是大差不差，使用的命令不同而已。&lt;/p&gt;
+&lt;h3 id=&#34;案例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#案例&#34;&gt;#&lt;/a&gt; 案例&lt;/h3&gt;
+&lt;details class=&#34;warning&#34;&gt;&lt;summary&gt;举个栗子🌰吧&lt;/summary&gt;&lt;div&gt;
+&lt;p&gt;比较常见的应该是：  &lt;code&gt;java.lang. outOfMemoryError: Java heap Space&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示OOM 排查过程&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;heapSpaceError&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Thread thread = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; Thread(() -&amp;gt; bigObject());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    thread.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/**&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * 演示大对象&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; * -Xms128M -Xmx128M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt; */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;bigObject&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 21 可以，22就会OOM&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 4* 1024 * 1024 = 4M * 32 = 128M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] integers = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[&lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;1024&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;22&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;执行后发现控制台打印出了 &lt;code&gt;OOM&lt;/code&gt;  :  &lt;code&gt;java heap space&lt;/code&gt; .  好吧，就装作看不见吧&lt;/p&gt;
+&lt;p&gt;1、使用  &lt;code&gt;jps&lt;/code&gt;  命令获取到  &lt;code&gt;jvm&lt;/code&gt;  进程号&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jvm/oom%E6%A1%88%E4%BE%8Bjps.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;2、使用  &lt;code&gt;jmap&lt;/code&gt;  命令 &lt;code&gt;dump&lt;/code&gt;  出 堆栈信息。&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/jdump.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;3、使用  &lt;code&gt;mat&lt;/code&gt;  工具，分析 &lt;code&gt;dump&lt;/code&gt;  文件内容。  (下载地址:  &lt;code&gt;https://www.eclipse.org/mat/downloads.php&lt;/code&gt;    下载是真特🐴的慢啊，&lt;span class=&#34;label success&#34;&gt;❤️一般人我不告诉他：公众号回复 &lt;code&gt;MAT&lt;/code&gt;  就能直接获取&lt;/span&gt;)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果下载之后无法启动的话，提示 无法创建虚拟机。需要简单配置下：&lt;br&gt;
+ &lt;code&gt;-vm /Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/bin&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3.1、下载下 &lt;code&gt;dump&lt;/code&gt;  文件，使用本地分析 &lt;code&gt;mat&lt;/code&gt;  工具进行分析。&lt;/p&gt;
+&lt;p&gt;启动 &lt;code&gt;mat&lt;/code&gt; .&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/mat.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Open a  heap Dump&lt;/code&gt;  之后，就可以愉快的分析了。&lt;/p&gt;
+&lt;p&gt;具体分析方法请自行百度吧。&lt;/p&gt;
+&lt;p&gt;3.2、如果 &lt;code&gt;dump&lt;/code&gt;  文件较小，也可以 &lt;code&gt;java&lt;/code&gt;  自带的工具 jhat 命令进行分析。&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/jmap.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后访问本机的  &lt;code&gt;7000&lt;/code&gt;  端口，就可以到看到分析的内容了。&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/image2021-4-15_19-8-56.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+进入之后，就可以看到堆内存占用情况的柱状图了。&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/heapHistogram.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+发现有  &lt;code&gt;Class[I&lt;/code&gt;  占用最多，     &lt;code&gt;Class[I&lt;/code&gt;  表示的是  &lt;code&gt;int&lt;/code&gt;  数组。 那我们就查下代码里用到 &lt;code&gt;Class[I&lt;/code&gt;  中的地方，&lt;/p&gt;
+&lt;p&gt;哇，果然是在  &lt;code&gt;new&lt;/code&gt;  了一个大的数据，撑爆了内存。&lt;/p&gt;
+&lt;p&gt;补充下：&lt;/p&gt;
+&lt;p&gt;先查看 jvm 进程号 &lt;br&gt;
+ &lt;code&gt; jps &lt;/code&gt;   注意：只能查看属于当前用户 &lt;code&gt;java&lt;/code&gt;  进程&lt;br&gt;
+  &lt;code&gt;ps -ef| grep java&lt;/code&gt;  找到对应服务的进程编号&lt;br&gt;
+ &lt;code&gt;ps -ef| grep 服务名&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;如下图:&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jvm/%E8%A1%A5%E5%85%85.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+ 需要注意下:&lt;/p&gt;
+&lt;p&gt;1) 查看当前应用运行情况信息，查看是否配置了 &lt;code&gt;gc log：-Xloggc:/apps/srv/instance/damai.gaotu100.com/logs/damai.gaotu100.com-gc.log&lt;/code&gt;   , 可以从 &lt;code&gt;gc&lt;/code&gt;  日志中查到很多信息。&lt;/p&gt;
+&lt;p&gt;2）查看是否有 &lt;code&gt;oom&lt;/code&gt;  自动打印二进制 &lt;code&gt;dump&lt;/code&gt;  文件：  &lt;code&gt;-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/apps/srv/instance/damai.gaotu100.com/logs/heapdump.hprof&lt;/code&gt;   。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果没有配置，可以通过命令自行打印:   &lt;code&gt;jmap -dump:format=b,file=/apps/srv/instance/test-kefu-web.baijiahulian.com/logs/22316.1.hprof pid&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里推荐下，阿里开源的 jvm 排查工具  arthas（阿尔萨斯）  &lt;code&gt;https://arthas.aliyun.com/doc/&lt;/code&gt; 。文档很全，需要的自行阅读吧～～&lt;/p&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;h2 id=&#34;解决方案-8&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决方案-8&#34;&gt;#&lt;/a&gt; 解决方案&lt;/h2&gt;
+&lt;p&gt;分享遇到 &lt;code&gt;OOM&lt;/code&gt;  问题时怎样解决？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;长兄于病视神，未有形而除之，故名不出于家。中兄治病，其在毫毛，故名不出于闾。若扁鹊者，镵血脉，投毒药，副肌肤，闲而名出闻于诸侯。 所以才有凡此者不病病，治之无名，使之无形，至功之成，其下谓之自然。&lt;br&gt;
+这句话，用在我们这里就是  系统的整个生命周期中，不出现任何 &lt;code&gt;OOM&lt;/code&gt; , 其 谓之自然。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;根据上述的排查过程，找到了问题根源之后，那就&lt;br&gt;
+ 1. 改代码&lt;br&gt;
+ 2. 调整内存配置&lt;/p&gt;
+&lt;p&gt;大刀阔斧的干吧！&lt;/p&gt;
+&lt;div class=&#34;note success no-icon&#34;&gt;
+&lt;p&gt;大家有什么建议呢？&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;总结&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#总结&#34;&gt;#&lt;/a&gt; 总结&lt;/h2&gt;
+&lt;p&gt;我们看待 &lt;code&gt;OOM&lt;/code&gt;  应该从全面来看，有可能是  &lt;code&gt;jvm&lt;/code&gt;  内存确实盛不下要分配的对象，也有可能是 频繁 &lt;code&gt;GC&lt;/code&gt; ，且收效甚低导致的，还有可能是宿主机上内存不够杀死 &lt;code&gt;jvm&lt;/code&gt;  导致的，加载的类过大过多造成的，虚拟内存不够用等等。最后也不要忽略 堆外内存的内存溢出。&lt;/p&gt;
+&lt;p&gt;线上遇到这类问题，第一要及时止损，方式很简单，重启就能解决。   保证线上可用之后，再去查问题，根治问题。  同时不用忘了监控线上服务是否有内存要溢出的情况，及时重启，为处理 &lt;code&gt;OOM&lt;/code&gt;  问题争取时间。&lt;/p&gt;
+&lt;p&gt;排查问题时，首先找到对应 &lt;code&gt;jvm&lt;/code&gt;  进程，然后使用 &lt;code&gt;jmap&lt;/code&gt;  打印出 内存映射文件，然后使用 &lt;code&gt;jhat&lt;/code&gt;  或者  &lt;code&gt;mat&lt;/code&gt;  工具进行分析，定位原因。解决问题。&lt;/p&gt;
+&lt;p&gt;最后，我们在 &lt;code&gt;coding&lt;/code&gt;  的时候，要注意下，不要编写导致 &lt;code&gt;OOM&lt;/code&gt;  代码。“未有形而除之～”&lt;/p&gt;
+&lt;h2 id=&#34;抛个问题~&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#抛个问题~&#34;&gt;#&lt;/a&gt; 抛个问题～&lt;/h2&gt;
+&lt;p&gt;发生 OOM，程序会退出吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下期见&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h4&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;br&gt;
+&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="OOM" />
+        <category term="JVM" />
+        <category term="Java" />
+        <updated>2021-08-19T09:13:55.000Z</updated>
+    </entry>
+</feed>

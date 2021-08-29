@@ -1,0 +1,765 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="git" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/">
+
+
+
+  <title>
+git 基本命令二 - git 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">git 基本命令二
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>8.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>8 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclx6phq6j20zk0m8e36.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 git 系列"><span itemprop="name">git 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p><code>git</code>  的时光机 (简化版)</p>
+<ul>
+<li><code>git log</code> ：查看历史记录</li>
+<li><code>git commit -amend</code> ：重写上一次的提交历史</li>
+</ul>
+<h3 id="git-log"><a class="markdownIt-Anchor" href="#git-log">#</a>  <code>git log</code></h3>
+<p><code>git</code>  有一个特别实用的功能，可以让我们看到所有的历史更改记录。这个命令就是  <code>git log</code> .</p>
+<p>首先我们新建一个仓库。随便进行 <code>5</code>  次更改， <code>5</code>  提交。</p>
+<p>执行如下的操作:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜  gitlearn git init .</span><br><span class="line">Initialized empty Git repository in /private/tmp/gitlearn/.git/</span><br><span class="line">➜  gitlearn git:(master) ✗ echo &#x27;第一行&#x27; &gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git add .</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -m &quot;test git-log 1 &quot;</span><br><span class="line">[master (root-commit) 0718ac9] test git-log 1</span><br><span class="line"> 2 files changed, 2 insertions(+)</span><br><span class="line"> create mode 100644 .gitignore</span><br><span class="line"> create mode 100644 testGitLog</span><br><span class="line"></span><br><span class="line">➜  gitlearn git:(master) echo &#x27;第二行&#x27; &gt;&gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a -m &quot;test git-log 2 &quot;</span><br><span class="line">[master f8248a5] test git-log 2</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"></span><br><span class="line">➜  gitlearn git:(master) echo &#x27;第三行&#x27; &gt;&gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a -m &quot;test git-log 3 &quot;</span><br><span class="line">[master b282b88] test git-log 3</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"></span><br><span class="line">➜  gitlearn git:(master) echo &#x27;第四行&#x27; &gt;&gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a -m &quot;test git-log 4 &quot;</span><br><span class="line">[master b9df1bb] test git-log 4</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"></span><br><span class="line">➜  gitlearn git:(master) echo &#x27;第五行&#x27; &gt;&gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a -m &quot;test git-log 5 &quot;</span><br><span class="line">[master 769db1c] test git-log 5</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br></pre></td></tr></table></figure>
+<p>运行一下  <code>git log</code>  我们查看一下输出的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">commit b9df1bb5c10f6602f7fa889ca91759a2e45e69cb</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:01 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 4</span><br><span class="line"></span><br><span class="line">commit b282b882317b118095eb921e707e449f45fdeef6</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:35:48 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 3</span><br><span class="line"></span><br><span class="line">commit f8248a5fbc18a90710c95cee475b34797299bc61</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:35:30 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 2</span><br><span class="line"></span><br><span class="line">commit 0718ac9a20021971d6f1a09a3ef72e36b6fd73c9</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:34:39 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 1</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们没有传入任何参数的情况下， <code>git log</code>  会按照先后顺序列出所有的提交，时间最近的更新排在最上面。</p>
+<p>该命令会列出每次提交的 SHA-1 校验和，作者的名字和电子邮箱，提交时间，以及提交说明。</p>
+<p><code>git log</code>  还有很多我们选项，我在后面有一篇文章写了 git 的命令大全，并且会保持更新哦。</p>
+<h4 id="git-log命令选项"><a class="markdownIt-Anchor" href="#git-log命令选项">#</a>  <code>git log</code>  命令选项</h4>
+<p>这里我们就先介绍一写常用的命令选项。</p>
+<h5 id="显示每次提交所引入的差异-patch"><a class="markdownIt-Anchor" href="#显示每次提交所引入的差异-patch">#</a> 显示每次提交所引入的差异  <code>--patch</code></h5>
+<p><code>git log --patch</code>  或者  <code>git log -p</code>  会显示每次提交所引入的差异，会按照补丁的方式展示。后面也可以加上数字来限制下面显示几次提交。比如： <code>git log -p -1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">diff --git a/testGitLog b/testGitLog</span><br><span class="line">index 11c20cd..844b7e8 100644</span><br><span class="line">--- a/testGitLog</span><br><span class="line">+++ b/testGitLog</span><br><span class="line">@@ -2,3 +2,4 @@</span><br><span class="line"> 第二行</span><br><span class="line"> 第三行</span><br><span class="line"> 第四行</span><br><span class="line">+第五行</span><br><span class="line"></span><br><span class="line">commit b9df1bb5c10f6602f7fa889ca91759a2e45e69cb</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:01 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 4</span><br><span class="line"></span><br><span class="line">diff --git a/testGitLog b/testGitLog</span><br><span class="line">index f1c8e85..11c20cd 100644</span><br><span class="line">--- a/testGitLog</span><br><span class="line">+++ b/testGitLog</span><br><span class="line">@@ -1,3 +1,4 @@</span><br><span class="line"> 第一行</span><br><span class="line"> 第二行</span><br><span class="line"> 第三行</span><br><span class="line">+第四行</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>限制提交数演示：</p>
+<p><code>git log -p -1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">diff --git a/testGitLog b/testGitLog</span><br><span class="line">index 11c20cd..844b7e8 100644</span><br><span class="line">--- a/testGitLog</span><br><span class="line">+++ b/testGitLog</span><br><span class="line">@@ -2,3 +2,4 @@</span><br><span class="line"> 第二行</span><br><span class="line"> 第三行</span><br><span class="line"> 第四行</span><br><span class="line">+第五行</span><br></pre></td></tr></table></figure>
+<p>这个选项可以在每次提交的下面列出所有修改过的文件，有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
+<h5 id="查看每次提交的简略统计信息-git-log-stat"><a class="markdownIt-Anchor" href="#查看每次提交的简略统计信息-git-log-stat">#</a> 查看每次提交的简略统计信息， <code>git log --stat</code></h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Date:   Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">## 什么文件被修改了，增加还是删除</span><br><span class="line"> testGitLog | 1 +</span><br><span class="line">## 一共修改了多少文件</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="格式化输出日志-pretty"><a class="markdownIt-Anchor" href="#格式化输出日志-pretty">#</a> 格式化输出日志  <code>--pretty</code></h4>
+<p>这个选项可以使不同于默认格式化的方式展示提交历史。它提供了几种内建的格式化方式，除此之外使用者还可以自定义格式化方式。</p>
+<h6 id="内建一oneline"><a class="markdownIt-Anchor" href="#内建一oneline">#</a> 内建一：oneline</h6>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master) test git-log 5</span><br><span class="line">b9df1bb5c10f6602f7fa889ca91759a2e45e69cb test git-log 4</span><br><span class="line">b282b882317b118095eb921e707e449f45fdeef6 test git-log 3</span><br><span class="line">f8248a5fbc18a90710c95cee475b34797299bc61 test git-log 2</span><br><span class="line">0718ac9a20021971d6f1a09a3ef72e36b6fd73c9 test git-log 1</span><br></pre></td></tr></table></figure>
+<h6 id="内建二-short"><a class="markdownIt-Anchor" href="#内建二-short">#</a> 内建二： short</h6>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=short</span><br><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">commit b9df1bb5c10f6602f7fa889ca91759a2e45e69cb</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 4</span><br><span class="line"></span><br><span class="line">commit b282b882317b118095eb921e707e449f45fdeef6</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 3</span><br><span class="line"></span><br><span class="line">commit f8248a5fbc18a90710c95cee475b34797299bc61</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 2</span><br><span class="line"></span><br><span class="line">commit 0718ac9a20021971d6f1a09a3ef72e36b6fd73c9</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 1</span><br></pre></td></tr></table></figure>
+<h6 id="内建三full"><a class="markdownIt-Anchor" href="#内建三full">#</a> 内建三：full</h6>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=full</span><br><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Commit: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">commit b9df1bb5c10f6602f7fa889ca91759a2e45e69cb</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Commit: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 4</span><br><span class="line"></span><br><span class="line">commit b282b882317b118095eb921e707e449f45fdeef6</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Commit: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 3</span><br><span class="line"></span><br><span class="line">commit f8248a5fbc18a90710c95cee475b34797299bc61</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Commit: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 2</span><br><span class="line"></span><br><span class="line">commit 0718ac9a20021971d6f1a09a3ef72e36b6fd73c9</span><br><span class="line">Author: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">Commit: fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line"></span><br><span class="line">    test git-log 1</span><br></pre></td></tr></table></figure>
+<h6 id="内建四fuller"><a class="markdownIt-Anchor" href="#内建四fuller">#</a> 内建四：fuller</h6>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=fullter</span><br><span class="line"></span><br><span class="line">commit 769db1cd5ba091162707a3e648d67ec8e6913d2b (HEAD -&gt; master)</span><br><span class="line">Author:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">AuthorDate: Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line">Commit:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">CommitDate: Tue Jul 21 15:36:11 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 5</span><br><span class="line"></span><br><span class="line">commit b9df1bb5c10f6602f7fa889ca91759a2e45e69cb</span><br><span class="line">Author:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">AuthorDate: Tue Jul 21 15:36:01 2020 +0800</span><br><span class="line">Commit:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">CommitDate: Tue Jul 21 15:36:01 2020 +0800</span><br><span class="line"></span><br><span class="line">    test git-log 4</span><br><span class="line"></span><br><span class="line">commit b282b882317b118095eb921e707e449f45fdeef6</span><br><span class="line">Author:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">AuthorDate: Tue Jul 21 15:35:48 2020 +0800</span><br><span class="line">Commit:     fangjiaxiaobai &lt;fangjiaxiaobai@163.com&gt;</span><br><span class="line">CommitDate: Tue Jul 21 15:35:48 2020 +0800</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h6 id="最nb的format"><a class="markdownIt-Anchor" href="#最nb的format">#</a> 最 NB 的：format</h6>
+<p>这个选项目可以让我们定制记录的显示格式，这种并不会随着 git 的更新而发生改变。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=format:&quot;%h-%an,%ar:%s&quot;</span><br><span class="line"></span><br><span class="line">769db1c - fangjiaxiaobai, 27 minutes ago:test git-log 5</span><br><span class="line">b9df1bb - fangjiaxiaobai, 27 minutes ago:test git-log 4</span><br><span class="line">b282b88 - fangjiaxiaobai, 27 minutes ago:test git-log 3</span><br><span class="line">f8248a5 - fangjiaxiaobai, 27 minutes ago:test git-log 2</span><br><span class="line">0718ac9 - fangjiaxiaobai, 28 minutes ago:test git-log 1</span><br></pre></td></tr></table></figure>
+<p>format 后面的分别代表什么含义呢？<br>
+这里列出了 Format 的常用参数。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">%H</td>
+<td style="text-align:left">提交的完整哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%h</td>
+<td style="text-align:left">提交的简写哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%T</td>
+<td style="text-align:left">树的完整哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%t</td>
+<td style="text-align:left">树的简写哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%P</td>
+<td style="text-align:left">父提交的完整哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%p</td>
+<td style="text-align:left">父提交的简写哈希值</td>
+</tr>
+<tr>
+<td style="text-align:center">%an</td>
+<td style="text-align:left">作者名字</td>
+</tr>
+<tr>
+<td style="text-align:center">%ae</td>
+<td style="text-align:left">作者的电子邮件地址</td>
+</tr>
+<tr>
+<td style="text-align:center">%ad</td>
+<td style="text-align:left">作者修订日期（可以用 --date = 选项 来定制格式）</td>
+</tr>
+<tr>
+<td style="text-align:center">%ar</td>
+<td style="text-align:left">作者修订日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td style="text-align:center">%cn</td>
+<td style="text-align:left">提交者的名字</td>
+</tr>
+<tr>
+<td style="text-align:center">%ce</td>
+<td style="text-align:left">提交者的电子邮件地址</td>
+</tr>
+<tr>
+<td style="text-align:center">%cd</td>
+<td style="text-align:left">提交日期</td>
+</tr>
+<tr>
+<td style="text-align:center">%cr</td>
+<td style="text-align:left">提交日期（距今多长时间）</td>
+</tr>
+<tr>
+<td style="text-align:center">%s</td>
+<td style="text-align:left">提交说明</td>
+</tr>
+</tbody>
+</table>
+<p>咦～？作者和提交这有什么区别呢？<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow></mrow><mtext>❷</mtext></msup></mrow><annotation encoding="application/x-tex">^❷</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.363em;vertical-align:0em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.363em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">❷</span></span></span></span></span></span></span></span></span></span></span><br>
+这里，小白就要卖一个关子了。不过答案就在这个系列里～。因为在目前这总单分支的本地开发环境里，提交者就是作者。<br>
+另外在多分支的开发过车中，使用  <code>format</code>  配合  <code>--graph</code>  选项就尤为有用。后面介绍～</p>
+<h5 id="限制输出性的选项"><a class="markdownIt-Anchor" href="#限制输出性的选项">#</a> 限制输出性的选项</h5>
+<p>上面用过了  <code>-&lt;number&gt;</code>  的方式来显示 git log 输出日志的条数，git 还提供了 类似于：  <code>--since</code>  和  <code>--until</code> ,  <code>--before</code>  等时间限制的选项目。</p>
+<p>比如：  <code>git log --since=2.weeks</code>  输出 2 周之内的提交记录。</p>
+<p>该命令可用的格式十分丰富 —— 可以是类似 “2008-01-15” 的具体的某一天，也可以是类似 “2 years 1 day 3 minutes ago” 的相对日期。<br>
+还可以过滤出匹配指定条件的提交。 用  <code>--author</code>  选项显示指定作者的提交，用  <code>--grep</code>  选项搜索提交说明中的关键字。</p>
+<p>另一个非常有用的过滤器是 -S（俗称 <code>“pickaxe”</code>  选项，取 “用鹤嘴锄在土里捡石头” 之意）， 它接受一个字符串参数，并且只会显示那些添加或删除了该字符串的提交。 假设你想找出添加或删除了对某一个特定函数的引用的提交，可以调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log -S function_name</span><br></pre></td></tr></table></figure>
+<p>最后一个很实用的  <code>git log</code>  选项是路径（ <code>path</code> ）， 如果只关心某些文件或者目录的历史提交，可以在  <code>git log</code>  选项的最后指定它们的路径。 因为是放在最后位置上的选项，所以用两个短划线（ <code>--</code> ）隔开之前的选项和后面限定的路径名。</p>
+<h2 id="git-commit-amend"><a class="markdownIt-Anchor" href="#git-commit-amend">#</a>  <code>git commit --amend</code></h2>
+<p>这个命令可以让我们重写上一次的提交记录。<br>
+比如有下面这样的场景：</p>
+<p>小白修改了一个文件，提交了之后发现写了一个错别字，小白又想保持 <code>git</code>  提交历史的整洁。这时  <code>git commit -amend</code>  就派上了用场了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  gitlearn git:(master) git log --pretty=oneline</span><br><span class="line">➜  gitlearn git:(master) echo &#x27;第留行&#x27; &gt;&gt; testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a -m &quot;test git-log 6 &quot;</span><br><span class="line">[detached HEAD f65b589] test git-log 6</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line">➜  gitlearn git:(master) vim testGitLog</span><br><span class="line">➜  gitlearn git:(master) ✗ git commit -a --amend -m &quot;test git-log 6 &quot;</span><br><span class="line">[detached HEAD 1afd020] test git-log 6</span><br><span class="line"> Date: Tue Jul 21 16:36:43 2020 +0800</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"></span><br><span class="line"> # 查看提交日志</span><br><span class="line">➜  gitlearn git:(master) git log --pretty=oneline</span><br><span class="line">1afd020466eb9b519cec80415cb1e9c587612511 (HEAD) test git-log 6</span><br><span class="line">769db1cd5ba091162707a3e648d67ec8e6913d2b test git-log 5</span><br><span class="line">b9df1bb5c10f6602f7fa889ca91759a2e45e69cb test git-log 4</span><br><span class="line">b282b882317b118095eb921e707e449f45fdeef6 test git-log 3</span><br><span class="line">f8248a5fbc18a90710c95cee475b34797299bc61 test git-log 2</span><br><span class="line">0718ac9a20021971d6f1a09a3ef72e36b6fd73c9 test git-log 1</span><br><span class="line">(END)</span><br></pre></td></tr></table></figure>
+<p>注意！ 这里第二次提交的结果会替换掉之前的一次提交。</p>
+<p>以上就是本次 简约版本时光机的所有内容了。下一篇 远程仓库</p>
+<h3 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h3>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/git/" rel="tag"><i class="ic i-tag"></i> git</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-09 22:59:33" itemprop="dateModified" datetime="2021-08-09T22:59:33+08:00">2021-08-09</time>
+  </span>
+  <span id="2021/07/18/git系列/05-git基本命令2 git时光机1/" class="item leancloud_visitors" data-flag-title="git 基本命令二" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git 基本命令二">https://fangjiaxiaobai.github.io/2021/07/18/git系列/05-git基本命令2 git时光机1/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclil3m4ej20zk0m8tn8.jpg" title="git 基础 - 标签 和 别名">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> git 系列</span>
+  <h3>git 基础 - 标签 和 别名</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuv0socj20zk0m8qes.jpg" title="git基本使用一">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> git 系列</span>
+  <h3>git基本使用一</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-log"><span class="toc-number">1.</span> <span class="toc-text">  git log</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#git-log%E5%91%BD%E4%BB%A4%E9%80%89%E9%A1%B9"><span class="toc-number">1.1.</span> <span class="toc-text">  git log  命令选项</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E6%AF%8F%E6%AC%A1%E6%8F%90%E4%BA%A4%E6%89%80%E5%BC%95%E5%85%A5%E7%9A%84%E5%B7%AE%E5%BC%82-patch"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 显示每次提交所引入的差异  --patch</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%AF%8F%E6%AC%A1%E6%8F%90%E4%BA%A4%E7%9A%84%E7%AE%80%E7%95%A5%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF-git-log-stat"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 查看每次提交的简略统计信息， git log --stat</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E6%97%A5%E5%BF%97-pretty"><span class="toc-number">1.2.</span> <span class="toc-text"> 格式化输出日志  --pretty</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E4%B8%80oneline"><span class="toc-number">1.2.0.1.</span> <span class="toc-text"> 内建一：oneline</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E4%BA%8C-short"><span class="toc-number">1.2.0.2.</span> <span class="toc-text"> 内建二： short</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E4%B8%89full"><span class="toc-number">1.2.0.3.</span> <span class="toc-text"> 内建三：full</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E5%BB%BA%E5%9B%9Bfuller"><span class="toc-number">1.2.0.4.</span> <span class="toc-text"> 内建四：fuller</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80nb%E7%9A%84format"><span class="toc-number">1.2.0.5.</span> <span class="toc-text"> 最 NB 的：format</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E8%BE%93%E5%87%BA%E6%80%A7%E7%9A%84%E9%80%89%E9%A1%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 限制输出性的选项</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-commit-amend"><span class="toc-number"></span> <span class="toc-text">  git commit --amend</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">1.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" rel="bookmark" title="Git介绍">Git介绍</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" rel="bookmark" title="安装git">安装git</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" rel="bookmark" title="git基本使用一">git基本使用一</a></li><li class="active"><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" rel="bookmark" title="git基本命令二">git基本命令二</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" rel="bookmark" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" rel="bookmark" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" rel="bookmark" title="git命令">git命令</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" rel="bookmark" title="其他命令">其他命令</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" rel="bookmark" title="git开发模型 - github-flow">git开发模型 - github-flow</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" rel="bookmark" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" rel="bookmark" title="git命令详解之 git update-index">git命令详解之 git update-index</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" rel="bookmark" title="git命令详解">git命令详解</a></li><li><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" rel="bookmark" title="从创建仓库开始">从创建仓库开始</a></li><li><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" rel="bookmark" title="git系列开篇">git系列开篇</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">39</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">20</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
+</div>
+
+    <span><a href="/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/" title="雪花算法">雪花算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" title="Redis 开篇 &amp; 说明">Redis 开篇 & 说明</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">202k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/07/18/git系列/05-git基本命令2 git时光机1/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

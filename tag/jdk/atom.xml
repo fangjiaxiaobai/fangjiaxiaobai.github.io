@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fangjiaxiaobai.github.io</id>
+    <title>方家小白 • Posts by &#34;jdk&#34; tag</title>
+    <link href="https://fangjiaxiaobai.github.io" />
+    <updated>2021-08-23T15:13:55.000Z</updated>
+    <category term="源码" />
+    <category term="目录" />
+    <category term="leetCode" />
+    <category term="数据结构" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="MySQL" />
+    <category term="git" />
+    <category term="Redis" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="HashMap" />
+    <category term="String" />
+    <category term="OOM" />
+    <category term="JVM" />
+    <category term="Java" />
+    <category term="JDK" />
+    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/</id>
+        <title>JDK的Stream之系列一 初窥流原理</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/"/>
+        <content type="html">&lt;p&gt;学东西的时候最好是理论先行，为什么？没有理论，想当然的去干，干好了是 瞎猫碰上死耗子，干不好就瞎干，浪费时间，只会弄得身心俱疲。&lt;br&gt;
+可是在真正的工作中，很少工作会允许你先弄清原理再去实操。但是不管怎么说，欠下的债终究是需要还的。&lt;/p&gt;
+&lt;p&gt;今天咱们的主题是  &lt;code&gt;stream&lt;/code&gt; . 咱们就从 &lt;code&gt;Stream&lt;/code&gt;  的 &amp;quot;道，术，法，器&amp;quot; 四个阶段来聊好好的聊聊这个  &lt;code&gt;Stream&lt;/code&gt; .&lt;/p&gt;
+&lt;h2 id=&#34;以器始从使用开始&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#以器始从使用开始&#34;&gt;#&lt;/a&gt; 以 &amp;quot;器&amp;quot; 始：从使用开始&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你平时是怎么使用  &lt;code&gt;Stream&lt;/code&gt;  的？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;比如我会使用 &lt;code&gt;Stream&lt;/code&gt;  创建一个流。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Stream&amp;lt;Integer&amp;gt; integerStream = Stream.of(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// do somethings ..&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;或者把一种集合类型转成 &lt;code&gt;stream&lt;/code&gt; ，然后做一些聚合操作&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;List&amp;lt;Integer&amp;gt; collect = list.stream()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        .map(item -&amp;gt; item + &lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        .filter(item -&amp;gt; item &amp;gt; &lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        .sorted()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        .limit(&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        .collect(Collectors.toList());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;那在 &lt;code&gt;jdk1.7&lt;/code&gt;  及以前的时候，我们是怎么处理的呢？&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 遍历list，所有元素+5&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; list.size(); i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Integer integer = list.get(i);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    integer += &lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 正序排序&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;sort(list);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 创建新List.存储10个元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;List&amp;lt;Integer&amp;gt; newList = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ArrayList&amp;lt;&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (list.size() &amp;gt; &lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.arraycopy(list, list.size() - &lt;span class=&#34;number&#34;&gt;11&lt;/span&gt;, newList, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.arraycopy(list, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, newList, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, list.size());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;根据上面的对比，我们很明显的就能对比出来：&lt;br&gt;
+ &lt;code&gt;stream&lt;/code&gt;  的编码方式，使代码更加简洁，可读性也比较强。而且 &lt;code&gt;Stream&lt;/code&gt;  提供了集合的常用操作，比如 &lt;code&gt;sort&lt;/code&gt; , &lt;code&gt;过滤&lt;/code&gt; ， &lt;code&gt;去重&lt;/code&gt; ， &lt;code&gt;计数&lt;/code&gt; ， &lt;code&gt;limit&lt;/code&gt; , &lt;code&gt;skip&lt;/code&gt;  等等，直接可以用，可以大大的提高开发效率。&lt;/p&gt;
+&lt;p&gt;那  &lt;code&gt;Stream&lt;/code&gt;  为我们提供了多少功能呢？&lt;/p&gt;
+&lt;p&gt;从全局来看，所有和  &lt;code&gt;stream&lt;/code&gt;  相关的类，都在  &lt;code&gt;java.lang.stream&lt;/code&gt;  这包下。&lt;/p&gt;
+&lt;p&gt;这个包下有很多的类。总体来说，&lt;/p&gt;
+&lt;p&gt;流处理相关的操作分为两类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;中间操作 ( &lt;code&gt;Intermediate Operations&lt;/code&gt; )
+&lt;ul&gt;
+&lt;li&gt;无状态的中间操作 ( &lt;code&gt;Stateless&lt;/code&gt; ): 使用  &lt;code&gt;StatelessOp&lt;/code&gt;  表示。每个操作都是互不影响，不依赖的。这类的操作有:  &lt;code&gt;filter()&lt;/code&gt; 、 &lt;code&gt;flatMap()&lt;/code&gt; 、 &lt;code&gt;flatMapToDouble()&lt;/code&gt; 、 &lt;code&gt;flatMapToInt()&lt;/code&gt; 、 &lt;code&gt;flatMapToLong()&lt;/code&gt; 、 &lt;code&gt;map()&lt;/code&gt; 、 &lt;code&gt;mapToDouble()&lt;/code&gt; 、 &lt;code&gt;mapToInt()&lt;/code&gt; 、 &lt;code&gt;mapToLong()&lt;/code&gt; 、 &lt;code&gt;peek()&lt;/code&gt; 、 &lt;code&gt;unordered()&lt;/code&gt;  等&lt;/li&gt;
+&lt;li&gt;有状态操作（ &lt;code&gt;Stateful&lt;/code&gt; ）：使用  &lt;code&gt;StatefulOp&lt;/code&gt;  表示。处理时会记录状态，比如处理了几个。后面元素的处理会依赖前面记录的状态，或者拿到所有元素才能继续下去。如 &lt;code&gt;distinct()&lt;/code&gt; 、 &lt;code&gt;sorted()&lt;/code&gt; 、 &lt;code&gt;sorted(comparator)&lt;/code&gt; 、 &lt;code&gt;limit()&lt;/code&gt; 、 &lt;code&gt;skip()&lt;/code&gt;  等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;终止操作 ( &lt;code&gt;Terminal Operations&lt;/code&gt; )：使用  &lt;code&gt;TerminalOp&lt;/code&gt;  表示。
+&lt;ul&gt;
+&lt;li&gt;非短路操作：处理完所有数据才能得到结果。如 &lt;code&gt;collect()&lt;/code&gt; 、 &lt;code&gt;count()&lt;/code&gt; 、 &lt;code&gt;forEach()&lt;/code&gt; 、 &lt;code&gt;forEachOrdered()&lt;/code&gt; 、 &lt;code&gt;max()&lt;/code&gt; 、 &lt;code&gt;min()&lt;/code&gt; 、 &lt;code&gt;reduce()&lt;/code&gt; 、 &lt;code&gt;toArray()&lt;/code&gt;  等。&lt;/li&gt;
+&lt;li&gt;短路（ &lt;code&gt;short-circuiting&lt;/code&gt; ）操作：拿到符合预期的结果就会停下来，不一定会处理完所有数据。如 &lt;code&gt;anyMatch()&lt;/code&gt; 、 &lt;code&gt;allMatch()&lt;/code&gt; 、 &lt;code&gt;noneMatch()&lt;/code&gt; 、 &lt;code&gt;findFirst()&lt;/code&gt; 、 &lt;code&gt;findAny()&lt;/code&gt;  等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在深入探讨 &lt;code&gt;stream&lt;/code&gt;  之前，我们需要储备些知识点。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;函数式接口  &lt;code&gt;FunctionInterface&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;JDK&lt;/code&gt;  提供了很多的函数式接口，包路径是： &lt;code&gt;java.util.function&lt;/code&gt; . 函数式接口的作用是 Java8 对一类特定类型接口的称呼。这类接口只有一个抽象方法，并且使用  &lt;code&gt;@FunctionInterface&lt;/code&gt;  注解进行注明。在 &lt;code&gt;Java Lambda&lt;/code&gt;  的实现中， 开发组不想再为 &lt;code&gt;Lambda&lt;/code&gt;  表达式单独定义一种特殊的 &lt;code&gt;Structural&lt;/code&gt;  函数类型，称之为箭头类型（ &lt;code&gt;arrow type&lt;/code&gt; ）， 依然想采用 Java 既有的类型系统 ( &lt;code&gt;class&lt;/code&gt; ,  &lt;code&gt;interface&lt;/code&gt; ,  &lt;code&gt;method&lt;/code&gt;  等)， 原因是增加一个结构化的函数类型会增加函数类型的复杂性，破坏既有的 &lt;code&gt;Java&lt;/code&gt;  类型，并对成千上万的 &lt;code&gt;Java&lt;/code&gt;  类库造成严重的影响。 权衡利弊， 因此最终还是利用 &lt;code&gt;SAM&lt;/code&gt;  接口 ( &lt;code&gt;Single Abstract Method&lt;/code&gt; ) 作为  &lt;code&gt;Lambda&lt;/code&gt;  表达式的目标类型。&lt;/p&gt;
+&lt;p&gt;函数式接口其实在 &lt;code&gt;Jdk8&lt;/code&gt;  之前就已存在了，比如 &lt;code&gt;java.lang.Runnable&lt;/code&gt; , &lt;code&gt;java.util.concurrent.Callable&lt;/code&gt; , &lt;code&gt;java.util.Comparator&lt;/code&gt;  等等。只是没有使用  &lt;code&gt;@FunctionInterface&lt;/code&gt;  注解而已。在 &lt;code&gt;JDK1.8&lt;/code&gt;  之后加上了这个注解，并且在 &lt;code&gt;java.util.function&lt;/code&gt;  包下新增很多个函数式接口。 其中，我们需要知道的只有六个:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Predicate&lt;/code&gt; : 传入一个参数，返回一个 &lt;code&gt;bool&lt;/code&gt;  结果， 方法为 &lt;code&gt;boolean test(T t)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Consumer&lt;/code&gt; : 传入一个参数，无返回值，纯消费。 方法为 &lt;code&gt;void accept(T t)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Function&amp;lt;T,R&amp;gt;&lt;/code&gt; : 传入一个参数，返回一个结果，方法为 &lt;code&gt;R apply(T t)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Supplier&lt;/code&gt; : 无参数传入，返回一个结果，方法为 &lt;code&gt;T get()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UnaryOperator&lt;/code&gt; : 一元操作符， 继承 &lt;code&gt;Function&amp;lt;T,T&amp;gt;&lt;/code&gt; , 传入参数的类型和返回类型相同。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BinaryOperator&lt;/code&gt; : 二元操作符， 传入的两个参数的类型和返回类型相同， 继承 &lt;code&gt;BiFunction&amp;lt;T,T,T&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么要了解这个 函数式接口呢？&lt;/p&gt;
+&lt;p&gt;因为 在 &lt;code&gt;Stream&lt;/code&gt;  的方法中，大部分的参数都是使用 函数式接口 接受参数的。所以，如果要探究其实现原理和设计原则的话，这个是必须要知道的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意:&lt;br&gt;
+ &lt;code&gt;lambda&lt;/code&gt;  表达式，是一种语法的表现形式，使代码表现更加整洁  &lt;code&gt;lambda&lt;/code&gt;  和  &lt;code&gt;stream&lt;/code&gt;  是两个不相关的概念。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;查术理-查看源码明晰基本的类结构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#查术理-查看源码明晰基本的类结构&#34;&gt;#&lt;/a&gt; 查 &amp;quot;术&amp;quot; 理: (查看源码，明晰基本的类结构)&lt;/h2&gt;
+&lt;p&gt;先来看下 和  &lt;code&gt;Stream&lt;/code&gt;  直接相关的类。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream%E7%B1%BB%E5%9B%BE%E8%B0%B1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Stream&lt;/code&gt;  接口继承了 &lt;code&gt;BaseStream&lt;/code&gt;  接口.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;✔️ BaseStream 接口表示流的基本接口，而流是支持顺序和并行聚合操作的元素序列。&lt;/span&gt;&lt;br&gt;
+ &lt;code&gt;Stream&lt;/code&gt;  接口有很多实现类。其主要的一个实现类是  &lt;code&gt;ReferencePipeline&lt;/code&gt;  类。除此之外 &lt;code&gt;ReferencePipeline&lt;/code&gt;  类还继承了 &lt;code&gt;AbstractPipeline&lt;/code&gt;  抽象类. &lt;span class=&#34;label success&#34;&gt;✔️ AbstractPipeline 表示 “管道” 类的抽象基类，它们是 Stream 接口及其原始特化的核心实现。&lt;/span&gt;再看 &lt;code&gt;AbstractPipeline&lt;/code&gt;  类的父类 &lt;code&gt;PipelineHelper&lt;/code&gt; ,&lt;span class=&#34;label success&#34;&gt;✔️ AbstractPipeline 的作用是：用于执行流管道的辅助类，将有关流管道的所有信息（输出形状、中间操作、流标志、并行度等）集中在一个地方。&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ReferencePipeline&lt;/code&gt;  类有三个子类:  &lt;code&gt;StatefulOp&lt;/code&gt;  表示有状态的操作， &lt;code&gt;StatelessOp&lt;/code&gt;  表示无状态的操作，  &lt;code&gt;Head&lt;/code&gt;  表示  &lt;code&gt;ReferencePipeline&lt;/code&gt;  的起始阶段。 当然了，这三个子类也是 流。&lt;/p&gt;
+&lt;h3 id=&#34;从创建流开始&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#从创建流开始&#34;&gt;#&lt;/a&gt; 从创建流开始&lt;/h3&gt;
+&lt;p&gt;不管是使用  &lt;code&gt;Stream.of(T t)&lt;/code&gt;  还是  &lt;code&gt;Collection.stream()&lt;/code&gt; ，还是 &lt;code&gt;Arrays.stream()&lt;/code&gt; , 底层的实现都是通过  &lt;code&gt;StreamSupport.stream()&lt;/code&gt;  来实现的。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream.of%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;✔️ StreamSupport 类的作用是：用于创建和操作流的底层实用方法。&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/StreamSupport.stream%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到 直接返回的是  &lt;code&gt;ReferencePipeline.Head&lt;/code&gt;  对象。 首先  &lt;code&gt;Head&lt;/code&gt;  是一种 &lt;code&gt;Stream&lt;/code&gt;  的实现。 接着去看  &lt;code&gt;Head&lt;/code&gt;  的构造方法，可以看到其实调用的是： &lt;code&gt;AbstractPipeline&lt;/code&gt;  的构造方法.&lt;/p&gt;
+&lt;h3 id=&#34;流的中间操作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#流的中间操作&#34;&gt;#&lt;/a&gt; 流的中间操作&lt;/h3&gt;
+&lt;p&gt;文中已经谈及了 中间操作分为有状态的中间操作和无状态的中间操作。那我们以一个案例来说明操作与操作之间执行的。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;List&amp;lt;Integer&amp;gt; numbers = Stream.of(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          .map(item -&amp;gt; item + &lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          .sorted((n1, n2) -&amp;gt; n2 - n1)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          .limit(&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          .collect(Collectors.toList());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;Stream.of()&lt;/code&gt;  方法上文已经简单的说明了，接下来我们来看  &lt;code&gt;map()&lt;/code&gt;  方法。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream.map%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到， &lt;code&gt;map()&lt;/code&gt;  返回了一个 &lt;code&gt;StatelessOp&lt;/code&gt;  对象，并且重写了 &lt;code&gt;AbstractPipeline&lt;/code&gt;  的 &lt;code&gt;opWrapSink&lt;/code&gt;  方法。 之前也说过：它表示流的无状态中间阶段的基类。 还有一个 &lt;code&gt;Sink&lt;/code&gt;  类型.  &lt;code&gt;Sink&lt;/code&gt;  类表示  &lt;code&gt;Consumer&lt;/code&gt;  接口的扩展，用于在流管道的各个阶段传递值，以及管理大小信息、控制流等的附加方法。&lt;/p&gt;
+&lt;p&gt;我们再仔细看一下这个方法。首先这个方法并没有进行任何的计算，只是将  &lt;code&gt;item -&amp;gt; item + 5&lt;/code&gt;  这个操作进行三层的封装， 1. 将 &lt;code&gt;map&lt;/code&gt;  方法的返回值重新封装成了流对象，2. 把我们的 &lt;code&gt;item -&amp;gt; item + 5&lt;/code&gt;  这个操作封装成了  &lt;code&gt;StatelessOp&lt;/code&gt; ， 并重写了 &lt;code&gt;opWrapSink&lt;/code&gt;  这个方法，并在终止操作时进行调用。 3. 使用 &lt;code&gt;sink&lt;/code&gt; ( &lt;code&gt;Sink.ChainedReference)&lt;/code&gt;  将管道的各个阶段连接起来。即赋值 &lt;code&gt;downStream&lt;/code&gt; . 使用 &lt;code&gt;downstream&lt;/code&gt;  这个 &lt;code&gt;Consumer&lt;/code&gt;  完成 &lt;code&gt;accept&lt;/code&gt;  调用。&lt;/p&gt;
+&lt;p&gt;这里需要注意一下:  &lt;code&gt;StatelessOp&lt;/code&gt;  类的构造方法的实体参传输了一个  &lt;code&gt;this&lt;/code&gt;  字段。仔细翻看源码就会返现它一直调用到  &lt;code&gt;AbstractPipeline&lt;/code&gt;  的构造方法中。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/AbstractPipeline.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到  &lt;code&gt;AbstractPipeline&lt;/code&gt;  中有两个字段  &lt;code&gt;nextStage&lt;/code&gt;  和  &lt;code&gt;previousStage&lt;/code&gt;  字段，分别表示的是上一阶段和下一阶段。其中  &lt;code&gt;nextStage&lt;/code&gt;  是 当前阶段。  &lt;code&gt;previousStage&lt;/code&gt;  则应该 当前阶段的上一个阶段，其实就是调用当前方法的对象。&lt;/p&gt;
+&lt;p&gt;不知道你是否发现 通过这种方法， &lt;code&gt;stream&lt;/code&gt;  组成了一个 流各个阶段的双向链表。节点就是流操作的各个阶段。&lt;/p&gt;
+&lt;p&gt;ps: 这样一次流操作会创建两个链表:  &lt;code&gt;Stream&lt;/code&gt;  阶段的双向链表，和 在终止操作时，根据双向链表生成的  &lt;code&gt;Sink&lt;/code&gt;  链表。&lt;/p&gt;
+&lt;p&gt;再次说明：到目前为止， &lt;code&gt;map()&lt;/code&gt;  方法里只是进行了封装，没有进行任何计算！&lt;/p&gt;
+&lt;p&gt;接着来看  &lt;code&gt;sorted()&lt;/code&gt;  方法。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/stream.sorted%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sorted&lt;/code&gt;  方法比较简单，通过调用 &lt;code&gt;SortedOps&lt;/code&gt;  类的 &lt;code&gt;makeRef&lt;/code&gt;  方法，创建了 &lt;code&gt;OfRef&lt;/code&gt;  对象。  &lt;code&gt;OfRef&lt;/code&gt;  类的作用是：用于对流进行排序的专用子类型。  &lt;code&gt;OfRef&lt;/code&gt;  类继承了  &lt;code&gt;ReferencePipeline.StatefulOp&lt;/code&gt;  ，所以 &lt;code&gt;OfRef&lt;/code&gt;  是一个有状态操作。那自然它也会有  &lt;code&gt;opWrapSink&lt;/code&gt;  方法。也就是说它也会返回一个 Sink 对象，只是这个 &lt;code&gt;Sink&lt;/code&gt;  对象的实现类不一样的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;说明：到目前为止， &lt;code&gt;sorted()&lt;/code&gt;  方法里只是进行了封装，没有进行任何计算！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;同理去看 &lt;code&gt;limit&lt;/code&gt;  方法。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream.limit%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这个方法的内部是直接创建了一个  &lt;code&gt;ReferencePipeline.StatefulOp&lt;/code&gt;  对象，也是重写了其中的方法:  &lt;code&gt;opWrapSink&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;不知道你是否有好奇，我为什么每次都会提到  &lt;code&gt;opWrapSink&lt;/code&gt;  这个方法呢？因为这个方法非常的重要！其重要性我们在 &lt;a href=&#34;#%E6%8E%A2%E2%80%9D%E6%B3%95%E2%80%9C%E6%8B%A9&#34;&gt;探” 法 “择&lt;/a&gt; 这部分会完整的说明。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;再三说明：到目前为止， &lt;code&gt;limit()&lt;/code&gt;  方法里只是进行了封装，没有进行任何计算！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;书行至此，案例中的中间操作都已经简单的分析完成了。我们就知道这里  &lt;code&gt;jdk&lt;/code&gt;  为了完成 流操作为每个中间操作都封装了很多的对象，而这些对象只是散列在了内存中。接下来，就要看  &lt;code&gt;jdk&lt;/code&gt;  是如何把他们组装到一起的。&lt;/p&gt;
+&lt;h3 id=&#34;终止操作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#终止操作&#34;&gt;#&lt;/a&gt; 终止操作&lt;/h3&gt;
+&lt;p&gt;以 &lt;code&gt;Collect&lt;/code&gt;  方法为例，去探究一下终止操作的流程。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream.collect%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+可以看到在 &lt;code&gt;collect&lt;/code&gt;  方法中，分为并行执行方式和串行执行方法，我们看串行执行时，会创建  &lt;code&gt;ReduceOps&lt;/code&gt;  终止操作对象。&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jdk/stream/AbstractPipeline.evaluate%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;将 终止操作 传递给 evaluate 方法，然后调用终止操作的 evaluate 方法，当然这个方法也分成了串行执行和并行执行两种。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/ReduceOps.evaluateSequential%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;helper&lt;/code&gt;  其实是  &lt;code&gt;limit(3)&lt;/code&gt;  中间操作返回的对象。这其实中间操作的最后一个 &lt;code&gt;Stage&lt;/code&gt;  (阶段)。返回的对象是 &lt;code&gt;AbstractPipeline&lt;/code&gt;  和  &lt;code&gt;Stream&lt;/code&gt;  的子类实例。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/AbstractPipeline.wrapAndCopyInfo%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这里包含两个方法:  &lt;code&gt;wrapSink()&lt;/code&gt;  和  &lt;code&gt;copyInfo()&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;这是两个非常重要的方法.  &lt;code&gt;wrapSink()&lt;/code&gt;  是将中间的操作组成  &lt;code&gt;SinkChain&lt;/code&gt;  。  &lt;code&gt;copyInfo()&lt;/code&gt;  这是执行真正的计算逻辑。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/AbstractPipeline.wrapSink%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;方法中的形参  &lt;code&gt;sink&lt;/code&gt;  就是最后的阶段的终止操作。方法通过循环将  &lt;code&gt;sink&lt;/code&gt;  分装到 &lt;code&gt;Sink&lt;/code&gt;  中。  &lt;code&gt;Sink&lt;/code&gt;  接口 的一个实现类是  &lt;code&gt;ChainedReference&lt;/code&gt;  ， 类中定义了一个  &lt;code&gt;downStream&lt;/code&gt;  字段。 会将 &lt;code&gt;sink = p.opWrapSink(p.previousStage.combinedFlags, sink);&lt;/code&gt;   中的  &lt;code&gt;sink&lt;/code&gt;  赋值给  &lt;code&gt;downStream&lt;/code&gt; . 这样就形成了 &lt;b&gt;套娃&lt;/b&gt;。 最后返回一个  &lt;code&gt;wrapSink&lt;/code&gt;  , 即整个流操作中所有的操作的 封装 &lt;code&gt;Sink&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/AbstractPipeline.copyInfo%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;图中所示的即为上面提及的 封装 &lt;code&gt;Sink&lt;/code&gt; . 可中断和不可中断的区别是：可中断如果获取值，就不必再取所有的结果了。反之，就需要计算出所有阶段的结果。&lt;/p&gt;
+&lt;p&gt;非可中断的终止操作时，会执行  &lt;code&gt;begin()&lt;/code&gt; , &lt;code&gt;forEachRemaining()&lt;/code&gt; , &lt;code&gt;end()&lt;/code&gt; , 三个方法。  这个三个方法对应的是： &lt;code&gt;Sink&lt;/code&gt;  接口中提供的三个方法。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 每个Sink开始之前调用该方法，通知sink做好准备&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;begin&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;keyword&#34;&gt;long&lt;/span&gt; size)&lt;/span&gt; &lt;/span&gt;&amp;#123;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 遍历元素时使用，接受一个待处理元素，并对元素进行处理。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(Double i)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 通知sink没有元素进行处理了。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;default&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其中，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;begin()&lt;/code&gt;  方法，会调用每个 &lt;code&gt;Sink&lt;/code&gt;  子类的 &lt;code&gt;begin&lt;/code&gt;  方法。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;forEachRemaining()&lt;/code&gt;  方法对应的执行内容如下图:&lt;br&gt;
+&lt;img data-src=&#34;/images/java/jdk/stream/forEachRemaining%E6%96%B9%E6%B3%95.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;end()&lt;/code&gt;  方法，会调用每个 &lt;code&gt;Sink&lt;/code&gt;  字段的 &lt;code&gt;end&lt;/code&gt;  方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;书行至此。或许你会对  &lt;code&gt;forEachRemaining&lt;/code&gt;  方法感到好奇。后面我会写一篇文章来专门分享: 《 &lt;code&gt;Stream&lt;/code&gt;  的高级迭代器》, 希望你能继续关注支持我～&lt;/p&gt;
+&lt;h2 id=&#34;探法择&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#探法择&#34;&gt;#&lt;/a&gt; 探” 法 “择&lt;/h2&gt;
+&lt;p&gt;我们从一个案例出发，在细节之处分析了一个 &lt;code&gt;Stream&lt;/code&gt;  的执行过程。现在我们需要从全局来看一下  &lt;code&gt;Stream&lt;/code&gt;  的执行过程是什么样子的.&lt;/p&gt;
+&lt;p&gt;上文中我们知道了  &lt;code&gt;Stream&lt;/code&gt;  的 所有计算都是在 终止操作时 触发的。 所有的中间操作都是封装了一些对象。我们用一张图来描述下 &lt;code&gt;Stream&lt;/code&gt;  的执行过程。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/Stream%E9%80%BB%E8%BE%91%E6%B5%81%E7%A8%8B%E5%9B%BE.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stream&lt;/code&gt;  将创建的流做为第一个  &lt;code&gt;Stage&lt;/code&gt;  , 用来代表流的开始， 每个 &lt;code&gt;Stage&lt;/code&gt;  都是 &lt;code&gt;AbstractPipeline&lt;/code&gt;  的子类。 第一个 &lt;code&gt;Stage&lt;/code&gt;  是 &lt;code&gt;AbstractPipeline.Head&lt;/code&gt;  对象。&lt;/li&gt;
+&lt;li&gt;然后将中间操作封装成后面的 n 个  &lt;code&gt;stage&lt;/code&gt; . 并组成 双向链表的形式，并且存储了 &lt;code&gt;stage0&lt;/code&gt; . 每个 &lt;code&gt;Stage&lt;/code&gt;  都是 &lt;code&gt;StatelessOp&lt;/code&gt;  或者  &lt;code&gt;statefulOp&lt;/code&gt; .&lt;/li&gt;
+&lt;li&gt;终止操作通过 &lt;code&gt;wrapSink()&lt;/code&gt;  方法 会触发将 每个阶段的操作封装成  &lt;code&gt;Sink&lt;/code&gt; . 并且 &lt;code&gt;sink&lt;/code&gt;  都会做为参数传递到上一个阶段的 &lt;code&gt;opWrapSink()&lt;/code&gt;  方法中，从而组成一个  &lt;code&gt;sink&lt;/code&gt;  链表。&lt;/li&gt;
+&lt;li&gt;然后，通过  &lt;code&gt;copyInfo()&lt;/code&gt;  方法将，交于 &lt;code&gt;Spilterator&lt;/code&gt;  进行迭代。计算的结果可以分为四种
+&lt;ul&gt;
+&lt;li&gt;返回 &lt;code&gt;boolean&lt;/code&gt;  类型的结果：比如 &lt;code&gt;anyMatch()&lt;/code&gt;   &lt;code&gt;allMatch()&lt;/code&gt;   &lt;code&gt;noneMatch()&lt;/code&gt;  方法。&lt;/li&gt;
+&lt;li&gt;返回 &lt;code&gt;Optional&lt;/code&gt;  类型的结果： 比如 &lt;code&gt;findFirst()&lt;/code&gt;   &lt;code&gt;findAny()&lt;/code&gt;  方法&lt;/li&gt;
+&lt;li&gt;还有归约操作:	 &lt;code&gt;reduce()&lt;/code&gt;   &lt;code&gt;collect()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;返回数组的： &lt;code&gt;toArray()&lt;/code&gt; &lt;br&gt;
+ 对于表中返回 &lt;code&gt;boolean&lt;/code&gt;  或者 &lt;code&gt;Optional&lt;/code&gt;  的操作（ &lt;code&gt;Optional&lt;/code&gt;  是存放 一个 值的容器）的操作，由于值返回一个值，只需要在对应的 &lt;code&gt;Sink&lt;/code&gt;  中记录这个值，等到执行结束时返回就可以了。&lt;br&gt;
+对于归约操作，最终结果放在用户调用时指定的容器中（容器类型通过收集器指定）。 &lt;code&gt;collect()&lt;/code&gt; ,  &lt;code&gt;reduce()&lt;/code&gt; ,  &lt;code&gt;max()&lt;/code&gt; ,  &lt;code&gt;min()&lt;/code&gt;  都是归约操作，虽然 &lt;code&gt;max()&lt;/code&gt;  和 &lt;code&gt;min()&lt;/code&gt;  也是返回一个 &lt;code&gt;Optional&lt;/code&gt; ，但事实上底层是通过调用 &lt;code&gt;reduce()&lt;/code&gt;  方法实现的。&lt;br&gt;
+对于返回是数组的情况，毫无疑问的结果会放在数组当中。这么说当然是对的，但在最终返回数组之前，结果其实是存储在一种叫做 &lt;code&gt;Node&lt;/code&gt;  的数据结构中的。 &lt;code&gt;Node&lt;/code&gt;  是一种多叉树结构，元素存储在树的叶子当中，并且一个叶子节点可以存放多个元素。这样做是为了并行执行方便。关于  &lt;code&gt;Stream&lt;/code&gt;  的并行计算，我后面会继续分享。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;明道义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#明道义&#34;&gt;#&lt;/a&gt; 明 &amp;quot;道&amp;quot; 义&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;JDK&lt;/code&gt;  提供的  &lt;code&gt;Stream&lt;/code&gt;  具有如下特点:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无存储。 &lt;code&gt;stream&lt;/code&gt;  不是一种数据结构，它只是某种数据源的一个视图，数据源可以是一个数组， &lt;code&gt;Java&lt;/code&gt;  容器或 &lt;code&gt;I/O channel&lt;/code&gt;  等。&lt;/li&gt;
+&lt;li&gt;为函数式编程而生。对 &lt;code&gt;stream&lt;/code&gt;  的任何修改都不会修改背后的数据源，比如对 &lt;code&gt;stream&lt;/code&gt;  执行过滤操作并不会删除被过滤的元素，而是会产生一个不包含被过滤元素的新 &lt;code&gt;stream&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;惰式执行。 &lt;code&gt;stream&lt;/code&gt;  上的操作并不会立即执行，只有等到用户真正需要结果的时候才会执行。&lt;/li&gt;
+&lt;li&gt;可消费性。 &lt;code&gt;stream&lt;/code&gt;  只能被 “消费” 一次，一旦遍历过就会失效，就像容器的迭代器那样，想要再次遍历必须重新生成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在这一趴，我就围绕两个点来简单的聊聊。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;JDK8&lt;/code&gt;  为什么要加入  &lt;code&gt;Stream&lt;/code&gt; .&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;除了上面四个特点之外， &lt;code&gt;Java8&lt;/code&gt;  中的 &lt;code&gt;Stream&lt;/code&gt;  是对集合对象的增强，当然不仅仅是集合对象。 &lt;code&gt;Stream&lt;/code&gt;  为开发者提供了简洁的编码方式和编码风格，极大的提高了开发的效率。&lt;/p&gt;
+&lt;p&gt;另外一个更重要的点在于  &lt;code&gt;Stream&lt;/code&gt;  为我们下篇文章要分享的 &lt;b&gt; &lt;code&gt;Stream&lt;/code&gt;  并行计算流&lt;/b&gt; 提供了实现，请期待。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Stream&lt;/code&gt;  为什么要这么设计？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我这里给一份我的回答，这个问题也留给看文章的你，也希望能看到你的回答。&lt;/p&gt;
+&lt;p&gt;根据上文所说的内容， &lt;code&gt;Stream&lt;/code&gt;  体系是一组接口家族， &lt;code&gt;AbstractPipeline &lt;/code&gt; 是接口的实现， &lt;code&gt;PipelineHelper&lt;/code&gt;  是管道的辅助类， &lt;code&gt;StreamSupport&lt;/code&gt;  是流的底层工具类&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Stream&lt;/code&gt;  使用 &lt;code&gt;stage&lt;/code&gt;  来抽象流水线上的每个操作，其实每个 &lt;code&gt;stage&lt;/code&gt;  就是一个 &lt;code&gt;stream&lt;/code&gt;  子类的实例， 也就是 &lt;code&gt;AbstractPipeline&lt;/code&gt;  几个子类的内部子类即 &lt;code&gt;Head&lt;/code&gt;   &lt;code&gt;StatelessOp&lt;/code&gt;   &lt;code&gt;statefulOp&lt;/code&gt; ;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;StreamSupport&lt;/code&gt;  用于创建生成 &lt;code&gt;Stream&lt;/code&gt;  对应的是 &lt;code&gt;Head&lt;/code&gt;  类，其他的中间操作分为有状态和无状态的，中间操作通过方法比如  &lt;code&gt;filter&lt;/code&gt;   &lt;code&gt;map&lt;/code&gt;  等返回的是 &lt;code&gt;StatelessOp&lt;/code&gt;  或者  &lt;code&gt;statefulOp&lt;/code&gt; .  多个 &lt;code&gt;stage&lt;/code&gt;  组合称为双向链表的形式 从而成了整个流水线&lt;/p&gt;
+&lt;p&gt;有了流水线，相邻两个操作阶段之间如何协调运算？&lt;/p&gt;
+&lt;p&gt;于是又有了 &lt;code&gt;Sink&lt;/code&gt;  的概念，又来协调相邻的 &lt;code&gt;stage&lt;/code&gt;  之间计算运行&lt;/p&gt;
+&lt;p&gt;他的模式是 &lt;code&gt;begin&lt;/code&gt;    &lt;code&gt;accept&lt;/code&gt;   &lt;code&gt;end&lt;/code&gt;  还有短路标记&lt;/p&gt;
+&lt;p&gt;他的 &lt;code&gt;accept&lt;/code&gt;  就是封装了回调方法，所以说每个操作 &lt;code&gt;stage&lt;/code&gt; ,  &lt;code&gt;StatelessOp&lt;/code&gt;   或者  &lt;code&gt;statefulOp&lt;/code&gt;  中又封装了 &lt;code&gt;Sink&lt;/code&gt; . 通过 &lt;code&gt;AbstractPipeline&lt;/code&gt;  提供的 &lt;code&gt;opWrapSink&lt;/code&gt;  方法可以获取这个 &lt;code&gt;Sink&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;调用这个 &lt;code&gt;sink&lt;/code&gt;  的 &lt;code&gt;accept&lt;/code&gt;  方法就可以调用当前操作的方法&lt;/p&gt;
+&lt;p&gt;那么如何串联起来呢？&lt;/p&gt;
+&lt;p&gt;关键点在于 &lt;code&gt;opWrapSink&lt;/code&gt;  方法，他接收一个 &lt;code&gt;Sink&lt;/code&gt;  作为参数，在调用 &lt;code&gt;accept&lt;/code&gt;  方法中。可以调用这个入参 &lt;code&gt;Sink&lt;/code&gt;  的 &lt;code&gt;accept&lt;/code&gt;  方法&lt;/p&gt;
+&lt;p&gt;这样子从当前就能调用下一个，也就是说有了推动的动作。那么只需要找到开始，每个处理了之后都推动下一个，就顺序完成了所欲的操作了。&lt;/p&gt;
+&lt;h2 id=&#34;结语&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#结语&#34;&gt;#&lt;/a&gt; 结语&lt;/h2&gt;
+&lt;p&gt;通过看  &lt;code&gt;Stream&lt;/code&gt;  相关的知识点，发现一篇文章是没法讲清楚的。&lt;/p&gt;
+&lt;p&gt;这一次，我又果不其然的留下了两篇文章&lt;/p&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_0&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_0&#34;&gt;  &lt;code&gt;Stream&lt;/code&gt;  并行计算流&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_1&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_1&#34;&gt;  &lt;code&gt;Stream&lt;/code&gt;  的高级迭代器&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;请给我记代办～&lt;/p&gt;
+&lt;p&gt;在分享 &lt;code&gt;并行计算流&lt;/code&gt; 的时候，我们需要以  &lt;code&gt;JDK1.7&lt;/code&gt;  中的  &lt;code&gt;forkJoin&lt;/code&gt;  框架为前提，来分析  &lt;code&gt;Stream&lt;/code&gt;  的  &lt;code&gt;parallelStream&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;在分享 &lt;code&gt;迭代器&lt;/code&gt; 的时候，我们也会分析一下 &lt;code&gt;JDK&lt;/code&gt;  中提供的 普通迭代器，比如  &lt;code&gt;ForEach&lt;/code&gt; ,  &lt;code&gt;iterator&lt;/code&gt; , 以及 &lt;code&gt;Stream&lt;/code&gt;  的高级迭代器  &lt;code&gt;spliterator&lt;/code&gt; . 也会由浅入深的分析一下，各种迭代器的优缺点。 也会自定义实现一个迭代器。&lt;/p&gt;
+&lt;p&gt;敬请期待，防止走丢见文末。关注我，期望和你一起遇见更好的自己.&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/java/jdk/stream/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="Java" />
+        <category term="JDK" />
+        <category term="Stream" />
+        <updated>2021-08-23T15:13:55.000Z</updated>
+    </entry>
+</feed>

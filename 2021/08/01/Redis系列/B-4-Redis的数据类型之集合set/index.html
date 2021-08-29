@@ -1,0 +1,921 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Redis" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/">
+
+
+
+  <title>
+Redis 数据结构之集合 Set - Redis 数据库 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis 数据结构之集合 Set
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 18:28:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:28:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>10k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>9 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="item" rel="index" title="分类于 Redis 数据库"><span itemprop="name">Redis 数据库</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="书接上回"><a class="markdownIt-Anchor" href="#书接上回">#</a> 书接上回</h2>
+<p>前一篇文章，我们学习的是 <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">Redis 的数据结构之 hash</a>， 学习了其基本的操作和使用内部数据结构是 <code>hashtable</code>  和 <code>ziplist</code> ，其中 <code>Redis</code>  中的 <code>hashtable</code>  是用  <code>dict</code>  表示的。如果不记得了其内部构成，就再看看看着<a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">上篇文章</a>吧。现在我们继续学习下一个数据类型  <code>set</code> 。</p>
+<h2 id="set简介"><a class="markdownIt-Anchor" href="#set简介">#</a>  <code>set</code>  简介</h2>
+<p><code>Redis</code>  的  <code>set</code>  数据类型表示 一堆不重复值的集合。</p>
+<p><code>Redis</code>  的 <code>set</code>  数据类型有两种编码方式.  <code>OBJ_ENCODING_INTSET</code>  和  <code>OBJ_ENCODING_HT</code> .</p>
+<ul>
+<li>
+<p><code>OBJ_ENCODING_HT</code>  这种编码方式在上一篇文章 <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">07-Redis 的数据类型之 hash</a> 中已经简单的介绍过了。其实现的数据结构为  <code>dict</code> 。</p>
+</li>
+<li>
+<p><code>OBJ_ENCODING_INTSET</code> , 这种编码方式是我们要新学习的编码方式。 <a href="#intset">电梯直达</a></p>
+</li>
+</ul>
+<p>如果你看到这句话，那就说明你是一个特别认真的人。哈哈哈，我们还是先遵循惯例。先学习 <code>set</code>  类型相关的命令。</p>
+<h2 id="set类型的应用场景"><a class="markdownIt-Anchor" href="#set类型的应用场景">#</a>  <code>set</code>  类型的应用场景</h2>
+<ul>
+<li>社交系统中存储关注信息，点赞信息，利用交并差运算，计算共同好友等业务中。比如 <code>qq</code>  的好友推荐逻辑，就可以使用差集运算。</li>
+<li>需要去重的业务逻辑中。某一时间端内系统的增长人数。</li>
+<li>统计访问网站的独立 <code>IP</code> 。</li>
+</ul>
+<h2 id="set的基本命令"><a class="markdownIt-Anchor" href="#set的基本命令">#</a>  <code>set</code>  的基本命令</h2>
+<h3 id="sadd"><a class="markdownIt-Anchor" href="#sadd">#</a>  <code>sadd</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SADD key member [member ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set add</code></p>
+<p>将一个或多个  <code>member</code>  元素加入到集合  <code>key</code>  当中，已经存在于集合的  <code>member</code>  元素将被忽略。</p>
+<p>假如  <code>key</code>  不存在，则创建一个只包含  <code>member</code>  元素作成员的集合。</p>
+<p>当  <code>key</code>  不是集合类型时，返回一个错误。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd k52 mem1 mem2 </span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; sadd k52 mem1 </span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; sadd k52 mem1 mem3</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+<h3 id="smembers"><a class="markdownIt-Anchor" href="#smembers">#</a>  <code>smembers</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SMEMBERS key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set members</code></p>
+<p>返回集合  <code>key</code>  中的所有成员。</p>
+<p>不存在的  <code>key</code>  被视为空集合</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询元素， 注意保存是无序的.</span></span><br><span class="line">127.0.0.1:6379&gt; SADD k53 m1 m2 m3 m4 m5</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k53</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">4) <span class="string">&quot;m1&quot;</span></span><br><span class="line">5) <span class="string">&quot;m5&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sismember"><a class="markdownIt-Anchor" href="#sismember">#</a>  <code>sismember</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SISMEMBER key member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set is members</code></p>
+<p>判断  <code>member</code>  元素是否集合  <code>key</code>  的成员。</p>
+<p>如果  <code>member</code>  元素是集合的成员，返回  <code>1</code>  。 如果  <code>member</code>  元素不是集合的成员，或  <code>key</code>  不存在，返回  <code>0</code></p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k54 m1 m2 m3 m4</span><br><span class="line">(<span class="built_in">integer</span>) 4</span><br><span class="line">127.0.0.1:6379&gt; SISMEMBER k54 m2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; SISMEMBER k54 m5</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure>
+<h3 id="spop"><a class="markdownIt-Anchor" href="#spop">#</a>  <code>spop</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SPOP key [count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set pop</code></p>
+<p>移除并返回集合中的 <b>随机一个</b> 元素。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k55 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 随机移除一个元素</span></span><br><span class="line">127.0.0.1:6379&gt; spop k55</span><br><span class="line"><span class="string">&quot;m9&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; spop k55</span><br><span class="line"><span class="string">&quot;m2&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; spop k55</span><br><span class="line"><span class="string">&quot;m3&quot;</span></span><br><span class="line"><span class="comment"># 随机移除3个元素</span></span><br><span class="line">127.0.0.1:6379&gt; spop k55 3</span><br><span class="line">1) <span class="string">&quot;m5&quot;</span></span><br><span class="line">2) <span class="string">&quot;m4&quot;</span></span><br><span class="line">3) <span class="string">&quot;m10&quot;</span></span><br><span class="line"><span class="comment"># 查看所有元素</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k55</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;m7&quot;</span></span><br><span class="line">3) <span class="string">&quot;m8&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="srandmemeber"><a class="markdownIt-Anchor" href="#srandmemeber">#</a>  <code>srandmemeber</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SRANDMEMBER key [count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set rand member</code></p>
+<p>返回集合中的 随机  <code>count</code>  个元素 (不会删除元素)</p>
+<p>如果  <code>count</code>  为正数，且小于集合基数，那么命令返回一个包含  <code>count</code>  个元素的数组，数组中的元素各不相同。如果  <code>count</code>  大于等于集合基数，那么返回整个集合。</p>
+<p>如果  <code>count</code>  为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为  <code>count</code>  的绝对值。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k56 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 随机返回一个元素</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 </span><br><span class="line"><span class="string">&quot;m1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 </span><br><span class="line"><span class="string">&quot;m9&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 </span><br><span class="line"><span class="string">&quot;m5&quot;</span></span><br><span class="line"><span class="comment"># count是正数，小于集合的元素数,返回count个元素，无重复元素</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 5</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;m1&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m3&quot;</span></span><br><span class="line"><span class="comment"># count是正数，大于集合的元素数,返回整个集合</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 20</span><br><span class="line"> 1) <span class="string">&quot;m5&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m4&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;m8&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m7&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;m1&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m10&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;m3&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m2&quot;</span></span><br><span class="line">10) <span class="string">&quot;m9&quot;</span></span><br><span class="line"><span class="comment"># count为负数， 返回20个集合中的元素，元素会重复</span></span><br><span class="line">127.0.0.1:6379&gt; SRANDMEMBER k56 -20</span><br><span class="line"> 1) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 2) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 3) <span class="string">&quot;m9&quot;</span></span><br><span class="line"> 4) <span class="string">&quot;m7&quot;</span></span><br><span class="line"> 5) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 6) <span class="string">&quot;m5&quot;</span></span><br><span class="line"> 7) <span class="string">&quot;m6&quot;</span></span><br><span class="line"> 8) <span class="string">&quot;m9&quot;</span></span><br><span class="line"> 9) <span class="string">&quot;m1&quot;</span></span><br><span class="line">10) <span class="string">&quot;m6&quot;</span></span><br><span class="line">11) <span class="string">&quot;m1&quot;</span></span><br><span class="line">12) <span class="string">&quot;m9&quot;</span></span><br><span class="line">13) <span class="string">&quot;m2&quot;</span></span><br><span class="line">14) <span class="string">&quot;m1&quot;</span></span><br><span class="line">15) <span class="string">&quot;m2&quot;</span></span><br><span class="line">16) <span class="string">&quot;m5&quot;</span></span><br><span class="line">17) <span class="string">&quot;m9&quot;</span></span><br><span class="line">18) <span class="string">&quot;m2&quot;</span></span><br><span class="line">19) <span class="string">&quot;m4&quot;</span></span><br><span class="line">20) <span class="string">&quot;m6&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="srem"><a class="markdownIt-Anchor" href="#srem">#</a>  <code>srem</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SREM key member [member ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set remove</code></p>
+<p>移除集合  <code>key</code>  中的一个或多个  <code>member</code>  元素，不存在的  <code>member</code>  元素会被忽略。</p>
+<p>当  <code>key</code>  不是集合类型，返回一个错误。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k57 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; SREM k57 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k57</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;m8&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m4&quot;</span></span><br><span class="line">6) <span class="string">&quot;m10&quot;</span></span><br><span class="line">7) <span class="string">&quot;m9&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SREM k57 m11 m12</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure>
+<h3 id="smove"><a class="markdownIt-Anchor" href="#smove">#</a>  <code>smove</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SMOVE source destination member</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set move</code></p>
+<p>将  <code>member</code>  元素从  <code>source</code>  集合移动到  <code>destination</code>  集合。</p>
+<p><b> <code>SMOVE</code>  是原子性操作</b>。</p>
+<p>如果  <code>source</code>  集合不存在或不包含指定的  <code>member</code>  元素，则  <code>SMOVE</code>  命令不执行任何操作，仅返回  <code>0</code>  。否则，  <code>member</code>  元素从  <code>source</code>  集合中被移除，并添加到  <code>destination</code>  集合中去。</p>
+<p>当  <code>destination</code>  集合已经包含  <code>member</code>  元素时，  <code>SMOVE</code>  命令只是简单地将  <code>source</code>  集合中的  <code>member</code>  元素删除。</p>
+<p>当  <code>source</code>  或  <code>destination</code>  不是集合类型时，返回一个错误。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k58 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 移动两个元素到k58_dis</span></span><br><span class="line">127.0.0.1:6379&gt; SMOVE k58 k58_dis m1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; SMOVE k58 k58_dis m2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; SMOVE k58 k58_dis m1</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line"><span class="comment"># k58中的m1，m2 已被移除。</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k58</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;m8&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m4&quot;</span></span><br><span class="line">6) <span class="string">&quot;m10&quot;</span></span><br><span class="line">7) <span class="string">&quot;m3&quot;</span></span><br><span class="line">8) <span class="string">&quot;m9&quot;</span></span><br><span class="line"><span class="comment"># k58_dis中的m1,m2</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k58_dis</span><br><span class="line">1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">2) <span class="string">&quot;m1&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="scard"><a class="markdownIt-Anchor" href="#scard">#</a>  <code>scard</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SCARD key</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>返回集合  <code>key</code>  的基数 (集合中元素的数量)。<br>
+集合的基数。 当  <code>key</code>  不存在时，返回  <code>0</code></p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k59 m1 m2 m3 m4 m5 m6 m7 m8 m9 m10</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line"><span class="comment"># 获取元素个数</span></span><br><span class="line">127.0.0.1:6379&gt; SCARD k59</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br></pre></td></tr></table></figure>
+<h3 id="sinter"><a class="markdownIt-Anchor" href="#sinter">#</a>  <code>sinter</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code> SINTER key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set intersection</code>  :  <code>set</code>  的交集</p>
+<p>返回一个集合的全部成员，该集合是所有给定集合的交集。</p>
+<p>不存在的  <code>key</code>  被视为空集。</p>
+<p>当给定集合当中有一个空集时，结果也为空集 (根据集合运算定律)。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k60_1 m1 m2 m3 m4 m5 </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SADD k60_2 m2 m3 m4 m5 m6</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SADD k60_3 m4 m5 m6 m7 m8</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line"><span class="comment"># 指定了一个key，返回集合的所有元素</span></span><br><span class="line">127.0.0.1:6379&gt; SINTER k60_1</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">4) <span class="string">&quot;m1&quot;</span></span><br><span class="line">5) <span class="string">&quot;m5&quot;</span></span><br><span class="line"><span class="comment"># 多个key的时候，返回集合的交集。</span></span><br><span class="line">127.0.0.1:6379&gt; SINTER k60_1 k60_2</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">4) <span class="string">&quot;m5&quot;</span></span><br><span class="line"><span class="comment"># 多个key的时候，返回集合的交集。</span></span><br><span class="line">127.0.0.1:6379&gt; SINTER k60_1 k60_2 k60_3</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m5&quot;</span></span><br><span class="line"><span class="comment"># k60_4不存在，为空集</span></span><br><span class="line">127.0.0.1:6379&gt; SINTER k60_1 k60_4</span><br><span class="line">(empty list or <span class="built_in">set</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="sinterstore"><a class="markdownIt-Anchor" href="#sinterstore">#</a>  <code>sinterstore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SINTERSTORE destination key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set intersection and store</code></p>
+<p>这个命令类似于 SINTER key [key …] 命令，返回集合的交集。但它将结果保存到 destination 集合，而不是简单地返回结果集。</p>
+<p>如果 destination 集合已经存在，则将其覆盖。</p>
+<p>destination 可以是 key 本身。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k61_1 m1 m2 m3 m4 m5</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SADD k61_2 m4 m5 m6 m7 m8</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line"><span class="comment"># 将k61_1 和 k61_2 集合的交集存储到k61_dis中</span></span><br><span class="line">127.0.0.1:6379&gt; SINTERSTORE k61_dis k61_1 k61_2</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line"><span class="comment"># 查看 k61_dis</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k61_dis</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m5&quot;</span></span><br><span class="line"><span class="comment"># k61_1 和 k61_2 没有变化</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k61_1</span><br><span class="line">1) <span class="string">&quot;m4&quot;</span></span><br><span class="line">2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">4) <span class="string">&quot;m1&quot;</span></span><br><span class="line">5) <span class="string">&quot;m5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k61_2</span><br><span class="line">1) <span class="string">&quot;m7&quot;</span></span><br><span class="line">2) <span class="string">&quot;m8&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m4&quot;</span></span><br><span class="line"><span class="comment"># 如果目标集合(k61_dis)存在，元素会被覆盖掉。</span></span><br><span class="line">127.0.0.1:6379&gt; SADD k61_3 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SINTERSTORE k61_dis k61_1 k61_3</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k61_dis</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;m2&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sunion"><a class="markdownIt-Anchor" href="#sunion">#</a>  <code>sunion</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SUNION key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set union</code></p>
+<p>返回一个集合的全部成员，如果是多个集合 (key), 返回所有给定集合的并集。</p>
+<p>不存在的 key 被视为空集。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k62_1 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SADD k62_2 m2 m3 m4 m5 m6 </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line"><span class="comment"># 一个key，返回整个集合。</span></span><br><span class="line">127.0.0.1:6379&gt; SUNION k62_1</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">2) <span class="string">&quot;m2&quot;</span></span><br><span class="line">3) <span class="string">&quot;m3&quot;</span></span><br><span class="line"><span class="comment"># 多个key，返回并集</span></span><br><span class="line">127.0.0.1:6379&gt; SUNION k62_1 k62_2</span><br><span class="line">1) <span class="string">&quot;m3&quot;</span></span><br><span class="line">2) <span class="string">&quot;m1&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m2&quot;</span></span><br><span class="line">6) <span class="string">&quot;m4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sunionstore"><a class="markdownIt-Anchor" href="#sunionstore">#</a>  <code>sunionstore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SUNIONSTORE destination key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set union and store</code></p>
+<p>同 SINTERSTORE , 只不过存储的是并集的结果。 将多个集合的并集存储到 distination 中。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k63_1 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SADD k63_2 m2 m3 m4 m5 m6 </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SUNIONSTORE k63_dis k62_1 k62_2</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k63_dis</span><br><span class="line">1) <span class="string">&quot;m3&quot;</span></span><br><span class="line">2) <span class="string">&quot;m1&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br><span class="line">4) <span class="string">&quot;m6&quot;</span></span><br><span class="line">5) <span class="string">&quot;m2&quot;</span></span><br><span class="line">6) <span class="string">&quot;m4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sdiff"><a class="markdownIt-Anchor" href="#sdiff">#</a>  <code>sdiff</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SDIFF key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set difference</code></p>
+<p>如果指定一个集合， <code>key</code> ，返回一个集合的全部成员，</p>
+<p>如果指定了多个集合 ( <code>key</code> ), 则返回 所有给定集合之间的差集。</p>
+<p>不存在的  <code>key</code>  被视为空集。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k64_1 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SADD k64_2 m2 m3 m4 m5 m6 </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line"><span class="comment"># 返回 k64_1 - k64_2</span></span><br><span class="line">127.0.0.1:6379&gt; SDIFF k64_1 k64_2</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line"><span class="comment"># 返回 k64_2 - k64_1</span></span><br><span class="line">127.0.0.1:6379&gt; SDIFF k64_2 k64_1</span><br><span class="line">1) <span class="string">&quot;m6&quot;</span></span><br><span class="line">2) <span class="string">&quot;m4&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sdiffstore"><a class="markdownIt-Anchor" href="#sdiffstore">#</a>  <code>sdiffstore</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SDIFFSTORE destination key [key ...]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p>将集合的差集存储到  <code>destination</code>  集合中.</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SADD k65_1 m1 m2 m3 </span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SADD k65_2 m2 m3 m4 m5 m6 </span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; SDIFFSTORE k65_dis_1 k65_1 k65_2</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k65_dis_1</span><br><span class="line">1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SDIFFSTORE k65_dis_2 k65_2 k65_1</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; SMEMBERS k65_dis_2</span><br><span class="line">1) <span class="string">&quot;m6&quot;</span></span><br><span class="line">2) <span class="string">&quot;m4&quot;</span></span><br><span class="line">3) <span class="string">&quot;m5&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="sscan"><a class="markdownIt-Anchor" href="#sscan">#</a>  <code>sscan</code></h3>
+<ul>
+<li>语法</li>
+</ul>
+<p><code>SSCAN key cursor [MATCH pattern] [COUNT count]</code></p>
+<ul>
+<li>解释</li>
+</ul>
+<p><code>set scan</code></p>
+<p>这是一个查询命令。 同  <code>SCAN</code>  命令。可以参考这篇文章 <a href="./010-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4.md">010 - 其他命令</a></p>
+<p><code>SCAN</code>  命令是一个基于游标的迭代器（ <code>cursor based iterator</code> ）：  <code>SCAN</code>  命令每次被调用之后， 都会向用户返回一个新的游标， 用户在下次迭代时需要使用这个新游标作为  <code>SCAN</code>  命令的游标参数， 以此来延续之前的迭代过程。</p>
+<ul>
+<li>演示</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SSCAN k66 1</span><br><span class="line">1) <span class="string">&quot;0&quot;</span></span><br><span class="line">2) 1) <span class="string">&quot;m1&quot;</span></span><br><span class="line">   2) <span class="string">&quot;m3&quot;</span></span><br><span class="line">   3) <span class="string">&quot;m2&quot;</span></span><br><span class="line">   4) <span class="string">&quot;m4&quot;</span></span><br><span class="line">   5) <span class="string">&quot;m5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SSCAN k66 0</span><br><span class="line">1) <span class="string">&quot;0&quot;</span></span><br><span class="line">2) 1) <span class="string">&quot;m6&quot;</span></span><br><span class="line">   2) <span class="string">&quot;m1&quot;</span></span><br><span class="line">   3) <span class="string">&quot;m3&quot;</span></span><br><span class="line">   4) <span class="string">&quot;m2&quot;</span></span><br><span class="line">   5) <span class="string">&quot;m4&quot;</span></span><br><span class="line">   6) <span class="string">&quot;m5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; SSCAN k66 1 MATCH m2 Count 10</span><br><span class="line">1) <span class="string">&quot;0&quot;</span></span><br><span class="line">2) 1) <span class="string">&quot;m2&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+<h2 id="set的内部结构"><a class="markdownIt-Anchor" href="#set的内部结构">#</a>  <code>set</code>  的内部结构</h2>
+<p>在 t_set.c 这个文件中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">robj *<span class="title">setTypeCreate</span><span class="params">(sds value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">isSdsRepresentableAsLongLong</span>(value,<span class="literal">NULL</span>) == C_OK)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">createIntsetObject</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">createSetObject</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>表明， <code>set</code>  数据类型是由两种数据结构来实现的。</p>
+<p>而在  <code>createSetObject()</code> ，指明了其编码方式是  <code>OBJ_ENCODING_HT</code> , 即哈希表的方式，也就是使用 dict 这种数据结构来存储的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">robj *<span class="title">createSetObject</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    dict *d = <span class="built_in">dictCreate</span>(&amp;setDictType, <span class="literal">NULL</span>);</span><br><span class="line">    robj *o = <span class="built_in">createObject</span>(OBJ_SET, d);</span><br><span class="line">    o-&gt;encoding = OBJ_ENCODING_HT;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="hashtable"><a class="markdownIt-Anchor" href="#hashtable">#</a>  <code>hashtable</code></h3>
+<p>这里就不赘述了。直接上<a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/">穿梭机</a>吧。</p>
+<h3 id="intset"><a class="markdownIt-Anchor" href="#intset">#</a> intset</h3>
+<p>在 <code>createIntsetObject()</code>  中指明了使用的编码方式是  <code>OBJ_ENCODING_INTSET</code> . 如下。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">robj *<span class="title">createIntsetObject</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    intset *is = <span class="built_in">intsetNew</span>();</span><br><span class="line">    robj *o = <span class="built_in">createObject</span>(OBJ_SET, is);</span><br><span class="line">    o-&gt;encoding = OBJ_ENCODING_INTSET;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来看看  <code>intset</code>  到底什么何方利器.</p>
+<p>我直接全项目搜索:  <code>intset</code>  ，就找到了  <code>intset.h</code> .</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding; </span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure>
+<h4 id="字段解释"><a class="markdownIt-Anchor" href="#字段解释">#</a> 字段解释:</h4>
+<ul>
+<li><code>encoding</code> : 数据编码，表示 <code>intset</code>  中的每个数据元素用几个字节来存储。它有三种可能的取值： <code>INTSET_ENC_INT16</code>  表示每个元素用 <code>2</code>  个字节存储， <code>INTSET_ENC_INT32</code>  表示每个元素用 <code>4</code>  个字节存储， <code>INTSET_ENC_INT64</code>  表示每个元素用 <code>8</code>  个字节存储。因此， <code>intset</code>  中存储的整数最多只能占用 <code>64bit</code> 。</li>
+<li><code>length</code> : 表示 <code>intset</code>  中的元素个数。 <code>encoding</code>  和 <code>length</code>  两个字段构成了 <code>intset</code>  的头部（ <code>header</code> ）。</li>
+<li><code>contents</code> : 是一个柔性数组（ <code>flexible array member</code> ），表示 <code>intset</code>  的 <code>header</code>  后面紧跟着数据元素。这个数组的总长度（即总字节数）等于 <code>encoding * length</code> 。柔性数组在 <code>Redis</code>  的很多数据结构的定义中都出现过（例如 <code>sds</code> ,  <code>quicklist</code> ,  <code>skiplist</code> ），用于表达一个偏移量。 <code>contents</code>  需要单独为其分配空间，这部分内存不包含在 <code>intset</code>  结构当中。</li>
+</ul>
+<p>这里有个问题.</p>
+<p>Redis 是如何决定一个 set 使用哪种编码方式的呢？</p>
+<p>set 的编码是由第一个元素决定的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">robj *<span class="title">setTypeCreate</span><span class="params">(sds value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">isSdsRepresentableAsLongLong</span>(value,<span class="literal">NULL</span>) == C_OK)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">createIntsetObject</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">createSetObject</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isSdsRepresentableAsLongLong</span><span class="params">(sds s, <span class="keyword">long</span> <span class="keyword">long</span> *llval)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">string2ll</span>(s, <span class="built_in">sdslen</span>(s), llval) ? C_OK : C_ERR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果  <code>value</code>  可以转换成  <code>long long</code>  类型的话，就使用  <code>inset</code>  编码方式。</p>
+<p>通过看源码发现:</p>
+<p>当 <code>intset</code>  的元素个数超过  <code>set_max_intset_entries</code>  这个配置的时候，就会从 <code>intset</code>  编码 ( <code>OBJ_ENCODING_INTSET</code> ) 转换成  <code>ht</code>  编码 ( <code>OBJ_ENCODING_HT</code> )。</p>
+<p>这个我们会在后续文章中说明这里的方案。</p>
+<p>好了，关于 set 类型的介绍就到这里了。</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h2>
+<ul>
+<li><code>set</code>  这种类型是一种无重复元素的集合。</li>
+<li><code>set</code>  的业务场景关键字：去重，交并差运算。但是一定是无序的。如果要求有序的话，那就 <a href="./09-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset.md">下一篇文章  zset</a> ~</li>
+<li><code>set</code>  的  <code>15</code>  个命令，务必熟记！！！</li>
+<li><code>set</code>  的内部编码方式。哈希表编码和 <code>intset</code>  编码。后面会有 关于  <code>intset</code>  数据结构的详细介绍的文章～</li>
+</ul>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-19 12:39:12" itemprop="dateModified" datetime="2021-08-19T12:39:12+08:00">2021-08-19</time>
+  </span>
+  <span id="2021/08/01/Redis系列/B-4-Redis的数据类型之集合set/" class="item leancloud_visitors" data-flag-title="Redis 数据结构之集合 Set" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis 数据结构之集合 Set">https://fangjiaxiaobai.github.io/2021/08/01/Redis系列/B-4-Redis的数据类型之集合set/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicli3sbvtj20zk0m8x6p.jpg" title="Redis数据结构之 Hash">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之 Hash</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclj9410cj20zk0m8h12.jpg" title="Redis数据结构之有序集合 zset">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
+  <h3>Redis数据结构之有序集合 zset</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E6%8E%A5%E4%B8%8A%E5%9B%9E"><span class="toc-number">1.</span> <span class="toc-text"> 书接上回</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">  set  简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">  set  类型的应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">  set  的基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sadd"><span class="toc-number">4.1.</span> <span class="toc-text">  sadd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#smembers"><span class="toc-number">4.2.</span> <span class="toc-text">  smembers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sismember"><span class="toc-number">4.3.</span> <span class="toc-text">  sismember</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spop"><span class="toc-number">4.4.</span> <span class="toc-text">  spop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#srandmemeber"><span class="toc-number">4.5.</span> <span class="toc-text">  srandmemeber</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#srem"><span class="toc-number">4.6.</span> <span class="toc-text">  srem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#smove"><span class="toc-number">4.7.</span> <span class="toc-text">  smove</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scard"><span class="toc-number">4.8.</span> <span class="toc-text">  scard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sinter"><span class="toc-number">4.9.</span> <span class="toc-text">  sinter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sinterstore"><span class="toc-number">4.10.</span> <span class="toc-text">  sinterstore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sunion"><span class="toc-number">4.11.</span> <span class="toc-text">  sunion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sunionstore"><span class="toc-number">4.12.</span> <span class="toc-text">  sunionstore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdiff"><span class="toc-number">4.13.</span> <span class="toc-text">  sdiff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sdiffstore"><span class="toc-number">4.14.</span> <span class="toc-text">  sdiffstore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sscan"><span class="toc-number">4.15.</span> <span class="toc-text">  sscan</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">  set  的内部结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hashtable"><span class="toc-number">5.1.</span> <span class="toc-text">  hashtable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#intset"><span class="toc-number">5.2.</span> <span class="toc-text"> intset</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E8%A7%A3%E9%87%8A"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 字段解释:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">7.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" rel="bookmark" title="Redis 开篇 & 说明">Redis 开篇 & 说明</a></li><li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" rel="bookmark" title="Redis 开篇杂谈">Redis 开篇杂谈</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="bookmark" title="Redis的单机部署">Redis的单机部署</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" rel="bookmark" title="Redis 简介">Redis 简介</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="bookmark" title="Redis 多个数据库">Redis 多个数据库</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" rel="bookmark" title="Redis数据结构之 String">Redis数据结构之 String</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="bookmark" title="Redis数据结构之 List">Redis数据结构之 List</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="bookmark" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></li><li class="active"><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="bookmark" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="bookmark" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="bookmark" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" rel="bookmark" title="Redis数据结构之 `HyperLogLogs`">Redis数据结构之 `HyperLogLogs`</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="bookmark" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" rel="bookmark" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">39</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">20</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
+</div>
+
+    <span><a href="/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/" title="雪花算法">雪花算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">202k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/01/Redis系列/B-4-Redis的数据类型之集合set/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

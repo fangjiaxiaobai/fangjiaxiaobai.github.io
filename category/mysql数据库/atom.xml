@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fangjiaxiaobai.github.io</id>
+    <title>方家小白 • Posts by &#34;mysql数据库&#34; category</title>
+    <link href="https://fangjiaxiaobai.github.io" />
+    <updated>2021-07-24T06:48:55.000Z</updated>
+    <category term="源码" />
+    <category term="目录" />
+    <category term="leetCode" />
+    <category term="数据结构" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="MySQL" />
+    <category term="git" />
+    <category term="Redis" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="HashMap" />
+    <category term="String" />
+    <category term="OOM" />
+    <category term="JVM" />
+    <category term="Java" />
+    <category term="JDK" />
+    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/</id>
+        <title>MySQL数据库的版本</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/"/>
+        <content type="html">&lt;h2 id=&#34;mysql数据库的版本&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#mysql数据库的版本&#34;&gt;#&lt;/a&gt;  &lt;code&gt;MySQL&lt;/code&gt;  数据库的版本&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;mysql-5.0&lt;/code&gt;   :   &lt;code&gt;mysql-5.0&lt;/code&gt;  版本之前， &lt;code&gt;myisam&lt;/code&gt;  默认支持的表大小为 &lt;code&gt;4G&lt;/code&gt; 。从 &lt;code&gt;mysql-5.0&lt;/code&gt;  以后， &lt;code&gt;MyISAM&lt;/code&gt;  默认支持 &lt;code&gt;256T&lt;/code&gt;  的表单数据。 &lt;code&gt;myisam&lt;/code&gt;  只缓存索引数据。  &lt;code&gt;2005&lt;/code&gt;  年的 &lt;code&gt;5.0&lt;/code&gt;  版本又添加了存储过程、服务端游标、触发器、查询优化以及分布式事务功能。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;MySQL5.1&lt;/code&gt;   :   &lt;code&gt;2008&lt;/code&gt;  年发布的 &lt;code&gt;MySQL 5.1&lt;/code&gt;  的版本，基本上就是一个增加了崩溃恢复功能的 &lt;code&gt;MyISAM&lt;/code&gt; ，使用表级锁，但可以做到读写不冲突，即在进行任何类型的更新操作的同时都可以进行读操作，但多个写操作不能并发。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mysql5.5&lt;/code&gt;  :   &lt;code&gt;2010&lt;/code&gt;  年 &lt;code&gt;12&lt;/code&gt;  月发布 &lt;code&gt;mysql5.5&lt;/code&gt;  版本默认存储引擎更改为 &lt;code&gt;InnoDB&lt;/code&gt;  多个回滚段（ &lt;code&gt;Multiple Rollback Segments&lt;/code&gt; ）, 之前的 &lt;code&gt;innodb&lt;/code&gt;  版本最大能处理 &lt;code&gt;1023&lt;/code&gt;  个并发处理操作，现在 &lt;code&gt;mysql5.5&lt;/code&gt;  可以处理高达 128K 的并发事务，改善事务处理中的元数据锁定。例如，事物中一个语句需要锁一个表，会在事物结束时释放这个表，而不是像以前在语句结束时释放表。 增加了 &lt;code&gt;INFORMATION_SCHEMA&lt;/code&gt;  表，新的表提供了与 InnoDB 压缩和事务处理锁定有关的具体信息。&lt;/p&gt;
+&lt;h3 id=&#34;mysql56&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#mysql56&#34;&gt;#&lt;/a&gt; mysql5.6&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;2013&lt;/code&gt;  年 &lt;code&gt;2&lt;/code&gt;  月发布。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;安全性进行了加强。用户的账号和密码进行了更强的加密算法，使用 &lt;code&gt;sha256_passwordSHA-256&lt;/code&gt;  密码哈希的身份验证插件来进行加密。 &lt;code&gt;mysql.user&lt;/code&gt;  表中新增了 &lt;code&gt;password_expired&lt;/code&gt;  字段，过期后，所有连接的执行都会报出异常。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;MySQL Server&lt;/code&gt;  的参数默认值进行了更改。如下图所示:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/MySQL%E7%B3%BB%E5%88%97/10101-MySQL5.6Server%E7%AB%AF%E5%8F%82%E6%95%B0%E4%BF%AE%E6%94%B9%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC.png&#34; alt=&#34;10101-MySQL5.6Server端参数修改的默认值.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;mysql5.6&lt;/code&gt;  版本中 &lt;code&gt;InnoDB&lt;/code&gt;  可以限制大量表打开的时候内存占用过多的问题 &lt;code&gt;InnoDB&lt;/code&gt;  性能加强。如大内存优化等 &lt;code&gt;InnoDB&lt;/code&gt;  死锁信息可以记录到  &lt;code&gt;error&lt;/code&gt;  日志，&lt;br&gt;
+&lt;b&gt; &lt;code&gt;InnoDB&lt;/code&gt;  引擎也支持了 &lt;code&gt;FULLTEXT&lt;/code&gt;  索引&lt;/b&gt;。并使用 &lt;code&gt;MATCH() ... AGAINST&lt;/code&gt;  语法查询它们。 &lt;code&gt;ALTER TABLE &lt;/code&gt; 在不复制表，不阻止对表的插入，更新和删除或两者都不进行的情况下，可以执行多种操作。&lt;b&gt; &lt;code&gt;InnoDB&lt;/code&gt;  使用更快的新算法来检测 死锁&lt;/b&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分区功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分区的最大数量增加到 &lt;code&gt;8192&lt;/code&gt; 。此数量包括表的所有分区和所有子分区。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复制和日志记录&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MySQL&lt;/code&gt;  现在支持使用全局事务标识符（也称为  &lt;code&gt;GTID&lt;/code&gt; ）进行基于事务的复制 。这样，当每个事务在原始服务器上提交并被任何从属服务器应用时，就可以识别和跟踪每个事务。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MySQL&lt;/code&gt;  基于行的复制从该版本开始支持行图像控制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;优化器增强功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;limit&lt;/code&gt;  查询进行了优化，如果 &lt;code&gt;N&lt;/code&gt;  行元素小于排序缓冲区，那么就使用内存排序而不是合并文件。&lt;/li&gt;
+&lt;li&gt;优化器可以更有效地处理 &lt;code&gt;FROM&lt;/code&gt;  子句中的子查询 （即派生表）。FROM 子句中子查询的实现 被推迟到查询执行期间需要其内容时为止，从而提高了性能。在查询执行期间，优化器可以将索引添加到派生表中，以加快从中获取行的速度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据类型&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MySQL&lt;/code&gt;  从 &lt;code&gt;5.6&lt;/code&gt;  开始允许 &lt;code&gt;TIME&lt;/code&gt; ， &lt;code&gt;DATETIME&lt;/code&gt;  和 &lt;code&gt;TIMESTAMP&lt;/code&gt;  值的小数秒，精度高达微秒（ &lt;code&gt;6&lt;/code&gt;  位）。
+&lt;ul&gt;
+&lt;li&gt;取消了每个表最多可以自动将 &lt;code&gt;TIMESTAMP&lt;/code&gt;  列初始化或更新为当前日期和时间的限制。任何 &lt;code&gt;TIMESTAMP&lt;/code&gt;  列定义都可以具有 &lt;code&gt;DEFAULT CURRENT_TIMESTAMP&lt;/code&gt;  和 &lt;code&gt;ON UPDATE CURRENT_TIMESTAMP&lt;/code&gt;  子句的任意组合。此外，这些子句现在可以与 DATETIME 列定义一起使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;主机缓存。&lt;br&gt;
+ &lt;code&gt;MySQL&lt;/code&gt;  现在提供有关客户端连接到服务器时发生错误的原因的更多信息，以及对主机缓存的改进访问，该缓存包含客户端 &lt;code&gt;IP&lt;/code&gt;  地址和主机名信息，用于避免 &lt;code&gt;DNS&lt;/code&gt;  查找。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mysql57&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#mysql57&#34;&gt;#&lt;/a&gt; mysql5.7&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将  &lt;code&gt;Undo&lt;/code&gt;  从共享表空间  &lt;code&gt;ibdata&lt;/code&gt;  文件中分离出来，可以在安装  &lt;code&gt;MySQL&lt;/code&gt;  时由用户自行指定文件大小和数量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增加了  &lt;code&gt;temporary&lt;/code&gt;  临时表空间，里面存储着临时表或临时查询结果集的数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Buffer Pool&lt;/code&gt;  大小可以动态修改，无需重启数据库实例，这是  &lt;code&gt;DBA&lt;/code&gt;  的福音。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mysql-80-版本新特性如下&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#mysql-80-版本新特性如下&#34;&gt;#&lt;/a&gt; MySQL 8.0 版本新特性如下：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将  &lt;code&gt;InnoDB&lt;/code&gt;  表的数据字典和  &lt;code&gt;Undo&lt;/code&gt;  都从共享表空间  &lt;code&gt;ibdata&lt;/code&gt;  中彻底分离出来了，以前需要 &lt;code&gt;ibdata&lt;/code&gt;  文件中数据字典与独立表空间  &lt;code&gt;ibd&lt;/code&gt;  文件中数据字典一致才行， &lt;code&gt;8.0&lt;/code&gt;  版本就不需要了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;temporary&lt;/code&gt;  临时表空间也可以配置多个物理文件，而且均为  &lt;code&gt;InnoDB&lt;/code&gt;  存储引擎并能创建索引，这样加快了处理的速度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用户可以像  &lt;code&gt;Oracle&lt;/code&gt;  数据库那样设置一些表空间，每个表空间对应多个物理文件，每个表空间可以给多个表使用，但一个表只能存储在一个表空间中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="MySQL" />
+        <updated>2021-07-24T06:48:55.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/</id>
+        <title>MySQL 开篇 &amp; 说明</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/"/>
+        <content type="html">&lt;h2 id=&#34;版本说明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#版本说明&#34;&gt;#&lt;/a&gt; 版本说明&lt;/h2&gt;
+&lt;p&gt;本系列文章，以 MySQL 8.0.20 版本为实验背景进行编写。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9pbnRlcm5hbHMvZW4vYmluYXJ5LWxvZy1vdmVydmlldy5odG1s&#34;&gt;MySQL 手册&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="MySQL" />
+        <updated>2021-07-23T06:48:55.000Z</updated>
+    </entry>
+</feed>
