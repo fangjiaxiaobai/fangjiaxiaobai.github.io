@@ -25,6 +25,8 @@
     <category term="Java" />
     <category term="JDK" />
     <category term="Stream" />
+    <category term="全站地图" />
+    <category term="导航" />
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/</id>
         <title>雪花算法</title>

@@ -28,6 +28,8 @@
         <category>Java</category>
         <category>JDK</category>
         <category>Stream</category>
+        <category>全站地图</category>
+        <category>导航</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/</guid>
             <title>JDK的Stream之系列一 初窥流原理</title>

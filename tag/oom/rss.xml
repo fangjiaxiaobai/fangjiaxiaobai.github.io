@@ -28,6 +28,8 @@
         <category>Java</category>
         <category>JDK</category>
         <category>Stream</category>
+        <category>全站地图</category>
+        <category>导航</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/</guid>
             <title>JVM之你没见过的OOM</title>
