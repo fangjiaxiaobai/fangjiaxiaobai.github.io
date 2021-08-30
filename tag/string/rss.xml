@@ -7,20 +7,22 @@
         <language>zh-CN</language>
         <pubDate>Thu, 15 Jul 2021 14:48:55 +0800</pubDate>
         <lastBuildDate>Thu, 15 Jul 2021 14:48:55 +0800</lastBuildDate>
+        <category>全站地图</category>
+        <category>导航</category>
+        <category>目录</category>
+        <category>源码</category>
         <category>leetCode</category>
         <category>数据结构</category>
-        <category>链表</category>
-        <category>面经之算法题</category>
-        <category>MySQL</category>
-        <category>Redis</category>
         <category>数组</category>
-        <category>目录</category>
+        <category>面经之算法题</category>
+        <category>Redis</category>
+        <category>链表</category>
+        <category>MySQL</category>
+        <category>git</category>
         <category>雪花算法</category>
         <category>算法</category>
-        <category>git</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>源码</category>
         <category>HashMap</category>
         <category>String</category>
         <category>OOM</category>
@@ -28,8 +30,6 @@
         <category>Java</category>
         <category>JDK</category>
         <category>Stream</category>
-        <category>全站地图</category>
-        <category>导航</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/</guid>
             <title>String类源码解析</title>
