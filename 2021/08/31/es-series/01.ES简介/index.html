@@ -1,0 +1,707 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Elastic Search,搜索" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/">
+
+
+
+  <title>
+Elastic Search 简介 - 搜索之 Es |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Elastic Search 简介
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-31 14:28:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T14:28:55+08:00">2021-08-31</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="item" rel="index" title="分类于 搜索之 Es"><span itemprop="name">搜索之 Es</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="elasticsearch简介"><a class="markdownIt-Anchor" href="#elasticsearch简介">#</a> Elasticsearch 简介</h1>
+<p><code>Elasticsearch</code>  是一个开源的分布式  <code>RESTful</code>  <b>搜索</b>和<b>分析</b>引擎，能够解决越来越多不同的应用场景。<br>
+ <code>Elasticsearch</code>  是一个高度可扩展的开源分布式全文本搜索和分析引擎。 它使您可以快速，近乎实时地存储，搜索和分析大量数据。 它通常用作支持具有复杂搜索功能和要求的应用程序的基础引擎 / 技术。提供了丰富的  <code>RESTful</code>  API.</p>
+<p>这里 特别记住 <b>搜索</b>  和 <b>分析</b> 这两个词，后面我们花大量篇幅去学习  <code>ES</code>  的这两个功能，体验  <code>ES</code>  的强大之处。</p>
+<h1 id="es发展历史"><a class="markdownIt-Anchor" href="#es发展历史">#</a> ES 发展历史</h1>
+<h2 id="2010年2月-第一次发布"><a class="markdownIt-Anchor" href="#2010年2月-第一次发布">#</a> 2010 年 2 月 第一次发布</h2>
+<h2 id="2014年1月-发布了10版本"><a class="markdownIt-Anchor" href="#2014年1月-发布了10版本">#</a> 2014 年 1 月 发布了 1.0 版本</h2>
+<h2 id="2015年10月发布20版本"><a class="markdownIt-Anchor" href="#2015年10月发布20版本">#</a> 2015 年 10 月，发布 2.0 版本</h2>
+<h2 id="2016年10月发布50版本"><a class="markdownIt-Anchor" href="#2016年10月发布50版本">#</a> 2016 年 10 月，发布 5.0 版本</h2>
+<ul>
+<li>支持 lucene 6.x. 性能提升。默认打分机制从 TF-IDF 改为 BM25</li>
+<li>支持 Ingest 节点 / Painless Scripting / Completion Suggested 支持 / 原生的 Java Rest 客户端</li>
+<li>Type 标记为 deprecated , 支持 keyword 的类型</li>
+<li>性能优化
+<ul>
+<li>内部引擎移除了避免同一文档并发更新的竞争锁，带来了 15%-20% 的性能提升</li>
+<li>Instant Aggregation ，支持分片上聚合的缓存</li>
+<li>新增了 Profile API</li>
+</ul>
+</li>
+</ul>
+<h2 id="2017年10月-发布60版本"><a class="markdownIt-Anchor" href="#2017年10月-发布60版本">#</a> 2017 年 10 月， 发布 6.0 版本</h2>
+<ul>
+<li>支持 Lucence 7.x 版本</li>
+<li>新增功能：跨集群复制，索引生命周期管理，SQL 的支持</li>
+<li>更友好的升级和数据迁移：在主要版本之间的迁移更为简化，体验升级。 全新的基于操作的数据复制框架，可以加快数据恢复。</li>
+<li>性能优化：有效存储稀疏字段的新方法，降低了存储成本。 在索引时进行排序，可以加快排序的查询性能。</li>
+</ul>
+<h2 id="2019年4月发布70版本"><a class="markdownIt-Anchor" href="#2019年4月发布70版本">#</a> 2019 年 4 月，发布 7.0 版本</h2>
+<ul>
+<li>支持  <code>Lucene 8.0</code>  版本</li>
+<li>重大改进 - 正式废除单个索引下多个 Type 的支持</li>
+<li><code>7.1</code>  开始， <code>Security</code>  功能免费使用</li>
+<li><code>ECK</code>  - 支持 <code>Elasticsearch operator on kubernetes</code></li>
+<li>新功能:  <code>New Cluster Coordination</code> ,  <code>Feature-Complete High Level Rest Client</code> ,  <code>Script Score Query</code></li>
+<li>性能优化：默认的 <code>Primary Shard</code>  数从 <code>5</code>  改为 <code>1</code> ，避免 <code>Over Sharding</code> . 性能优化，更快的 <code>Top K</code></li>
+</ul>
+<h2 id="2020年12月-发布了710版本"><a class="markdownIt-Anchor" href="#2020年12月-发布了710版本">#</a> 2020 年 12 月 发布了 7.10 版本</h2>
+<ol>
+<li><code>ES</code>  的索引速度提升了 <code>20%</code> 。</li>
+<li>我们重新引入了时间点 ( <code>pit</code> )，这是一种保存搜索索引状态的轻量级方法。凹坑通过使 ui 更具反应性来改善最终用户体验。</li>
+<li>默认情况下，我们使大多数 EQL 运算符和函数区分大小写。 我们还添加了：，一个新的不区分大小写的 <code>equal</code>  运算符。 专为安全用例而设计</li>
+<li><code>REST API</code>  对系统索引的访问已弃用</li>
+<li>系统索引的新线程池。添加了两个新的线程池： <code>system_read和system_write</code> 。 这些线程池可确保对 <code>Elastic Stack</code>  至关重要的系统索引（例如安全性或 Kibana 所使用的系统索引）在集群承受沉重的查询或索引负载时保持响应能力。 <code>system_read</code>  是固定线程池，用于管理针对系统索引的读取操作的资源。 同样， <code>system_write</code>  是一个固定线程池，用于管理用于针对系统索引的写操作的资源。 两者的最大线程数等于可用处理器的 5 或一半，以较小者为准。</li>
+</ol>
+<h1 id="es的生态圈"><a class="markdownIt-Anchor" href="#es的生态圈">#</a> ES 的生态圈</h1>
+<h2 id="elastic-search"><a class="markdownIt-Anchor" href="#elastic-search">#</a> elastic search</h2>
+<p><code>Elasticsearch</code>  是 <code>Elastic Stack</code>  核心的分布式搜索和分析引擎。  <code>Logstash</code>  和   有助于收集，聚合和丰富您的数据并将其存储在 <code>Elasticsearch</code>  中。 使用  ，您可以交互式地探索，可视化和共享对数据的见解，并管理和监视堆栈。  <code>Elasticsearch</code>  是发生索引，搜索和分析 魔力的地方。</p>
+<p><code>Elasticsearch</code>  为所有类型的数据提供近乎实时的搜索和分析。 无论您是结构化文本还是非结构化文本，数字数据或地理空间数据， <code>Elasticsearch</code>  都能以支持快速搜索的方式有效地对其进行存储和索引。 您不仅可以进行简单的数据检索，还可以聚合信息来发现数据中的趋势和模式。 随着数据和查询量的增长， <code>Elasticsearch</code>  的分布式特性使您的部署可以随之无缝地增长。</p>
+<h2 id="kibana"><a class="markdownIt-Anchor" href="#kibana">#</a> kibana</h2>
+<p><code>Kibana</code>  是一个开源的分析和可视化平台。使用 <code>Kibana</code>  来探索你的 <code>Elasticsearch</code>  数据，然后建立漂亮的可视化和仪表板。<br>
+ <code>Kibana</code>  具有管理弹性栈的 UI。管理您的安全设置，分配用户角色，拍摄快照，卷起您的数据，以及更多，都从一个 <code>Kibana UI</code>  的便利。<br>
+ <code>Elastic</code>  栈解决方案的集中式中心。从日志分析到文档发现.</p>
+<h2 id="beats"><a class="markdownIt-Anchor" href="#beats">#</a> beats</h2>
+<p><code>Beats</code>  是您作为代理安装在服务器上的开源数据发送者，用于将运营数据发送到 <code>Elasticsearch</code> 。其提供了数据审核，日志文件，云数据，可用性，系统日志，指标，网络流量， <code>Windows</code>  事件记录等功能。 <code>Beats</code>  可以将数据直接发送到 <code>Elasticsearch</code>  或通过 <code>Logstash</code>  发送，您可以在此处进一步处理和增强数据，然后再在 Kibana 中进行可视化。<br>
+ <code>beats</code>  为不同的功能，提供了不同的组件，可以根据自己的需求，安装特定的产品.</p>
+<h2 id="logstash"><a class="markdownIt-Anchor" href="#logstash">#</a> logstash</h2>
+<p><code>Logstash</code>  是一个具有实时管道功能的开源数据收集引擎。 <code>Logstash</code>  可以动态地统一来自不同数据源的数据，并将数据规范化到您选择的目的地。为各种高级下游分析和可视化用例清理和民主化所有数据。虽然 <code>Logstash</code>  最初推动了日志收集方面的创新，但它的功能远远超出了这个用例。任何类型的事件都可以通过大量的输入、过滤和输出插件来丰富和转换，并且使用许多本地编解码器进一步简化了吸收过程。</p>
+<h2 id="x-pack"><a class="markdownIt-Anchor" href="#x-pack">#</a> x-pack</h2>
+<p><code>x-pack</code>  是 <code>elasticsearch</code>  的一个扩展包，将安全，警告，监视，图形和报告功能捆绑在一个易于安装的软件包中，可以轻松的启用或者关闭一些功能</p>
+<h1 id="es的应用场景"><a class="markdownIt-Anchor" href="#es的应用场景">#</a> ES 的应用场景</h1>
+<ul>
+<li>将搜索框添加到应用或网站</li>
+<li>存储和分析日志，指标和安全事件数据</li>
+<li>使用机器学习来实时自动建模数据行为</li>
+<li>使用 <code>Elasticsearch</code>  作为存储引擎自动化业务工作流程</li>
+<li>使用 <code>Elasticsearch</code>  作为地理信息系统（ <code>GIS</code> ）管理，集成和分析空间信息</li>
+<li>使用 <code>Elasticsearch</code>  作为生物信息学研究工具来存储和处理遗传数据<br>
+…</li>
+</ul>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/Elastic-Search/" rel="tag"><i class="ic i-tag"></i> Elastic Search</a>
+          <a href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag"><i class="ic i-tag"></i> 搜索</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-31 17:39:07" itemprop="dateModified" datetime="2021-08-31T17:39:07+08:00">2021-08-31</time>
+  </span>
+  <span id="2021/08/31/es-series/01.ES简介/" class="item leancloud_visitors" data-flag-title="Elastic Search 简介" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search 简介">https://fangjiaxiaobai.github.io/2021/08/31/es-series/01.ES简介/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/31/es-series/README/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetv6p75j20zk0m8x6p.jpg" title="Elastic Search 目录">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>Elastic Search 目录</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeu1usa7j20zk0m8b29.jpg" title="ES栈安装">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>ES栈安装</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#elasticsearch%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> Elasticsearch 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#es%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2"><span class="toc-number">2.</span> <span class="toc-text"> ES 发展历史</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2010%E5%B9%B42%E6%9C%88-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8F%91%E5%B8%83"><span class="toc-number">2.1.</span> <span class="toc-text"> 2010 年 2 月 第一次发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014%E5%B9%B41%E6%9C%88-%E5%8F%91%E5%B8%83%E4%BA%8610%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.</span> <span class="toc-text"> 2014 年 1 月 发布了 1.0 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015%E5%B9%B410%E6%9C%88%E5%8F%91%E5%B8%8320%E7%89%88%E6%9C%AC"><span class="toc-number">2.3.</span> <span class="toc-text"> 2015 年 10 月，发布 2.0 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2016%E5%B9%B410%E6%9C%88%E5%8F%91%E5%B8%8350%E7%89%88%E6%9C%AC"><span class="toc-number">2.4.</span> <span class="toc-text"> 2016 年 10 月，发布 5.0 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017%E5%B9%B410%E6%9C%88-%E5%8F%91%E5%B8%8360%E7%89%88%E6%9C%AC"><span class="toc-number">2.5.</span> <span class="toc-text"> 2017 年 10 月， 发布 6.0 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2019%E5%B9%B44%E6%9C%88%E5%8F%91%E5%B8%8370%E7%89%88%E6%9C%AC"><span class="toc-number">2.6.</span> <span class="toc-text"> 2019 年 4 月，发布 7.0 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020%E5%B9%B412%E6%9C%88-%E5%8F%91%E5%B8%83%E4%BA%86710%E7%89%88%E6%9C%AC"><span class="toc-number">2.7.</span> <span class="toc-text"> 2020 年 12 月 发布了 7.10 版本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#es%E7%9A%84%E7%94%9F%E6%80%81%E5%9C%88"><span class="toc-number">3.</span> <span class="toc-text"> ES 的生态圈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#elastic-search"><span class="toc-number">3.1.</span> <span class="toc-text"> elastic search</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kibana"><span class="toc-number">3.2.</span> <span class="toc-text"> kibana</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#beats"><span class="toc-number">3.3.</span> <span class="toc-text"> beats</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#logstash"><span class="toc-number">3.4.</span> <span class="toc-text"> logstash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#x-pack"><span class="toc-number">3.5.</span> <span class="toc-text"> x-pack</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#es%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text"> ES 的应用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">4.1.</span> <span class="toc-text"> 最后</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/31/es-series/README/" rel="bookmark" title="Elastic Search 目录">Elastic Search 目录</a></li><li class="active"><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Elastic Search简介">Elastic Search简介</a></li><li><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" rel="bookmark" title="ES栈安装">ES栈安装</a></li><li><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" rel="bookmark" title="Elastic Search配置">Elastic Search配置</a></li><li><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="bookmark" title="Elastic Search基本概念">Elastic Search基本概念</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">46</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">10</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">25</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/31/es-series/README/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" title="git开发模型 - github-flow">git开发模型 - github-flow</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/" title="LC:反转数组">LC:反转数组</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">221k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:21</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/31/es-series/01.ES简介/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

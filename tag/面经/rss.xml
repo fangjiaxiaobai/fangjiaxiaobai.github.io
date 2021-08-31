@@ -13,23 +13,25 @@
         <category>源码</category>
         <category>leetCode</category>
         <category>数据结构</category>
-        <category>数组</category>
-        <category>面经之算法题</category>
-        <category>Redis</category>
         <category>链表</category>
-        <category>MySQL</category>
+        <category>面经之算法题</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>数组</category>
+        <category>Redis</category>
         <category>git</category>
         <category>雪花算法</category>
         <category>算法</category>
+        <category>MySQL</category>
         <category>线程池</category>
         <category>面经</category>
         <category>HashMap</category>
         <category>String</category>
+        <category>JDK</category>
+        <category>Java</category>
+        <category>Stream</category>
         <category>OOM</category>
         <category>JVM</category>
-        <category>Java</category>
-        <category>JDK</category>
-        <category>Stream</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
             <title>JDK的内置线程池</title>

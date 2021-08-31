@@ -1,0 +1,691 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Elastic Search,搜索" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/">
+
+
+
+  <title>
+Elastic Search 配置 - 搜索之 Es |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Elastic Search 配置
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-31 15:28:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T15:28:55+08:00">2021-08-31</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>6.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>6 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="item" rel="index" title="分类于 搜索之 Es"><span itemprop="name">搜索之 Es</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="elastic-search配置"><a class="markdownIt-Anchor" href="#elastic-search配置">#</a> Elastic Search 配置</h1>
+<p><code>ES</code>  提供了很多默认的参数设置，使我们不用添加任何参数就可以成功的启动 <code>ES</code> 。 作为一个认真的学习者。我们还是来一起看看 如何更好的自定义  <code>ES</code>  配置。 详细的配置内容，可以参考 <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NldHRpbmdzLmh0bWw=">https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html</span>.</p>
+<p><code>ES</code>  的属性，分为 静态属性 和 动态属性。<br>
+所有的静态属性，都必须重启后才能生效。<br>
+对于动态属性可以通过调用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST _nodes/reload_secure_settings</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;secure_settings_password&quot;</span>: <span class="string">&quot;s3cr3t&quot;</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>”s3cr3t“</code> , 是 <code>ES-keystore</code>  生成的秘钥。调用时需要替换为自己设置的秘钥.</p>
+<p>支持热加载的属性有:  <code> Azure repository plugin</code> , <code> EC2 discovery plugin</code> , <code>GCS repository plugin</code> , <code>S3 repository plugin</code> ,  <code>Monitoring settings</code> , <code>Watcher settings</code> 。如果想了解更多，可以在  <code>https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-settings.html</code>  查询。</p>
+<p>在 ES 的安装目录，很明显的有一个  <code>config</code>  目录。进入之后，可以看到</p>
+<p><img data-src="./images/es-series/ES-config%E7%9B%AE%E5%BD%95.png" alt=""></p>
+<ul>
+<li><code>elasticsearch.keystore</code> :  <code>Elasticsearch</code>  提供了密钥库和 <code>elasticsearch-keystore</code>  用于管理密钥库设置的工具。</li>
+</ul>
+<p>接下来，我们重点来看下和配置相关的三个文件</p>
+<ul>
+<li><code>elasticsearch.yml</code> :</li>
+<li><code>jvm.options</code> :</li>
+<li><code>log4j2.properties</code> :</li>
+</ul>
+<p>和权限相关的。</p>
+<ul>
+<li><code>role_mapping.yml</code></li>
+<li><code>roles.yml</code></li>
+<li><code>users</code></li>
+<li><code>users_roles</code></li>
+</ul>
+<p>这里我们先不深入了解。</p>
+<h1 id="elasticsearch-设置介绍"><a class="markdownIt-Anchor" href="#elasticsearch-设置介绍">#</a> elasticsearch 设置介绍</h1>
+<p>有些设置是非常敏感的，仅依靠文件系统权限来保护它们的值是不够的。对于这个用例， <code>Elasticsearch</code>  提供了一个密钥存储库和 <code>Elasticsearch-keystore</code>  工具来管理密钥存储库中的设置。设计仅从密钥库中读取某些设置。 但是，密钥库没有验证来阻止不支持的设置。 将不支持的设置添加到密钥库中会导致 <code>Elasticsearch</code>  无法启动。</p>
+<p><b>对密钥库的所有修改仅在重新启动 <code>Elasticsearch</code>  之后生效。</b><br>
+这些设置与  <code>elasticsearch.yml</code>  配置文件中的常规设置一样，需要在集群的每个节点上指定。 当前，所有安全设置都是特定于节点的设置，在每个节点上必须具有相同的值。</p>
+<h2 id="elasticserche-keystore-使用"><a class="markdownIt-Anchor" href="#elasticserche-keystore-使用">#</a> elasticserche-keystore 使用</h2>
+<p>来看一下  <code>elasticsearch-keystore</code>  命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bin/elasticsearch-keystore</span><br><span class="line">* [add &lt;settings&gt;] [-f] [--stdin] :添加一个String的配置到keystore中</span><br><span class="line">* [add-file (&lt;setting&gt; &lt;path&gt;)+] : 添加一个文件配置到keystore中</span><br><span class="line">* [create] [-p]: 创建一个新的Es keyStore</span><br><span class="line">* [list] : 展示keystore的项</span><br><span class="line">* [passwd] : 修改 keystore的密码</span><br><span class="line">* [remove &lt;setting&gt;] : 移除某些配置</span><br><span class="line">* [upgrade] : 升级密钥库的内部格式。</span><br><span class="line">* [has-passwd] - 验证是否有keystore并且有密码保护</span><br></pre></td></tr></table></figure>
+<p>简单使用:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个keystore</span></span><br><span class="line">&gt; ./elasticsearch-keystore create -p</span><br><span class="line"><span class="comment">## //输入密码</span></span><br><span class="line">Enter new password <span class="keyword">for</span> the elasticsearch keystore (empty <span class="keyword">for</span> no password):</span><br><span class="line"><span class="comment">## // 确认密码</span></span><br><span class="line">Enter same password again:</span><br><span class="line"><span class="comment">## // 已经有keystore文件了，是否要覆盖</span></span><br><span class="line">An elasticsearch keystore already exists. Overwrite? [y/N]y</span><br><span class="line">Created elasticsearch keystore <span class="keyword">in</span> /Users/bjhl/fxb_applicaton/fxb_program/elasticsearch-7.10.1/config/elasticsearch.keystore</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看秘钥库</span></span><br><span class="line">&gt; ./elasticsearch-keystore list</span><br><span class="line"><span class="comment">## // 输入密码</span></span><br><span class="line">Enter password <span class="keyword">for</span> the elasticsearch keystore :</span><br><span class="line">keystore.seed <span class="comment"># 秘钥库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加设置到秘钥库中</span></span><br><span class="line">&gt; ./elasticsearch-keystore add settings.name</span><br><span class="line"><span class="comment">## // 输入密码</span></span><br><span class="line">Enter password <span class="keyword">for</span> the elasticsearch keystore :</span><br><span class="line"><span class="comment">## 输入添加的设置的value</span></span><br><span class="line">Enter value <span class="keyword">for</span> settings.name:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到秘钥库</span></span><br><span class="line">&gt; ./elasticsearch-keystore add-file file.name xxx.xx</span><br><span class="line">Enter password <span class="keyword">for</span> the elasticsearch keystore :</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除配置</span></span><br><span class="line">&gt; ./elasticsearch-keystore remove settings.name</span><br><span class="line">Enter password <span class="keyword">for</span> the elasticsearch keystore :</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新keystore</span></span><br><span class="line">&gt; ./elasticsearch-keystore upgrade</span><br><span class="line">Enter password <span class="keyword">for</span> the elasticsearch keystore :</span><br></pre></td></tr></table></figure>
+<h2 id="elasticsearchyml"><a class="markdownIt-Anchor" href="#elasticsearchyml">#</a>  <code>elasticsearch.yml</code></h2>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># - 集群相关配置 -</span></span><br><span class="line"><span class="comment"># 集群的名称</span></span><br><span class="line"><span class="attr">cluster.name:</span> <span class="string">my-application</span></span><br><span class="line"><span class="comment"># 更多关于集群的配置，参考：https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cluster.html</span></span><br><span class="line"><span class="comment"># 跨集群配置:参考:https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-settings.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 节点的名称</span></span><br><span class="line"><span class="attr">node.name:</span> <span class="string">fxb-cluster-node-1</span></span><br><span class="line"><span class="comment"># 可以为集群添加一些自定义的属性配置</span></span><br><span class="line"><span class="attr">node.attr.zhName:</span> <span class="string">方小白</span></span><br><span class="line"><span class="comment"># 更多节点相关的配置,参考</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># - 路径相关配置 -</span></span><br><span class="line"><span class="comment"># 指定存储数据的位置,多个路径的话，使用`,`分割 (separate multiple locations by comma)</span></span><br><span class="line"><span class="attr">path.data:</span> <span class="string">/path/to/data</span></span><br><span class="line"><span class="comment"># 日志文件存储地址</span></span><br><span class="line"><span class="attr">path.logs:</span> <span class="string">/path/to/logs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># - 内存相关 -</span></span><br><span class="line"><span class="comment"># Lock the memory on startup:</span></span><br><span class="line"><span class="attr">bootstrap.memory_lock:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 确保将堆大小设置为系统上可用内存的一半左右，并确保进程的所有者可以使用此限制。系统交换内存时，Elasticsearch的性能较差。</span></span><br><span class="line"><span class="comment"># ---------------------------------- Network -----------------------------------</span></span><br><span class="line"><span class="comment"># Set the bind address to a specific IP (IPv4 or IPv6):</span></span><br><span class="line"><span class="attr">network.host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment"># 启动端口</span></span><br><span class="line"><span class="attr">http.port:</span> <span class="number">9200</span></span><br><span class="line"><span class="comment"># 更多可以参考: https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------------- Discovery ----------------------------------</span></span><br><span class="line"><span class="comment"># 提供群集中符合主机资格的节点的地址列表。</span></span><br><span class="line"><span class="comment"># The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span></span><br><span class="line"><span class="attr">discovery.seed_hosts:</span> [<span class="string">&quot;host1&quot;</span>, <span class="string">&quot;host2&quot;</span>]</span><br><span class="line"><span class="comment"># 设置初始的符合主机资格的节点集,【静态属性】</span></span><br><span class="line"><span class="attr">cluster.initial_master_nodes:</span> [<span class="string">&quot;node-1&quot;</span>, <span class="string">&quot;node-2&quot;</span>]</span><br><span class="line"><span class="comment"># 更多关于发现相关的配置,参考:https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-settings.html</span></span><br><span class="line"><span class="comment"># ---------------------------------- Gateway -----------------------------------</span></span><br><span class="line"><span class="comment"># Block initial recovery after a full cluster restart until N nodes are started:</span></span><br><span class="line"><span class="attr">gateway.recover_after_nodes:</span> <span class="number">3</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 更多内容，参考https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># ---------------------------------- Various -----------------------------------</span></span><br><span class="line"><span class="comment"># Require explicit names when deleting indices:</span></span><br><span class="line"><span class="attr">action.destructive_requires_name:</span> <span class="literal">true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="jvm-参数-jvmoptions"><a class="markdownIt-Anchor" href="#jvm-参数-jvmoptions">#</a> JVM 参数 =&gt; jvm.options</h2>
+<p><code>jvm.options</code>  包含使用特殊语法的以行分隔的 <code>JVM</code>  参数列表：</p>
+<ul>
+<li><code>#</code>  表示注释</li>
+<li>以 <code>-</code>  开头的行被视为独立于 <code>JVM</code>  版本而应用的 JVM 选项</li>
+<li>以 <code>&lt;数字&gt;:-</code>  开头的行被视为 <code>JVM</code>  选项，只有当 <code>JVM</code>  的版本与该数字匹配时才适用，比如: <code>8:-Xmx2g</code></li>
+<li>以  <code>&lt;数字&gt;-：</code> 开头 的行被视为 <code>JVM</code>  选项，仅在 <code>JVM</code>  版本大于或等于该数字时才适用。比如: <code>8-:-Xmx2g</code></li>
+<li>以 <code>&lt;数字&gt;-&lt;数字&gt;：</code> 开头的行被视为仅在 <code>JVM</code>  版本落在两个数字范围内时才适用的 <code>JVM</code>  选项。比如： <code>8-9:-Xmx2g</code></li>
+</ul>
+<p>Elasticsearch 默认配置 JVM 使用最小和最大大小为 1 GB 的堆。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## JVM configuration</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################</span></span><br><span class="line"><span class="comment">## IMPORTANT: JVM heap size</span></span><br><span class="line"><span class="comment">################################################################</span></span><br><span class="line"><span class="comment">## 参考 https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html#heap-size-settings</span></span><br><span class="line"><span class="comment"># Xms represents the initial size of total heap space</span></span><br><span class="line"><span class="comment"># Xmx represents the maximum size of total heap space</span></span><br><span class="line"><span class="string">-Xms1g</span></span><br><span class="line"><span class="string">-Xmx1g</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################</span></span><br><span class="line"><span class="comment">## Expert settings: 高级设置</span></span><br><span class="line"><span class="comment">################################################################</span></span><br><span class="line"><span class="comment">## 不理解下面的属性，不建议修改</span></span><br><span class="line"><span class="comment">################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## GC configuration</span></span><br><span class="line"><span class="number">8</span><span class="number">-13</span><span class="string">:-XX:+UseConcMarkSweepGC</span></span><br><span class="line"><span class="number">8</span><span class="number">-13</span><span class="string">:-XX:CMSInitiatingOccupancyFraction=75</span></span><br><span class="line"><span class="number">8</span><span class="number">-13</span><span class="string">:-XX:+UseCMSInitiatingOccupancyOnly</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## G1GC Configuration</span></span><br><span class="line"><span class="comment"># <span class="doctag">NOTE:</span> G1 GC is only supported on JDK version 10 or later</span></span><br><span class="line"><span class="comment"># to use G1GC, uncomment the next two lines and update the version on the</span></span><br><span class="line"><span class="comment"># following three lines to your version of the JDK</span></span><br><span class="line"><span class="comment"># 10-13:-XX:-UseConcMarkSweepGC</span></span><br><span class="line"><span class="comment"># 10-13:-XX:-UseCMSInitiatingOccupancyOnly</span></span><br><span class="line"><span class="number">14</span><span class="string">-:-XX:+UseG1GC</span></span><br><span class="line"><span class="number">14</span><span class="string">-:-XX:G1ReservePercent=25</span></span><br><span class="line"><span class="number">14</span><span class="string">-:-XX:InitiatingHeapOccupancyPercent=30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## JVM temporary directory</span></span><br><span class="line"><span class="string">-Djava.io.tmpdir=$&#123;ES_TMPDIR&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## heap dumps</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># generate a heap dump when an allocation from the Java heap fails</span></span><br><span class="line"><span class="comment"># heap dumps are created in the working directory of the JVM</span></span><br><span class="line"><span class="string">-XX:+HeapDumpOnOutOfMemoryError</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># specify an alternative path for heap dumps; ensure the directory exists and</span></span><br><span class="line"><span class="comment"># has sufficient space</span></span><br><span class="line"><span class="string">-XX:HeapDumpPath=data</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># specify an alternative path for JVM fatal error logs</span></span><br><span class="line"><span class="string">-XX:ErrorFile=logs/hs_err_pid%p.log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## JDK 8 GC logging</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:+PrintGCDetails</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:+PrintGCDateStamps</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:+PrintTenuringDistribution</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:+PrintGCApplicationStoppedTime</span></span><br><span class="line"><span class="number">8</span><span class="string">:-Xloggc:logs/gc.log</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:+UseGCLogFileRotation</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:NumberOfGCLogFiles=32</span></span><br><span class="line"><span class="number">8</span><span class="string">:-XX:GCLogFileSize=64m</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># JDK 9+ GC logging</span></span><br><span class="line"><span class="number">9</span><span class="string">-:-Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,pid,tags:filecount=32,filesize=64m</span></span><br></pre></td></tr></table></figure>
+<h1 id="日志参数"><a class="markdownIt-Anchor" href="#日志参数">#</a> 日志参数</h1>
+<p>可以看到  <code>ElasticSearch</code>  使用 <code>log4j2</code>  日志，关于此日志的配置，这里就不多赘述了。</p>
+<h1 id="系统配置"><a class="markdownIt-Anchor" href="#系统配置">#</a> 系统配置</h1>
+<p>除了对  <code>ES</code>  的配置之外，如果想要更好的提升 ES 性能，还需对  <code>ES</code>  所依赖的宿主机进行一些属性配置。<br>
+比如：比如禁止 <code>swap</code>  等。更多内容，参考:<span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3N5c3RlbS1jb25maWcuaHRtbA==">https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html</span>.</p>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h1>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/Elastic-Search/" rel="tag"><i class="ic i-tag"></i> Elastic Search</a>
+          <a href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag"><i class="ic i-tag"></i> 搜索</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-08-31 17:49:21" itemprop="dateModified" datetime="2021-08-31T17:49:21+08:00">2021-08-31</time>
+  </span>
+  <span id="2021/08/31/es-series/03.ES配置/" class="item leancloud_visitors" data-flag-title="Elastic Search 配置" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search 配置">https://fangjiaxiaobai.github.io/2021/08/31/es-series/03.ES配置/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuv0socj20zk0m8qes.jpg" title="ES栈安装">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>ES栈安装</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0fdw5cj20zk0m8hdt.jpg" title="Elastic Search基本概念">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>Elastic Search基本概念</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#elastic-search%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text"> Elastic Search 配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#elasticsearch-%E8%AE%BE%E7%BD%AE%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text"> elasticsearch 设置介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#elasticserche-keystore-%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> elasticserche-keystore 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#elasticsearchyml"><span class="toc-number">2.2.</span> <span class="toc-text">  elasticsearch.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jvm-%E5%8F%82%E6%95%B0-jvmoptions"><span class="toc-number">2.3.</span> <span class="toc-text"> JVM 参数 &#x3D;&gt; jvm.options</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%8F%82%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text"> 日志参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text"> 系统配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/31/es-series/README/" rel="bookmark" title="Elastic Search 目录">Elastic Search 目录</a></li><li><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Elastic Search简介">Elastic Search简介</a></li><li><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" rel="bookmark" title="ES栈安装">ES栈安装</a></li><li class="active"><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" rel="bookmark" title="Elastic Search配置">Elastic Search配置</a></li><li><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="bookmark" title="Elastic Search基本概念">Elastic Search基本概念</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">46</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">10</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">25</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC:反转链表I">LC:反转链表I</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
+</div>
+
+    <span><a href="/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/" title="雪花算法">雪花算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">221k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:21</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/31/es-series/03.ES配置/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

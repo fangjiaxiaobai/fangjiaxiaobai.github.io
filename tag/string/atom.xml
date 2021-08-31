@@ -10,23 +10,25 @@
     <category term="源码" />
     <category term="leetCode" />
     <category term="数据结构" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="Redis" />
     <category term="链表" />
-    <category term="MySQL" />
+    <category term="面经之算法题" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="数组" />
+    <category term="Redis" />
     <category term="git" />
     <category term="雪花算法" />
     <category term="算法" />
+    <category term="MySQL" />
     <category term="线程池" />
     <category term="面经" />
     <category term="HashMap" />
     <category term="String" />
+    <category term="JDK" />
+    <category term="Java" />
+    <category term="Stream" />
     <category term="OOM" />
     <category term="JVM" />
-    <category term="Java" />
-    <category term="JDK" />
-    <category term="Stream" />
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/</id>
         <title>String类源码解析</title>
