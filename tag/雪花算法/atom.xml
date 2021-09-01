@@ -7,32 +7,45 @@
     <category term="全站地图" />
     <category term="导航" />
     <category term="目录" />
-    <category term="源码" />
     <category term="leetCode" />
     <category term="数据结构" />
-    <category term="链表" />
-    <category term="面经之算法题" />
-    <category term="Elastic Search" />
-    <category term="搜索" />
     <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="源码" />
+    <category term="链表" />
+    <category term="MySQL" />
     <category term="Redis" />
-    <category term="git" />
     <category term="雪花算法" />
     <category term="算法" />
-    <category term="MySQL" />
+    <category term="git" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="HashMap" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
     <category term="String" />
+    <category term="数据结构与算法" />
+    <category term="哈希算法" />
+    <category term="动态规划" />
+    <category term="递归" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="交换排序" />
+    <category term="分治思想排序" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="HashMap" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
+    <category term="选择排序" />
     <category term="JDK" />
     <category term="Java" />
     <category term="Stream" />
     <category term="OOM" />
     <category term="JVM" />
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/</id>
+        <id>https://fangjiaxiaobai.github.io/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/</id>
         <title>雪花算法</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/07/18/%E7%AE%97%E6%B3%95/SnowFlake/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/"/>
         <content type="html">&lt;h3 id=&#34;介绍&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#介绍&#34;&gt;#&lt;/a&gt; 介绍&lt;/h3&gt;
 &lt;p&gt;雪花算法是  &lt;code&gt;twitter&lt;/code&gt;  开源的由  &lt;code&gt;64&lt;/code&gt;  位整数组成的分布式 &lt;code&gt;id&lt;/code&gt; 。目的是在分布式系统中产生全局唯一且趋势递增的 &lt;code&gt;ID&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;其核心思想就是：&lt;b&gt;使用一个  &lt;code&gt;64 bit&lt;/code&gt;  的  &lt;code&gt;long&lt;/code&gt;  型的数字作为全局唯一  &lt;code&gt;id&lt;/code&gt; 。在分布式系统中的应用十分广泛，且 &lt;code&gt;ID&lt;/code&gt;  引入了时间戳，保持自增性且不重复。&lt;/b&gt;&lt;/p&gt;

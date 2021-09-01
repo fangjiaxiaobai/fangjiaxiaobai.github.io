@@ -1,0 +1,706 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="算法,数据结构与算法,动态规划" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+
+
+  <title>
+动态规划 - 数据结构与算法 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">动态规划
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-01 12:13:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:13:55+08:00">2021-09-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 数据结构与算法"><span itemprop="name">数据结构与算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>👉 <span class="label success">动态规划其实就是动态递推</span>👈</p>
+<h2 id="要点"><a class="markdownIt-Anchor" href="#要点">#</a> 要点</h2>
+<ul>
+<li>递归 + 记忆化 -&gt; 递推 (自下而上的递推)</li>
+<li>状态的定义，opt [n],dp [n],fib [n]</li>
+<li>状态转移方程 (dp 方程)， opt [n]=best_of (opt [n-1],opt [n-2])</li>
+<li>最优子结构</li>
+</ul>
+<h2 id="例子"><a class="markdownIt-Anchor" href="#例子">#</a> 例子</h2>
+<h3 id="斐波那契数列"><a class="markdownIt-Anchor" href="#斐波那契数列">#</a> 斐波那契数列</h3>
+<p>我们先使用递归的方式，我们实现斐波那契数列.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib1</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib2</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fib1(6)=%d\n&quot;</span>, fib1(<span class="number">6</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fib2(6)=%d\n&quot;</span>, fib2(<span class="number">6</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 斐波那契数列实现方案一</span></span><br><span class="line"><span class="comment"> * @param n 第n个数</span></span><br><span class="line"><span class="comment"> * @return n个数的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fib1(n - <span class="number">1</span>) + fib1(n - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 斐波那契数列实现方案二</span></span><br><span class="line"><span class="comment"> * @param n 第n个数</span></span><br><span class="line"><span class="comment"> * @return n个数的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib2</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fib1(n - <span class="number">1</span>) + fib1(n - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/// return n&lt;=1?1:fib1(n - 1) + fib1(n - 2);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如下图:</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib.png" alt="算法01-动态规划01-fib.png"><br>
+ 此时的时间复杂度为 O (2^n). 如上图，最后的结果是每个节点是累加起来，那么有多少个节点呢？2^n 个节点。<br>
+根据这张图，我们可以发现，个别 &quot;节点&quot; 出现了重复的情况，这个时候我们就用到了记忆化的方式进行优化。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib3</span><span class="params">(<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fib3(6)=%d\n&quot;</span>, fib3(<span class="number">6</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 斐波那契数列实现方案三</span></span><br><span class="line"><span class="comment"> * @param n  第n个数</span></span><br><span class="line"><span class="comment"> * @return n个数的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span> mem[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib3</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!mem[n]) &#123;</span><br><span class="line">        mem[n] = fib1(n - <span class="number">1</span>) + fib1(n - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mem[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样我们就省去了个别节点的计算过程了。如下图<br>
+<img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib02.png" alt="算法01-动态规划01-fib02.png"> 其中虚线边框的就不用再计算了。</p>
+<p>这样的话，我们把时间复杂度优化到了 O (n).</p>
+<p>然后我们就可以发现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fib(n) = fib(n-1) + fib(n-2);</span><br></pre></td></tr></table></figure>
+<p>这个就是我们的状态转移方程 (dp 方程)。<br>
+比较的简单的 fib，一般我们就成为这个为递推公式。</p>
+<h3 id="计算路线"><a class="markdownIt-Anchor" href="#计算路线">#</a> 计算路线</h3>
+<h4 id="例题描述"><a class="markdownIt-Anchor" href="#例题描述">#</a> 例题描述</h4>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9202-%E8%AE%A1%E7%AE%97%E8%B7%AF%E5%BE%84.png" alt="算法01-动态规划02-计算路径.png"></p>
+<p>只能横着走或者竖着走，假设有一个人总 start 处，走到 end 处，一共有多少条路线？</p>
+<h4 id="分析"><a class="markdownIt-Anchor" href="#分析">#</a> 分析</h4>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9202-%E8%AE%A1%E7%AE%97%E8%B7%AF%E5%BE%8402.png" alt="算法02-动态规划03-计算路径02.png"></p>
+<p>从 start 到 end 的所有路线，等于 B 到 end 路线加上 A 到 end 的路线。因为 start 要到 end，要么到 A, 从 A 走到 end, 要么到 B，从 B 走到 end。那么同理 B 到 end 就等于 C 到 end 的路线到 E 到 end 的路线。D 到 end 等于 C 到 end 的路线加上 D 到 end 的路线.<br>
+ 这是我们可以得出如下的推导公式：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>t</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>+</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>B</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">path(start,end)=path(A,end) + path(B,end)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span></span></p>
+<p>同理:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>A</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>D</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>+</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>C</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>B</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>E</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo><mo>+</mo><mi>p</mi><mi>a</mi><mi>t</mi><mi>h</mi><mo stretchy="false">(</mo><mi>C</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mi>d</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">path(A,end)=path(D,end) + path(C,end) \\ path(B,end) = path(E,end) + path(C,end)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span><span class="mclose">)</span></span></span></span></span></p>
+<p>一直到最下面的一行，最下面的这一行的每个点到 end 的路线只有一条，所以每个都是 1, 同样的最右侧的一列，每个都是 1. 如下图.<br>
+<img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9202-%E8%AE%A1%E7%AE%97%E8%B7%AF%E5%BE%8403.png" alt="算法01-动态规划02-计算路径03.png"><br>
+ 经过上面的分析，F 到 end 有几条路线呢？两条。由于 G 右侧是黑色的不能通过，所以 G 只有 1 条，H 就有 2 条，就有 3 条，K 有 3 条，L 有 1 条。所以有了下面的这张图，图中的数字就是路线数.<br>
+<img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9202-%E8%AE%A1%E7%AE%97%E8%B7%AF%E5%BE%8404.png" alt="算法01-动态规划02-计算路径04.png"></p>
+<p>根据以上的推论我们尝试写出这样的代码:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countPaths</span><span class="params">(<span class="keyword">int</span>[][] grid,<span class="keyword">int</span> row,<span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!validSquare(grid,row,col))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(isEnd(grid,row,col))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> countPaths(grid,row+<span class="number">1</span>,col) + countPaths(grid,row,col+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我根据推论可以得出状态转移方程:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> a[i,j] == <span class="string">&#x27;白色&#x27;</span>:</span><br><span class="line">   opt[i,j] = opt[i+<span class="number">1</span>,j] + opt[i,j+<span class="number">1</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   opt[i,j] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="程序实现"><a class="markdownIt-Anchor" href="#程序实现">#</a> 程序实现</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> paths[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i&gt;<span class="number">0</span>;i--)&#123;</span><br><span class="line">        paths[i][n] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j =n; j&gt;<span class="number">0</span>;j--)&#123;</span><br><span class="line">        paths[m][j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m<span class="number">-1</span>; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt; <span class="number">0</span> ; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            paths[i][j] = paths[i+<span class="number">1</span>][j] + paths[i][j+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> paths[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="dp-vs-回溯-vs-贪心"><a class="markdownIt-Anchor" href="#dp-vs-回溯-vs-贪心">#</a> DP vs 回溯 vs 贪心</h2>
+<ul>
+<li>回溯 (递归) - 重复计算</li>
+<li>贪心 - 永远局部最优</li>
+<li>DP - 记录局部最优子结构 / 多种记录值。(集两者之大成)</li>
+</ul>
+<p>三者并没有明显的界限。贪心不是局部最优的时候，回溯避免了重复计算之后，就是了动态规划了。</p>
+<h2 id="例题"><a class="markdownIt-Anchor" href="#例题">#</a> 例题</h2>
+<h3 id="爬楼梯"><a class="markdownIt-Anchor" href="#爬楼梯">#</a> 爬楼梯</h3>
+<h4 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述">#</a> 题目描述</h4>
+<p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。<br>
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？<br>
+注意：给定 n 是一个正整数</p>
+<h4 id="解析"><a class="markdownIt-Anchor" href="#解析">#</a> 解析</h4>
+<p>如下面的图:</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9203-%E7%88%AC%E6%A5%BC%E6%A2%AF01.png" alt="算法01-动态规划03-爬楼梯01.png"></p>
+<p>因为我们只有两种走法，要么跨一个台阶，要么跨两个台阶。那么如图中我们爬到第 10 层台阶的走法就等于第 9 (10-1) 层台阶的走法和第 8 (10-2) 层台阶的走法的和。即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mn>10</mn><mo stretchy="false">)</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mn>9</mn><mo stretchy="false">)</mo><mo>+</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mn>8</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">stairs(10)=stairs(9)+stairs(8)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord">1</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord">9</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord">8</span><span class="mclose">)</span></span></span></span>, 那么我们爬第一层台阶是 1 种走法，第二层台阶就是 2 种走法。所以我们就可以得出我们的递推公式：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>s</mi><mi>t</mi><mi>a</mi><mi>i</mi><mi>r</mi><mi>s</mi><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">stairs(n) = stairs(n-1) + stairs(n-2)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span></span></p>
+<p>我们可以得出，这就是斐波那契数列。</p>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h1>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构与算法</a>
+          <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="ic i-tag"></i> 动态规划</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-09-01 12:17:37" itemprop="dateModified" datetime="2021-09-01T12:17:37+08:00">2021-09-01</time>
+  </span>
+  <span id="2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/算法01-动态规划/" class="item leancloud_visitors" data-flag-title="动态规划" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/算法01-动态规划/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciryrr3rj20zk0m8nhk.jpg" title="Elastic Search基本概念">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>Elastic Search基本概念</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="哈希算法">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>哈希算法</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9"><span class="toc-number">1.</span> <span class="toc-text"> 要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">2.</span> <span class="toc-text"> 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="toc-number">2.1.</span> <span class="toc-text"> 斐波那契数列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E8%B7%AF%E7%BA%BF"><span class="toc-number">2.2.</span> <span class="toc-text"> 计算路线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 例题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 程序实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dp-vs-%E5%9B%9E%E6%BA%AF-vs-%E8%B4%AA%E5%BF%83"><span class="toc-number">3.</span> <span class="toc-text"> DP vs 回溯 vs 贪心</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text"> 例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E6%A5%BC%E6%A2%AF"><span class="toc-number">4.1.</span> <span class="toc-text"> 爬楼梯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-number">4.1.2.</span> <span class="toc-text"> 解析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number"></span> <span class="toc-text"> 最后</span></a>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="bookmark" title="哈希算法">哈希算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="bookmark" title="递归">递归</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="归并排序">归并排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="bookmark" title="选择排序">选择排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="bookmark" title="排序算法">排序算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="bookmark" title="一致性哈希算法的实现">一致性哈希算法的实现</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="桶排序">桶排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="bookmark" title="冒泡排序">冒泡排序</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">56</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">11</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">38</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" title="git命令详解之 git update-index">git命令详解之 git update-index</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
+</div>
+
+    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">一致性哈希算法的实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">249k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:46</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/算法01-动态规划/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,copy_tex: true,
+    katex: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

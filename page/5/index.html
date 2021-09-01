@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,7 +120,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxp31goj20zk0m8qv5.jpg"></a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" itemprop="url" title="git基本使用一"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></a>
   </div>
   <div class="info">
     
@@ -135,56 +135,54 @@
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>19k</span>
+    <span>7.5k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>17 分钟</span>
+    <span>7 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始">从创建仓库开始</a></h3>
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" itemprop="url" title="git基本使用一">git基本使用一</a></h3>
     <div class="excerpt">
-        # 从创建仓库开始
-这篇文章分享一下我们在使用 git 进行版本管理时候的常用的操作！我们从创建仓库开始～
-获取代码仓库的方式有两种，一种是从零开始初始化一个 git 仓库，另一种是 clone 他人的仓库。
-首先我们创建一个空目录，然后初始化一个仓库。
-123456/ cd# 创建空目录~ mkdir gitlearn~ cd gitlearn# 初始化仓库~ git init .
-就这样我们创建一个了本地仓库, 团队合作的时候这样肯定不行的，不行，后面我们后介绍到。
-或者 我们还可以克隆一个远程仓库
-1git clone...
+        上一篇文章，我们学习了 使用 git 如何创建一个仓库。而且还详细的介绍了 git 各个工作目录的作用。
+git : global information tracker
+git 其实是内容寻址文件系统。本质是一个 key-value 的数据库。在上一篇文章了解了 git 的四种对象：提交对象，数据对象，树对象和标签对象。还学习了 git 的引用 ( HEAD , Index , refs 目录)，以及最后学习了 git 的压缩，( git gc ).
+今天我们从 简单的 git 使用流程说起。
+上一篇中，我们创建了一个仓库.
+123➜ gitlearn git init...
     </div>
     <div class="meta footer">
       <span>
         <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始" class="btn">more...</a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" itemprop="url" title="git基本使用一" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciusoyjnj219g0u0x56.jpg"></a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" itemprop="url" title="Git介绍"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>159</span>
+    <span>1.1k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -195,49 +193,83 @@
   </span>
 </div>
 
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></h3>
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" itemprop="url" title="Git介绍">Git介绍</a></h3>
     <div class="excerpt">
-        # 目录
-# java.util
+        # Git 是目前最先进的版本控制管理系统。
+本质上讲， git 是一个内容寻址文件系统。其核心部分是一个简单的键值对数据库 ( key-value data store ). 你可以想像 git 仓库中插入任意类型的内容，它会返回一个唯一的键，通过该键可以在任意时刻再次取回该内容。
+# git 先进在哪里？
 
-HashMap
-
-HashMap 的 Hash 函数到底有什么意义.md
-HashMap 到底为什么是不安全的.md
-
-# java.util.concurrency
-
-ConcurrentHashMap
-
-# java.lang
-
-String.md
-ThreadLocal 源码分析.md
-
-ThreadLocal 的哈希算法.md
+直接记录快照，而不是比较差异。
+这也是 git 和其他版本管理系统的主要差别。其他版本管理系统 ( CVS , Subversion , Perforce , Bazaar 等) 存储各个版本之间，每个文件随时间逐渐累积的差异。这类版本管理系统称为...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
       </span>
     </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录" class="btn">more...</a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" itemprop="url" title="Git介绍" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" itemprop="url" title="git 基础 - 标签 和 别名"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetlbztpj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" itemprop="url" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></h3>
+    <div class="excerpt">
+        # 标签
+标签最主要的作用是，人们会使用这个功能来发布节点，作为一个里程碑等特殊意义的标识。
+git 中标签使用 tag 来表示。对应着 git tag 这个命令。
+先看一下 git tag 命令吧。
+12345678git tag [-a | -s | -u &amp;lt;keyid&amp;gt;] [-f] [-m &amp;lt;msg&amp;gt; | -F &amp;lt;file&amp;gt;] &amp;lt;tagname&amp;gt; [&amp;lt;commit&amp;gt; | &amp;lt;object&amp;gt;]git tag -d...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+      </span>
+    </div>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" itemprop="url" title="git 基础 - 标签 和 别名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" itemprop="url" title="git命令"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclh5u05ej20zk0m87df.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
@@ -254,41 +286,41 @@ ThreadLocal 的哈希算法.md
   </span>
 </div>
 
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></h3>
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" itemprop="url" title="git命令">git命令</a></h3>
     <div class="excerpt">
-        # jdk1.8 HashMap 中 hash 值计算源码
-12345678910/** * 扰动函数 */static final int hash(Object key) &amp;#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;// 其中的key.hashCode调用的是底层的native方法。public native int hashCode();
-
-Q: 为什么不直接使用 key 的 hashCode...
+        本章开始学习一些在开发中常用的 git 命令
+先看一下 git 有多少个命令。
+直接在 命令行中输入 git 即可。
+12345678910111213141516171819202122232425262728293031323334353637383940414243➜ / gitusage: git [--version] [--help] [-C &amp;lt;path&amp;gt;] [-c name=value] [--exec-path[=&amp;lt;path&amp;gt;]] [--html-path] [--man-path] [--info-path] [-p |...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
       </span>
     </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义" class="btn">more...</a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" itemprop="url" title="git命令" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" itemprop="url" title="git命令3 - 远程仓库"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>4k</span>
+    <span>3.9k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -299,93 +331,250 @@ Q: 为什么不直接使用 key 的 hashCode...
   </span>
 </div>
 
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析">String类源码解析</a></h3>
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" itemprop="url" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></h3>
     <div class="excerpt">
-        一、签名：
-public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence
-
-String 不能被继承，
-实现了 Serializable：可被序列化。
-实现了 Comparable：可以比较，排序，
-实现了 CharSequence：值是可读序列。
-
-二、成员变量：
-12345private final char value[];  // 存储字符。private int hash;     // 缓存字符串的hash值。Private...
+        #
+远程仓库指的是 托管到因特网或者其他网络中的项目的版本库。
+可以使用 git remote 命令来配置远程仓库。
+我们先看一下 git remote 命令都有什么子选项.
+12345678910111213git remote [-v | --verbose]git remote add [-t &amp;lt;branch&amp;gt;] [-m &amp;lt;master&amp;gt;] [-f] [--[no-]tags] [--mirror=&amp;lt;fetch|push&amp;gt;] &amp;lt;name&amp;gt;...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
       </span>
     </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析" class="btn">more...</a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" itemprop="url" title="git命令3 - 远程仓库" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" itemprop="url" title="git开发模型 - github-flow"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>34k</span>
+    <span>1.1k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>31 分钟</span>
+    <span>1 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></h3>
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" itemprop="url" title="git开发模型 - github-flow">git开发模型 - github-flow</a></h3>
     <div class="excerpt">
-        # 要思考的问题
+        # github flow
+参考地址
+GitHub flow 是一个轻量级的，基于分支的工作流，它支持定期进行部署的团队和项目。
+gitHub flow 主要分为以下步骤：
+# 1. 创建分支
 
-HashMap 的底层数据结构 (节点结构，这种结构有什么优点)
-如何处理 hash 冲突
-怎么扩容？扩展机制是什么？
-增删改查过程
-链表到红黑树的转换过程，反之？
-红黑树相关 (见另一篇数据结构之红黑树)
-hash 计算
-
-# 达到的目标
-
-掌握底层数据结构
-掌握扩容原理
-掌握 hash 冲突的处理过程
-掌握增删改查过程
-
-# 看之前要掌握的知识点
-# 红黑树
-# 看之前大体了解的知识点
-# hash 算法
-# Poisson 分布
-poisson 分布
-# 开始
-# HashMap 的继承体系
-
-AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
+在你准备进行开发的时候，或者突然有一个想法，想要马上去实现的时候，先创建一个分支。
+分支是 Git 中的核心概念，整个 GitHub 流程都以此为基础。只有一个规则： master 分支中的任何内容始终都是可部署的。因此，在处理功能或修订时，要在主分支之外创建新分支非常重要。您的分支名称应具有描述性（例如，重构身份验证，用户内容缓存密钥， make-retina...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
       </span>
     </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读" class="btn">more...</a>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" itemprop="url" title="git开发模型 - github-flow" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令">其他命令</a></h3>
+    <div class="excerpt">
+        1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556usage: git [--version] [--help] [-C &amp;lt;path&amp;gt;] [-c name=value] [--exec-path[=&amp;lt;path&amp;gt;]] [--html-path] [--man-path] [--info-path] [-p | --paginate | --no-pager]...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+      </span>
+    </div>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></h3>
+    <div class="excerpt">
+        1234567891011121314151617181920212223242526272829303132usage: git ls-files [&amp;lt;options&amp;gt;] [&amp;lt;file&amp;gt;...] -z paths are separated with NUL character -t identify the file status with tags -v use lowercase letters for &amp;#x27;assume unchanged&amp;#x27; files -c, --cached show...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+      </span>
+    </div>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>123</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解">git命令详解</a></h3>
+    <div class="excerpt">
+        #
+# 目录
+
+git update-index
+
+# 小技巧
+
+某个文件需要被管理，但是要忽略其修改的内容。 git update-index
+git update-index --no-skip-worktree 同样可以。
+参考文档 参考文档 2
+
+# 最后
+期望与你一起遇见更好的自己
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+      </span>
+    </div>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclfdu6exj20zk0m87hw.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-18 14:49:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index">git命令详解之 git update-index</a></h3>
+    <div class="excerpt">
+        # 官方
+1234567891011121314151617181920212223242526272829303132333435usage: git update-index [&amp;lt;options&amp;gt;] [--] [&amp;lt;file&amp;gt;...] -q continue refresh even when index needs update --ignore-submodules refresh: ignore submodules --add do not ignore new files --replace let files replace...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+      </span>
+    </div>
+    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index" class="btn">more...</a>
   </div>
 </article>
 
@@ -396,7 +585,7 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
   
   <nav class="pagination">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -424,19 +613,19 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">46</span>
+        <span class="count">56</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">10</span>
+        <span class="count">11</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">25</span>
+        <span class="count">38</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -570,6 +759,7 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/page/6/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -590,30 +780,30 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/%E5%85%A8%E7%AB%99%E5%9C%B0%E5%9B%BE/" title="分类于 全站地图">全站地图</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+    <span><a href="/2021/07/18/RoadMap/" title="全站地图">全站地图</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
+    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
   </li>
 
       
@@ -630,50 +820,10 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></span>
   </li>
 
       
@@ -683,7 +833,47 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
   </li>
 
   </ul>
@@ -708,13 +898,13 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">221k 字</span>
+    <span title="站点总字数">249k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:21</span>
+    <span title="站点阅读时长">3:46</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

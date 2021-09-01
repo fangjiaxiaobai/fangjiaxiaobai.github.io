@@ -1,0 +1,699 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="算法,数据结构与算法,排序,冒泡排序,分治思想排序" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+
+
+  <title>
+归并排序 - 数据结构与算法 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">归并排序
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-01 12:33:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:33:55+08:00">2021-09-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 数据结构与算法"><span itemprop="name">数据结构与算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>将数组从中间分成前后两部分，然后对前后两部分分别进行排序，再将排好序的两部分合并在一起，这样整个数组就是有序的了。</p>
+<p>归并体现的思想就是 <strong>分治思想</strong> 分而治之，将一个大问题分解成小的问题来解决。小问题解决了，大问题也就解决了.</p>
+<p>这种分治的算法，一般都是递归的方式来求解。我们也尝试着写一个递归方式的归并排序。</p>
+<p>写递归的程序，最重要的就是写 <strong>递推表达式</strong>和<strong>查找临界条件</strong></p>
+<p>根据归并排序的思想我们可写出这样的递推公式:</p>
+<p>假设:  <code>low</code>  为待排序数组的最小的索引.  <code>high</code>  为待排序数组的最大索引.  <code>mid</code>  为  <code>(high+low)/2</code> <br>
+ 那么:  <code>merge_sort(low,high) = merge(merge_sort(low,mid),merge_sort(mid+1,high))</code></p>
+<p>对某个数组 从下标  <code>low</code>  到  <code>high</code>  的排序，转换成了子问题 从 <code>low</code>  到  <code>mid</code>  的排序 和 从 <code>mid+1</code>  到 <code>high</code>  的排序。当这两个子问题排好序之后，再将两个有序的子数组合并在一起，这样下标从  <code>low</code>  到  <code>high</code>  之间的数据也就都是排好序的了。</p>
+<p>还有一个问题：终止条件是什么？终止条件就是 子问题中的  <code>low &gt;= high</code> , 这个时候，我们就可以终止递归了。</p>
+<h5 id="归并排序逻辑图"><a class="markdownIt-Anchor" href="#归并排序逻辑图">#</a> 归并排序逻辑图</h5>
+<p>来一张归并排序过程的示意图吧</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E6%8E%92%E5%BA%8F03-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F01.png" alt="算法01-排序03-归并排序01"></p>
+<h5 id="归并排序算法实现"><a class="markdownIt-Anchor" href="#归并排序算法实现">#</a> 归并排序算法实现</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp_arr_length = high - low + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> t[temp_arr_length];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> i = low;</span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 判断大小</span></span><br><span class="line">    <span class="keyword">for</span> (; i &lt;= mid &amp;&amp; j &lt;= high;) &#123;</span><br><span class="line">        t[m++] = a[i] &lt; a[j] ? a[i++] : a[j++];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断分组数量不相等时的情况</span></span><br><span class="line">    <span class="keyword">while</span> (j &lt;= high) &#123;</span><br><span class="line">        t[m++] = a[j++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断分组数量不相等时的情况   </span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= mid) &#123;</span><br><span class="line">        t[m++] = a[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将中间表的数据赋值给原始的数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        a[low + i] = t[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (low &gt;= high) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> mid = (low + high) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 归</span></span><br><span class="line">    merge_sort(a, low, mid);</span><br><span class="line">    merge_sort(a, mid + <span class="number">1</span>, high);</span><br><span class="line">    <span class="comment">// 并</span></span><br><span class="line">    merge(a, low, high, mid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="归并排序性能评估"><a class="markdownIt-Anchor" href="#归并排序性能评估">#</a> 归并排序性能评估</h5>
+<ul>
+<li>归并排序是一个稳定的排序算法</li>
+<li>归并排序的时间复杂度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li>归并排序的空间复杂度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+<h5 id="归并排序时间复杂度的推算"><a class="markdownIt-Anchor" href="#归并排序时间复杂度的推算">#</a> 归并排序时间复杂度的推算</h5>
+<p>归并排序这种实现方式的时间复杂度的推算，也就是对递归的时间复杂度的推算。</p>
+<p><strong>不仅递归求解的问题可以写成递推公式，递归代码的时间复杂度也可以写成递推公式</strong></p>
+<p>递归的主要特征就是:<br>
+ 一个问题 a, 可以拆分为多个子问题 b,c, 那么求解 a 问题就转换成了求解子问题 b,c。b 和 c 解决之后，我们就把 b,c 的结果合并成 a 的结果.</p>
+<p>那 我们假设 求解 a 问题的时间是 T (a), 求解问题 b,c 的时间为 T (b),T©, 那么我就可以得到这样的递推公式:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>=</mo><mi>T</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo><mo>+</mo><mi>T</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>+</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">T(a) = T(b) + T(c) + K
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span></span></p>
+<p>其中， <code>K</code>  是解决完子问题 <code>b</code> , <code>c</code>  之后，合并为 a 问题所需要的时间。 对于归并排序来讲， <code>K</code>  就是  <code>merge</code>  所需要的时间了.</p>
+<h5 id="那我们来详细的分析下归并排序时间复杂度"><a class="markdownIt-Anchor" href="#那我们来详细的分析下归并排序时间复杂度">#</a> 那我们来详细的分析下归并排序时间复杂度:</h5>
+<p>假设:<br>
+ 对 n 个元素，进行归并排序的时间为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span><br>
+ 那么:<br>
+ 分解成两个子数组排序的时间都是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n/2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span></span></span></span><br>
+ merge 函数合并两个有序子数组的时间复杂度是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></p>
+<p>套用前面的公式:</p>
+<p>当 <code>n=1</code>  时: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">T(n) = C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>, 常量级的执行时间.<br>
+ 当 <code>n&gt;1</code>  时: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">T(n)=2*T(n/2)+n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>2</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>2</mn><mo>∗</mo><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mo>=</mo><mn>4</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mo>∗</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>4</mn><mo>∗</mo><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>8</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mo>=</mo><mn>8</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>8</mn><mo stretchy="false">)</mo><mo>+</mo><mn>3</mn><mo>∗</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>8</mn><mo>∗</mo><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>16</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>8</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mo>=</mo><mn>16</mn><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>16</mn><mo stretchy="false">)</mo><mo>=</mo><mn>4</mn><mo>∗</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mn>2</mn><mi>k</mi></msup><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mfrac><mi>n</mi><msup><mn>2</mn><mi>k</mi></msup></mfrac><mo stretchy="false">)</mo><mo>+</mo><mi>k</mi><mo>∗</mo><mi>n</mi><mo separator="true">;</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+T(n) &amp;= 2*T(n/2)+n\\
+    &amp;= 2 * (2 * T(n/4) + n/2) + n = 4 * T(n/4) + 2 * n \\
+    &amp;= 4 * (2 * T(n/8) + n/4) + n = 8 * T(n/8) + 3 * n \\
+    &amp;= 8 * (2 * T(n/16) + n/8) + n = 16 * T(n/16) = 4 * n \\
+    &amp;= ....\\
+    &amp;= 2^k * T(\frac{n}{2^k}) + k * n;
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:9.593560000000004em;vertical-align:-4.546780000000002em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.046780000000001em;"><span style="top:-7.314340000000001em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span><span style="top:-5.8143400000000005em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:-4.31434em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:-2.8143399999999996em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:-1.3143399999999996em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:0.4532200000000014em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.546780000000002em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:5.046780000000001em;"><span style="top:-7.314340000000001em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-5.8143400000000005em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-4.31434em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-2.8143399999999996em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">1</span><span class="mord">6</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">1</span><span class="mord">6</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-1.3143399999999996em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span></span></span><span style="top:0.4532200000000014em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7751079999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mpunct">;</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.546780000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 就是分裂的次数。拆分子问题的次数.</p>
+<p>当 n=1, 则 k=0. , 即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mi>T</mi><mo stretchy="false">(</mo><mfrac><mi>n</mi><msup><mn>2</mn><mi>k</mi></msup></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(1) = T(\frac{n}{2^k})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1074199999999998em;vertical-align:-0.3574199999999999em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.64258em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3574199999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span>, ==&gt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>n</mi><msup><mn>2</mn><mi>k</mi></msup></mfrac><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\frac{n}{2^k}=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0528119999999999em;vertical-align:-0.3574199999999999em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.64258em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7820285714285713em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3574199999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>, 那么 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">k=log_2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span></span></span></span></p>
+<p>将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 代入公式</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><msup><mn>2</mn><mi>k</mi></msup><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mfrac><mi>n</mi><msup><mn>2</mn><mi>k</mi></msup></mfrac><mo stretchy="false">)</mo><mo>+</mo><mi>k</mi><mo>∗</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msup><mn>2</mn><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow></msup><mo>∗</mo><mi>T</mi><mo stretchy="false">(</mo><mfrac><mi>n</mi><msup><mn>2</mn><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow></msup></mfrac><mo stretchy="false">)</mo><mo>+</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi><mo>∗</mo><mi>n</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi>C</mi><mo separator="true">⋅</mo><mi>n</mi><mo>+</mo><mi>n</mi><mo separator="true">⋅</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>n</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+&amp; 2^k * T(\frac{n}{2^k}) + k * n \\
+&amp;= 2^{log_2n} * T(\frac{n}{2^{log_2n}}) + log_2n * n \\
+&amp;= C·n + n·log_2n
+\end{aligned}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.68712em;vertical-align:-2.5935599999999996em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.09356em;"><span style="top:-5.09356em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:-3.0000000000000004em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span><span style="top:-1.1740000000000008em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.5935599999999996em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.09356em;"><span style="top:-5.09356em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7751079999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-3.0000000000000004em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">o</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.10756em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7751079999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">o</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31731428571428577em;"><span style="top:-2.357em;margin-left:-0.03588em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span></span></span><span style="top:-1.1740000000000008em;"><span class="pstrut" style="height:3.1075600000000003em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">n</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.5935599999999996em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>使用大<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi></mrow><annotation encoding="application/x-tex">O</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span></span></span></span> 表示法: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</p>
+<p>归并排序的执行效率和要排序的原始数据的有序程度无关，所以不管最好情况和最坏情况下都是，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构与算法</a>
+          <a href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag"><i class="ic i-tag"></i> 排序</a>
+          <a href="/tags/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="tag"><i class="ic i-tag"></i> 冒泡排序</a>
+          <a href="/tags/%E5%88%86%E6%B2%BB%E6%80%9D%E6%83%B3%E6%8E%92%E5%BA%8F/" rel="tag"><i class="ic i-tag"></i> 分治思想排序</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-09-01 12:40:53" itemprop="dateModified" datetime="2021-09-01T12:40:53+08:00">2021-09-01</time>
+  </span>
+  <span id="2021/09/01/dataStructuresAndAlgorithms/sort/算法03-归并排序/" class="item leancloud_visitors" data-flag-title="归并排序" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/算法03-归并排序/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicivghyooj20zk0m8dir.jpg" title="选择排序">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>选择排序</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhnx9glj20zk0m8npd.jpg" title="递归">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>递归</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E9%80%BB%E8%BE%91%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text"> 归并排序逻辑图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text"> 归并排序算法实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-number">3.</span> <span class="toc-text"> 归并排序性能评估</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E6%8E%A8%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text"> 归并排序时间复杂度的推算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%82%A3%E6%88%91%E4%BB%AC%E6%9D%A5%E8%AF%A6%E7%BB%86%E7%9A%84%E5%88%86%E6%9E%90%E4%B8%8B%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">5.</span> <span class="toc-text"> 那我们来详细的分析下归并排序时间复杂度:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number"></span> <span class="toc-text"> 最后</span></a>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="bookmark" title="哈希算法">哈希算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="bookmark" title="递归">递归</a></li><li class="active"><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="归并排序">归并排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="bookmark" title="选择排序">选择排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="bookmark" title="排序算法">排序算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="bookmark" title="一致性哈希算法的实现">一致性哈希算法的实现</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="桶排序">桶排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="bookmark" title="冒泡排序">冒泡排序</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">56</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">11</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">38</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">249k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:46</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/01/dataStructuresAndAlgorithms/sort/算法03-归并排序/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,copy_tex: true,
+    katex: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

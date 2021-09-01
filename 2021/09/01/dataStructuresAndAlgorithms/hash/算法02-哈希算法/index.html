@@ -1,0 +1,754 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="算法,数据结构与算法,哈希算法" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">
+
+
+
+  <title>
+哈希算法 - 数据结构与算法 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">哈希算法
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-01 12:17:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:17:55+08:00">2021-09-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 数据结构与算法"><span itemprop="name">数据结构与算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="哈希算法"><a class="markdownIt-Anchor" href="#哈希算法">#</a> 哈希算法</h2>
+<p>哈希算法，又称为：散列函数，散列算法。</p>
+<p>哈希算法是指将任意长度的二进制值串映射为固定长度的二进制串的这一规则。</p>
+<p>举个例子:  <code>Jdk</code>  的 <code>HashMap</code>  中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看似实现非常简单，但是设计一个优秀的哈希算法却不是简单的事情。优秀的 Hash 算法有什么要求？</p>
+<ul>
+<li>从 Hash 值不能反向推导出原始数据，所以哈希算法也叫单向哈希算法。</li>
+<li>对输入数据敏感，修改了原始数据中的一个 bit，最后得到的哈希值也大不相同。</li>
+<li>哈希冲突 (也叫哈希碰撞) 的概率要很小，对于不同的原始数据，哈希值相同的概率非常小。</li>
+<li>哈希算法的执行效率要尽量高效，针对较长的文本，也能快速地计算出哈希值。</li>
+</ul>
+<p>我们再来看一个哈希算法的例子: MD5 () 函数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MD5Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchAlgorithmException </span>&#123;</span><br><span class="line">        System.out.println(md5(<span class="string">&quot;123456789&quot;</span>)); <span class="comment">// 25f9e794323b453885f5181f1b624d0b</span></span><br><span class="line">        System.out.println(md5(<span class="string">&quot;123456788&quot;</span>)); <span class="comment">// f5f091a697cd91c4170cda38e81f4b1a</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">md5</span><span class="params">(String input)</span> <span class="keyword">throws</span> NoSuchAlgorithmException </span>&#123;</span><br><span class="line">        MessageDigest md5 = MessageDigest.getInstance(<span class="string">&quot;MD5&quot;</span>);</span><br><span class="line">        md5.update(input.getBytes());</span><br><span class="line">        <span class="keyword">byte</span>[] digest = md5.digest();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BigInteger(<span class="number">1</span>, digest).toString(<span class="number">16</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先从哈希后的串反推出原始字符串是非常困难的。在第二个字符串仅仅是将 9 改成了 8，但是 Hash 后的值是完全不一样的。<br>
+对于任何一种哈希算法我们都只能尽量的减少其冲突的概率，理论上是不可能做到完全不冲突的。在组合数学中有一个著名的理论就是：<span class="label success">抽屉原理，也叫鸽巢原理。如果有 10 个鸽巢，但是有 11 只鸽子，那么肯定会有一个鸽巢中的鸽子数量多于一个。也就是肯定会有一个鸽巢里有两只鸽子</span>。同理而言，不管我们对什么样的数据进行哈希运算，得出的哈希值的长度是固定的，但是要哈希运算的原始数据确实无穷无尽的。以 MD5 算法为例。我们生成了 32 位的 16 进制数的字符串，那么我们生成串的可能性为 16^32 种。如果我们是第 16^32 + 1 个数据进行哈希运算肯定就会产生 哈希冲突。</p>
+<p>但是：我们可以轻易的得出这样一个结论:</p>
+<p><b>哈希值越长的哈希算法，散列冲突的概率越低</b></p>
+<p>那么哈希算法，主要应用在哪些方面呢？</p>
+<h2 id="哈希算法的应用"><a class="markdownIt-Anchor" href="#哈希算法的应用">#</a> 哈希算法的应用</h2>
+<h3 id="安全加密"><a class="markdownIt-Anchor" href="#安全加密">#</a> 安全加密</h3>
+<p>上面我们提到了 MD5 算法，这个是老生常谈的加密算法了，据说已经被破解了。</p>
+<ul>
+<li>MD5 算法 : message digest Algorithm MD5 消息摘要算法。</li>
+<li>SHA 算法 : Secure Hash Algorithm 安全散列算法</li>
+<li>DES 算法 : data Encryption Standard 数据加密标准</li>
+<li>AES 算法 : Advanced Encryption Standard 高级加密标准。</li>
+</ul>
+<p>对用于加密的哈希算法，有两个特别重要的要求: 1. 很难通过 Hash 值推导出原始的字符串。2. 散列冲突的概率要很小。</p>
+<h3 id="唯一标识"><a class="markdownIt-Anchor" href="#唯一标识">#</a> 唯一标识</h3>
+<ul>
+<li>md5: 例如：我们可以把每个图片的唯一标识，图片的路径都存储到散列表中，要查看什么图片的时候可以根据唯一标识去查到对应的图片。</li>
+</ul>
+<h3 id="数据校验"><a class="markdownIt-Anchor" href="#数据校验">#</a> 数据校验</h3>
+<ul>
+<li>我们常说的，检验一个文件是否被修改过，要检验下 md5 值。我们可以通过对比，来校验数据的完整性和正确性。</li>
+</ul>
+<h3 id="散列函数"><a class="markdownIt-Anchor" href="#散列函数">#</a> 散列函数</h3>
+<ul>
+<li>Java 中 HashMap 等用来计算哈希值。对散列的平均性和哈希算法的执行效率要求较高。</li>
+</ul>
+<h3 id="负载均衡"><a class="markdownIt-Anchor" href="#负载均衡">#</a> 负载均衡</h3>
+<ul>
+<li>负载均衡算法，有很多，比如轮询算法，随机算法，加权轮询算法。</li>
+</ul>
+<h3 id="数据分片"><a class="markdownIt-Anchor" href="#数据分片">#</a> 数据分片</h3>
+<ul>
+<li>典型的数据库的分库分表等海量数据的查询场景</li>
+</ul>
+<h3 id="分布式存储"><a class="markdownIt-Anchor" href="#分布式存储">#</a> 分布式存储</h3>
+<ul>
+<li>这种的就是对海量数据的存储场景。比如分布式缓存 (Redis)，如何判断该条数据分配在哪台 Redis 中。</li>
+</ul>
+<p><b>哈希算法的几种使用场景，介绍完毕，我们重新来看看这种 Hash 算法在应用中有什么缺陷</b></p>
+<h2 id="一致性哈希算法"><a class="markdownIt-Anchor" href="#一致性哈希算法">#</a> 一致性哈希算法</h2>
+<p>在负载均衡，数据分片，分布式存储三种场景中，都有一个明显的特点就是，通过分布式集群的方式来对海量数据进行处理。</p>
+<p>这时，假设在集群中突然一台机器宕机，被迫下线。这时会出现什么问题呢？</p>
+<p>我再来详细的描述下这个场景。</p>
+<p>以分布式缓存为例：</p>
+<p>假设我们使用 Redis 集群做图片资源的缓存，Redis 的 key 是图片的名称，value 是对应服务器的路径。如果数据是 1000w，那么我们用 5 台服务器进行缓存，每台服务器大于 200w 数据，并且是都是主从的架构。<br>
+如下图：</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E4%B8%80%E8%87%B4%E6%80%A7Hash1.png" alt=""></p>
+<p>很简单的存储方式： 我们对没他图片的名称进行哈希运算，并对得出的哈希值和 5 进行取模运算，得到这个图片资源所在的服务器，去获取数据。<br>
+比如： hash (2020053000001.png) % 5 = 3，表示位于第 4 台服务器上。</p>
+<p><b>很不幸！！！，突然有台机器宕机了，并且这台机器被踢下线了，集群中机器由 5 台 变成了 4 台 (减)</b></p>
+<p>那么这时会有什么问题呢？ 我们会发现所有的图片资源都无法命中缓存资源了。这时就出现所谓的 “缓存雪崩”。</p>
+<p>为什么呢？本来 hash (2020053000001.png) % 5 = 3，由于集群中只有 4 台机器了，那么 hash (2020053000001.png) % 4 = 3 就一定不会是 3 了吧！</p>
+<p>这时候你就说了，我们还是对 5 取模不就行了？这样至少其他 4 台缓存服务器还可以正常提供服务。但是这样所有命中宕机服务器的缓存都会打到数据库，这样还是有可能直接导致数据库宕机的！</p>
+<p>怎么办呢？</p>
+<p><b>一波不平，一波又起！随着访问量的增大，缓存服务器不堪重负！缓存服务器要从 5 台增加到 8 台！(增)</b></p>
+<p>同样的问题： hash (2020053000001.png) % 5 = 3 ，但是 hash (2020053000001.png) % 8 = ?? , 有一次 “雪崩！”</p>
+<p>怎么办呢？</p>
+<p><b>第三波！经过长时间的监控，发现缓存服务器的压力主要集中在晚上的 7:00 - 10:00 之间，其他时间段的压力就很小！(假)</b></p>
+<p>要求实现可以动态的扩张和缩小集群的数量。</p>
+<p>怎么办呢？</p>
+<p><b>重要嘉宾： 一致性哈希算法</b></p>
+<p>什么是一致性哈希算法呢？</p>
+<p>刚才在第一波的时候，说过我们可以对 5 取模啊。这个思路是可以的，但是不能根据集群中服务器数量来进行取模运算，而是要对一个固定大的数来取模运算（2^32=4294947297（最大的非符号整形数））。 那哈希值对应的位置上没有机器怎么办？我来解释下，一致性哈希算法的整体逻辑：</p>
+<p>一致性哈希算法是将整个哈希值空间组织成一个虚拟的圆环。而且这个哈希值空间的大小为  <code>[0, 2^32-1]</code> , 如下图。</p>
+<p>从 0 开始，顺时针计数，直到 2^32-1, 这 2^32 个点组成的圆环称为 Hash 环。</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E4%B8%80%E8%87%B4%E6%80%A7Hash2.png" alt="哈希图"></p>
+<p>还是以上面的场景， 5 台服务器随机分布在环上，如下图，</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E4%B8%80%E8%87%B4%E6%80%A7Hash3.png" alt="哈希图"></p>
+<p>常量 MAX_VALUE = 2 ^ 32;</p>
+<ul>
+<li>假设图片资源: hash (20200530004562.png) = 4；如果第 4 个位置上正好有一台服务器，就直接将这个条数据缓存到该台服务器上。</li>
+<li>假设图片资源：hash (20200530015456.png) = 46581；在第 46581 上并没有服务器，那么以顺时针的方向，进行遍历，直到遇到第一台服务器 58941，缓存到该台服务器 58941 上。</li>
+</ul>
+<p>如下图:</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E4%B8%80%E8%87%B4%E6%80%A7Hash4.png" alt="哈希图"></p>
+<p>我们再来看看我们的三波:</p>
+<ul>
+<li><b>突然有一台机器宕机！</b></li>
+</ul>
+<p>假设 65594 这台机器宕机，那么就无法查询缓存在 65594 这台机器上的数据，程序会顺时针方向进行查找，找到 73214 这台机器，获取缓存为空，查询数据库后将数据缓存到 73214 这台机器上。</p>
+<ul>
+<li><b>新增机器到集群中</b></li>
+</ul>
+<p>假设 在集群节点号 73214 和 138956 之间插入一台机器 100354 。那么原来 hash 在 (73214,100354] 之前的数据，就不会缓存到 138956 节点了，</p>
+<ul>
+<li><b>动态</b></li>
+</ul>
+<p>在新增和删除完成之后，动态，理论上也是 OK 的。具体实现的话，就是监控访问流量，根据流量阈值设置动态的扩展和 “踢下线机器”(将机器给其他业务用)。</p>
+<h3 id="一致性哈希缺点"><a class="markdownIt-Anchor" href="#一致性哈希缺点">#</a> 一致性哈希缺点</h3>
+<h4 id="数据倾斜"><a class="markdownIt-Anchor" href="#数据倾斜">#</a> 数据倾斜</h4>
+<p>一致性哈希算法，当在服务器节点数量太少的时候，容易出现分配不均而导致数据倾斜。比如，我们有三台服务器，如下图分布:</p>
+<p><img data-src="/images/dataStructuresAndAlgorithms/%E4%B8%80%E8%87%B4%E6%80%A7Hash5.png" alt="哈希图"></p>
+<p>假设大量数据哈希后的值在 [C,MaxValue] 之间，那么所有的数据都会散列到第 1 个节点上。</p>
+<p>这种问题，怎么解决呢？</p>
+<p><b>虚拟节点</b></p>
+<p>假设我们有 5 台服务器节点，防止各节点分布不均匀的问题，我们可以一台服务其进行多次哈希运算，从而虚拟出个节点。</p>
+<p>假设我们原来对服务器 1 的 IP (192.168.0.1) 进行哈希，我们使用虚拟节点的方式进行哈希的时候，我们可以对（192.168.0.1#1），（192.168.0.1#2），（192.168.0.1#3），（192.168.0.1#4）。这样 5 台机器，就可以有 20 个节点。从而加大了哈希后分布的随机性。解决了服务节点少时数据倾斜的问题。实际应用中，至少要大于 32 。</p>
+<p>好了，关于一致性哈希的相关内容，本篇文章就介绍到这里。</p>
+<p><b>下一篇文章《一致性 Hash 算法的实现》请期待 </b></p>
+<p>如果有什么问题，欢迎你私信我，我们一起交流哇。</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构与算法</a>
+          <a href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 哈希算法</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-09-01 12:24:14" itemprop="dateModified" datetime="2021-09-01T12:24:14+08:00">2021-09-01</time>
+  </span>
+  <span id="2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法/" class="item leancloud_visitors" data-flag-title="哈希算法" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyvx1d4j20zk0m8hdt.jpg" title="动态规划">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>动态规划</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="排序算法">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>排序算法</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text"> 哈希算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> 哈希算法的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%8A%A0%E5%AF%86"><span class="toc-number">2.1.</span> <span class="toc-text"> 安全加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E6%A0%87%E8%AF%86"><span class="toc-number">2.2.</span> <span class="toc-text"> 唯一标识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C"><span class="toc-number">2.3.</span> <span class="toc-text"> 数据校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text"> 散列函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">2.5.</span> <span class="toc-text"> 负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87"><span class="toc-number">2.6.</span> <span class="toc-text"> 数据分片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="toc-number">2.7.</span> <span class="toc-text"> 分布式存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text"> 一致性哈希算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%BC%BA%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text"> 一致性哈希缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 数据倾斜</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">4.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li class="active"><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="bookmark" title="哈希算法">哈希算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="bookmark" title="递归">递归</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="归并排序">归并排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="bookmark" title="选择排序">选择排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="bookmark" title="排序算法">排序算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="bookmark" title="一致性哈希算法的实现">一致性哈希算法的实现</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="桶排序">桶排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="bookmark" title="冒泡排序">冒泡排序</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">56</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">11</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">38</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC:反转链表I">LC:反转链表I</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">249k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:46</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,copy_tex: true,
+    katex: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

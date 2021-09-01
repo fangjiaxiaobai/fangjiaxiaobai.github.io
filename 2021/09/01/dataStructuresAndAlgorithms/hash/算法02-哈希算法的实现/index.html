@@ -1,0 +1,698 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="算法,数据结构与算法,哈希算法" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+
+
+  <title>
+一致性哈希算法的实现 - 数据结构与算法 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">一致性哈希算法的实现
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-01 12:36:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:36:55+08:00">2021-09-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>11k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>10 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="item" rel="index" title="分类于 数据结构与算法"><span itemprop="name">数据结构与算法</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>上一篇介绍了 哈希算法和一致性哈希算法的原理，我们知道哈希算法在分布式场景应用中存在着定位问题。所有有一致性哈希算法。<br>
+今天我们就动手实现以下哈希算法。</p>
+<p>可选性 回顾一下 <b><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">哈希算法和一致性哈希算法</a></b></p>
+<h1 id="说明"><a class="markdownIt-Anchor" href="#说明">#</a> 说明</h1>
+<p>以下多次出现服务端节点，客户端节点这两个名字，含义如下：</p>
+<p>服务端节点： 在实际场景中，比如分布式缓存，上一篇文章中的例子，服务端节点就是多个 Redis 机器。</p>
+<p>客户端节点： 就是要缓存的数据，这里使用这两个名词来代表不同的两个部分。</p>
+<h1 id="实现功能"><a class="markdownIt-Anchor" href="#实现功能">#</a> 实现功能</h1>
+<p>以上篇中提及的分布式缓存的例子为背景实现一致性哈希算法，主要实现两个功能：</p>
+<ul>
+<li>
+<p>新增服务节点</p>
+<p>创建一个哈希环，然后可以存放服务端节点信息。后续新增节点也能正常存储。</p>
+</li>
+<li>
+<p>根据客户端节点找到对应的服务节点</p>
+<p>传入客户端的信息，我们可以根据 client 的信息或者其他的信息进行哈希运算，然后确定存储的服务端节点。</p>
+</li>
+<li>
+<p>实现根据服务端节点进行删除</p>
+<p>模拟实现部分服务端不可用。即例子中的缓存节点挂掉。</p>
+</li>
+</ul>
+<h1 id="实现方案"><a class="markdownIt-Anchor" href="#实现方案">#</a> 实现方案</h1>
+<p>首先我们需要定义一个接口规范，规定好要实现的内容，比如，保存服务端节点信息，即新增操作，根据客户端节点找到服务节点的功能，即查询操作。</p>
+<h2 id="排序list的实现方式"><a class="markdownIt-Anchor" href="#排序list的实现方式">#</a> 排序 + List 的实现方式</h2>
+<p>主要思路如下： 将所有的节点保存到一个 List 中。然后对 List 进行<b>排序</b>，当获取服务端节点的时候，只需要找到第一个 哈希值比他大的服务端节点的就可以了。</p>
+<p>不考虑排序的时间复杂度： 最优时间复杂度：O (1)，第一个节点就是目标节点。最坏情况下：O (n+1), 招了一圈都没有找到。所以平均的时间复杂度是 O (N)。<br>
+那排序的时间复杂度呢？最快的就是 O (NlogN);</p>
+<p>综合下来，这种实现方案的时间复杂度就是： O (NlogN)。</p>
+<p>主要实现代码如下 (文末完整代码，注释颇多)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortListConsistentHash</span> <span class="keyword">implements</span> <span class="title">ConsistentHash</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * hash环容器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;NodeBucket&gt; hashCircle = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 哈希算法</span></span><br><span class="line"><span class="comment">     * 默认使用 &#123;<span class="doctag">@link</span> ConsistentHash#hash &#125;算法实现</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashHandle&lt;Node&gt; hashHandle;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortListConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">        virtualNumber = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortListConsistentHash</span><span class="params">(HashHandle&lt;Node&gt; hashHandle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = hashHandle;</span><br><span class="line">        virtualNumber = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortListConsistentHash</span><span class="params">(HashHandle&lt;Node&gt; hashHandle, Integer virtualNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = hashHandle;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = virtualNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortListConsistentHash</span><span class="params">(Integer virtualNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = virtualNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 虚拟节点的数目,默认为1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer virtualNumber;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 新增服务节点</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value 服务节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(ServerNode value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hashCircle == <span class="keyword">null</span>) &#123;</span><br><span class="line">            hashCircle = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; virtualNumber; i++) &#123;</span><br><span class="line">            value.setVirtualNodeId(i);</span><br><span class="line">            hashCircle.add(DefaultNodeBucket.of(value, (node) -&gt; hashHandle.hash(value)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 排序</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        hashCircle.sort(Comparator.comparingInt(NodeBucket::getHash));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 找不到符合条件的第一个节点</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clientNode 根据 客户端节点的Hash值获取到目标服务端节点</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServerNode <span class="title">getFirstNode</span><span class="params">(ClientNode clientNode)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Integer hash = hash(clientNode);</span><br><span class="line"></span><br><span class="line">        Optional&lt;NodeBucket&gt; first = hashCircle.stream().filter(item -&gt; item.getHash() &gt; hash).findFirst();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> first.map(NodeBucket::getNode).orElse(hashCircle.get(<span class="number">0</span>).getNode());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有服务节点</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 所有服务端节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;ServerNode&gt; <span class="title">getAllServerNodes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.hashCircle.stream().map(NodeBucket::getNode).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 哈希算法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node 节点的信息,可能是客户端，也可能是服务端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 哈希值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">hash</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node <span class="keyword">instanceof</span> ServerNode) &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier() + <span class="string">&quot;#&quot;</span> + ((ServerNode) node).getVirtualNodeId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node <span class="keyword">instanceof</span> ServerNode) &#123;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle.remove(DefaultNodeBucket.of((ServerNode) node, hashHandle));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线性表遍历的实现方式"><a class="markdownIt-Anchor" href="#线性表遍历的实现方式">#</a> 线性表遍历的实现方式</h2>
+<p>首先说明一下，这里使用的是线性表遍历的方式，并没有指定说使用的数组还是链表，根据具体场景来选择吧，实现方式略有不同。我用数组的形式来实现。</p>
+<p>上一种实现方式，使用了排序导致了时间复杂度为 O (NlogN)。那么我不用排序行不行？</p>
+<p>可以的！我们首先将服务端节点保存到数组中，然后根据客户端哈希值和服务端节点哈希值的差，找出最小的那个节点就可以了。每次遍历实现的话，遍历一次就可以了，时间复杂度为 O (N).</p>
+<p>主要实现逻辑代码如下（文末有完整实现代码，注释颇多）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TraverseArrayConsistentHash</span> <span class="keyword">implements</span> <span class="title">ConsistentHash</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用数组实现的哈希环</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> NodeBucket[] hashCircle = <span class="keyword">new</span> NodeBucket[]&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashHandle&lt;Node&gt; hashHandle;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> defaultSize = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MaxSize = Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 虚拟节点的数目,默认为1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer virtualNumber;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TraverseArrayConsistentHash</span><span class="params">(Integer initialCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.size = initialCapacity;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle = <span class="keyword">new</span> NodeBucket[initialCapacity];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;initialCapacity must &gt; 0 &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">        virtualNumber = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TraverseArrayConsistentHash</span><span class="params">(Integer initialCapacity, Integer virtualNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.size = initialCapacity;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle = <span class="keyword">new</span> NodeBucket[initialCapacity];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;initialCapacity must &gt; 0 &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = virtualNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TraverseArrayConsistentHash</span><span class="params">(Integer initialCapacity, Integer virtualNumber, HashHandle&lt;Node&gt; hashHandle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.size = initialCapacity;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle = <span class="keyword">new</span> NodeBucket[initialCapacity];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;initialCapacity must &gt; 0 &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = virtualNumber;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = hashHandle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TraverseArrayConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(ServerNode serverNode)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 检查大小是否需要扩容</span></span><br><span class="line">        checkSize();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; virtualNumber; i++) &#123;</span><br><span class="line">            serverNode.setVirtualNodeId(i);</span><br><span class="line">            <span class="keyword">this</span>.hashCircle[length++] = DefaultNodeBucket.of(serverNode, hashHandle);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查数组大小</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.size = defaultSize;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle = <span class="keyword">new</span> NodeBucket[size];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (size &gt;= MaxSize) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (length + <span class="number">1</span> &gt; size) &#123;</span><br><span class="line">            <span class="keyword">this</span>.size = size &lt;&lt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">this</span>.hashCircle = Arrays.copyOf(<span class="keyword">this</span>.hashCircle, size, NodeBucket[].class);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">hash</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node <span class="keyword">instanceof</span> ServerNode) &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier() + <span class="string">&quot;#&quot;</span> + ((ServerNode) node).getVirtualNodeId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (node.equals(hashCircle[index].getNode())) &#123;</span><br><span class="line">                fastRemove(index);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fastRemove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">            System.arraycopy(hashCircle, index+<span class="number">1</span>, hashCircle, index,</span><br><span class="line">                    numMoved);</span><br><span class="line">        hashCircle[--size] = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServerNode <span class="title">getFirstNode</span><span class="params">(ClientNode clientNode)</span> </span>&#123;</span><br><span class="line">        Integer hash = <span class="keyword">this</span>.hashHandle.hash(clientNode);</span><br><span class="line">        ServerNode findNode = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">        <span class="comment">// 查找符合条件的服务端节点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            NodeBucket nodeBucket = <span class="keyword">this</span>.hashCircle[i];</span><br><span class="line">            <span class="keyword">int</span> difference;</span><br><span class="line">            <span class="keyword">if</span> ((difference = Math.abs(nodeBucket.getHash() - hash)) &lt; min) &#123;</span><br><span class="line">                min = difference;</span><br><span class="line">                findNode = nodeBucket.getNode();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> findNode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;ServerNode&gt; <span class="title">getAllServerNodes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(<span class="keyword">this</span>.hashCircle).map(NodeBucket::getNode).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sortedmap实现方案"><a class="markdownIt-Anchor" href="#sortedmap实现方案">#</a> SortedMap 实现方案</h2>
+<p>上面两种的实现方案，并非是最优的。根本原因就是<b>数据结构</b>的限制。 线性表决定了这一切。我们考虑换一种数据结构呢？</p>
+<p>考虑下使用<b>树</b>形结构</p>
+<p>最快的树形数据结构，就是二叉平衡树了。二叉平衡树有两种 AVL 树和红黑树。</p>
+<p>我们使用红黑树，因为红黑树的主要功能就是存储<b>有序的数据</b>，并且查询地效率是 O (logN)。</p>
+<p>考虑到手写实现一个红黑树，着实有点复杂，这种我们使用 JDK 中的 TreeMap 来实现。</p>
+<p>将所有的服务节点放到 TreeMap 中，这种结构天然支持排序的，所以我们只需要主要的实现找到服务节点的这个过程就好了。</p>
+<p>首先计算出客户端的哈希值，查询出大于该哈希值的服务节点的子序列，如果子序列为空返回原来哈希环的第一个元素，否则，返回子序列的第一个元素即可。</p>
+<p>主要实现代码如下 (文末有完整代码，注释真的多！)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortedMapConsistentHash</span> <span class="keyword">implements</span> <span class="title">ConsistentHash</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SortedMap&lt;Integer, ServerNode&gt; hashCircle = <span class="keyword">new</span> TreeMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HashHandle&lt;Node&gt; hashHandle;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 虚拟节点的数目,默认为1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer virtualNumber;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortedMapConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        virtualNumber = <span class="number">1</span>;</span><br><span class="line">        hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortedMapConsistentHash</span><span class="params">(<span class="keyword">int</span> virtualNumber, HashHandle&lt;Node&gt; hashHandle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = hashHandle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SortedMapConsistentHash</span><span class="params">(<span class="keyword">int</span> virtualNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.virtualNumber = virtualNumber;</span><br><span class="line">        <span class="keyword">this</span>.hashHandle = <span class="keyword">this</span>::hash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(ServerNode serverNode)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 实现虚拟节点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; virtualNumber; i++) &#123;</span><br><span class="line">            serverNode.setVirtualNodeId(i);</span><br><span class="line">            hashCircle.put(<span class="keyword">this</span>.hashHandle.hash(serverNode), serverNode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">hash</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node <span class="keyword">instanceof</span> ServerNode) &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier() + <span class="string">&quot;#&quot;</span> + ((ServerNode) node).getVirtualNodeId());</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> defaultStringHash(node.getIdentifier());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hashCircle.remove(hashHandle.hash(node));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServerNode <span class="title">getFirstNode</span><span class="params">(ClientNode clientNode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> hash = hash(clientNode);</span><br><span class="line">        <span class="comment">// 获取大于客户端哈希值的子序列</span></span><br><span class="line">        SortedMap&lt;Integer, ServerNode&gt; subMap = hashCircle.tailMap(hash);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (subMap.isEmpty()) &#123;</span><br><span class="line">            <span class="comment">// 子序列为空，获取哈希环的第一个节点</span></span><br><span class="line">            Integer key = hashCircle.firstKey();</span><br><span class="line">            <span class="keyword">return</span> hashCircle.get(key);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 子序列不为空，获取子序列的第一个节点</span></span><br><span class="line">            Integer key = subMap.firstKey();</span><br><span class="line">            <span class="keyword">return</span> subMap.get(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;ServerNode&gt; <span class="title">getAllServerNodes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="keyword">this</span>.hashCircle.values());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServerNode <span class="title">process</span><span class="params">(ClientNode clientNode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getFirstNode(clientNode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">````</span><br><span class="line">最后，我们测试一下,一致性哈希算法的结果:</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsistentHashDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        testSortListConsistentHash();</span><br><span class="line">        testSortedMapConsistentHash();</span><br><span class="line">        testTraverseArrayConsistentHash();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试，使用遍历的方式来实现一致性hash算法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testTraverseArrayConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConsistentHash sortedMapConsistentHash = <span class="keyword">new</span> TraverseArrayConsistentHash();</span><br><span class="line">        testConsistentHashCommonPart(sortedMapConsistentHash);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试，使用SortMap实现的一致性哈希算法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSortedMapConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConsistentHash sortedMapConsistentHash = <span class="keyword">new</span> SortedMapConsistentHash(<span class="number">3</span>);</span><br><span class="line">        testConsistentHashCommonPart(sortedMapConsistentHash);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试，使用数组和排序方式实现的 一致性哈希算法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSortListConsistentHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SortListConsistentHash sortListConsistentHashMap = <span class="keyword">new</span> SortListConsistentHash();</span><br><span class="line">        testConsistentHashCommonPart(sortListConsistentHashMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试 consistentHash 算法，公共代码部分</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> consistentHash 一致性哈希实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testConsistentHashCommonPart</span><span class="params">(ConsistentHash consistentHash)</span> </span>&#123;</span><br><span class="line">        Stream.of(</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.1&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain1.com&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.2&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain2.com&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.3&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain3.com&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.4&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain4.com&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.5&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain5.com&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> ServerNode(<span class="string">&quot;192.168.0.6&quot;</span>, UUID.randomUUID().toString(), <span class="string">&quot;domain6.com&quot;</span>)</span><br><span class="line">        ).forEach(consistentHash::add);</span><br><span class="line">        String s1 = UUID.randomUUID().toString();</span><br><span class="line">        ServerNode serverNode1 = consistentHash.process(<span class="keyword">new</span> ClientNode(s1));</span><br><span class="line">        out.println(serverNode1);</span><br><span class="line">        ServerNode serverNode1_1 = consistentHash.process(<span class="keyword">new</span> ClientNode(s1));</span><br><span class="line">        out.println(serverNode1_1);</span><br><span class="line">        ServerNode serverNode1_2 = consistentHash.process(<span class="keyword">new</span> ClientNode(UUID.randomUUID().toString()));</span><br><span class="line">        out.println(serverNode1_2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在测试完成之后，我还对各种方案就进行了性能相关的简单测试，硬件: windows 8 核 16G,i7.<br>
+ 测试代码就不贴出来了，查看原文去看吧。</p>
+<p>总结如下：</p>
+<p>在节点数 小于 10000 的场景下： 数组遍历 &gt; SortedMap &gt; 排序。 即：方案 2 &gt; 方案 3 &gt; 方案 1。<br>
+在服务端节点数 大于 10000 的场景下： SortedMap &gt; 数组变量 &gt; 排序。即： 方案 3 &gt; 方案 2 &gt; 方案 1.</p>
+<h1 id="附录"><a class="markdownIt-Anchor" href="#附录">#</a> 附录</h1>
+<div class="links"><div class="item" title="fangxiaobai" style="--block-color:#e0b971;"><span class="exturl image" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFpL2NvZGVfcmVwby90cmVlL21hc3Rlci8wM18lRTUlODglODYlRTUlQjglODMlRTUlQkMlOEYlRTclOUIlQjglRTUlODUlQjMvJUU0JUI4JTgwJUU4JTg3JUI0JUU2JTgwJUE3JUU1JTkzJTg4JUU1JUI4JThDJUU3JUFFJTk3JUU2JUIzJTk1L2NvbnNpc3RlbnRfaGFzaC9zcmM=" data-background-image="https://avatars.githubusercontent.com/u/22616214?v=4"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFpL2NvZGVfcmVwby90cmVlL21hc3Rlci8wM18lRTUlODglODYlRTUlQjglODMlRTUlQkMlOEYlRTclOUIlQjglRTUlODUlQjMvJUU0JUI4JTgwJUU4JTg3JUI0JUU2JTgwJUE3JUU1JTkzJTg4JUU1JUI4JThDJUU3JUFFJTk3JUU2JUIzJTk1L2NvbnNpc3RlbnRfaGFzaC9zcmM=">代码仓库 - 一致性Hash算法的实现</span>
+          <p class="desc">欢迎star!! 期待你的加入~</p>
+          </div></div></div>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h1>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 算法</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 数据结构与算法</a>
+          <a href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="tag"><i class="ic i-tag"></i> 哈希算法</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-09-01 12:32:33" itemprop="dateModified" datetime="2021-09-01T12:32:33+08:00">2021-09-01</time>
+  </span>
+  <span id="2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法的实现/" class="item leancloud_visitors" data-flag-title="一致性哈希算法的实现" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法的实现/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfw2t96j20zk0m8x6p.jpg" title="递归">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>递归</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciuv0socj20zk0m8qes.jpg" title="快速排序">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 数据结构与算法</span>
+  <h3>快速排序</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text"> 说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text"> 实现功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88"><span class="toc-number">3.</span> <span class="toc-text"> 实现方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8Flist%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text"> 排序 + List 的实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E9%81%8D%E5%8E%86%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text"> 线性表遍历的实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sortedmap%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88"><span class="toc-number">3.3.</span> <span class="toc-text"> SortedMap 实现方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text"> 附录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="bookmark" title="动态规划">动态规划</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" rel="bookmark" title="哈希算法">哈希算法</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="bookmark" title="递归">递归</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="归并排序">归并排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="bookmark" title="选择排序">选择排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="bookmark" title="排序算法">排序算法</a></li><li class="active"><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="bookmark" title="一致性哈希算法的实现">一致性哈希算法的实现</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="bookmark" title="快速排序">快速排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" rel="bookmark" title="桶排序">桶排序</a></li><li><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" rel="bookmark" title="冒泡排序">冒泡排序</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">56</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">11</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">38</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">动态规划</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" title="选择排序">选择排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">249k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:46</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/01/dataStructuresAndAlgorithms/hash/算法02-哈希算法的实现/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,copy_tex: true,
+    katex: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
