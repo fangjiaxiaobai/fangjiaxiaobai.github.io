@@ -1,0 +1,689 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="RocketMQ,消息队列" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/">
+
+
+
+  <title>
+Rocket 系列 - 入门 - RocketMQ 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Rocket 系列 - 入门
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-01 17:17:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T17:17:00+08:00">2021-09-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 RocketMQ 系列"><span itemprop="name">RocketMQ 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="rocketmq-介绍"><a class="markdownIt-Anchor" href="#rocketmq-介绍">#</a> RocketMQ 介绍</h1>
+<p>截止 2021 年 9 月 1 日， RocketMQ 最新版本是 4.9.1。</p>
+<p>最新 Star 数为 1.5w. fork 数量是 8.4k.</p>
+<p><img data-src="/images/rocketmq/RocketMQ-title-pic.png" alt=""></p>
+<h2 id="发展历程"><a class="markdownIt-Anchor" href="#发展历程">#</a> 发展历程</h2>
+<p>RocketMQ 的发展历程分为两部分，2001 年开始 RocketMQ 的前身 Notify，在 2016 年阿里将 RocketMQ 捐赠给 Apache 基金会中进行孵化。</p>
+<h3 id="在阿里"><a class="markdownIt-Anchor" href="#在阿里">#</a> 在阿里</h3>
+<p>阿里巴巴消息中间件起源于 2001 年的五彩石项目，Notify 在这期间应运而生，用于交易核心消息的流转。</p>
+<p>至 2010 年，B2B 开始大规模使用 ActiveMQ 作为消息内核，随着阿里业务的快速发展，急需一款支持顺序消息，拥有海量消息堆积能力的消息中间件，MetaQ 1.0 在 2011 年诞生。</p>
+<p>到 2012 年，MetaQ 已经发展到了 MetaQ 3.0，并抽象出了通用的消息引擎 RocketMQ。随后，将 RocketMQ 进行了开源，阿里的消息中间件正式走入了公众的视野。</p>
+<p>到 2015 年，RocketMQ 已经经历了多年双十一的洗礼，在可用性、可靠性以及稳定性等方面都有出色的表现。与此同时，云计算大行其道，阿里消息中间件基于 RocketMQ 推出了 Aliware MQ 1.0，开始为阿里云上成千上万家企业提供消息服务。</p>
+<p>到今年，MetaQ 在 2016 年双十一承载了万亿级消息的流转，跨越了一个新的里程碑，同时 RocketMQ 进入 Apache 孵化。</p>
+<h3 id="apache"><a class="markdownIt-Anchor" href="#apache">#</a> Apache</h3>
+<ul>
+<li>2017 年 2 月 7 日 4.0.0 版本，成为 Apache 项目之后的第一个版本。属于 Apache 的孵化项目。</li>
+<li>2017 年 6 月 8 日 4.1.0 版本，</li>
+<li>2017 年 12 月 13 日 4.2.0</li>
+<li>2018 年 7 月 26 日 4.3.0</li>
+<li>2019 年 1 月 17 日 4.4.0 版本</li>
+<li>2019 年 5 月 21 日 4.5.1 版本</li>
+<li>2019 年 11 月 19 日 4.6.0 版本</li>
+<li>2020 年 3 月 5 日 4.7.0 版本</li>
+<li>2020 年 12 月 9 日 4.8.0 版本</li>
+<li>2021 年 6 月 17 日 4.9.0 版本</li>
+<li>2021 年 8 月 27 日  4.9.1 版本</li>
+</ul>
+<p>截止目前，RocketMQ 先后经历了 20 年的发展，承载这淘宝双十一万亿级消息的处理。</p>
+<h2 id="rocket特性"><a class="markdownIt-Anchor" href="#rocket特性">#</a> Rocket 特性</h2>
+<p>RocketMQ 具有下面的功能特性:</p>
+<ul>
+<li>订阅发布：这个是消息队里产品的基础功能。</li>
+<li>支持事务型消息：指应用本地事务和发送消息操作可以被定义到全局事务中，要么同时成功，要么同时失败。</li>
+<li>支持延时消息：指消息发送到 broker 后，不会立即被消费，等待特定时间投递给真正的 topic</li>
+<li>支持消息重试: Consumer 消费消息失败后，要提供一种重试机制，令消息再消费一次</li>
+<li>支持消息过滤: RocketMQ 的消费者可以根据 Tag 进行消息过滤，也支持自定义属性过滤。</li>
+<li>支持消息重放：生产者在发送消息时，同步消息失败会重投，异步消息有重试，oneway 没有任何保证。</li>
+<li>支持流量控制： 分为生产者流控和消费者流控。生产者流控因为 broker 处理能力达到瓶颈；消费者流控，因为消费能力达到瓶颈。</li>
+<li>支持死信队列：死信队列用于处理无法被正常消费的消息.</li>
+</ul>
+<p>在后面的学习中，我们也会着重的学习这几中特性。</p>
+<h2 id="rocketmq的组成部分"><a class="markdownIt-Anchor" href="#rocketmq的组成部分">#</a> RocketMQ 的组成部分</h2>
+<p>Apache RocketMQ 是一个分布式消息和流媒体平台，具有低延迟、高性能和可靠性、万亿级容量和灵活的可伸缩性。它由四部分组成: NameServer、Broker、Producer 和 Cu] onsumer。它们中的每一个都是可以集群方式部署，都可以水平地扩展，而不需要单个故障点。如下图。</p>
+<p><img data-src="/images/rocketmq/1-01-rmq-basic-arc.png" alt=""></p>
+<h3 id="nameserver-cluster"><a class="markdownIt-Anchor" href="#nameserver-cluster">#</a> NameServer cluster</h3>
+<p>NameServer 提供轻量级服务发现功能和消息路由功能。 每个 Name Server 记录完整的路由信息​​，提供相应的读写服务，并支持快速存储扩展。</p>
+<h3 id="broker-cluster"><a class="markdownIt-Anchor" href="#broker-cluster">#</a> Broker Cluster</h3>
+<p>Broker 通过提供轻量级的 TOPIC 和 QUEUE 机制来处理消息存储。它们支持 Push 和 Pull 模型，包含容错机制 (2 个或 3 个副本)，并提供强大的峰值填充和以原始时间顺序积累数千亿条消息的能力。此外，broker 还提供了灾难恢复、丰富的指标统计信息和警报机制，这些都是传统消息传递系统所缺乏的。</p>
+<h3 id="producer-cluster"><a class="markdownIt-Anchor" href="#producer-cluster">#</a> Producer Cluster</h3>
+<p>生产者支持分布式部署。分布式生产者通过多种负载平衡模式向 Broker 集群发送消息。发送进程支持快速故障和低延迟。</p>
+<h3 id="consumer-cluster"><a class="markdownIt-Anchor" href="#consumer-cluster">#</a> Consumer Cluster</h3>
+<p>消费者也支持 Push 和 Pull 模型中的分布式部署。它还支持集群消费和消息广播。它提供了实时消息订阅机制，可以满足大多数用户的需求。</p>
+<p>下一篇文章我们一期学习一下 关于 RocketMQ 的相关概念。</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>希望和你一起遇见更好的自己</p>
+<p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
+
+      <div class="tags">
+          <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
+          <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+  </span>
+  <span id="2021/09/01/rocketMQ/1-01-RocketMQ简介/" class="item leancloud_visitors" data-flag-title="Rocket 系列 - 入门" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket 系列 - 入门">https://fangjiaxiaobai.github.io/2021/09/01/rocketMQ/1-01-RocketMQ简介/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/01/rocketMQ/README/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesng5oej20zk0m87d4.jpg" title="RocketMQ系列-开篇">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-开篇</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexj2jgzj20zk0m8b09.jpg" title="RocketMQ系列-RocketMQ概念">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-RocketMQ概念</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rocketmq-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> RocketMQ 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 发展历程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%98%BF%E9%87%8C"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 在阿里</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#apache"><span class="toc-number">1.1.2.</span> <span class="toc-text"> Apache</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rocket%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.</span> <span class="toc-text"> Rocket 特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rocketmq%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">1.3.</span> <span class="toc-text"> RocketMQ 的组成部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nameserver-cluster"><span class="toc-number">1.3.1.</span> <span class="toc-text"> NameServer cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#broker-cluster"><span class="toc-number">1.3.2.</span> <span class="toc-text"> Broker Cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#producer-cluster"><span class="toc-number">1.3.3.</span> <span class="toc-text"> Producer Cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer-cluster"><span class="toc-number">1.3.4.</span> <span class="toc-text"> Consumer Cluster</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">1.4.</span> <span class="toc-text"> 最后</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li class="active"><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">70</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">13</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">41</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/01/rocketMQ/README/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">一致性哈希算法的实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">304k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:37</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/01/rocketMQ/1-01-RocketMQ简介/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

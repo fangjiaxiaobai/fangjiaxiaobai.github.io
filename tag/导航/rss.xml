@@ -7,59 +7,62 @@
         <language>zh-CN</language>
         <pubDate>Sun, 18 Jul 2021 20:49:55 +0800</pubDate>
         <lastBuildDate>Sun, 18 Jul 2021 20:49:55 +0800</lastBuildDate>
-        <category>源码</category>
-        <category>目录</category>
         <category>全站地图</category>
         <category>导航</category>
+        <category>目录</category>
+        <category>源码</category>
         <category>leetCode</category>
         <category>数据结构</category>
         <category>数组</category>
         <category>面经之算法题</category>
+        <category>链表</category>
         <category>MySQL</category>
+        <category>Redis</category>
         <category>雪花算法</category>
         <category>算法</category>
-        <category>Redis</category>
-        <category>链表</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>git</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>String</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>git</category>
         <category>HashMap</category>
+        <category>String</category>
         <category>数据结构与算法</category>
-        <category>哈希算法</category>
-        <category>递归</category>
+        <category>动态规划</category>
         <category>排序</category>
+        <category>冒泡排序</category>
+        <category>交换排序</category>
+        <category>分治思想排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
-        <category>动态规划</category>
-        <category>冒泡排序</category>
-        <category>分治思想排序</category>
+        <category>递归</category>
+        <category>哈希算法</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
-        <category>交换排序</category>
         <category>选择排序</category>
+        <category>Java</category>
+        <category>dubbo</category>
         <category>OOM</category>
         <category>JVM</category>
-        <category>Java</category>
         <category>JDK</category>
         <category>Stream</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/07/18/RoadMap/</guid>
             <title>全站地图</title>
             <link>https://fangjiaxiaobai.github.io/2021/07/18/RoadMap/</link>
-            <category>目录</category>
             <category>全站地图</category>
             <category>导航</category>
+            <category>目录</category>
             <pubDate>Sun, 18 Jul 2021 20:49:55 +0800</pubDate>
             <description><![CDATA[ &lt;details class=&#34;danger&#34;&gt;&lt;summary&gt;推荐&amp;必看&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;mustlook&#34; data-title=&#34;近日上新&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_0&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_0&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&#34;&gt;动态规划&lt;/a&gt; 🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_1&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_1&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;哈希算法和一致性哈希算法&lt;/a&gt; 🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_2&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_2&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&#34;&gt;排序系列算法之九种排序算法&lt;/a&gt; 🔥🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_3&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_3&#34;&gt; 👉 &lt;a href=&#34;/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/&#34;&gt;LC: 反转链表 I&lt;/a&gt;🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_0&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_0&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/rocketMQ/README/&#34;&gt;RocketMQ 系列&lt;/a&gt;🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_1&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_1&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&#34;&gt;动态规划&lt;/a&gt; 🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_2&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_2&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;哈希算法和一致性哈希算法&lt;/a&gt; 🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_3&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_3&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&#34;&gt;排序系列算法之九种排序算法&lt;/a&gt; 🔥🔥🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
 &lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_4&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_4&#34;&gt; 👉 &lt;a href=&#34;/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/&#34;&gt;JDK 的 Stream 之系列一 初窥流原理&lt;/a&gt;🔥🔥🔥&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -77,141 +80,166 @@
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
+&lt;details class=&#34;primary&#34;&gt;&lt;summary&gt;RocketMQ系列-实战&amp;源码解析&lt;/summary&gt;&lt;div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;rocketMQ&#34; data-title=&#34;Rocket系列-入门&#34;&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_10&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_10&#34;&gt; &lt;a href=&#34;/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/&#34;&gt;Rocket 系列 - 入门&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_11&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_11&#34;&gt; &lt;a href=&#34;/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/&#34;&gt;概念&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_12&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_12&#34;&gt; &lt;a href=&#34;/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/&#34;&gt;安装&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_13&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_13&#34;&gt; &lt;a href=&#34;/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/&#34;&gt;使用&lt;/a&gt;&lt;/label&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_14&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_14&#34;&gt; &lt;a href=&#34;/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/&#34;&gt;基本样例&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_15&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_15&#34;&gt; &lt;a href=&#34;/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/&#34;&gt;顺序消息&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_16&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_16&#34;&gt; &lt;a href=&#34;/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/&#34;&gt;延时消息&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; &lt;a href=&#34;/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/&#34;&gt;批量消息&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; &lt;a href=&#34;/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/&#34;&gt;过滤消息&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; &lt;a href=&#34;/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/&#34;&gt;事务消息&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;rocketMQ&#34; data-title=&#34;Rocket系列-进阶&#34;&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/&#34;&gt;架构设计之启动过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/&#34;&gt;架构设计之消息的收发过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;success&#34;&gt;&lt;summary&gt;Java系列&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;java&#34; data-title=&#34;JDK原理&amp;源码&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_10&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_10&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/&#34;&gt;JDK 原理 &amp;amp; 源码 目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_11&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_11&#34;&gt; &lt;a href=&#34;/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/&#34;&gt;JDK 的 Stream 之系列一 初窥流原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_12&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_12&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/&#34;&gt;【HashMap】全网最全的 HashMap 源码解读&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_13&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_13&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/&#34;&gt;【HashMap】HashMap 的 Hash 函数到底有什么意义&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_22&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_22&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/&#34;&gt;JDK 原理 &amp;amp; 源码 目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_23&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_23&#34;&gt; &lt;a href=&#34;/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/&#34;&gt;JDK 的 Stream 之系列一 初窥流原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_24&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_24&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/&#34;&gt;【HashMap】全网最全的 HashMap 源码解读&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_25&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_25&#34;&gt; &lt;a href=&#34;/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/&#34;&gt;【HashMap】HashMap 的 Hash 函数到底有什么意义&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;java&#34; data-title=&#34;JVM原理&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_14&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_14&#34;&gt; &lt;a href=&#34;/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/&#34;&gt;JVM 之你没见过的 OOM&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_26&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_26&#34;&gt; &lt;a href=&#34;/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/&#34;&gt;JVM 之你没见过的 OOM&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;info&#34;&gt;&lt;summary&gt;刷题&lt;/summary&gt;&lt;div&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_15&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_15&#34;&gt; &lt;a href=&#34;/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/&#34;&gt;LC: 反转数组&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_16&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_16&#34;&gt; &lt;a href=&#34;/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/&#34;&gt;LC: 反转链表 I&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_27&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_27&#34;&gt; &lt;a href=&#34;/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/&#34;&gt;LC: 反转数组&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_28&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_28&#34;&gt; &lt;a href=&#34;/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/&#34;&gt;LC: 反转链表 I&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;warning&#34;&gt;&lt;summary&gt;数据库系列&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;db&#34; data-title=&#34;MySQL&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; &lt;a href=&#34;/series/MySQL/&#34;&gt;MySQL 系列目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; &lt;a href=&#34;/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/&#34;&gt;MySQL 开篇 &amp;amp; 说明&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; &lt;a href=&#34;/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/&#34;&gt;MySQL 数据库的版本&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_29&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_29&#34;&gt; &lt;a href=&#34;/series/MySQL/&#34;&gt;MySQL 系列目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_30&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_30&#34;&gt; &lt;a href=&#34;/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/&#34;&gt;MySQL 开篇 &amp;amp; 说明&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_31&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_31&#34;&gt; &lt;a href=&#34;/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/&#34;&gt;MySQL 数据库的版本&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;db&#34; data-title=&#34;Redis&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; &lt;a href=&#34;/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/&#34;&gt;Redis 开篇 &amp;amp; 说明 &amp;amp; 目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/&#34;&gt;Redis 简介及其他数据库对比&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_22&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_22&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/&#34;&gt;Redis 的多个数据库&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_23&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_23&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/&#34;&gt;Redis 的单机部署&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_24&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_24&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/&#34;&gt;Redis 数据结构之 &lt;code&gt;String&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_25&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_25&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/&#34;&gt;Redis 数据结构之 &lt;code&gt;List&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_26&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_26&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/&#34;&gt;Redis 数据结构之 &lt;code&gt;Hash&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_27&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_27&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/&#34;&gt;Redis 数据结构之集合 &lt;code&gt;Set&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_28&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_28&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/&#34;&gt;Redis 数据结构之有序集合 &lt;code&gt;Zset&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_29&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_29&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/&#34;&gt;Redis 数据结构之位图 &lt;code&gt;BitMap&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_30&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_30&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/&#34;&gt;Redis 数据结构之 &lt;code&gt;HyperLogLogs&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_31&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_31&#34;&gt; &lt;a href=&#34;/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/&#34;&gt;Redis 中的数据结构之跳表及其原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_32&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_32&#34;&gt; &lt;a href=&#34;/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/&#34;&gt;Redis 开篇 &amp;amp; 说明 &amp;amp; 目录&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_33&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_33&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/&#34;&gt;Redis 简介及其他数据库对比&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_34&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_34&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/&#34;&gt;Redis 的多个数据库&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_35&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_35&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/&#34;&gt;Redis 的单机部署&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_36&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_36&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/&#34;&gt;Redis 数据结构之 &lt;code&gt;String&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_37&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_37&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/&#34;&gt;Redis 数据结构之 &lt;code&gt;List&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_38&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_38&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/&#34;&gt;Redis 数据结构之 &lt;code&gt;Hash&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_39&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_39&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/&#34;&gt;Redis 数据结构之集合 &lt;code&gt;Set&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_40&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_40&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/&#34;&gt;Redis 数据结构之有序集合 &lt;code&gt;Zset&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_41&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_41&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/&#34;&gt;Redis 数据结构之位图 &lt;code&gt;BitMap&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_42&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_42&#34;&gt; &lt;a href=&#34;/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/&#34;&gt;Redis 数据结构之 &lt;code&gt;HyperLogLogs&lt;/code&gt; &lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_43&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_43&#34;&gt; &lt;a href=&#34;/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/&#34;&gt;Redis 中的数据结构之跳表及其原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;primary&#34;&gt;&lt;summary&gt;Git系列&lt;/summary&gt;&lt;div&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_32&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_32&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/&#34;&gt;git 介绍&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_33&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_33&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/&#34;&gt;git 安装&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_34&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_34&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/&#34;&gt;从创建仓库开始&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_35&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_35&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/&#34;&gt;git 基本命令一&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_36&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_36&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/&#34;&gt;git 基本命令二&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_37&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_37&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/&#34;&gt;git 基本命令三&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_38&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_38&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/&#34;&gt;git 基本命令四&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_44&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_44&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/&#34;&gt;git 介绍&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_45&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_45&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/&#34;&gt;git 安装&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_46&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_46&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/&#34;&gt;从创建仓库开始&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_47&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_47&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/&#34;&gt;git 基本命令一&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_48&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_48&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/&#34;&gt;git 基本命令二&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_49&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_49&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/&#34;&gt;git 基本命令三&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_50&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_50&#34;&gt; &lt;a href=&#34;/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/&#34;&gt;git 基本命令四&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;success&#34;&gt;&lt;summary&gt;搜索相关&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;seach&#34; data-title=&#34;ElasticSearch&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_39&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_39&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/&#34;&gt;1.ES 简介&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_40&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_40&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/&#34;&gt;2.ES 栈安装&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_41&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_41&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/&#34;&gt;3.ElasticSearch 配置&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_42&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_42&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/&#34;&gt;4. 基本概念&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_51&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_51&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/&#34;&gt;1.ES 简介&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_52&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_52&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/&#34;&gt;2.ES 栈安装&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_53&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_53&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/&#34;&gt;3.ElasticSearch 配置&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_54&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_54&#34;&gt; &lt;a href=&#34;/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/&#34;&gt;4. 基本概念&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;danger&#34;&gt;&lt;summary&gt;数据结构与算法&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;数据结构&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_43&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_43&#34;&gt; 🍺 &lt;a href=&#34;/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/&#34;&gt;跳表&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_55&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_55&#34;&gt; 🍺 &lt;a href=&#34;/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/&#34;&gt;跳表&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;排序&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_44&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_44&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&#34;&gt;排序开篇&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_45&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_45&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/&#34;&gt;冒泡排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_46&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_46&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/&#34;&gt;选择排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_47&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_47&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/&#34;&gt;归并排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_48&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_48&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/&#34;&gt;快速排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_49&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_49&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/&#34;&gt;桶排序 (Bubble Sort)&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_56&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_56&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/&#34;&gt;排序开篇&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_57&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_57&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/&#34;&gt;冒泡排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_58&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_58&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/&#34;&gt;选择排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_59&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_59&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/&#34;&gt;归并排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_60&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_60&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/&#34;&gt;快速排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_61&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_61&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/&#34;&gt;桶排序 (Bubble Sort)&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;动态规划&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_50&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_50&#34;&gt; ✊ &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&#34;&gt;动态规划&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_62&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_62&#34;&gt; ✊ &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/&#34;&gt;动态规划&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;哈希算法&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_51&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_51&#34;&gt; 🔥🔥 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;哈希算法和一致性哈希算法&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_52&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_52&#34;&gt; 🔥🔥 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;一致性哈希算法实现&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_63&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_63&#34;&gt; 🔥🔥 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;哈希算法和一致性哈希算法&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_64&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_64&#34;&gt; 🔥🔥 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/&#34;&gt;一致性哈希算法实现&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;递归算法&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_53&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_53&#34;&gt; 🎉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/&#34;&gt;递归算法&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_65&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_65&#34;&gt; 🎉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/&#34;&gt;递归算法&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;查找&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_54&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_54&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_66&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_66&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;背包&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_55&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_55&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_67&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_67&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;dss&#34; data-title=&#34;贪心&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_56&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_56&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_68&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_68&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;warning&#34;&gt;&lt;summary&gt;面经&lt;/summary&gt;&lt;div&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_57&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_57&#34;&gt; &lt;a href=&#34;&#34;&gt;聊聊面试那点事儿&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_69&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_69&#34;&gt; &lt;a href=&#34;&#34;&gt;聊聊面试那点事儿&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;info&#34;&gt;&lt;summary&gt;推广&amp;推荐&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;promotion&#34; data-title=&#34;极客时间&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_58&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_58&#34;&gt; &lt;a href=&#34;/images/promotions/Redis%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98.jpg&#34;&gt;Redis 原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_59&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_59&#34;&gt; &lt;a href=&#34;/promotions/geekbang/&#34;&gt;全部课程&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_70&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_70&#34;&gt; &lt;a href=&#34;/images/promotions/Redis%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98.jpg&#34;&gt;Redis 原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_71&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_71&#34;&gt; &lt;a href=&#34;/promotions/geekbang/&#34;&gt;全部课程&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;promotion&#34; data-title=&#34;科学上网&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_60&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_60&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_72&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_72&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;promotion&#34; data-title=&#34;书籍&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_61&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_61&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_73&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_73&#34;&gt; 补货中…&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;

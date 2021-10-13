@@ -7,42 +7,45 @@
         <language>zh-CN</language>
         <pubDate>Mon, 23 Aug 2021 23:13:55 +0800</pubDate>
         <lastBuildDate>Mon, 23 Aug 2021 23:13:55 +0800</lastBuildDate>
-        <category>源码</category>
-        <category>目录</category>
         <category>全站地图</category>
         <category>导航</category>
+        <category>目录</category>
+        <category>源码</category>
         <category>leetCode</category>
         <category>数据结构</category>
         <category>数组</category>
         <category>面经之算法题</category>
+        <category>链表</category>
         <category>MySQL</category>
+        <category>Redis</category>
         <category>雪花算法</category>
         <category>算法</category>
-        <category>Redis</category>
-        <category>链表</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>git</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>String</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>git</category>
         <category>HashMap</category>
+        <category>String</category>
         <category>数据结构与算法</category>
-        <category>哈希算法</category>
-        <category>递归</category>
+        <category>动态规划</category>
         <category>排序</category>
+        <category>冒泡排序</category>
+        <category>交换排序</category>
+        <category>分治思想排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
-        <category>动态规划</category>
-        <category>冒泡排序</category>
-        <category>分治思想排序</category>
+        <category>递归</category>
+        <category>哈希算法</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
-        <category>交换排序</category>
         <category>选择排序</category>
+        <category>Java</category>
+        <category>dubbo</category>
         <category>OOM</category>
         <category>JVM</category>
-        <category>Java</category>
         <category>JDK</category>
         <category>Stream</category>
         <item>
@@ -244,9 +247,9 @@
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/</guid>
             <title>JVM之你没见过的OOM</title>
             <link>https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/</link>
+            <category>Java</category>
             <category>OOM</category>
             <category>JVM</category>
-            <category>Java</category>
             <pubDate>Thu, 19 Aug 2021 17:13:55 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;一文搞懂内存溢出，保内存平安，防止你被祭天:[手动滑稽]:&lt;/p&gt;
 &lt;h2 id=&#34;释义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#释义&#34;&gt;#&lt;/a&gt; 释义&lt;/h2&gt;

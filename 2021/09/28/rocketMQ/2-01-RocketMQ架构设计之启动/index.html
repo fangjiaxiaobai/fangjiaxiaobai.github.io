@@ -1,0 +1,886 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="RocketMQ,消息队列" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/">
+
+
+
+  <title>
+RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">RocketMQ 系列 - 架构设计之启动
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-28 10:26:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-28T10:26:00+08:00">2021-09-28</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>12k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>11 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 RocketMQ 系列"><span itemprop="name">RocketMQ 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>之前我们已经学习了 <code>RocketMQ</code>  是由四个部分组成的。这篇文章更加深入的来看看这个四个部分。</p>
+<p><img data-src="/images/rocketmq/2-01-%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt=""></p>
+<h2 id="nameserver"><a class="markdownIt-Anchor" href="#nameserver">#</a>  <code>NameServer</code></h2>
+<p>接下来，我们来看  <code>NameServer</code>  的相关内容，我们都知道  <code>NameServer</code>  是  <code>RocketMQ</code>  的注册中心。那它肯定会有 服务发现，检查检查，路由等等功能， 我们就按照这个思路去看看  <code>NameServer</code>  是如何启动的。</p>
+<h3 id="namesrv-的启动过程"><a class="markdownIt-Anchor" href="#namesrv-的启动过程">#</a>  <code>NameSrv</code>  的启动过程</h3>
+<p>我们在部署  <code>RocketMQ</code>  的时候，使用下面的命令启动了 <code>RocketMQ</code>  的 <code>NameServer</code> .</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup sh mqnamesrv &amp;</span><br></pre></td></tr></table></figure>
+<p>这条命令其实执行的是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh <span class="variable">$&#123;ROCKETMQ_HOME&#125;</span>/bin/runserver.sh org.apache.rocketmq.namesrv.NamesrvStartup <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+<p>也就说，这条命令执行运行的  <code>NamesrvStartup</code>  类。</p>
+<p><code>NameSrv</code>  的启动其实就两步：</p>
+<ul>
+<li>封装配置参数： 根据命令行参数封装  <code>NameSrvConfig</code>  配置。 可以执行配置文件，会解析配置文件中的相关配置。</li>
+<li>初始化并启动  <code>NamesrvController</code> .
+<ul>
+<li>初始化:
+<ul>
+<li>对  <code>NameSrvController</code>  进行配置，</li>
+<li>创建远程  <code>netty Server</code> ,</li>
+<li>注册  <code>DefaultRequestProcessor</code>  ，处理各种连接请求，</li>
+<li>创建了两个定时任务：每  <code>10s</code>  扫描一次  <code>Broker</code>  列表，移除不存活的  <code>Broker</code>  。每 <code>10s</code>  打印一次配置属性。</li>
+<li>创建配置文件监听器，监听配置文件是否有变化。</li>
+</ul>
+</li>
+<li>启动：
+<ul>
+<li>启动  <code>netty Server</code>  : 实际上启动一个 Netty 服务。</li>
+<li>启动文件监听器。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在启动过程中， <code>Broker</code>  的健康检测是通过定时任务来实现的。那路由功能是怎么实现的呢？</p>
+<p>这就要看 在  <code>NameServer</code>  中最重要的一个类了：  <code>DefaultRequetProcessor</code>  .  <code>DefaultRequestProcessor</code>  封装了各种连接请求的处理。比如 <code>Broker</code>  的注册，根据 <code>Topic</code>  获取路由信息等等。具体可以参考如下代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RemotingCommand <span class="title">processRequest</span><span class="params">(ChannelHandlerContext ctx,</span></span></span><br><span class="line"><span class="params"><span class="function">        RemotingCommand request)</span> <span class="keyword">throws</span> RemotingCommandException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ctx != <span class="keyword">null</span>) &#123;</span><br><span class="line">        log.debug(<span class="string">&quot;receive request, &#123;&#125; &#123;&#125; &#123;&#125;&quot;</span>,</span><br><span class="line">                request.getCode(),</span><br><span class="line">                RemotingHelper.parseChannelRemoteAddr(ctx.channel()),</span><br><span class="line">                request);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (request.getCode()) &#123;</span><br><span class="line">        <span class="keyword">case</span> RequestCode.PUT_KV_CONFIG:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.putKVConfig(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_KV_CONFIG:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getKVConfig(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.DELETE_KV_CONFIG:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.deleteKVConfig(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.QUERY_DATA_VERSION:</span><br><span class="line">            <span class="keyword">return</span> queryBrokerTopicConfig(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.REGISTER_BROKER:</span><br><span class="line">            Version brokerVersion = MQVersion.value2Version(request.getVersion());</span><br><span class="line">            <span class="keyword">if</span> (brokerVersion.ordinal() &gt;= MQVersion.Version.V3_0_11.ordinal()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.registerBrokerWithFilterServer(ctx, request);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.registerBroker(ctx, request);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">case</span> RequestCode.UNREGISTER_BROKER:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.unregisterBroker(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_ROUTEINFO_BY_TOPIC:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getRouteInfoByTopic(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_BROKER_CLUSTER_INFO:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getBrokerClusterInfo(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.WIPE_WRITE_PERM_OF_BROKER:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.wipeWritePermOfBroker(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:</span><br><span class="line">            <span class="keyword">return</span> getAllTopicListFromNameserver(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.DELETE_TOPIC_IN_NAMESRV:</span><br><span class="line">            <span class="keyword">return</span> deleteTopicInNamesrv(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_KVLIST_BY_NAMESPACE:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getKVListByNamespace(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_TOPICS_BY_CLUSTER:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getTopicsByCluster(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_SYSTEM_TOPIC_LIST_FROM_NS:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getSystemTopicListFromNs(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_UNIT_TOPIC_LIST:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getUnitTopicList(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_HAS_UNIT_SUB_TOPIC_LIST:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getHasUnitSubTopicList(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_HAS_UNIT_SUB_UNUNIT_TOPIC_LIST:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getHasUnitSubUnUnitTopicList(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.UPDATE_NAMESRV_CONFIG:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.updateConfig(ctx, request);</span><br><span class="line">        <span class="keyword">case</span> RequestCode.GET_NAMESRV_CONFIG:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.getConfig(ctx, request);</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码里实现了所有的 <code>Broker</code> ， <code>Producer</code> ， <code>Customer</code>  和 <code>NameServer</code>  交互的处理逻辑，包括路由功能等等。</p>
+<h3 id="nameserver的关闭"><a class="markdownIt-Anchor" href="#nameserver的关闭">#</a>  <code>NameServer</code>  的关闭</h3>
+<p><code>NameServer</code>  的关闭就非常简单了.</p>
+<p><code>NameSrvStartUp</code>  在  <code>initialize</code>  和  <code>start</code>  之间，加入了 一个 关闭事件的监听器.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加关闭的回调。</span></span><br><span class="line">Runtime.getRuntime().addShutdownHook(<span class="keyword">new</span> ShutdownHookThread(log, <span class="keyword">new</span> Callable&lt;Void&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Void <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        controller.shutdown();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>内部是使用  <code>NameSrvController</code>  的 <code>shutdown</code>  方法。<br>
+主要进行：</p>
+<ul>
+<li>关闭 <code>Netty</code>  服务</li>
+<li>关闭线程池</li>
+<li>关闭 <code>scheduledExecutorService</code></li>
+<li>关闭文件监听器</li>
+</ul>
+<h2 id="broker"><a class="markdownIt-Anchor" href="#broker">#</a> Broker</h2>
+<ul>
+<li><code>Broker</code>  的启动过程</li>
+<li><code>Broker</code>  怎么样进行消息存储的</li>
+<li><code>Broker</code>  的内部运行原理是什么样的？</li>
+<li>关闭流程</li>
+</ul>
+<p>在  <code>RocketMQ</code>  的  <code>Broker</code>  这个启动环节下，我们可以直接找到 <a target="_blank" rel="noopener" href="https://gitee.com/fangjiaxiaobai/source_code_read/blob/master/rocketmq/broker/src/main/java/org/apache/rocketmq/broker/BrokerStartup.java"> <code>BrokerStartUp.java</code> </a> 这个类。</p>
+<h3 id="broker的启动过程"><a class="markdownIt-Anchor" href="#broker的启动过程">#</a> Broker 的启动过程</h3>
+<p><code>Broker</code>  的启动本质上是启动了 一个 <code>Netty</code>  服务端和一个 <code>Netty</code>  客户端。 使用 <code>Netty</code>  客户端完成向 <code>NameSrv</code>  的注册，心跳检测，等数据交互。 使用 <code>Netty</code>  服务端处理  <code>Producer</code>  发送的消息，并将消息按照不同的消息类型存储下来。</p>
+<p>首先  <code>Broker</code>  依然还是会加载  <code>Broker</code>  的相关配置，包括：a. 命令行中指定的参数，比如 <code>mqbroker</code> ,-c 等， b. <code>-c</code>  指定的文件中的 <code>Broker</code>  属性。然后根据加载的 <code>NettyServerConfig</code>  (启动的 <code>Netty</code>  服务端的配置), <code>NettyClientConfig</code>  (启动的 <code>Netty</code>  客户端的配置),  <code>BrokerConfig</code> ( <code>Broker</code>  的配置),  <code>messageStoreConfig</code>  (存储消息的配置) 创建  <code>BrokerController</code> .  之后及时初始化 <code>BrokerController</code> ，注册 <code>Shutdown</code>  回调。最后启动 <code>BrokerController</code> 。   <code>shutdown</code>  回调其实没有什么可说的。我们再简单的看看初始化过程。</p>
+<h4 id="初始化过程"><a class="markdownIt-Anchor" href="#初始化过程">#</a> 初始化过程</h4>
+<p>初始化过程是一个  <code>&quot;漫长&quot;</code>  的过程。一开始是在去加载一些数据，初始化会去加载 创建的 <code>topic</code>  数据，消息的消费偏移量，广播组，消费过滤数据等的数据，然后创建  <code>MessageStore</code>  对象，作用是存储消息。注意这个  <code>MessageStore</code>  是支持插件的形式扩展的。 如果数据加载成功之后，就会启动  <code>netty</code>  服务端。 代码中 启动了两个 netty 服务端:  <code>remotingServer</code>  和  <code>fastRemotingServer</code> 。然后就是初始化了一些线程池 用于注册 <code>Processor</code> 。 在注册  <code>Processor</code>  的过程中，可以看到  <code>fastRemotingServer</code>  和  <code>remotingServer</code>  除了端口不一样之外，  <code>fastRemotingServer</code>  没有 注册  <code>PullMessageProcessor</code>  . 也就是说  <code>fastRemotingServer</code>  不支持  <code>pullMessage</code>  请求。然后  <code>BrokerController</code>  创建很多的定时任务，比如：定时记录每天的消息数据，定时持久化消费者消息。定时持久化 消费者过滤时的数据情况 等。再就是 更新 <code>Broker</code>  的 <code>NameServer</code>  地址。 最后初始化事务，初始化权限，初始化 <code>RPC</code>  钩子。</p>
+<h4 id="启动过程"><a class="markdownIt-Anchor" href="#启动过程">#</a> 启动过程</h4>
+<p>在完了初识话之后，下一步就是启动了。和 <code>NameServer</code>  一样的流程，先初始化，在 <code>start</code> . 启动过程分为以下几步:</p>
+<ul>
+<li>启动  <code>messageStore</code></li>
+<li>启动  <code>remotingServer</code></li>
+<li>启动  <code>fastRemotingServer</code></li>
+<li>启动文件监听器</li>
+<li>启动  <code>BrokerOutAPI</code>  , 向  <code>NameServer</code>  服务端发送相关请求的连接与断开等，定时扫描 <code>ResponseTable</code>  并触发回调。</li>
+<li>启动 <code>PullRequestHoldService</code> : 存储  <code>pull Message</code>  的请求，并触发执行 <code>pull Message</code> .</li>
+<li>启动定时任务，定时扫描不存活的生产者，消费者，消息过滤服务 (非 <code>tag</code>  过滤)。</li>
+<li>启动消息过滤服务。 消息过滤服务并非是基于 <code>tag</code>  的消息的过滤，而是在 <code>Broker</code>  端提供了一种更加细粒度的消息过滤控制。</li>
+<li><code>Broker</code>  的容灾处理</li>
+<li>定时任务：注册  <code>Broker</code>  到  <code>NameServer</code></li>
+<li>启动 <code>broker</code>  统计，无动作</li>
+<li>清理过期请求。</li>
+</ul>
+<h4 id="关闭过程"><a class="markdownIt-Anchor" href="#关闭过程">#</a> 关闭过程</h4>
+<p>这个关闭流程这里就不多说了，就是把上面启动的过程挨个关闭就好了。具体细节可以参考  <code>org.apache.rocketmq.broker.BrokerController#shutdown()</code>  我们后面也会分析这部分的代码。 除了关闭上面启动的服务之外，在关闭的时候，需要将消息进行持久化。 比如  <code>ConsumerOffset</code> ,  <code>ConsumerFilter</code> , 这也是当服务再次启动时保证消息能够正常被消费的保障。</p>
+<h2 id="producer"><a class="markdownIt-Anchor" href="#producer">#</a> Producer</h2>
+<p>消息发布的角色，支持分布式集群方式部署。 <code>Producer</code>  通过 MQ 的负载均衡模块选择相应的 <code>Broker</code>  集群队列进行消息投递，投递的过程支持快速失败并且低延迟。</p>
+<blockquote>
+<p>我们从最简单的一个示例来看，生产者的启动流程</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用GroupName初始化Producer</span></span><br><span class="line">DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br><span class="line"><span class="comment">// 指定NameSrv的地址: 也可以通过环境变量NAMESRV_ADDR来指定，则不需要下面这一行。</span></span><br><span class="line">producer.setNamesrvAddr(<span class="string">&quot;name-server1-ip:9876;name-server2-ip:9876&quot;</span>);</span><br><span class="line"><span class="comment">// 启动实例</span></span><br><span class="line">producer.start();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 创建消息实例,指定 topic, tag, message body.</span></span><br><span class="line">    Message msg = <span class="keyword">new</span> Message(<span class="string">&quot;TopicTest&quot;</span> <span class="comment">/* Topic */</span>,</span><br><span class="line">        <span class="string">&quot;TagA&quot;</span> <span class="comment">/* Tag */</span>,</span><br><span class="line">        (<span class="string">&quot;Hello RocketMQ !!&quot;</span>).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// 发送消息给Broker</span></span><br><span class="line">    SendResult sendResult = producer.send(msg);</span><br><span class="line">    System.out.printf(<span class="string">&quot;%s%n&quot;</span>, sendResult);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 关闭生产者</span></span><br><span class="line">producer.shutdown();</span><br></pre></td></tr></table></figure>
+<p>关于 生产者角色，我们应该了解什么？或者说，看到上面的代码，你想更深入的知道些什么吗？(我听到了你说，不想…)</p>
+<ul>
+<li>生产者是如何启动？启动过程中生产者都做了哪些事情？</li>
+<li>生产者是如何和 <code>Namesrv</code>  进行交互的？交互是什么信息？生产者是如何和 <code>NameSrv</code>  进行健康检查的？</li>
+<li>生产者是怎么样发送消息的？发送消息的过程是什么样的？</li>
+<li>生产者的关闭流程是什么样的？</li>
+</ul>
+<h3 id="生产者启动流程"><a class="markdownIt-Anchor" href="#生产者启动流程">#</a> 生产者启动流程</h3>
+<h4 id="封装生产者的属性"><a class="markdownIt-Anchor" href="#封装生产者的属性">#</a> 封装生产者的属性</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>我们可以通过  <code>DefaultMQProducer</code>  类创建一个生产者对象。 这个类我们打算发送消息的程序入口。需要注意的是：这个类的实例是<strong>线程安全</strong>的：在配置并启动进程后，该类可以被视为线程安全的，可以在多个线程上下文中使用。</p>
+<p><code>DefaultMQProducer</code>  提供了 <code>5</code>  个构造参数 ( <code>4.9.1</code>  版本，并非在一个构造方式中)。</p>
+<ul>
+<li><code>String namespace</code> : 生产者实例的命名空间。可以理解为 MQ 生产者的名称。</li>
+<li><code>String producerGroup</code> : 生产者组。 生产者组在概念上聚合了完全相同角色的生产者实例。 这对事务消息非常重要。对非事务性消息就没有太大关系了。(=&gt; 小白说：一类生产者。)</li>
+<li><code>RPCHook rpcHook</code> : 每个远程命令执行要执行的 RPC 回调。RPCHook 是一个接口，提供了两个方法 doBeforeRequest 和 doAfterResponse，表示在执行请求之前和接收返回之后分别执行相关逻辑；</li>
+<li><code>boolean enableMsgTrace</code> : 是否开启消息追踪</li>
+<li><code>String customizedTraceTopic</code> : 消息追踪日志使用的队列名字</li>
+<li><code>String nameSrvAddr</code> : 这个字段没有在构造方法中，我们可以手动调用 set 方法进行设置，也可以通过系统变量的形式进行设置。</li>
+</ul>
+<p>生产者在设置完对应的参数之后，就会调用 <code>Start()</code>  方法。  <code>start</code>  方法会设置 <code>group</code> , 然后调用在 构造方法中初始化的  <code>defaultMQProducerImpl</code>  实例。</p>
+<p><img data-src="/images/rocketmq/2-01-DefaultProducerImpl%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p>如上图</p>
+<ul>
+<li>生产者首先会检查  <code>producerGroup</code>  的合法性。</li>
+<li>然后设置 <code>ProducerGroup</code></li>
+<li>创建  <code>MQClientFactory</code> . 将 <code>producer</code>  注册到 <code>MQClientInstance</code>  中，</li>
+<li>初始化 <code>topicPushlishInfo</code> .  <code>topicPushlishInfo</code>  主要用于存放消息的路由信息。</li>
+<li>然后通过  <code>mQClientFactory.start()</code>  完成启动，这一步骤很重要，我们来看一下里面的具体实现.<br>
+<img data-src="/images/rocketmq/2-01-MQInstance%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt="">
+<ul>
+<li>1. 首先会设置  <code>NameServerAddr</code> 。前面有说过可以通过  <code>DefaultProducer</code>  的 <code>setNameSrvAddr</code>  方法手动设置，也可以通过系统变量的方式进行设置 <code>NameServer</code>  的地址： <code>System.setProperty(&quot;rocketmq.namesrv.domain&quot;, &quot;localhost&quot;);</code></li>
+<li>2. 开启定时任务：总共启动了 <code>5</code>  个定时器任务，分别是：定时更新 <code>NameServerAddr</code>  信息，定时更新 <code>topic</code>  的路由信息，定时清理下线的 <code>broker</code> ，定时持久化 <code>Consumer</code>  的 <code>Offset</code>  信息，定时调整线程池；</li>
+<li>3. <code>pullMessageService</code>  和 <code>rebalanceService</code>  被用在消费端的两个服务类，分别是：从 <code>broker</code>  拉取消息的服务和均衡消息队列服务，负责分配消费者可消费的消息队列</li>
+</ul>
+</li>
+<li>同步的发送心跳给所有的 <code>Broker</code> .</li>
+<li>开启定时任务：定时扫描过期的请求。</li>
+</ul>
+<h3 id="生产者发送消息"><a class="markdownIt-Anchor" href="#生产者发送消息">#</a> 生产者发送消息</h3>
+<p>生产者启动完成之后，我们再看一下发送消息的过程:<br>
+ 发送消息的逻辑主要是在  <code>sendDefaultImpl</code>  方法中。主要逻辑分成三步：1. 获取队列的路由信息，2. 获取  <code>MessageQueue</code> , 3. 发送消息。</p>
+<h4 id="获取队列路由信息"><a class="markdownIt-Anchor" href="#获取队列路由信息">#</a> 获取队列路由信息</h4>
+<p>在 启动生产者流程中，已经将 <code>topic</code>  的路由信息存储到了  <code>topicPushlishInfo</code>  中，并以  <code>producerGroup</code>  为  <code>key</code> ,  <code>topicPushlishInfo</code>  为 Value ，存储到  <code>topicPublishInfoTable</code>  这个 <code>Map</code>  中。</p>
+<p>获取路由信息则是通过  <code>mQClientFactory.updateTopicRouteInfoFromNameServer(topic, true, this.defaultMQProducer)</code>  获取的。此方法根据 <code>topic</code>  获取路由信息，具体连接哪台 <code>nameServer</code> ，会从列表中顺序的选择 <code>nameServer</code> ，实现负载均衡；</p>
+<h4 id="获取messagequeue"><a class="markdownIt-Anchor" href="#获取messagequeue">#</a> 获取 <code>MessageQueue</code></h4>
+<p>获取  <code>MessageQueue</code>  则是通过  <code>this.mqFaultStrategy.selectOneMessageQueue(tpInfo, lastBrokerName)</code>  来实现的。  <code>MQFaultStrategy</code>  这个类实现了选择  <code>MessageQueue</code>  的策略。主要有四种策略:</p>
+<ul>
+<li><code>latencyFaultTolerance</code> ：延迟容错对象，维护 <code>brokers</code>  的延迟信息；</li>
+<li><code>sendLatencyFaultEnable</code> ：延迟容错开关，默认不开启；</li>
+<li><code>latencyMax</code> ：延迟级别数组；</li>
+<li><code>notAvailableDuration</code>  ：根据延迟级别，对应 <code>broker</code>  不可用的时长；</li>
+</ul>
+<p>获取 <code>MessageQueue</code>  之后需要判定其对应的 <code>Broker</code>  是否可用，同时也需要和当前指定的 <code>brokerName</code>  进行匹配；如果没有获取到就选择一个延迟相对小的， <code>pickOneAtLeast</code>  会做排序处理；如果都不行就直接获取一个 <code>MessageQueue</code> ，不管其他条件了</p>
+<h4 id="发送消息"><a class="markdownIt-Anchor" href="#发送消息">#</a> 发送消息</h4>
+<p>首先需要获取指定 <code>broker</code>  的地址，这要才能创建 <code>channel</code>  与 <code>broker</code>  连接；然后就是一些 <code>hook</code>  处理；接下来就是准备发送的消息头 <code>SendMessageRequestHeader</code> ，最后根据不同的发送策略执行发送消息。</p>
+<p>之前的文章中说过， <code>RocketMQ</code>  发送消息有三种方式：同步，异步和单向。具体的使用方法可以参考<a href="./1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B.md">这篇文章</a>。在 <code>RocketMQ</code>  的生产者端可以发送多种类型的消息包括：延迟消息，顺序消息以及事务消息， 各种消息的发送过程我会在后面通过源码仔细和大家一起学习～。</p>
+<h3 id="生产者关闭流程"><a class="markdownIt-Anchor" href="#生产者关闭流程">#</a> 生产者关闭流程</h3>
+<p>生产者的关闭主要有四步</p>
+<ul>
+<li>取消生产者的注册.</li>
+<li>关闭 <code>MqClient</code> =&gt; 主要是关闭生产者，关闭拉取消息服务，关闭定时任务服务，关闭远程 client，关闭负载均衡服务这 5 种服务。</li>
+<li>关闭 <code>Producer</code>  的定时任务</li>
+<li>修改状态。</li>
+</ul>
+<p>这样就完成了生产者的关闭流程。</p>
+<h3 id="生产者总结"><a class="markdownIt-Anchor" href="#生产者总结">#</a> 生产者总结</h3>
+<p>生产者首先需要设置 <code>namesrv</code> ，或者指定其他方式更新 <code>namesrv</code> ；然后从 <code>namesrv</code>  获取 <code>topic</code>  的路由信息，路由信息包括 <code>broker</code>  以及 <code>Message Queue</code>  等信息，同时将路由信息保存在本地内存中，方便下次使用；最后从 <code>Message Queue</code>  列表中选择合适的 <code>Queue</code>  发送消息，实现负载均衡；</p>
+<h2 id="consumer"><a class="markdownIt-Anchor" href="#consumer">#</a> Consumer</h2>
+<p>现在我们还剩下 消费者 的启动流程了。从一个简单的例子说起:</p>
+<p><img data-src="/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p>从图中可以看到使用 MQ 的消费者主要分成三部分： 1. 创建消费者对象，2. 配置消费的属性 nameServer, 消费起点，订阅主题，回调事件等。3. 启动消费者。</p>
+<h3 id="consumer的启动过程"><a class="markdownIt-Anchor" href="#consumer的启动过程">#</a> Consumer 的启动过程</h3>
+<p>正如上文所说， 启动 <code>MQ</code>  消费者主要分为三部分，我们主要讲述第一部分和第三部分：创建 <code>Consumer</code>  对象，启动。</p>
+<h4 id="创建-consumer-对象"><a class="markdownIt-Anchor" href="#创建-consumer-对象">#</a> 创建 Consumer 对象</h4>
+<p><code>RocketMQ</code>  支持两种消息消费模式， <code>pull</code>  模式 和  <code>push</code>  模式。  <code>pull</code>  模式是消费者主动拉取消息， <code>push</code>  模式是  <code>broker</code>  端主动推送消息给消息者端。可想而知， <code>push</code>  模式是不管消费者端死活的，只要有消息就会推给消费者端，不管消费者是否能消费完。而 <code>pull</code>  模式是不管 <code>Broker</code>  端的，可能会造成消息积压的问题。</p>
+<p><code>RocketMQ</code>  分别提供了 <code>pull</code>  模式 和  <code>push</code>  模式的消费者的支持。类结构如下图：</p>
+<p><img data-src="/images/rocketmq/2-01-Consuomer%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt=""></p>
+<p>图中  <code>push</code>  模式，提供了  <code>MQPushConsumer</code> ( <code>DefaultMQPushConsumer</code> ) 类来实现。  <code>pull</code>  模式提供  <code>MQPullConsumer</code> ( <code>DefaultMQPullConsumer</code> ) 类来实现。但是这个已经标记为废弃，并在 <code>2022</code>  年会移除，提供了  <code>LitePullConsumer</code> ( <code>DefaultLitePullConsumer</code> ) 来实现 <code>Pull</code>  模式。</p>
+<h5 id="创建-defaultmqpushconsumer-对象"><a class="markdownIt-Anchor" href="#创建-defaultmqpushconsumer-对象">#</a> 创建 DefaultMQPushConsumer 对象</h5>
+<p><code>DefaultMQPullConsumer</code>  对象的构造参数</p>
+<ul>
+<li><code>consumerGroup</code> : 消费者组</li>
+<li><code>namespace</code> : 生产者的  <code>Namespace</code></li>
+<li><code>allocateMessageQueueStrategy</code> : 消息队列分配算法</li>
+<li><code>rpcHook</code> :  <code>rpc</code>  的钩子，用在远程调用之前执行</li>
+<li><code>enableMsgTrace</code> : 是否跟踪消息轨迹</li>
+<li><code>customizedTraceTopic</code> : 跟踪消息轨迹使用 <code>topic</code></li>
+</ul>
+<p>在  <code>DefaultMQPushConsumer</code>  的构造方法中会创建  <code>DefaultMQPushConsumerImpl</code>  对象，我们后面所说的启动过程，其实就是  <code>DefaultMQPushConsumerImpl</code>  的启动过程，即  <code>DefaultMQPushConsumerImpl.start()</code> .</p>
+<h5 id="创建-defaultlitepullconsumer-对象"><a class="markdownIt-Anchor" href="#创建-defaultlitepullconsumer-对象">#</a> 创建  <code>DefaultLitePullConsumer</code>  对象</h5>
+<p><code>DefaultLitePullConsumer</code>  对象的参数:</p>
+<ul>
+<li><code>namespace</code> : 生产者的命名空间</li>
+<li><code>consumerGroup</code> :  消费者组</li>
+<li><code>rpcHook</code> : RPC 的回调钩子</li>
+</ul>
+<p>在  <code>DefaultLitePullConsumer</code>  的构造方法中会创建  <code>defaultLitePullConsumerImpl</code>  对象。而后面的启动过程，即是  <code>DefaultLitePullConsumerImpl</code>  的启动过程。即  <code>DefaultLitePullConsumerImpl.start()</code> .</p>
+<h4 id="启动"><a class="markdownIt-Anchor" href="#启动">#</a> 启动</h4>
+<p>这里我再把使用 DefaultMQPushConsumer 消费消息的案例 粘贴到这里</p>
+<p><img data-src="/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p>我们主要看  <code>consumer.start()</code>  内部的具体实现。</p>
+<h5 id="push模式-defaultmqpushconsumerimplstart"><a class="markdownIt-Anchor" href="#push模式-defaultmqpushconsumerimplstart">#</a> push 模式: DefaultMQPushConsumerImpl.start ()</h5>
+<ul>
+<li>检查必要的参数 <code>consumerGroup</code> , 消费模式，消费起点，负载策略等。</li>
+<li>拷贝订阅关系，绑定到重试 <code>topic</code> , 以防止消费者  <code>ack</code>  失败。</li>
+<li>创建 <code>MQClientInstance</code>  实例。这里是一种单例模式。</li>
+<li>配置消费者再平衡的消费者组，消息模式，消息的分配策略，  <code>MQClientInstance</code>  实例。</li>
+<li>实例化消息拉取的包装类 并注册消息过滤的钩子</li>
+<li>加载消息的消费偏移量。 如果是广播消息从本地获取偏移数据，如果是集群消息的话，则从远程获取偏移数据</li>
+<li>启动消息消费服务。这里只是启动消费服务，但是没有启动开始消费消息。</li>
+<li>绑定消费者  <code>group</code>  和 消费者</li>
+<li>启动  <code>MQ Client Instance</code> . 这里，在生产者中也调用了  <code>mQClientFactory.start()</code> ; 方法。有个疑问，为什么消费者会启动消息推送服务呢？因为在 <code>push</code>  模式下，消费超时的消息会重新发送给 <code>Broker</code> 。所以是会使用消息推送服务的.</li>
+<li>从 <code>NameServer</code>  拉取 <code>topic</code>  的订阅信息</li>
+<li>向 <code>Broker</code>  校验客户端</li>
+<li>向所有的 <code>Broker</code>  的 <code>master</code>  节点发送心跳包，并上传 <code>FilterClass</code>  源文件给 <code>FilterServer</code></li>
+<li>立即消费消息： 将当前 <code>consumer</code>  负载得到的 <code>MessageQueue</code>  全部添加到 <code>PullMessageService.pullRequestQueue</code>  (阻塞队列) 然后 <code>PullMessageService</code>  服务会开始拉取消息。消费消息。</li>
+</ul>
+<h5 id="pull模式-defaultlitepullconsumerimplstart"><a class="markdownIt-Anchor" href="#pull模式-defaultlitepullconsumerimplstart">#</a>  <code>pull</code>  模式:  <code>DefaultLitePullConsumerImpl.start()</code></h5>
+<p>先看下  <code>DefaultLitePullConsumer</code>  的一个简单使用:</p>
+<p><img data-src="/images/rocketmq/2-01-DefaultLitePullConsumer%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><code>DefaultLitePullConsumer</code>  的实现代码要比   <code>DefaultMQPushConsumer</code>  的代码 规整很多。在  <code>start()</code>  方法中定义了很多的子方法进行调用。</p>
+<ul>
+<li>检查属性配置是否合法。</li>
+<li>初始化  <code>MqClientInstance</code> .
+<ul>
+<li>创建  <code>MQClientInstance</code>  实例</li>
+<li>注册  <code>consumerGroup</code>  和 当前消费者的关系</li>
+</ul>
+</li>
+<li>初始化 消息消费的 再平衡 服务。</li>
+<li>配置消费者再平衡的消费者组，消息模式，消息的分配策略，  <code>MQClientInstance</code>  实例。</li>
+<li>实例化消息拉取的包装类 并注册消息过滤的钩子</li>
+<li>加载消息的消费偏移量。 如果是广播消息从本地获取偏移数据，如果是集群消息的话，则从远程获取偏移数据</li>
+<li>启动  <code>MqClientInstance</code>  实例
+<ul>
+<li>设置  <code>NameServer</code>  的地址</li>
+<li>启动  <code>remoteClient</code> . 底层使用的通讯框架是 <code>Netty</code> ，提供了实现类 <code>NettyRemotingClient</code></li>
+<li>开启定时任务</li>
+<li>启动拉取消息的服务</li>
+<li>启动负载均衡服务</li>
+<li>启动推送消息的服务</li>
+<li>修改服务的状态为启动成功</li>
+</ul>
+</li>
+<li>启动后操作
+<ul>
+<li>如果是广播的模式：更新 <code>topic</code>  的订阅关系</li>
+<li>更新消息拉取任务</li>
+<li>拉取 <code>Topic</code>  的 <code>messageQueue</code> .</li>
+<li>检查  <code>Broker Client</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="pull-模式-和-push-模式的对比"><a class="markdownIt-Anchor" href="#pull-模式-和-push-模式的对比">#</a> Pull 模式 和 push 模式的对比</h5>
+<p>现在去谈 push 和 pull 两种模式的对比，还为时尚早，我就先从启动上来看下，两种方式启动的不同点:</p>
+<ul>
+<li><code>pull</code>  模式没有拷贝订阅关系，也就是说  <code>pull</code>  模式下， <code>RocketMQ</code>  是没有提供重投机制的。</li>
+<li><code>pull</code>  模式没有和  <code>Broker</code>  保持心跳包。 如果消费者过多的时候，push 模式必然会对 Broker 造成比较啊的压力。</li>
+</ul>
+<h3 id="消费者总结"><a class="markdownIt-Anchor" href="#消费者总结">#</a> 消费者总结</h3>
+<p><code>RocketMQ</code>  对  <code>pull</code>  和  <code>push</code>  两种消息的消费模式提供了支持。 <code>pull</code>  模式，对应的实现是  <code>DefaultMqLitePullConsumer</code> 。  <code>push</code>  模式对应的实现是  <code>DefaultMqPushConsumer</code> . 仅仅对启动过程，两者的启动过程稍有不同。 <code>Push</code>  模式下， <code>RocketMQ</code>  封装了 消息消费的重投机制， <code>pull</code>  模式则没有，一切都需要消费者自己去实现。  <code>push</code>  模式会把 根据  <code>MessageQueue</code>  的分配策略，将 <code>MessageQueue</code>  拉取到本地，存储到阻塞队列中，然后通过回调消费者注册监听器进行消费。  <code>pull</code>  模式则通过在消费逻辑中定时的轮询获取消息进行消费。  下一篇文章，我会仔细的分析消息消费的过程。</p>
+<p>不管是 <code>Pull</code>  模式，还是 <code>push</code>  模式，在启动过程都是 创建  <code>MqClientInstance</code>  实例，并启动。</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望和你一起遇见更好的自己</p>
+<p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
+
+      <div class="tags">
+          <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
+          <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+  </span>
+  <span id="2021/09/28/rocketMQ/2-01-RocketMQ架构设计之启动/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - 架构设计之启动" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" title="RocketMQ 系列 - 架构设计之启动">https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ架构设计之启动/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipex2cdtbj20zk0m8x6p.jpg" title="RocketMQ样例:事务消息">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ样例:事务消息</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevarprfj20zk0m8npd.jpg" title="RocketMQ系列-架构设计之消息">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-架构设计之消息</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nameserver"><span class="toc-number">1.</span> <span class="toc-text">  NameServer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#namesrv-%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">  NameSrv  的启动过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nameserver%E7%9A%84%E5%85%B3%E9%97%AD"><span class="toc-number">1.2.</span> <span class="toc-text">  NameServer  的关闭</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broker"><span class="toc-number">2.</span> <span class="toc-text"> Broker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#broker%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> Broker 的启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 初始化过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 启动过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.3.</span> <span class="toc-text"> 关闭过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#producer"><span class="toc-number">3.</span> <span class="toc-text"> Producer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 生产者启动流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E7%94%9F%E4%BA%A7%E8%80%85%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 封装生产者的属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="toc-number">3.2.</span> <span class="toc-text"> 生产者发送消息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%98%9F%E5%88%97%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 获取队列路由信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96messagequeue"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 获取 MessageQueue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 发送消息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%85%B3%E9%97%AD%E6%B5%81%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text"> 生产者关闭流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E6%80%BB%E7%BB%93"><span class="toc-number">3.4.</span> <span class="toc-text"> 生产者总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#consumer"><span class="toc-number">4.</span> <span class="toc-text"> Consumer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text"> Consumer 的启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-consumer-%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 创建 Consumer 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-defaultmqpushconsumer-%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.1.1.1.</span> <span class="toc-text"> 创建 DefaultMQPushConsumer 对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-defaultlitepullconsumer-%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.1.1.2.</span> <span class="toc-text"> 创建  DefaultLitePullConsumer  对象</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">4.1.2.</span> <span class="toc-text"> 启动</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#push%E6%A8%A1%E5%BC%8F-defaultmqpushconsumerimplstart"><span class="toc-number">4.1.2.1.</span> <span class="toc-text"> push 模式: DefaultMQPushConsumerImpl.start ()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pull%E6%A8%A1%E5%BC%8F-defaultlitepullconsumerimplstart"><span class="toc-number">4.1.2.2.</span> <span class="toc-text">  pull  模式:  DefaultLitePullConsumerImpl.start()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pull-%E6%A8%A1%E5%BC%8F-%E5%92%8C-push-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">4.1.2.3.</span> <span class="toc-text"> Pull 模式 和 push 模式的对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E6%80%BB%E7%BB%93"><span class="toc-number">4.2.</span> <span class="toc-text"> 消费者总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li class="active"><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">70</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">13</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">41</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">一致性哈希算法的实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" title="git开发模型 - github-flow">git开发模型 - github-flow</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">304k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:37</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/28/rocketMQ/2-01-RocketMQ架构设计之启动/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

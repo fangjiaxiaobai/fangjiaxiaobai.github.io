@@ -1,0 +1,701 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="RocketMQ,消息队列" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/">
+
+
+
+  <title>
+RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">RocketMQ 系列 - 架构设计之消息
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-28 19:26:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-28T19:26:00+08:00">2021-09-28</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 RocketMQ 系列"><span itemprop="name">RocketMQ 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>上一篇文章<a href="./2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8.md"> RocketMQ 架构设计之启动过程解析</a> 分析了  <code>NameServer</code> ,  <code>Broker</code> ,  <code>Producer</code> ,  <code>Consumer</code>  四个部分的启动过程，这边文章我们分析 <b>消息的收发过程</b>.</p>
+<h2 id="生产者发送消息过程解析"><a class="markdownIt-Anchor" href="#生产者发送消息过程解析">#</a> 生产者发送消息过程解析</h2>
+<p>我们还是看上篇文章中的例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用GroupName初始化Producer</span></span><br><span class="line">DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br><span class="line"><span class="comment">// 指定NameSrv的地址: 也可以通过环境变量NAMESRV_ADDR来指定，则不需要下面这一行。</span></span><br><span class="line">producer.setNamesrvAddr(<span class="string">&quot;name-server1-ip:9876;name-server2-ip:9876&quot;</span>);</span><br><span class="line"><span class="comment">// 启动实例</span></span><br><span class="line">producer.start();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 创建消息实例,指定 topic, tag, message body.</span></span><br><span class="line">    Message msg = <span class="keyword">new</span> Message(<span class="string">&quot;TopicTest&quot;</span> <span class="comment">/* Topic */</span>,</span><br><span class="line">        <span class="string">&quot;TagA&quot;</span> <span class="comment">/* Tag */</span>,</span><br><span class="line">        (<span class="string">&quot;Hello RocketMQ !!&quot;</span>).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// 发送消息给Broker</span></span><br><span class="line">    SendResult sendResult = producer.send(msg);</span><br><span class="line">    System.out.printf(<span class="string">&quot;%s%n&quot;</span>, sendResult);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 关闭生产者</span></span><br><span class="line">producer.shutdown();</span><br></pre></td></tr></table></figure>
+<p>在上一篇文中，我们是看到了  <code>producer.start();</code> , 现在我们接着来看  <code>producer.send(msg);</code>  的过程。上一篇文章中，有简单的介绍过消息的发送分为三步：</p>
+<ul>
+<li>获取 topic 的元数据信息，包括：路由信息，是否为有序队列，MessageQueue 列表，消息会发送的队列的索引。</li>
+<li>选择 MessageQueue</li>
+<li>发送消息</li>
+</ul>
+<p>具体实现的代码在  <code>org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl#sendDefaultImpl</code>  方法中。</p>
+<p>在消息的发送过程中，首先会校验当前 Producer 的运行状态，然后判断消息的 group,topic 等等是否为空。 合法之后，会获取 topic 的 MessageQueue 列表。从 messageQueue 列表中查找出一个发送的 messageQueue. 通过什么的机制选取 MessageQueue 呢？这里会涉及到一个 Broker 的延迟容错机制，下面我们会详解的介绍这个机制。当消息第一次过来的时候，会通过 Random 随机选择一个 messageQueue，进行发送，如果发送失败，会将该 messageQueue 隔离起来，重试的时候，不会给这个 messageQueue 投递消息。选择出来了 MessageQueue 之后，进行发送消息，发送消息首先会根据 BrokerName 获取 broker 的地址，执行几个 RpcHook, 然后封装请求头，根据我们发送方式的不同，会选择对应的请求命令 (Send_Message,Send_Reply_Message,Send_Reply_Message_V2 等等) 发送，消息发送完成之后，会更新 Producer 端的  <code>broker容错表</code> 。这样消息就发送出去了。</p>
+<h3 id="延迟容错机制"><a class="markdownIt-Anchor" href="#延迟容错机制">#</a> 延迟容错机制</h3>
+<p>RocketMQ 发送消息的时候，由于 nameServer 检测 Broker 是否存活是有延迟的，在 选择消息队列的时候你，也可能遇到宕机的 Broker, 因网络问题发送失败的不时会发生，因次 RocketMQ 实现这种 高可用的设计方案。</p>
+<p>到底是怎么回事儿呢？</p>
+<p>我们从代码中看看端倪。</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%99.png" alt=""></p>
+<p>文中图片我标注了两处代码</p>
+<h4 id="重试"><a class="markdownIt-Anchor" href="#重试">#</a> 重试</h4>
+<p>当消息是 同步方式发送的时候，根据配置的属性进行重试，默认为 3 次。 如果是单向方式或者异步的方式进行发送时，则就会发送一次，不会重试。 可以看到确实可以从一定程度上提高消息发送成功的几率，但是，如果是 broker 宕机，重试只会增加时长。</p>
+<p>先不急着解决，我们看一下消息第一次发送是怎样的过程。 图中 2 处，会根据 topicPublishInfo 查出一个 MessageQueue。 跟进代码：</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%992.png" alt=""></p>
+<p>然后接着进入代码</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%993.png" alt=""></p>
+<p>我们先假设  <code>sendLatencyFaultEnable = false</code> . 我们再看一下具体实现:</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%994.png" alt=""></p>
+<p>其中 sendWhichQueue 字段就是上一次消息发送的 MessageQueue List 的下标。</p>
+<p>最后就是根据 selectOneMessage () 方法通过轮询的方式来选 MessageQueue 了。第一次是通过随机的方式来选出第一个 MessageQueue 的，重试的都是 轮询的去取了。</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%995.png" alt=""></p>
+<p>那当:  <code>sendLatencyFaultEnable = true</code>  的时候呢？</p>
+<p>sendLatencyFaultEnable 是什么意思呢？ 它表示是否启用 Broker 故障延迟机制。 看下图中的代码，我们假设 启用了 Broker 故障延迟机制。</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%996.png" alt=""></p>
+<p>图中标注的部分上面的逻辑 和刚才 选择 MessageQueue 的机制是一样的。 那奥秘肯定是在下面的代码中了 (图中框选的部分)</p>
+<p>latencyFaultTolerance 是什么呢？latencyFaultTolerance 是一个接口，直译就是：延迟容错。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 延迟容错</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LatencyFaultTolerance</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新失败的Broker。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name                 brokerName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> currentLatency       本次消息发送的时长</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> notAvailableDuration 规避broker的时长</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateFaultItem</span><span class="params">(<span class="keyword">final</span> T name, <span class="keyword">final</span> <span class="keyword">long</span> currentLatency, <span class="keyword">final</span> <span class="keyword">long</span> notAvailableDuration)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断Broker是否可以用</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name broker的名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isAvailable</span><span class="params">(<span class="keyword">final</span> T name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从Broker故障列表中移除</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">final</span> T name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 弹出最后一个 Broker</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">T <span class="title">pickOneAtLeast</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来看一下  <code>latencyFaultTolerance.isAvailable(mq.getBrokerName())</code>  的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAvailable</span><span class="params">(<span class="keyword">final</span> String name)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// faultItemTable 是一个 ConcurrentHashMap</span></span><br><span class="line">    <span class="keyword">final</span> FaultItem faultItem = <span class="keyword">this</span>.faultItemTable.get(name);</span><br><span class="line">    <span class="keyword">if</span> (faultItem != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 判断该Broker(messageQueue)是否在规避时间内。</span></span><br><span class="line">        <span class="keyword">return</span> faultItem.isAvailable();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>faultItem.isAvailable () 的实现如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (System.currentTimeMillis() - startTimestamp) &gt;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这两段代码中可以看出，判断 Broker 是否可用的判断依据就是：当前时间是否大于 startTimeStamp。 startTimeStamp 标识 该 Broker 可以开始使用的时间。</p>
+<p>看到这里，一头雾水。  分区容错到底是什么东西呢？</p>
+<p>我们返回上一层，从框选的下面接着看：</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%996.png" alt=""></p>
+<p>如果还没有选出一个可用 MessageQueue，则会中 故障的 Broker 列表中选出一个 Broker，判断这个 broker 是否有 MessageQueue，如果有则随机 (轮询) 的选一个，如果没有则从故障的 Broker 列表中移除一个，使用默认的机制选择一个 MessageQueue 投送消息。</p>
+<p>选择出来 MessageQueue 之后，就会发送消息了。</p>
+<p>发送完消息 还进行了一个操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 更新topic的一个MessageQueue 是否可用</span></span><br><span class="line"><span class="keyword">this</span>.updateFaultItem(mq.getBrokerName(), endTimestamp - beginTimestampPrev, <span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+<p>这是干什么呢？ 我们直译过来 更新故障 (错误) 的条目。去看一下代码实现:</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%997.png" alt=""></p>
+<p>可以看到最终是调用了 MqFaultStrategty 的 updateFaultItem () 方法。 这个方法中执行了两个方法， <code>computeNotAvailableDuration</code>  计算不可用的时长， 和  latencyFaultTolerance 的 updateFaultItem 方法。</p>
+<p>上图中贴出了 computeNotAvailableDuration 方法的实现。方法中使用了两个数组 latencyMax 和 notAvailableDuration , 这两个数组就是延迟机制的核心了。数组的定义如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 延迟机制 - 本次消息发送时长区间，用于映射计算出需要规避Broker的时长。</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">long</span>[] latencyMax = &#123;<span class="number">50L</span>, <span class="number">100L</span>, <span class="number">550L</span>, <span class="number">1000L</span>, <span class="number">2000L</span>, <span class="number">3000L</span>, <span class="number">15000L</span>&#125;;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 延迟机制 - 规避Broker的时长</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">long</span>[] notAvailableDuration = &#123;<span class="number">0L</span>, <span class="number">0L</span>, <span class="number">30000L</span>, <span class="number">60000L</span>, <span class="number">120000L</span>, <span class="number">180000L</span>, <span class="number">600000L</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>方法中的形参 currentlatency 为本次消息发送的延迟时间。</p>
+<p>调用 computeNotAvailableDuration 方法的实参 isolation 表示该 Broker 是否需要规避。如果消息发送成功，isolation 就是 false, 反之，就是代表 Broker 需要被规避。从 computeNotAvailableDuration 方法的实现可以看出：其会根据 本校消息发送的延迟时间 从 latencyMax 数组尾部找到第一个 比 currentlatency 小的数组下标 i，没有则返回 0， 将 notAvailableDuration [i] 进行返回。 当 isolation=true 的时候，就会默认有 10 分钟的规避时长，反之，规避时长就会消息发送的延时是多少了。</p>
+<p>我们接着看 latencyFaultTolerance 的 updateFaultItem 方法</p>
+<p><img data-src="/images/rocketmq/2-02-%20broker%E5%AE%B9%E9%94%998.png" alt=""></p>
+<p>图中对代码进行注释，不过多解释了。其中 FaultItem 是 存储故障 broker 的类，可以称为 失败条目，每个 FaultItem 存储了 broker 的名称，消息发送延迟的时长，故障规避结束的开始时间。</p>
+<p>那么更新这两个字段的值有什么作用呢？不知你是否有印象，刚才说有一头雾水的地方。</p>
+<p>在选择 MessageQueue 的时候，会判断 messageQueue 是否可用，调用了 故障容器接口的 isAvalilable 方法，方法就是根据 startTimestamp 来进行判断改队列是否可用的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (System.currentTimeMillis() - startTimestamp) &gt;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果当前的系统时间大于故障规避开始时间，说明 broker 可以加入轮询的队伍里。</p>
+<p>以上就是 生产者发送消息 整个过程了。</p>
+<h3 id="生产者总结"><a class="markdownIt-Anchor" href="#生产者总结">#</a> 生产者总结</h3>
+<p>我们知道了 生产者发送消息，三步完成，1. 获取 topic 的元数据信息，比如路由信息，MessageQueue 队列列表等， 2. 选择合适的 MessageQueue，我们也着重介绍了 Broker 的故障延迟机制，这也是 RocketMQ 实现高可用的方式之一。 3. 发送消息，这里我们并没有过多的介绍，使用 nettyClient 将 Message 发送过 Broker 端。</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望和你一起遇见更好的自己</p>
+<p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
+
+      <div class="tags">
+          <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
+          <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+  </span>
+  <span id="2021/09/28/rocketMQ/2-02-RocketMQ架构设计之消息/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - 架构设计之消息" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" title="RocketMQ 系列 - 架构设计之消息">https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ架构设计之消息/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicli9lfebj20zk0m84qp.jpg" title="RocketMQ系列-架构设计之启动">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-架构设计之启动</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipev1x5e4j20zk0m8b29.jpg" title="搭建第一个纯dubbo微服务应用">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Dubbo</span>
+  <h3>搭建第一个纯dubbo微服务应用</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> 生产者发送消息过程解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text"> 延迟容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E8%AF%95"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 重试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 生产者总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li class="active"><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">70</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">13</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">41</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/" title="LC:反转数组">LC:反转数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">304k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:37</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/28/rocketMQ/2-02-RocketMQ架构设计之消息/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

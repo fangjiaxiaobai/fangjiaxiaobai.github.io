@@ -1,0 +1,767 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="RocketMQ,消息队列" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/">
+
+
+
+  <title>
+RocketMQ 系列 - 搭建 RocketMQ 集群 - RocketMQ 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">RocketMQ 系列 - 搭建 RocketMQ 集群
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-03 17:17:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-03T17:17:00+08:00">2021-09-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>7.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 RocketMQ 系列"><span itemprop="name">RocketMQ 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="搭建rocketmq集群"><a class="markdownIt-Anchor" href="#搭建rocketmq集群">#</a> 搭建 RocketMQ 集群</h1>
+<p>根据之前的了解，我们已经知道了 RocketMQ 可以单机部署，支持集群部署。</p>
+<p>RocketMQ 支持以下集中部署方式  <code>1.单Master模式部署</code> ， <code>2.多Master模式部署</code> ， <code>3.多Master多Slaver模式部署</code></p>
+<h2 id="单master模式"><a class="markdownIt-Anchor" href="#单master模式">#</a> 单 Master 模式</h2>
+<p>这种方式风险较大，一旦 Broker 重启或者宕机时，会导致整个服务不可用。不建议线上环境使用，可以用于本地测试。</p>
+<h3 id="启动-nameserver"><a class="markdownIt-Anchor" href="#启动-nameserver">#</a> 启动 NameServer</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 首先启动Name Server</span></span><br><span class="line">$ nohup sh mqnamesrv &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 验证Name Server 是否启动成功</span></span><br><span class="line">$ tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></table></figure>
+<h3 id="启动-broker"><a class="markdownIt-Anchor" href="#启动-broker">#</a> 启动 Broker</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 启动Broker</span></span><br><span class="line">$ nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">### 验证Name Server 是否启动成功，例如Broker的IP为：192.168.1.2，且名称为broker-a</span></span><br><span class="line">$ tail -f ~/logs/rocketmqlogs/broker.log </span><br><span class="line">The broker[broker-a, 192.169.1.2:10911] boot success...</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a class="markdownIt-Anchor" href="#验证">#</a> 验证</h3>
+<p>我们使用 Java 程序来简单的验证下消息的发送和消费，这也是我们第一次去使用 RocketMQ.</p>
+<h4 id="加入maven依赖"><a class="markdownIt-Anchor" href="#加入maven依赖">#</a> 加入 maven 依赖</h4>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.rocketmq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>rocketmq-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="生产消息"><a class="markdownIt-Anchor" href="#生产消息">#</a> 生产消息</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    	<span class="comment">// 实例化消息生产者Producer</span></span><br><span class="line">        DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br><span class="line">    	<span class="comment">// 设置NameServer的地址</span></span><br><span class="line">    	producer.setNamesrvAddr(<span class="string">&quot;localhost:9876&quot;</span>);</span><br><span class="line">    	<span class="comment">// 启动Producer实例</span></span><br><span class="line">        producer.start();</span><br><span class="line">    	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">    	    <span class="comment">// 创建消息，并指定Topic，Tag和消息体</span></span><br><span class="line">    	    Message msg = <span class="keyword">new</span> Message(<span class="string">&quot;TopicTest&quot;</span> <span class="comment">/* Topic */</span>,</span><br><span class="line">        	<span class="string">&quot;TagA&quot;</span> <span class="comment">/* Tag */</span>,</span><br><span class="line">        	(<span class="string">&quot;Hello RocketMQ &quot;</span> + i).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">        	);</span><br><span class="line">        	<span class="comment">// 发送消息到一个Broker</span></span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            <span class="comment">// 通过sendResult返回消息是否成功送达</span></span><br><span class="line">            System.out.printf(<span class="string">&quot;%s%n&quot;</span>, sendResult);</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="comment">// 如果不再发送消息，关闭Producer实例。</span></span><br><span class="line">    	producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="消费消息"><a class="markdownIt-Anchor" href="#消费消息">#</a> 消费消息</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, MQClientException </span>&#123;</span><br><span class="line"></span><br><span class="line">    	<span class="comment">// 实例化消费者</span></span><br><span class="line">        DefaultMQPushConsumer consumer = <span class="keyword">new</span> DefaultMQPushConsumer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br><span class="line"></span><br><span class="line">    	<span class="comment">// 设置NameServer的地址</span></span><br><span class="line">        consumer.setNamesrvAddr(<span class="string">&quot;localhost:9876&quot;</span>);</span><br><span class="line"></span><br><span class="line">    	<span class="comment">// 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息</span></span><br><span class="line">        consumer.subscribe(<span class="string">&quot;TopicTest&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">    	<span class="comment">// 注册回调实现类来处理从broker拉取回来的消息</span></span><br><span class="line">        consumer.registerMessageListener(<span class="keyword">new</span> MessageListenerConcurrently() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> ConsumeConcurrentlyStatus <span class="title">consumeMessage</span><span class="params">(List&lt;MessageExt&gt; msgs, ConsumeConcurrentlyContext context)</span> </span>&#123;</span><br><span class="line">                System.out.printf(<span class="string">&quot;%s Receive New Messages: %s %n&quot;</span>, Thread.currentThread().getName(), msgs);</span><br><span class="line">                <span class="comment">// 标记该消息已经被成功消费</span></span><br><span class="line">                <span class="keyword">return</span> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 启动消费者实例</span></span><br><span class="line">        consumer.start();</span><br><span class="line">        System.out.printf(<span class="string">&quot;Consumer Started.%n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>遇到的问题:</p>
+</blockquote>
+<p>按照上面的步骤，你运行成功了吗？？？</p>
+<p>我反正是没有成功的生产消息。为什么呢？</p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cDovLzEuTm8=">1.No</span> route info of this topic, TopicTest</p>
+</blockquote>
+<p>原因是：我们在启动的时候，并没有创建  <code>TopicTest</code>  这个 Topic.</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread &quot;main&quot; org.apache.rocketmq.client.exception.MQClientException: No route info of this topic, TopicTest</span><br><span class="line">See http://rocketmq.apache.org/docs/faq/ <span class="keyword">for</span> further details.</span><br><span class="line">	<span class="built_in">at</span> org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl.sendDefaultImpl(DefaultMQProducerImpl.java:<span class="number">610</span>)</span><br><span class="line">	<span class="built_in">at</span> org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl.send(DefaultMQProducerImpl.java:<span class="number">1223</span>)</span><br><span class="line">	<span class="built_in">at</span> org.apache.rocketmq.client.impl.producer.DefaultMQProducerImpl.send(DefaultMQProducerImpl.java:<span class="number">1173</span>)</span><br><span class="line">	<span class="built_in">at</span> org.apache.rocketmq.client.producer.DefaultMQProducer.send(DefaultMQProducer.java:<span class="number">214</span>)</span><br><span class="line">	<span class="built_in">at</span> com.fxb.learn_rocketmq.Producer.main(Producer.java:<span class="number">23</span>)</span><br></pre></td></tr></table></figure>
+<p>这种问题的原因两种。 1. 网络不通，连接不到端口。  2. 没有创建这个 Topic.<br>
+ 真不巧，我全遇到了。</p>
+<p>第一种呢，使用 telnet 命令，如果通了就解决了。<br>
+第二种，使用  <code>sh mqadmin updateTopic -n localhost:9876 -b 192.168.1.63:10911 -t TopicTest</code>  -n 表示 NameSerer 的地址，-b 表示 Broker 的地址，-t<br>
+ 后面的就是 topicName 了。</p>
+<blockquote>
+<p>2.Broker 启动失败，提示 空间不足。</p>
+</blockquote>
+<p>原因是：在 <span class="exturl" data-url="aHR0cDovL3J1blNlcnZlci5zaA==">runServer.sh</span> 和 <span class="exturl" data-url="aHR0cDovL3J1bmJyb2tlci5zaA==">runbroker.sh</span> 脚本中配置了启动的内存大小， NameServer 启动的堆内存是 4G, 而 broker 启动的是 8g 所以，回报错因 空间不足，启动失败。</p>
+<blockquote>
+<p>3. 运行 mqadmin 命令是报错</p>
+</blockquote>
+<p>我遇到的问题是因为 宿主机安装的是 openJDK, 导致 脚本没有加载到对应的 ext 包，所以在 <span class="exturl" data-url="aHR0cDovL3Rvb2xzLnNo">tools.sh</span> 中加入 ext / 包的路径就可以了。 ext/ 就是 jre 下的 ext 包。</p>
+<p>如下图.<br>
+<img data-src="/images/rocketmq/1-03%E5%8D%95master%E9%83%A8%E7%BD%B2mqadmin%E5%91%BD%E4%BB%A4%E6%8A%A5%E9%94%99.png" alt=""></p>
+<h3 id="rocket运行程序"><a class="markdownIt-Anchor" href="#rocket运行程序">#</a> Rocket 运行程序</h3>
+<p>我们先不急着去学习其他的部署方式，我们现在去看下 Rocket 运行程序的目录是什么样的。目的是了解 RocketMQ 是怎么跑起来的。这样遇到问题的时候，我们可以顺藤摸瓜去排查问题是出在什么地方。</p>
+<p><img data-src="/images/rocketmq/1-03-RocketMQ%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%9B%AE%E5%BD%95.png" alt=""></p>
+<ul>
+<li>benchmark 包：提供了 Rocket 用于基准测试的工具。<br>
+<span class="exturl" data-url="aHR0cDovL3Byb2R1Y2VyLnNo">producer.sh</span> ：测试普通 MQ 生产者的性能。<br>
+<span class="exturl" data-url="aHR0cDovL2NvbnN1bWVyLnNo">consumer.sh</span> ：测试 MQ 消费者的性能。<br>
+<span class="exturl" data-url="aHR0cDovL3Rwcm9kdWNlci5zaA==">tproducer.sh</span> ：测试事务 MQ 生产者的性能。<br>
+<span class="exturl" data-url="aHR0cDovL2JhdGNocHJvZHVjZXIuc2g=">batchproducer.sh</span>: 测试批量生产者的性能。</li>
+<li>bin: 提供了 启动关闭 NameServer, 启动关闭 Broker，管理 MQ 的工具。
+<ul>
+<li>mqnamesrv： 启动 NameServer 的脚本</li>
+<li>mqbroker: 启动 Broker 的脚本</li>
+<li>mqadmin: 管理 RocketMQ 的脚本</li>
+<li>mqshutdown: 关闭 MQ 的脚本</li>
+</ul>
+</li>
+<li>conf: 对 RocketMQ 进行配置的文件目录。
+<ul>
+<li>broker.conf： broker 的配置</li>
+<li>logback-*.xml: logback 日志的配置，比如 Broker，nameServer,tools 的日志配置</li>
+<li>plain_acl.yml： 权限管理的文件</li>
+<li>tools.yml: 脚本工具的配置</li>
+<li>dledger: 容灾相关的配置</li>
+</ul>
+</li>
+<li>lib: 这里存放的就是编译之后的 class 文件。</li>
+</ul>
+<p>如果在启动或者使用其他的命令遇到问题的时候，可以到对应的目录中，找到文件，然后看下代码进行处理。</p>
+<p>下面我们接着去看其他的部署方式。</p>
+<h2 id="多master模式"><a class="markdownIt-Anchor" href="#多master模式">#</a> 多 Master 模式</h2>
+<p>一个集群无 Slave，全是 Master，例如 2 个 Master 或者 3 个 Master，这种模式的优缺点如下：</p>
+<ul>
+<li>
+<p>优点：配置简单，单个 Master 宕机或重启维护对应用无影响，在磁盘配置为 RAID10 时，即使机器宕机不可恢复情况下，由于 RAID10 磁盘非常可靠，消息也不会丢（异步刷盘丢失少量消息，同步刷盘一条不丢），性能最高；</p>
+</li>
+<li>
+<p>缺点：单台机器宕机期间，这台机器上未被消费的消息在机器恢复之前不可订阅，消息实时性会受到影响。</p>
+</li>
+</ul>
+<h3 id="启动nameserver"><a class="markdownIt-Anchor" href="#启动nameserver">#</a> 启动 NameServer</h3>
+<p><b>NameServer 需要先于 Broker 启动，且如果在生产环境使用，为了保证高可用，建议一般规模的集群启动 3 个 NameServer</b>，各节点的启动命令相同，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 首先启动Name Server</span></span><br><span class="line">$ nohup sh mqnamesrv &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 验证Name Server 是否启动成功</span></span><br><span class="line">$ tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></table></figure>
+<h3 id="启动broker集群"><a class="markdownIt-Anchor" href="#启动broker集群">#</a> 启动 Broker 集群</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 在机器A，启动第一个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-noslave/broker-a.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器B，启动第二个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-noslave/broker-b.properties &amp;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>如上启动命令是在单个 NameServer 情况下使用的。对于多个 NameServer 的集群，Broker 启动命令中 <code>-n</code>  后面的地址列表用分号隔开即可，例如  <code>192.168.1.1:9876;192.161.2:9876</code> 。</p>
+<h2 id="13-多master多slave模式-异步复制"><a class="markdownIt-Anchor" href="#13-多master多slave模式-异步复制">#</a> 1.3 多 Master 多 Slave 模式 - 异步复制</h2>
+<p>每个 Master 配置一个 Slave，有多对 Master-Slave，HA 采用异步复制方式，主备有短暂消息延迟（毫秒级），这种模式的优缺点如下：</p>
+<ul>
+<li>
+<p>优点：即使磁盘损坏，消息丢失的非常少，且消息实时性不会受影响，同时 Master 宕机后，消费者仍然可以从 Slave 消费，而且此过程对应用透明，不需要人工干预，性能同多 Master 模式几乎一样；</p>
+</li>
+<li>
+<p>缺点：Master 宕机，磁盘损坏情况下会丢失少量消息。</p>
+</li>
+</ul>
+<h3 id="启动nameserver-2"><a class="markdownIt-Anchor" href="#启动nameserver-2">#</a> 启动 NameServer</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 首先启动Name Server</span></span><br><span class="line">$ nohup sh mqnamesrv &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 验证Name Server 是否启动成功</span></span><br><span class="line">$ tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></table></figure>
+<h3 id="启动broker集群-2"><a class="markdownIt-Anchor" href="#启动broker集群-2">#</a> 启动 Broker 集群</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 在机器A，启动第一个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-a.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器B，启动第二个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-b.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器C，启动第一个Slave，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-a-s.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器D，启动第二个Slave，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-async/broker-b-s.properties &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="多master多slave模式-同步双写"><a class="markdownIt-Anchor" href="#多master多slave模式-同步双写">#</a> 多 Master 多 Slave 模式 - 同步双写</h3>
+<p>每个 Master 配置一个 Slave，有多对 Master-Slave，HA 采用同步双写方式，即只有主备都写成功，才向应用返回成功，这种模式的优缺点如下：</p>
+<ul>
+<li>
+<p>优点：数据与服务都无单点故障，Master 宕机情况下，消息无延迟，服务可用性与数据可用性都非常高；</p>
+</li>
+<li>
+<p>缺点：性能比异步复制模式略低（大约低 10% 左右），发送单个消息的 RT 会略高，且目前版本在主节点宕机后，备机不能自动切换为主机。</p>
+</li>
+</ul>
+<h3 id="启动nameserver-3"><a class="markdownIt-Anchor" href="#启动nameserver-3">#</a> 启动 NameServer</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 首先启动Name Server</span></span><br><span class="line">$ nohup sh mqnamesrv &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 验证Name Server 是否启动成功</span></span><br><span class="line">$ tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></table></figure>
+<h3 id="启动broker集群-3"><a class="markdownIt-Anchor" href="#启动broker集群-3">#</a> 启动 Broker 集群</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 在机器A，启动第一个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-a.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器B，启动第二个Master，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-b.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器C，启动第一个Slave，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-a-s.properties &amp;</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 在机器D，启动第二个Slave，例如NameServer的IP为：192.168.1.1</span></span><br><span class="line">$ nohup sh mqbroker -n 192.168.1.1:9876 -c <span class="variable">$ROCKETMQ_HOME</span>/conf/2m-2s-sync/broker-b-s.properties &amp;</span><br></pre></td></tr></table></figure>
+<p>以上 Broker 与 Slave 配对是通过指定相同的 BrokerName 参数来配对，Master 的 BrokerId 必须是 0，Slave 的 BrokerId 必须是大于 0 的数。另外一个 Master 下面可以挂载多个 Slave，同一 Master 下的多个 Slave 通过指定不同的 BrokerId 来区分。$ROCKETMQ_HOME 指的 RocketMQ 安装目录，需要用户自己设置此环境变量。</p>
+<h1 id="mqadmin管理工具"><a class="markdownIt-Anchor" href="#mqadmin管理工具">#</a> mqadmin 管理工具</h1>
+<p>关于 mqadmin 命令的使用，我们可以通过  <code>sh mqadmin</code>  命令来查看命令的选项，用的多自然就记住了，后面我们也不会通过这种方式来管理 RocketMQ 集群。但是在我们学习的过程中，我们还是会非常频繁的使用这个命令。</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>执行命令方法： <code>./mqadmin &#123;command&#125; &#123;args&#125;</code></li>
+<li>几乎所有命令都需要配置 - n 表示 NameServer 地址，格式为 ip:port</li>
+<li>几乎所有命令都可以通过 - h 获取帮助</li>
+<li>如果既有 Broker 地址（-b）配置项又有 clusterName（-c）配置项，则优先以 Broker 地址执行命令，如果不配置 Broker 地址，则对集群中所有主机执行命令，只支持一个 Broker 地址。-b 格式为 ip:port，port 默认是 10911</li>
+<li>在 tools 下可以看到很多命令，但并不是所有命令都能使用，只有在 MQAdminStartup 中初始化的命令才能使用，你也可以修改这个类，增加或自定义命令</li>
+<li>由于版本更新问题，少部分命令可能未及时更新，遇到错误请直接阅读相关命令源码</li>
+</ol>
+</blockquote>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h1>
+<p>期望和你一起遇见更好的自己</p>
+<p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
+
+      <div class="tags">
+          <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
+          <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+  </span>
+  <span id="2021/09/03/rocketMQ/1-03-RocketMQ搭建/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - 搭建 RocketMQ 集群" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ 系列 - 搭建 RocketMQ 集群">https://fangjiaxiaobai.github.io/2021/09/03/rocketMQ/1-03-RocketMQ搭建/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljgocqbj20zk0m8e81.jpg" title="RocketMQ系列-RocketMQ概念">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-RocketMQ概念</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxxcb6rj20zk0m8b29.jpg" title="RocketMQ系列-在Java应用中的使用">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
+  <h3>RocketMQ系列-在Java应用中的使用</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BArocketmq%E9%9B%86%E7%BE%A4"><span class="toc-number">1.</span> <span class="toc-text"> 搭建 RocketMQ 集群</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95master%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text"> 单 Master 模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-nameserver"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 启动 NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-broker"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 启动 Broker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5maven%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.3.1.</span> <span class="toc-text"> 加入 maven 依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E6%B6%88%E6%81%AF"><span class="toc-number">1.1.3.2.</span> <span class="toc-text"> 生产消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF"><span class="toc-number">1.1.3.3.</span> <span class="toc-text"> 消费消息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rocket%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text"> Rocket 运行程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9Amaster%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> 多 Master 模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8nameserver"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 启动 NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8broker%E9%9B%86%E7%BE%A4"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 启动 Broker 集群</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E5%A4%9Amaster%E5%A4%9Aslave%E6%A8%A1%E5%BC%8F-%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text"> 1.3 多 Master 多 Slave 模式 - 异步复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8nameserver-2"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 启动 NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8broker%E9%9B%86%E7%BE%A4-2"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 启动 Broker 集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9Amaster%E5%A4%9Aslave%E6%A8%A1%E5%BC%8F-%E5%90%8C%E6%AD%A5%E5%8F%8C%E5%86%99"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 多 Master 多 Slave 模式 - 同步双写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8nameserver-3"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 启动 NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8broker%E9%9B%86%E7%BE%A4-3"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 启动 Broker 集群</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mqadmin%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text"> mqadmin 管理工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li class="active"><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">70</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">13</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">41</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search配置">Elastic Search配置</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">304k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:37</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/09/03/rocketMQ/1-03-RocketMQ搭建/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
