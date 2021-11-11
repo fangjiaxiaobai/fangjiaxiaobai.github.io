@@ -7,43 +7,53 @@
     <category term="全站地图" />
     <category term="导航" />
     <category term="目录" />
-    <category term="MySQL" />
-    <category term="Redis" />
     <category term="雪花算法" />
     <category term="算法" />
-    <category term="数据结构" />
     <category term="Elastic Search" />
     <category term="搜索" />
+    <category term="git" />
+    <category term="源码" />
+    <category term="MySQL" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="MachineLearn" />
+    <category term="Redis" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="数据结构" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="数据结构与算法" />
+    <category term="动态规划" />
+    <category term="递归" />
+    <category term="哈希算法" />
+    <category term="String" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
+    <category term="交换排序" />
+    <category term="选择排序" />
     <category term="leetCode" />
     <category term="数组" />
     <category term="面经之算法题" />
-    <category term="链表" />
-    <category term="源码" />
-    <category term="git" />
-    <category term="RocketMQ" />
-    <category term="消息队列" />
-    <category term="线程池" />
-    <category term="面经" />
-    <category term="数据结构与算法" />
-    <category term="递归" />
-    <category term="动态规划" />
-    <category term="哈希算法" />
-    <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="交换排序" />
-    <category term="分治思想排序" />
-    <category term="选择排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
-    <category term="HashMap" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
-    <category term="String" />
+    <category term="链表" />
+    <category term="不做也罢的算法题" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
+    <category term="有点难的算法题" />
     <category term="Java" />
     <category term="dubbo" />
+    <category term="KNN" />
+    <category term="JDK版本" />
+    <category term="JDK11" />
     <category term="OOM" />
     <category term="JVM" />
-    <category term="JDK" />
     <category term="Stream" />
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/07/18/RoadMap/</id>
@@ -114,10 +124,20 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;info&#34;&gt;&lt;summary&gt;刷题&lt;/summary&gt;&lt;div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;bq&#34; data-title=&#34;LeetCode&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_27&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_27&#34;&gt; &lt;a href=&#34;/2021/08/19/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/&#34;&gt;LC: 反转数组&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_28&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_28&#34;&gt; &lt;a href=&#34;/2021/08/29/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/&#34;&gt;LC: 反转链表 I&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_27&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_27&#34;&gt; &lt;a href=&#34;/2021/08/19/BQ/LeetCode/001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/&#34;&gt;LC: 反转数组&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_28&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_28&#34;&gt; &lt;a href=&#34;/2021/08/29/BQ/LeetCode/002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/&#34;&gt;LC: 反转链表 I&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;bq&#34; data-title=&#34;杭电&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;/2021/10/13/BQ/hdoj/HD-1000/&#34;&gt;1000 A + B Problem&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/2021/10/14/BQ/hdoj/HD-1001/&#34;&gt;1001 Sum Problem&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/2021/10/15/BQ/hdoj/HD-1002/&#34;&gt;1002 A + B Problem II&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/2021/10/16/BQ/hdoj/HD-1003/&#34;&gt;1003 Max Sum&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/2021/10/17/BQ/hdoj/HD-1004/&#34;&gt;1004 Let the Balloon Rise&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;/2021/10/18/BQ/hdoj/HD-1005/&#34;&gt;1005 Number Sequence&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
 &lt;details class=&#34;warning&#34;&gt;&lt;summary&gt;数据库系列&lt;/summary&gt;&lt;div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;db&#34; data-title=&#34;MySQL&#34;&gt;

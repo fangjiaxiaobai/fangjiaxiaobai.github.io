@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,73 +120,118 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" itemprop="url" title="git基本命令二"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxfdlttj20zk0m8npd.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-08-01 15:08:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T15:08:55+08:00">2021-08-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>8.4k</span>
+    <span>13k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>8 分钟</span>
+    <span>12 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" itemprop="url" title="git基本命令二">git基本命令二</a></h3>
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List">Redis数据结构之 List</a></h3>
     <div class="excerpt">
-        git 的时光机 (简化版)
-
-git log ：查看历史记录
-git commit -amend ：重写上一次的提交历史
-
-# git log
-git 有一个特别实用的功能，可以让我们看到所有的历史更改记录。这个命令就是 git log .
-首先我们新建一个仓库。随便进行 5 次更改， 5 提交。
-执行如下的操作:
-1234567891011121314151617181920212223242526272829➜ gitlearn git init .Initialized empty Git repository in /private/tmp/gitlearn/.git/➜...
+        # 书接上回
+上一篇文章 Redis 的数据结构 string 我们一起学习了这种类型的常用命令，并且还学习了 Redis 中的字符串的结构表示以及好处，这里我们接着学习另外一种数据结构 list 。
+# list 简介
+list , 一般都会称为列表。在 Redis 中，这种数据结构是一种比较灵活的结构，由于其元素的是有序的，所以可以充当栈和队列这两种数据结构。实际在开发总也有很多应用场景。
+一个 List 最多可以包含 2^32-1 个元素。
+很多人都会以为 list 是用数组来实现的，非也，非也。它内部是 quicklist 这种数据结构。想要先睹为快的，那么坐电梯直达吧。
+# list...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" itemprop="url" title="git基本命令二" class="btn">more...</a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipevgoki5j20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-08-01 14:58:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:58:55+08:00">2021-08-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>2.3k</span>
+    <span>9.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>9 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String">Redis数据结构之 String</a></h3>
+    <div class="excerpt">
+        今天来聊聊 Redis 的 string ，这一数据结构。
+# string 简介
+string 是 Redis 中最基本，也是最简单的数据结构。一个键 ( key ) 对应着一个 string 类型的值 ( value ). 我们都知道 redis 是使用 C 语言来编写的，但是 string 这一个数据结构并非是使用 C 语言的 string(char[]) 来实现的，要想先了解，那就做电梯吧 -&amp;gt;( 电梯直达 ).
+现在，先暂且抛开内部实现，我们先看看有怎么使用这一数据结构。
+# string 相关常用命令
+# set 命令
+SET key value...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicis081o9j20zk0m8dmr.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 14:48:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:48:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.7k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -197,38 +242,44 @@ git 有一个特别实用的功能，可以让我们看到所有的历史更改�
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令">其他命令</a></h3>
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库">Redis 多个数据库</a></h3>
     <div class="excerpt">
-        1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556usage: git [--version] [--help] [-C &amp;lt;path&amp;gt;] [-c name=value] [--exec-path[=&amp;lt;path&amp;gt;]] [--html-path] [--man-path] [--info-path] [-p | --paginate | --no-pager]...
+        Redis 默认提供了 16 个数据库。每个数据库都有一个 id , 从 0 开始，[0,15]。 不同的数据库中数据隔离保存。我们可以通过修改 redis 的配置文件进行修改数据库的数量。
+1database 32
+
+使用 select &amp;lt;ID&amp;gt; 可以切换数据库.
+
+示例如下:
+12345678910127.0.0.1:6379&amp;gt; select 1OK# 演示数据隔离127.0.0.1:6379[1]&amp;gt; set test 1OK127.0.0.1:6379[1]&amp;gt; select...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" itemprop="url" title="其他命令" class="btn">more...</a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4baakhj20zk0m8h5q.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-08-01 14:40:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:40:55+08:00">2021-08-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>123</span>
+    <span>601</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -239,50 +290,185 @@ git 有一个特别实用的功能，可以让我们看到所有的历史更改�
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解">git命令详解</a></h3>
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介">Redis 简介</a></h3>
     <div class="excerpt">
-        #
-# 目录
+        Redis 是一个开放源代码（ BSD 许可）的内存中数据结构存储，用作数据库，缓存和消息代理。它支持数据结构，例如字符串，哈希，列表，集合，带范围查询的排序集合，位图 ( bitMap )，超日志 ( hyperlog )，带有半径查询和流的地理空间索引 ( geohash )。 Redis 还内置了副本， Lua 脚本， LRU 驱逐策略，事务和不同级别的磁盘持久性，并通过 Redis Sentinel 和 Redis Cluster 自动分区提供了高可用性。
+Redis 还支持一下特性:
 
-git update-index
+事务
+发布 / 订阅模式
+lua 脚本
+键值的允许生存时长.
+LRU 驱逐
+故障自动转移
 
-# 小技巧
+#...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介" class="btn">more...</a>
+  </div>
+</article>
 
-某个文件需要被管理，但是要忽略其修改的内容。 git update-index
-git update-index --no-skip-worktree 同样可以。
-参考文档 参考文档 2
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 14:38:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:38:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>667</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
 
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署">Redis的单机部署</a></h3>
+    <div class="excerpt">
+        # 源码安装
+# 下载地址
+http://download.redis.io/releases/redis-5.0.7.tar.gz
+# 安装步骤
+123456789wget http://download.redis.io/releases/redis-5.0.7.tar.gztar xvf redis-5.0.7.tar.gz[root@fangjiaxiaobai local]# cd ./redis-5.0.7/[root@fangjiaxiaobai redis-5.0.7]# make &amp;amp;&amp;amp; make installHint:...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-24 14:48:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-24T14:48:55+08:00">2021-07-24</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本">MySQL数据库的版本</a></h3>
+    <div class="excerpt">
+        # MySQL 数据库的版本
+mysql-5.0 : mysql-5.0 版本之前， myisam 默认支持的表大小为 4G 。从 mysql-5.0 以后， MyISAM 默认支持 256T 的表单数据。 myisam 只缓存索引数据。 2005 年的 5.0 版本又添加了存储过程、服务端游标、触发器、查询优化以及分布式事务功能。
+MySQL5.1 : 2008 年发布的 MySQL 5.1 的版本，基本上就是一个增加了崩溃恢复功能的 MyISAM ，使用表级锁，但可以做到读写不冲突，即在进行任何类型的更新操作的同时都可以进行读操作，但多个写操作不能并发。
+mysql5.5 : 2010 年...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipew28b65j20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-23 14:48:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:48:55+08:00">2021-07-23</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>58</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></h3>
+    <div class="excerpt">
+        # 版本说明
+本系列文章，以 MySQL 8.0.20 版本为实验背景进行编写。
+MySQL 手册
 # 最后
 期望与你一起遇见更好的自己
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" itemprop="url" title="git命令详解" class="btn">more...</a>
+    <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></a>
+    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm07ih54j20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-07-23 14:28:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:28:55+08:00">2021-07-23</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>1.4k</span>
+    <span>165</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -293,38 +479,43 @@ git update-index --no-skip-worktree 同样可以。
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></h3>
+    <h3><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈">Redis 开篇杂谈</a></h3>
     <div class="excerpt">
-        1234567891011121314151617181920212223242526272829303132usage: git ls-files [&amp;lt;options&amp;gt;] [&amp;lt;file&amp;gt;...] -z paths are separated with NUL character -t identify the file status with tags -v use lowercase letters for &amp;#x27;assume unchanged&amp;#x27; files -c, --cached show...
+        # 杂谈
+这里说些杂谈吧。
+以下的文章中，同一个名词并非代表的是同一种对象。比如 list。
+在 t_list.c 中，list 的表示的 面向于用户的 Redis 数据结构 List (列表)。而在 adlsit.c 中表示的 Redis 数据结构的底层实现 list (其实是链表这种数据结构 - 此处的数据结构，表示真实的数据结构)。
+# 最后
+期望与你一起遇见更好的自己
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" itemprop="url" title="git命令详解之 git ls-files" class="btn">more...</a>
+    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclga70tsj20zk0m84mr.jpg"></a>
+    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" itemprop="url" title="Redis 开篇 &amp; 说明"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclize41wj20zk0m87gk.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-07-23 14:18:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:18:55+08:00">2021-07-23</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>1.6k</span>
+    <span>715</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -335,192 +526,60 @@ git update-index --no-skip-worktree 同样可以。
   </span>
 </div>
 
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index">git命令详解之 git update-index</a></h3>
+    <h3><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" itemprop="url" title="Redis 开篇 &amp; 说明">Redis 开篇 & 说明</a></h3>
     <div class="excerpt">
-        # 官方
-1234567891011121314151617181920212223242526272829303132333435usage: git update-index [&amp;lt;options&amp;gt;] [--] [&amp;lt;file&amp;gt;...] -q continue refresh even when index needs update --ignore-submodules refresh: ignore submodules --add do not ignore new files --replace let files replace...
+        本系列学习笔记以 redis5.0.7 版本为基础进行学习.
+
+2021-07-21 Redis 6.0.6
+2019-12-19 Redis 6.x 开始发布，具体内容: Redis 6.x 版本发布明细
+
+# 开篇 &amp;amp; 说明
+
+Redis 开篇 &amp;amp; 说明
+
+# 新手入门
+# 基础概念
+
+Redis 简介及其他数据库对比
+Redis 的多个数据库
+Redis 的单机部署
+Redis 的集群部署 (源码安装 /docker 安装)
+
+# 五种常用的数据类型
+
+常用的命令以及浅浅的了解内部结构。
+
+Redis 数据结构之 String
+Redis 数据结构之...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
       </span>
     </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" itemprop="url" title="git命令详解之 git update-index" class="btn">more...</a>
+    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" itemprop="url" title="Redis 开篇 &amp; 说明" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclffsa1cj20zk0m811l.jpg"></a>
+    <a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" itemprop="url" title="雪花算法"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-18 14:49:55">
+  <span class="item" title="创建时间：2021-07-18 20:49:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-18T14:49:55+08:00">2021-07-18</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-18T20:49:55+08:00">2021-07-18</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>19k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>17 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始">从创建仓库开始</a></h3>
-    <div class="excerpt">
-        # 从创建仓库开始
-这篇文章分享一下我们在使用 git 进行版本管理时候的常用的操作！我们从创建仓库开始～
-获取代码仓库的方式有两种，一种是从零开始初始化一个 git 仓库，另一种是 clone 他人的仓库。
-首先我们创建一个空目录，然后初始化一个仓库。
-123456/ cd# 创建空目录~ mkdir gitlearn~ cd gitlearn# 初始化仓库~ git init .
-就这样我们创建一个了本地仓库, 团队合作的时候这样肯定不行的，不行，后面我们后介绍到。
-或者 我们还可以克隆一个远程仓库
-1git clone...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/git%E7%B3%BB%E5%88%97/" itemprop="url" title="git 系列"><i class="ic i-flag"></i>git 系列</a>
-      </span>
-    </div>
-    <a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" itemprop="url" title="从创建仓库开始" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>159</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></h3>
-    <div class="excerpt">
-        # 目录
-# java.util
-
-HashMap
-
-HashMap 的 Hash 函数到底有什么意义.md
-HashMap 到底为什么是不安全的.md
-
-# java.util.concurrency
-
-ConcurrentHashMap
-
-# java.lang
-
-String.md
-ThreadLocal 源码分析.md
-
-ThreadLocal 的哈希算法.md
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
-      </span>
-    </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" itemprop="url" title="【目录】JDK源码解读目录" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.9k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>2 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></h3>
-    <div class="excerpt">
-        # jdk1.8 HashMap 中 hash 值计算源码
-12345678910/** * 扰动函数 */static final int hash(Object key) &amp;#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;// 其中的key.hashCode调用的是底层的native方法。public native int hashCode();
-
-Q: 为什么不直接使用 key 的 hashCode...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
-      </span>
-    </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" itemprop="url" title="HashMap的Hash函数到底有什么意义" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclx6phq6j20zk0m8e36.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>4k</span>
+    <span>4.5k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -531,93 +590,23 @@ Q: 为什么不直接使用 key 的 hashCode...
   </span>
 </div>
 
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析">String类源码解析</a></h3>
+    <h3><a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" itemprop="url" title="雪花算法">雪花算法</a></h3>
     <div class="excerpt">
-        一、签名：
-public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence
+        # 介绍
+雪花算法是 twitter 开源的由 64 位整数组成的分布式 id 。目的是在分布式系统中产生全局唯一且趋势递增的 ID 。
+其核心思想就是：使用一个 64 bit 的 long 型的数字作为全局唯一 id 。在分布式系统中的应用十分广泛，且 ID 引入了时间戳，保持自增性且不重复。
+# 雪花算法的结构
 
-String 不能被继承，
-实现了 Serializable：可被序列化。
-实现了 Comparable：可以比较，排序，
-实现了 CharSequence：值是可读序列。
-
-二、成员变量：
-12345private final char value[];  // 存储字符。private int hash;     // 缓存字符串的hash值。Private...
+标识： 没有实际意义。一般都是 0，都是正数。
+时间戳： 41 bit 可以表示的数字多达 2^41 - 1 ，也就是可以标识 2 ^ 41 - 1 个毫秒值，换算成年就是表示 69 年的时间。
+机器 id: 这里标识的是机器的唯一标识，一般由两部分构成： 机房id+机器id...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
+        <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" title="算法"><i class="ic i-flag"></i>算法</a>
       </span>
     </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" itemprop="url" title="String类源码解析" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-15 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-15T14:48:55+08:00">2021-07-15</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>34k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>31 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></h3>
-    <div class="excerpt">
-        # 要思考的问题
-
-HashMap 的底层数据结构 (节点结构，这种结构有什么优点)
-如何处理 hash 冲突
-怎么扩容？扩展机制是什么？
-增删改查过程
-链表到红黑树的转换过程，反之？
-红黑树相关 (见另一篇数据结构之红黑树)
-hash 计算
-
-# 达到的目标
-
-掌握底层数据结构
-掌握扩容原理
-掌握 hash 冲突的处理过程
-掌握增删改查过程
-
-# 看之前要掌握的知识点
-# 红黑树
-# 看之前大体了解的知识点
-# hash 算法
-# Poisson 分布
-poisson 分布
-# 开始
-# HashMap 的继承体系
-
-AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/JDK%E6%BA%90%E7%A0%81/" itemprop="url" title="JDK 源码"><i class="ic i-flag"></i>JDK 源码</a>
-      </span>
-    </div>
-    <a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" itemprop="url" title="全网最全的 HashMap 源码解读" class="btn">more...</a>
+    <a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" itemprop="url" title="雪花算法" class="btn">more...</a>
   </div>
 </article>
 
@@ -628,7 +617,7 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
   
   <nav class="pagination">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -656,19 +645,19 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">71</span>
+        <span class="count">88</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">13</span>
+        <span class="count">15</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">41</span>
+        <span class="count">51</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -802,6 +791,7 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/page/8/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -822,10 +812,30 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">哈希算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" title="LC:42.接雨水">LC:42.接雨水</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
   </li>
 
       
@@ -835,17 +845,17 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
   </li>
 
       
@@ -855,7 +865,17 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
   </li>
 
       
@@ -865,37 +885,17 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></span>
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></span>
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
   </li>
 
       
@@ -905,17 +905,7 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
   </li>
 
   </ul>
@@ -940,13 +930,13 @@ AbstractMap: map 的抽象类，以最大限度的减少实现 Map...
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">308k 字</span>
+    <span title="站点总字数">364k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">5:31</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

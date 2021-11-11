@@ -1,0 +1,716 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="数据结构,leetCode,面经之算法题,链表" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+
+
+
+  <title>
+LC: 反转链表 I - LeetCode 系列 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">LC: 反转链表 I
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-29 17:25:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-29T17:25:55+08:00">2021-08-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="item" rel="index" title="分类于 LeetCode 系列"><span itemprop="name">LeetCode 系列</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="题目"><a class="markdownIt-Anchor" href="#题目">#</a> 题目</h2>
+<p>给你单链表的头节点  <code>head</code>  ，请你反转链表，并返回反转后的链表。</p>
+<blockquote>
+<p>示例一</p>
+</blockquote>
+<p><img data-src="/images/ac-code/reverseLinkedList1/reverseLinkedListCase1.jpeg" alt=""></p>
+<p>输入：head = [1,2,3,4,5]<br>
+ 输出：[5,4,3,2,1]</p>
+<blockquote>
+<p>示例二</p>
+</blockquote>
+<p><img data-src="/images/ac-code/reverseLinkedList1/reverseLinkedListCase2.jpeg" alt=""></p>
+<p>输入：head = [1,2]<br>
+ 输出：[2,1]</p>
+<blockquote>
+<p>示例三</p>
+</blockquote>
+<p>输入：head = []<br>
+ 输出：[]</p>
+<p>提示：</p>
+<p>链表中节点的数目范围是 [0, 5000]<br>
+-5000 &lt;= Node.val &lt;= 5000</p>
+<p>进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？</p>
+<div class="links"><div class="item" title="力扣（LeetCode）206.反转链表" style="--block-color:#ffa015;"><span class="exturl image" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdA==" data-background-image="https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdA==">力扣（LeetCode）206.反转链表</span>
+          <p class="desc">https://leetcode-cn.com/</p>
+          </div></div></div>
+<h2 id="分析"><a class="markdownIt-Anchor" href="#分析">#</a> 分析</h2>
+<p>这是一道非常简单的题目。也是很容易出现<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTglQkUlQkUlRTUlODUlOEIlRTYlOTUlODglRTUlQkElOTQvNTYzOTE3OA==">达克效应</span>的一道题目。 为什么呢？应为这道题太简单了啊。 <b>思路</b> 太简单了啊。 但是真正去写的话，可不见得真有那么简单。</p>
+<p>简单的题目，我们还是 以图的形式来展示。</p>
+<h3 id="思路一-迭代链表-创建新节点重组成新链表"><a class="markdownIt-Anchor" href="#思路一-迭代链表-创建新节点重组成新链表">#</a> 思路一：迭代链表，创建新节点，重组成新链表</h3>
+<h4 id="思路解析"><a class="markdownIt-Anchor" href="#思路解析">#</a> 思路解析</h4>
+<p><img data-src="/images/ac-code/reverseLinkedList1/solution1.png" alt="一图胜千言"></p>
+<p>核心思路如标题。 首先将遍历的原链表中的节点值复制到新建的节点中 (a 步骤), 节点 next 指针指向是上一个节点，没有则为 null (b 步骤). 遍历链表的所有节点。</p>
+<p>这样其实会生成一个新的链表。也就说会同时存在两条链表。</p>
+<p><span class="label success">✊时间复杂度为 O (n)， 空间复杂度为 O (n)</span></p>
+<h4 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现">#</a> 代码实现</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 非空判断</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == head || <span class="keyword">null</span> == head.next) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历旧链表,新建节点，并且拼接成新链表。</span></span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">null</span> != head) &#123;</span><br><span class="line">            ListNode curr = <span class="keyword">new</span> ListNode(head.val);</span><br><span class="line">            curr.next = pre;</span><br><span class="line">            pre = curr;</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="思路二-迭代变更链表的指针指向"><a class="markdownIt-Anchor" href="#思路二-迭代变更链表的指针指向">#</a> 思路二：迭代变更链表的指针指向</h3>
+<h4 id="思路解析-2"><a class="markdownIt-Anchor" href="#思路解析-2">#</a> 思路解析</h4>
+<p>这种思路也是比较简单的，但是一定要想好喽之后，再看开始编码，要不然很容易思绪错乱。</p>
+<p>图解:</p>
+<p><img data-src="/images/ac-code/reverseLinkedList1/solution2.png" alt="一图胜千言"></p>
+<p>这种解法需要两个指针， pre 代表其前一个节点， cur 代表后一个节点。进行遍历，从而实现 指针指向的变更。 当然，还需要一个临时节点去帮忙 pre 和 cur 指针，向后移动。</p>
+<p><span class="label success">✊时间复杂度是 O (n); 空间复杂度是 O (3);</span></p>
+<h4 id="代码实现-2"><a class="markdownIt-Anchor" href="#代码实现-2">#</a> 代码实现</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 非空判断</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == head || <span class="keyword">null</span> == head.next) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode pre = head, cur = head.next;</span><br><span class="line">        <span class="comment">// !!注意:断开头节点的next指针，避免产生环型链表。</span></span><br><span class="line">        pre.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">null</span> != cur) &#123;</span><br><span class="line">            ListNode tempNode = cur.next;</span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = tempNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="思路三-递归方式-变更指针"><a class="markdownIt-Anchor" href="#思路三-递归方式-变更指针">#</a> 思路三：递归方式， 变更指针</h3>
+<h4 id="思路解析-3"><a class="markdownIt-Anchor" href="#思路解析-3">#</a> 思路解析</h4>
+<p>这思路三，其实是思路二的不同写法。 这种实现方法首先就需要将 链表 “递” 到底，然后在归的时候，把 节点链接到一起。如下图</p>
+<p><img data-src="/images/ac-code/reverseLinkedList1/solution3.png" alt="一图胜千言"></p>
+<p>这样说起来，递归这种方式来解决反转类的问题好像会有一种与生俱来的优势。  <code>首先递进去，然后归出来</code> 。</p>
+<h4 id="代码实现-3"><a class="markdownIt-Anchor" href="#代码实现-3">#</a> 代码实现</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution3</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 非空判断</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == head || <span class="keyword">null</span> == head.next) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 递归入口</span></span><br><span class="line">        <span class="keyword">return</span> reverse(head, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode currNode, ListNode preNode)</span> </span>&#123;</span><br><span class="line">        ListNode headNode = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == currNode) &#123;</span><br><span class="line">            headNode = preNode;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            headNode = reverse(currNode.next, currNode);</span><br><span class="line">            currNode.next = preNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> headNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="思考"><a class="markdownIt-Anchor" href="#思考">#</a> 思考</h2>
+<p>这一道题考的是简单的逻辑问题，实属简单至极的题目。要注意 陷入 “达克效应”。</p>
+<p>勿以题小而不做。</p>
+<p>使用头递归来做反转类似的题目，好像是一种天然支持的特性。但是在实际的开发过程中，不建议过多的使用递归的方式，一方面不具备可读性。另一方面，递归方式对性能不太优化，还有重要的是要考虑栈溢出的风险。</p>
+<h2 id="相关题目"><a class="markdownIt-Anchor" href="#相关题目">#</a> 相关题目</h2>
+<div class="links"><div class="item" title="力扣（LeetCode）189.反转数组" style="--block-color:#ffa015;"><span class="exturl image" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcm90YXRlLWFycmF5" data-background-image="https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcm90YXRlLWFycmF5">力扣（LeetCode）189.反转数组</span>
+          <p class="desc">https://leetcode-cn.com/</p>
+          </div></div><div class="item" title="力扣（LeetCode）92.反转链表II" style="--block-color:#ffa015;"><span class="exturl image" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdC1paS8=" data-background-image="https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1saW5rZWQtbGlzdC1paS8=">力扣（LeetCode）92.反转链表II</span>
+          <p class="desc">https://leetcode-cn.com/</p>
+          </div></div><div class="item" title="力扣（LeetCode）7.整数反转" style="--block-color:#ffa015;"><span class="exturl image" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1pbnRlZ2VyLw==" data-background-image="https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1pbnRlZ2VyLw==">力扣（LeetCode）7.整数反转</span>
+          <p class="desc">https://leetcode-cn.com/</p>
+          </div></div><div class="item" title="力扣（LeetCode）344.反转字符串" style="--block-color:#ffa015;"><span class="exturl image" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1zdHJpbmcv" data-background-image="https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg"></span>
+          <div class="info">
+          <span class="exturl title" data-url="aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvcmV2ZXJzZS1zdHJpbmcv">力扣（LeetCode）344.反转字符串</span>
+          <p class="desc">https://leetcode-cn.com/</p>
+          </div></div></div>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="tags">
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="ic i-tag"></i> 数据结构</a>
+          <a href="/tags/leetCode/" rel="tag"><i class="ic i-tag"></i> leetCode</a>
+          <a href="/tags/%E9%9D%A2%E7%BB%8F%E4%B9%8B%E7%AE%97%E6%B3%95%E9%A2%98/" rel="tag"><i class="ic i-tag"></i> 面经之算法题</a>
+          <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"><i class="ic i-tag"></i> 链表</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2021-11-11 21:42:06" itemprop="dateModified" datetime="2021-11-11T21:42:06+08:00">2021-11-11</time>
+  </span>
+  <span id="2021/08/29/BQ/LeetCode/0002-反转链表/" class="item leancloud_visitors" data-flag-title="LC: 反转链表 I" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC: 反转链表 I">https://fangjiaxiaobai.github.io/2021/08/29/BQ/LeetCode/0002-反转链表/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwrdwyaj20zk0m8are.jpg" title="JDK的Stream之系列一 初窥流原理">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Java 系列</span>
+  <h3>JDK的Stream之系列一 初窥流原理</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2021/08/31/es-series/README/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0n457cj20zk0m8e81.jpg" title="Elastic Search 目录">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
+  <h3>Elastic Search 目录</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text"> 题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80-%E8%BF%AD%E4%BB%A3%E9%93%BE%E8%A1%A8-%E5%88%9B%E5%BB%BA%E6%96%B0%E8%8A%82%E7%82%B9%E9%87%8D%E7%BB%84%E6%88%90%E6%96%B0%E9%93%BE%E8%A1%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> 思路一：迭代链表，创建新节点，重组成新链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E8%A7%A3%E6%9E%90"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 思路解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 代码实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C-%E8%BF%AD%E4%BB%A3%E5%8F%98%E6%9B%B4%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91"><span class="toc-number">2.2.</span> <span class="toc-text"> 思路二：迭代变更链表的指针指向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E8%A7%A3%E6%9E%90-2"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 思路解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 代码实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%89-%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-%E5%8F%98%E6%9B%B4%E6%8C%87%E9%92%88"><span class="toc-number">2.3.</span> <span class="toc-text"> 思路三：递归方式， 变更指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E8%A7%A3%E6%9E%90-3"><span class="toc-number">2.3.1.</span> <span class="toc-text"> 思路解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-3"><span class="toc-number">2.3.2.</span> <span class="toc-text"> 代码实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text"> 思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text"> 相关题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2021/08/19/BQ/LeetCode/0001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/" rel="bookmark" title="LC:反转数组">LC:反转数组</a></li><li class="active"><a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" rel="bookmark" title="LC:反转链表I">LC:反转链表I</a></li><li><a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" rel="bookmark" title="LC:575.分糖果">LC:575.分糖果</a></li><li><a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" rel="bookmark" title="LC:1218.最长定差子序列">LC:1218.最长定差子序列</a></li><li><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" rel="bookmark" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></li><li><a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" rel="bookmark" title="LC:367.有效的完全平方数">LC:367.有效的完全平方数</a></li><li><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" rel="bookmark" title="LC:42.接雨水">LC:42.接雨水</a></li><li><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" rel="bookmark" title="LC:407.接雨水II">LC:407.接雨水II</a></li><li><a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" rel="bookmark" title="LC:268.丢失的数字">LC:268.丢失的数字</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">88</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">15</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">51</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2021/08/31/es-series/README/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" title="冒泡排序">冒泡排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 
+    <span itemprop="copyrightYear">2021</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">364k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:31</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/08/29/BQ/LeetCode/0002-反转链表/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

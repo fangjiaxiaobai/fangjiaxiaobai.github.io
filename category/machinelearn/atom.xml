@@ -1,0 +1,428 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fangjiaxiaobai.github.io</id>
+    <title>方家小白 • Posts by &#34;machinelearn&#34; category</title>
+    <link href="https://fangjiaxiaobai.github.io" />
+    <updated>2021-10-29T10:18:00.000Z</updated>
+    <category term="全站地图" />
+    <category term="导航" />
+    <category term="目录" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="git" />
+    <category term="源码" />
+    <category term="MySQL" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="MachineLearn" />
+    <category term="Redis" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="数据结构" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="数据结构与算法" />
+    <category term="动态规划" />
+    <category term="递归" />
+    <category term="哈希算法" />
+    <category term="String" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
+    <category term="交换排序" />
+    <category term="选择排序" />
+    <category term="leetCode" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="链表" />
+    <category term="不做也罢的算法题" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
+    <category term="有点难的算法题" />
+    <category term="Java" />
+    <category term="dubbo" />
+    <category term="KNN" />
+    <category term="JDK版本" />
+    <category term="JDK11" />
+    <category term="OOM" />
+    <category term="JVM" />
+    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/</id>
+        <title>K-近邻算法(KNN)</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+        <content type="html">&lt;p&gt;&lt;code&gt;k-近邻算法&lt;/code&gt; ，英文名:  &lt;code&gt;K Nearest Neighbor&lt;/code&gt;  算法  又叫 &lt;code&gt;KNN算法&lt;/code&gt; ，这个算法是机器学习里面一个比较经典的算法， 总体来说 1 算法是相对比较容易理解的算法.&lt;/p&gt;
+&lt;h2 id=&#34;定义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#定义&#34;&gt;#&lt;/a&gt; 定义&lt;/h2&gt;
+&lt;p&gt;如果一个样本在特征空间中的 k 个最相似 (即特征空间中最邻近) 的样本中的大多数属于某一个类别，则该样本也属于这个类别。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;KNN&lt;/code&gt;  算法最早是由 &lt;code&gt;Cover&lt;/code&gt;  和 &lt;code&gt;Hart&lt;/code&gt;  提出的一种分类算法。应用场景有字符识别、文本分类、图像识别等领域。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;算法的理解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#算法的理解&#34;&gt;#&lt;/a&gt; 算法的理解&lt;/h2&gt;
+&lt;p&gt;举一个例子来，来分析一下  &lt;code&gt;KNN&lt;/code&gt;  算法的实现原理&lt;/p&gt;
+&lt;p&gt;假设我们现在有几部电影，如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;我们要 根据 搞笑镜头，拥抱镜头，打斗镜头的个数 这三个特征来预测出 《唐人街探案》所属的电影类型.&lt;/p&gt;
+&lt;p&gt;我们使用  &lt;code&gt;KNN算法&lt;/code&gt;  思想来实现预测。&lt;/p&gt;
+&lt;p&gt;将样本中特征作为坐标抽，建立坐标系。从而建立特征空间。本例中，分别把 搞笑镜头，拥抱镜头，打斗镜头 作为 &lt;code&gt;x,y,z&lt;/code&gt;  轴。然后把计算出每个样本和 《唐人街探案》 的距离，选择距离最近的前 k 个 ( &lt;code&gt;KNN中的k&lt;/code&gt; ) 样本，这 &lt;code&gt;k&lt;/code&gt;  个样本大多数所属的电影类别就是 《唐人街探案》的电影类型。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;特征空间：是指已特征为坐标轴简历的一种特征的坐标系，可能是多维的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那你可能对 距离 是如何计算的，有点疑惑。计算距离的方式有很多种。&lt;br&gt;
+先学习一下最简单的 欧氏距离。(初中都学过的！)&lt;/p&gt;
+&lt;p&gt;在二维坐标系中， 我们可以使用一下方式来计算出两个点的距离。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在多维的特征空间中，我们也可以使用同样的方式来计算欧式距离。如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;那计算一下样本集中的欧式距离，如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;并计算出了最近的 5 个样本中有三个喜剧片类型，2 两个爱情片类型。 那根据 &lt;code&gt;KNN&lt;/code&gt;  就是喜剧片类型。&lt;/p&gt;
+&lt;p&gt;这就是 &lt;code&gt;KNN算法&lt;/code&gt; 的核心思想了。&lt;/p&gt;
+&lt;p&gt;这个例子中，我们选则了 最近的 &lt;code&gt;5&lt;/code&gt;  个样本，也就是 k=5 的时候，会有三个喜剧片类型，两个爱情片类型。这个 &lt;code&gt;5&lt;/code&gt;  是如何选择的呢？&lt;/p&gt;
+&lt;h2 id=&#34;k值的选择&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#k值的选择&#34;&gt;#&lt;/a&gt; k 值的选择&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;K值&lt;/code&gt; 选择问题，李航博士的一书「统计学习方法」上所说：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;选择较小的 &lt;code&gt;K&lt;/code&gt;  值，就相当于用较小的领域中的训练实例进行预测，“学习” 近似误差会减小，只有与输入实例较近或相似的训练实例才会对预测结果起作用，与此同时带来的问题是 “学习” 的估计误差会增大，换句话说， &lt;code&gt;K值&lt;/code&gt; 的减小就意味着整体模型变得复杂，容易发生过拟合；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;选择较大的 &lt;code&gt;K值&lt;/code&gt; ，就相当于用较大领域中的训练实例进行预测，其优点是可以减少学习的估计误差，但缺点是学习的近似误差会增大。这时候，与输入实例较远（不相似的）训练实例也会对预测器作用，使预测发生错误，且 K 值的增大就意味着整体的模型变得简单。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;K=N&lt;/code&gt; （ &lt;code&gt;N&lt;/code&gt;  为训练样本个数），则完全不足取，因为此时无论输入实例是什么，都只是简单的预测它属于在训练实例中最多的类，模型过于简单，忽略了训练实例中大量有用信息。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在实际应用中， &lt;code&gt;K值&lt;/code&gt; 一般取一个比较小的数值，例如采用交叉验证法 ( &lt;code&gt;cross validation&lt;/code&gt; )（简单来说，就是把训练数据在分成两组：训练集和验证集）来选择最优的 K 值。对这个简单的分类器进行泛化，用核方法把这个线性模型扩展到非线性的情况，具体方法是把低维数据集映射到高维特征空间。&lt;/p&gt;
+&lt;h2 id=&#34;knn的优化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#knn的优化&#34;&gt;#&lt;/a&gt; KNN 的优化&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;KNN&lt;/code&gt;  算法需要计算所有的样本数据和预测数据的距离，需要选择出距离预测数据最近的 k 个样本数据的预测归类。在庞大的数据量面前，计算所有样本数据距离，显然是不可取的。为了避免每次都重新计算一遍距离， &lt;code&gt;KNN&lt;/code&gt;  算法提供了多种优化方法， 比如  &lt;code&gt;KD-tree&lt;/code&gt; ,  &lt;code&gt;ball_tree&lt;/code&gt; ,  &lt;code&gt;brute&lt;/code&gt; . 这几种优化方式的具体实现逻辑，我会在后面的几篇文章中挨个分析。&lt;/p&gt;
+&lt;h2 id=&#34;距离的计算&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#距离的计算&#34;&gt;#&lt;/a&gt; 距离的计算&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;KNN&lt;/code&gt;  算法，最重要的就是距离。 除了上文提到的欧式距离，还有其他计算距离的方法吗？&lt;/p&gt;
+&lt;p&gt;有。&lt;/p&gt;
+&lt;p&gt;除了欧式距离，还有 曼哈顿距离，&lt;/p&gt;
+&lt;h3 id=&#34;曼哈顿距离&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#曼哈顿距离&#34;&gt;#&lt;/a&gt; 曼哈顿距离&lt;/h3&gt;
+&lt;p&gt;在曼哈顿街区要从一个十字路口开车到另一个十字路口，驾驶距离显然不是两点间的直线距离。这个实际驾驶距离就是 “曼哈顿距离”。曼哈顿距离也称为 “城市街区距离”( &lt;code&gt;City Block distance&lt;/code&gt; )。如下图:&lt;br&gt;
+&lt;img data-src=&#34;/images/ml/02-knn-6.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;计算公式见下图:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-7.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;切比雪夫距离-chebyshev-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#切比雪夫距离-chebyshev-distance&#34;&gt;#&lt;/a&gt; 切比雪夫距离 (Chebyshev Distance)&lt;/h3&gt;
+&lt;p&gt;国际象棋中，国王可以直行、横行、斜行，所以国王走一步可以移动到相邻 8 个方格中的任意一个。国王从格子 &lt;code&gt;(x1,y1)&lt;/code&gt;  走到格子 &lt;code&gt;(x2,y2)&lt;/code&gt;  最少需要多少步？这个距离就叫切比雪夫距离。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-8.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;计算公式见下图:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-9.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;闵可夫斯基距离minkowski-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#闵可夫斯基距离minkowski-distance&#34;&gt;#&lt;/a&gt; 闵可夫斯基距离 (Minkowski Distance)&lt;/h3&gt;
+&lt;p&gt;闵氏距离不是一种距离，而是一组距离的定义，是对多个距离度量公式的概括性的表述。&lt;/p&gt;
+&lt;p&gt;两个 n 维变量 &lt;code&gt;a(x11,x12,…,x1n)&lt;/code&gt;  与 &lt;code&gt;b(x21,x22,…,x2n)&lt;/code&gt;  间的闵可夫斯基距离定义为：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-10.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中 &lt;code&gt;p&lt;/code&gt;  是一个变参数：&lt;br&gt;
+当 &lt;code&gt;p=1&lt;/code&gt;  时，就是曼哈顿距离；&lt;br&gt;
+当 &lt;code&gt;p=2&lt;/code&gt;  时，就是欧氏距离；&lt;br&gt;
+当 &lt;code&gt;p→∞&lt;/code&gt; 时，就是切比雪夫距离。&lt;/p&gt;
+&lt;p&gt;根据 p 的不同，闵氏距离可以表示某一类 / 种的距离。&lt;/p&gt;
+&lt;p&gt;小结：&lt;br&gt;
+1 闵氏距离，包括曼哈顿距离、欧氏距离和切比雪夫距离都存在明显的缺点:&lt;br&gt;
+ &lt;code&gt;e.g.&lt;/code&gt;  二维样本 (身高 &lt;code&gt;[单位:cm]&lt;/code&gt; , 体重 &lt;code&gt;[单位:kg]&lt;/code&gt; ), 现有三个样本： &lt;code&gt;a(180,50)&lt;/code&gt; ， &lt;code&gt;b(190,50)&lt;/code&gt; ， &lt;code&gt;c(180,60)&lt;/code&gt; 。&lt;br&gt;
+ &lt;code&gt;a&lt;/code&gt;  与 &lt;code&gt;b&lt;/code&gt;  的闵氏距离（无论是曼哈顿距离、欧氏距离或切比雪夫距离）等于 &lt;code&gt;a&lt;/code&gt;  与 &lt;code&gt;c&lt;/code&gt;  的闵氏距离。但实际上身高的 &lt;code&gt;10cm&lt;/code&gt;  并不能和体重的 &lt;code&gt;10kg&lt;/code&gt;  划等号。&lt;/p&gt;
+&lt;p&gt;2 闵氏距离的缺点：&lt;br&gt;
+​ (1) 将各个分量的量纲 ( &lt;code&gt;scale&lt;/code&gt; )，也就是 “单位” 相同的看待了；&lt;br&gt;
+​ (2) 未考虑各个分量的分布（期望，方差等）可能是不同的。&lt;/p&gt;
+&lt;h3 id=&#34;标准化欧氏距离-standardized-euclideandistance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#标准化欧氏距离-standardized-euclideandistance&#34;&gt;#&lt;/a&gt; 标准化欧氏距离 (Standardized EuclideanDistance)&lt;/h3&gt;
+&lt;p&gt;标准化欧氏距离是针对欧氏距离的缺点而作的一种改进。&lt;/p&gt;
+&lt;p&gt;思路：既然数据各维分量的分布不一样，那先将各个分量都 “标准化” 到均值、方差相等。假设样本集 X 的均值 ( &lt;code&gt;mean&lt;/code&gt; ) 为 &lt;code&gt;m&lt;/code&gt; ，标准差 ( &lt;code&gt;standard deviation&lt;/code&gt; ) 为 &lt;code&gt;s&lt;/code&gt; ， &lt;code&gt;X&lt;/code&gt;  的 “标准化变量” 表示为：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-11.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果将方差的倒数看成一个权重，也可称之为加权欧氏距离 ( &lt;code&gt;Weighted Euclidean distance&lt;/code&gt; )。&lt;/p&gt;
+&lt;h3 id=&#34;余弦距离cosine-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#余弦距离cosine-distance&#34;&gt;#&lt;/a&gt; 余弦距离 (Cosine Distance)&lt;/h3&gt;
+&lt;p&gt;几何中，夹角余弦可用来衡量两个向量方向的差异；机器学习中，借用这一概念来衡量样本向量之间的差异。&lt;/p&gt;
+&lt;p&gt;二维空间中向量 &lt;code&gt;A(x1,y1)&lt;/code&gt;  与向量 &lt;code&gt;B(x2,y2)&lt;/code&gt;  的夹角余弦公式：&lt;br&gt;
+&lt;img data-src=&#34;/images/ml/02-knn-12.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;两个 &lt;code&gt;n&lt;/code&gt;  维样本点 &lt;code&gt;a(x11,x12,…,x1n)&lt;/code&gt;  和 &lt;code&gt;b(x21,x22,…,x2n)&lt;/code&gt;  的夹角余弦为：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-13.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;即:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-14.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;夹角余弦取值范围为 &lt;code&gt;[-1,1]&lt;/code&gt; 。余弦越大表示两个向量的夹角越小，余弦越小表示两向量的夹角越大。当两个向量的方向重合时余弦取最大值 &lt;code&gt;1&lt;/code&gt; ，当两个向量的方向完全相反余弦取最小值 &lt;code&gt;-1&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;汉明距离hamming-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#汉明距离hamming-distance&#34;&gt;#&lt;/a&gt; 汉明距离 (Hamming Distance)&lt;/h3&gt;
+&lt;p&gt;两个等长字符串 &lt;code&gt;s1&lt;/code&gt;  与 &lt;code&gt;s2&lt;/code&gt;  的汉明距离为：将其中一个变为另外一个所需要作的最小字符替换次数。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;The Hamming distance between &amp;quot;1011101&amp;quot; and &amp;quot;1001001&amp;quot; is 2. &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;The Hamming distance between &amp;quot;2143896&amp;quot; and &amp;quot;2233796&amp;quot; is 3. &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;The Hamming distance between &amp;quot;toned&amp;quot; and &amp;quot;roses&amp;quot; is 3.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-15.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;汉明重量：是字符串相对于同样长度的零字符串的汉明距离，也就是说，它是字符串中非零的元素个数：对于二进制字符串来说，就是  &lt;code&gt;1&lt;/code&gt;  的个数，所以  &lt;code&gt;11101&lt;/code&gt;  的汉明重量是  &lt;code&gt;4&lt;/code&gt; 。因此，如果向量空间中的元素 &lt;code&gt;a&lt;/code&gt;  和 &lt;code&gt;b&lt;/code&gt;  之间的汉明距离等于它们汉明重量的差 &lt;code&gt;a-b&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;应用：汉明重量分析在包括信息论、编码理论、密码学等领域都有应用。比如在信息编码过程中，为了增强容错性，应使得编码间的最小汉明距离尽可能大。但是，如果要比较两个不同长度的字符串，不仅要进行替换，而且要进行插入与删除的运算，在这种场合下，通常使用更加复杂的编辑距离等算法。&lt;/p&gt;
+&lt;h3 id=&#34;杰卡德距离jaccard-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#杰卡德距离jaccard-distance&#34;&gt;#&lt;/a&gt; 杰卡德距离 (Jaccard Distance)&lt;/h3&gt;
+&lt;p&gt;杰卡德相似系数 ( &lt;code&gt;Jaccard similarity coefficient&lt;/code&gt; )：两个集合 &lt;code&gt;A&lt;/code&gt;  和 &lt;code&gt;B&lt;/code&gt;  的交集元素在 &lt;code&gt;A&lt;/code&gt; ， &lt;code&gt;B&lt;/code&gt;  的并集中所占的比例，称为两个集合的杰卡德相似系数，用符号 &lt;code&gt;J(A,B&lt;/code&gt; ) 表示：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;杰卡德距离 ( &lt;code&gt;Jaccard Distance&lt;/code&gt; )：与杰卡德相似系数相反，用两个集合中不同元素占所有元素的比例来衡量两个集合的区分度：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-17.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;马氏距离mahalanobis-distance&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#马氏距离mahalanobis-distance&#34;&gt;#&lt;/a&gt; 马氏距离 (Mahalanobis Distance)&lt;/h3&gt;
+&lt;p&gt;下图有两个正态分布图，它们的均值分别为 &lt;code&gt;a&lt;/code&gt;  和 &lt;code&gt;b&lt;/code&gt; ，但方差不一样，则图中的 &lt;code&gt;A&lt;/code&gt;  点离哪个总体更近？或者说 &lt;code&gt;A&lt;/code&gt;  有更大的概率属于谁？显然， &lt;code&gt;A&lt;/code&gt;  离左边的更近， &lt;code&gt;A&lt;/code&gt;  属于左边总体的概率更大，尽管 &lt;code&gt;A&lt;/code&gt;  与 &lt;code&gt;a&lt;/code&gt;  的欧式距离远一些。这就是马氏距离的直观解释。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;马氏距离是基于样本分布的一种距离。&lt;/p&gt;
+&lt;p&gt;马氏距离是由印度统计学家马哈拉诺比斯提出的，表示数据的协方差距离。它是一种有效的计算两个位置样本集的相似度的方法。&lt;/p&gt;
+&lt;p&gt;与欧式距离不同的是，它考虑到各种特性之间的联系，即独立于测量尺度。&lt;/p&gt;
+&lt;p&gt;马氏距离定义：设总体 &lt;code&gt;G&lt;/code&gt;  为 &lt;code&gt;m&lt;/code&gt;  维总体（考察 &lt;code&gt;m&lt;/code&gt;  个指标），均值向量为 &lt;code&gt;μ=（μ1，μ2，… ...，μm，）&lt;/code&gt; , 协方差阵为 &lt;code&gt;∑=（σij）&lt;/code&gt; ,&lt;/p&gt;
+&lt;p&gt;则样本 &lt;code&gt;X=（X1，X2，… …，Xm，）&lt;/code&gt; 与总体 G 的马氏距离定义为：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-19.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;马氏距离也可以定义为两个服从同一分布并且其协方差矩阵为 &lt;code&gt;∑&lt;/code&gt; 的随机变量的差异程度：如果协方差矩阵为单位矩阵，马氏距离就简化为欧式距离；如果协方差矩阵为对角矩阵，则其也可称为正规化的欧式距离。&lt;/p&gt;
+&lt;h4 id=&#34;马氏距离特性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#马氏距离特性&#34;&gt;#&lt;/a&gt; 马氏距离特性：&lt;/h4&gt;
+&lt;p&gt;1. 量纲无关，排除变量之间的相关性的干扰；&lt;/p&gt;
+&lt;p&gt;2. 马氏距离的计算是建立在总体样本的基础上的，如果拿同样的两个样本，放入两个不同的总体中，最后计算得出的两个样本间的马氏距离通常是不相同的，除非这两个总体的协方差矩阵碰巧相同；&lt;/p&gt;
+&lt;p&gt;3 . 计算马氏距离过程中，要求总体样本数大于样本的维数，否则得到的总体样本协方差矩阵逆矩阵不存在，这种情况下，用欧式距离计算即可。&lt;/p&gt;
+&lt;p&gt;4. 还有一种情况，满足了条件总体样本数大于样本的维数，但是协方差矩阵的逆矩阵仍然不存在，比如三个样本点 &lt;code&gt;(3,4)&lt;/code&gt; ， &lt;code&gt;(5,6)&lt;/code&gt; ， &lt;code&gt;(7,8)&lt;/code&gt; ，这种情况是因为这三个样本在其所处的二维空间平面内共线。这种情况下，也采用欧式距离计算。&lt;/p&gt;
+&lt;h4 id=&#34;欧式距离马氏距离&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#欧式距离马氏距离&#34;&gt;#&lt;/a&gt; 欧式距离 &amp;amp; 马氏距离：&lt;/h4&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-20.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;举例：&lt;/p&gt;
+&lt;p&gt;已知有两个类 &lt;code&gt;G1&lt;/code&gt;  和 &lt;code&gt;G2&lt;/code&gt; ，比如 &lt;code&gt;G1&lt;/code&gt;  是设备 &lt;code&gt;A&lt;/code&gt;  生产的产品， &lt;code&gt;G2&lt;/code&gt;  是设备 &lt;code&gt;B&lt;/code&gt;  生产的同类产品。设备 &lt;code&gt;A&lt;/code&gt;  的产品质量高（如考察指标为耐磨度 &lt;code&gt;X&lt;/code&gt; ），其平均耐磨度 &lt;code&gt;μ1=80&lt;/code&gt; ，反映设备精度的方差 &lt;code&gt;σ2(1)=0.25&lt;/code&gt; ; 设备 B 的产品质量稍差，其平均耐磨损度 &lt;code&gt;μ2=75&lt;/code&gt; ，反映设备精度的方差 &lt;code&gt;σ2(2)=4&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;今有一产品 &lt;code&gt;G0&lt;/code&gt; ，测的耐磨损度 &lt;code&gt;X0=78&lt;/code&gt; ，试判断该产品是哪一台设备生产的？&lt;/p&gt;
+&lt;p&gt;直观地看， &lt;code&gt;X0&lt;/code&gt;  与 &lt;code&gt;μ1&lt;/code&gt; （ &lt;code&gt;设备A&lt;/code&gt; ）的绝对距离近些，按距离最近的原则，是否应把该产品判断 &lt;code&gt;设备A&lt;/code&gt;  生产的？&lt;/p&gt;
+&lt;p&gt;考虑一种相对于分散性的距离，记 &lt;code&gt;X0&lt;/code&gt;  与 &lt;code&gt;G1&lt;/code&gt; ， &lt;code&gt;G2&lt;/code&gt;  的相对距离为 &lt;code&gt;d1&lt;/code&gt; ， &lt;code&gt;d2&lt;/code&gt; , 则：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;因为 &lt;code&gt;d2=1.5 &amp;lt; d1=4&lt;/code&gt; ，按这种距离准则，应判断 &lt;code&gt;X0&lt;/code&gt;  为设备 B 生产的。&lt;/p&gt;
+&lt;p&gt;设备 &lt;code&gt;B&lt;/code&gt;  生产的产品质量较分散，出现 &lt;code&gt;X0&lt;/code&gt;  为 &lt;code&gt;78&lt;/code&gt;  的可能性较大；而 &lt;code&gt;设备A&lt;/code&gt;  生产的产品质量较集中，出现 &lt;code&gt;X0&lt;/code&gt;  为 &lt;code&gt;78&lt;/code&gt;  的可能性较小。&lt;/p&gt;
+&lt;p&gt;这种相对于分散性的距离判断就是马氏距离。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/02-knn-22.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;案例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#案例&#34;&gt;#&lt;/a&gt; 案例&lt;/h2&gt;
+&lt;h3 id=&#34;预测鸢尾花种类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#预测鸢尾花种类&#34;&gt;#&lt;/a&gt; 预测鸢尾花种类&lt;/h3&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.datasets &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; load_iris&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.model_selection &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; train_test_split&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.preprocessing &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; StandardScaler&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.neighbors &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; KNeighborsClassifier&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;iris_demo&lt;/span&gt;():&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 1.准备数据&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    iris = load_iris()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.数据基本处理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=&lt;span class=&#34;number&#34;&gt;0.2&lt;/span&gt;, random_state=&lt;span class=&#34;number&#34;&gt;22&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3.特征工程&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3.1 标准化&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    transfer = StandardScaler()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train = transfer.fit_transform(x_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_test = transfer.transform(x_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.机器训练(模型训练)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator = KNeighborsClassifier(n_neighbors=&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator.fit(x_train, y_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.模型评估&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.1  方法1：比对真实值和预测值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    predict_data = estimator.predict(x_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;预测值为: \n&amp;quot;&lt;/span&gt;, predict_data)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;比对真实值和预测值;\n&amp;quot;&lt;/span&gt;, predict_data == y_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.2  方法2: 直接计算正确率&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    score = estimator.score(x_test, y_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;正确率:&amp;quot;&lt;/span&gt;, score)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;输出结果&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#输出结果&#34;&gt;#&lt;/a&gt; 输出结果&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;预测值为: &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; [0 2 1 2 1 1 1 2 1 0 2 1 2 2 0 2 1 1 1 1 0 2 0 1 2 0 2 2 2 2]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;比对真实值和预测值;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; [ True  True  True  True  True  True  True  True  True  True  True  True&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  True  True  True  True  True  True False  True  True  True  True  True&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  True  True  True  True  True  True]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;正确率: 0.9666666666666667&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;使用-gscv-优化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用-gscv-优化&#34;&gt;#&lt;/a&gt; 使用 GSCV 优化&lt;/h4&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;47&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.datasets &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; load_iris&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.model_selection &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; train_test_split, GridSearchCV&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.preprocessing &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; StandardScaler&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.neighbors &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; KNeighborsClassifier&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;iris_demo&lt;/span&gt;():&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 1.准备数据&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    iris = load_iris()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.数据基本处理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=&lt;span class=&#34;number&#34;&gt;22&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3.特征工程&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3.1 标准化&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    transfer = StandardScaler()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train = transfer.fit_transform(x_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_test = transfer.transform(x_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.机器训练(模型训练)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator = KNeighborsClassifier()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.1 准备要调的超参数&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    param_dict = &amp;#123;&lt;span class=&#34;string&#34;&gt;&amp;quot;n_neighbors&amp;quot;&lt;/span&gt;: [&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;]&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.2 创建 GridSearchCV,使用网格搜索和交叉验证&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator = GridSearchCV(estimator, param_grid=param_dict, cv=&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator.fit(x_train, y_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.模型评估&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.1  方法1：比对真实值和预测值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    predict_data = estimator.predict(x_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;预测值为: \n&amp;quot;&lt;/span&gt;, predict_data)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;比对真实值和预测值;\n&amp;quot;&lt;/span&gt;, predict_data == y_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 5.2  方法2: 直接计算正确率&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    score = estimator.score(x_test, y_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;正确率:&amp;quot;&lt;/span&gt;, score)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 6. 直接查看评估结果哦&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;在交叉验证中验证的最好结果：&amp;quot;&lt;/span&gt;, estimator.best_score_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;最好的参数模型：&amp;quot;&lt;/span&gt;, estimator.best_estimator_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;每次交叉验证后的准确率结果：\n&amp;quot;&lt;/span&gt;, estimator.cv_results_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; __name__ == &lt;span class=&#34;string&#34;&gt;&amp;#x27;__main__&amp;#x27;&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    iris_demo()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;输出结果-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#输出结果-2&#34;&gt;#&lt;/a&gt; 输出结果&lt;/h4&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;预测值为: &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; [0 2 1 2 1 1 1 1 1 0 2 1 2 2 0 2 1 1 1 1 0 2 0 1 2 0 2 2 2 2 0 0 1 1 1 0 0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; 0]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;比对真实值和预测值;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; [ True  True  True  True  True  True  True False  True  True  True  True&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  True  True  True  True  True  True False  True  True  True  True  True&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  True  True  True  True  True  True  True  True  True  True  True  True&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  True  True]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;正确率: 0.9473684210526315&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;在交叉验证中验证的最好结果： 0.9732100521574205&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;最好的参数模型： KNeighborsClassifier()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;每次交叉验证后的准确率结果：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt; &amp;#123;&amp;#x27;mean_fit_time&amp;#x27;: array([0.0008928 , 0.00045244, 0.00044529]), &amp;#x27;std_fit_time&amp;#x27;: array([5.74547103e-04, 5.05512361e-06, 2.92218150e-06]), &amp;#x27;mean_score_time&amp;#x27;: array([0.00226967, 0.00184425, 0.00182239]), &amp;#x27;std_score_time&amp;#x27;: array([6.28895378e-04, 2.09757168e-05, 1.41269575e-05]), &amp;#x27;param_n_neighbors&amp;#x27;: masked_array(data=[1, 3, 5],&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;             mask=[False, False, False],&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       fill_value=&amp;#x27;?&amp;#x27;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            dtype=object), &amp;#x27;params&amp;#x27;: [&amp;#123;&amp;#x27;n_neighbors&amp;#x27;: 1&amp;#125;, &amp;#123;&amp;#x27;n_neighbors&amp;#x27;: 3&amp;#125;, &amp;#123;&amp;#x27;n_neighbors&amp;#x27;: 5&amp;#125;], &amp;#x27;split0_test_score&amp;#x27;: array([0.97368421, 0.97368421, 0.97368421]), &amp;#x27;split1_test_score&amp;#x27;: array([0.97297297, 0.97297297, 0.97297297]), &amp;#x27;split2_test_score&amp;#x27;: array([0.94594595, 0.89189189, 0.97297297]), &amp;#x27;mean_test_score&amp;#x27;: array([0.96420104, 0.94618303, 0.97321005]), &amp;#x27;std_test_score&amp;#x27;: array([0.01291157, 0.03839073, 0.00033528]), &amp;#x27;rank_test_score&amp;#x27;: array([2, 3, 1], dtype=int32)&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;预测facebook签到位置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#预测facebook签到位置&#34;&gt;#&lt;/a&gt; 预测 facebook 签到位置&lt;/h3&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;60&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; pandas &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; pd&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.model_selection &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; train_test_split&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.preprocessing &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; StandardScaler&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.neighbors &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; KNeighborsClassifier&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; sklearn.model_selection &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; GridSearchCV&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;facebook_demo&lt;/span&gt;():&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 准备数据&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    data = pd.read_csv(&lt;span class=&#34;string&#34;&gt;&amp;#x27;./train.csv&amp;#x27;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(data.head())&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.数据基本处理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;## 2.1 处理时间特征&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    time = pd.to_datetime(data[&lt;span class=&#34;string&#34;&gt;&amp;#x27;time&amp;#x27;&lt;/span&gt;], unit=&lt;span class=&#34;string&#34;&gt;&amp;#x27;s&amp;#x27;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    time = pd.DatetimeIndex(time)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    data[&lt;span class=&#34;string&#34;&gt;&amp;#x27;hour&amp;#x27;&lt;/span&gt;] = time.hour&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    data[&lt;span class=&#34;string&#34;&gt;&amp;#x27;day&amp;#x27;&lt;/span&gt;] = time.day&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    data[&lt;span class=&#34;string&#34;&gt;&amp;#x27;weekday&amp;#x27;&lt;/span&gt;] = time.weekday&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(data.head(&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.2.去掉签到少的地方&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    place_count = data.groupby(&lt;span class=&#34;string&#34;&gt;&amp;quot;place_id&amp;quot;&lt;/span&gt;).count()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    place_count = place_count[place_count[&lt;span class=&#34;string&#34;&gt;&amp;quot;row_id&amp;quot;&lt;/span&gt;] &amp;gt; &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    data = data[data[&lt;span class=&#34;string&#34;&gt;&amp;quot;place_id&amp;quot;&lt;/span&gt;].isin(place_count.index)]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.3 确定特征和目标值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x = data[[&lt;span class=&#34;string&#34;&gt;&amp;#x27;x&amp;#x27;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;#x27;y&amp;#x27;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;accuracy&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;day&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;hour&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;weekday&amp;quot;&lt;/span&gt;]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    y = data[[&lt;span class=&#34;string&#34;&gt;&amp;#x27;place_id&amp;#x27;&lt;/span&gt;]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 2.4 拆分数据集&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=&lt;span class=&#34;number&#34;&gt;22&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3. 特征处理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 3.1 标准化处理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    transfer = StandardScaler()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_train = transfer.fit_transform(x_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    x_test = transfer.transform(x_test)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.机器学习&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.1 实例化估计器&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator = KNeighborsClassifier()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    param_dict = &amp;#123;&lt;span class=&#34;string&#34;&gt;&amp;#x27;neighbors&amp;#x27;&lt;/span&gt;: [&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;]&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator = GridSearchCV(estimator=estimator, param_grid=param_dict)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 4.2 模型训练&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    estimator.fit(x_train, y_train)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 模型评估&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;\n最后预测的准确率为: &amp;quot;&lt;/span&gt;, estimator.score(x_test, y_test))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;\n在交叉验证中验证的最好结果:\n&amp;quot;&lt;/span&gt;, estimator.best_score_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;\n最好的参数模型:\n&amp;quot;&lt;/span&gt;, estimator.best_estimator_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;\n每次交叉验证后的验证集准确率结果和训练集准确率结果:\n&amp;quot;&lt;/span&gt;, estimator.cv_results_)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; __name__ == &lt;span class=&#34;string&#34;&gt;&amp;#x27;__main__&amp;#x27;&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    facebook_demo()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;本案例来自  &lt;code&gt;Kaggle&lt;/code&gt;  的题目，感兴趣的朋友可以登录:&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9uYXZvc2h0YS9ncmlkLWtubi9zY3JpcHQ=&#34;&gt;https://www.kaggle.com/navoshta/grid-knn/script&lt;/span&gt;  查看&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ml/qrcode.jpg&#34; alt=&#34;qrcode&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="MachineLearn" />
+        <category term="KNN" />
+        <updated>2021-10-29T10:18:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/</id>
+        <title>机器学习-简介</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/"/>
+        <content type="html">&lt;h2 id=&#34;概述&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#概述&#34;&gt;#&lt;/a&gt; 概述&lt;/h2&gt;
+&lt;h3 id=&#34;什么是机器学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#什么是机器学习&#34;&gt;#&lt;/a&gt; 什么是机器学习&lt;/h3&gt;
+&lt;p&gt;从历史数据中自动分析获得规律 (模型), 并利用规律对未知数据进行预测。&lt;/p&gt;
+&lt;h3 id=&#34;为什么需要机器学习&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#为什么需要机器学习&#34;&gt;#&lt;/a&gt; 为什么需要机器学习&lt;/h3&gt;
+&lt;p&gt;解放生产力：智能客服&lt;br&gt;
+解决专业问题: ET 医疗&lt;br&gt;
+提供社会便利：提供社会便利&lt;/p&gt;
+&lt;h3 id=&#34;机器学习的应用场景&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#机器学习的应用场景&#34;&gt;#&lt;/a&gt; 机器学习的应用场景&lt;/h3&gt;
+&lt;p&gt;方方面面&lt;/p&gt;
+&lt;h2 id=&#34;机器学习的工作流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#机器学习的工作流程&#34;&gt;#&lt;/a&gt; 机器学习的工作流程&lt;/h2&gt;
+&lt;p&gt;获取数据 -&amp;gt; 数据基本处理 -&amp;gt; 特征工程 -&amp;gt; 机器学习 (模型训练) -&amp;gt; 模型评估。&lt;/p&gt;
+&lt;p&gt;评估符合要求，则上线服务。如果不符合要求，则重复上述步骤。&lt;/p&gt;
+&lt;h2 id=&#34;数据集的结构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据集的结构&#34;&gt;#&lt;/a&gt; 数据集的结构&lt;/h2&gt;
+&lt;p&gt;机器学习的数据大部分数据存储到文件中。数据库中间件 (mysql,nosql) 等性能瓶颈，读取速度，格式不符合机器学习要求的数据格式。&lt;br&gt;
+numpy 非常快，因为什么？释放了 GIL。&lt;/p&gt;
+&lt;p&gt;在数据集中：&lt;br&gt;
+一行数据成为一个样本。&lt;br&gt;
+一列数据称为一个特征。&lt;/p&gt;
+&lt;h3 id=&#34;可用的数据集&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#可用的数据集&#34;&gt;#&lt;/a&gt; 可用的数据集&lt;/h3&gt;
+&lt;p&gt;Kaggle: 大数据竞赛平台，80 万科学家，真实数据，数据量巨大 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9kYXRhc2V0cw==&#34;&gt;https://www.kaggle.com/datasets&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;UCI: 收录了 360 个数据集。覆盖科学，生活经济等领域，数据量几十万 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL2FyY2hpdmUuaWNzLnVjaS5lZHUvbWwvaW5kZXgucGhw&#34;&gt;http://archive.ics.uci.edu/ml/index.php&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;scikit-learn: 数据量小，方便学习。&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zY2lraXQtbGVhcm4ub3JnL3N0YWJsZS8saHR0cHM6Ly9zY2lraXQtbGVhcm4ub3JnL3N0YWJsZS9zdGFibGUvZGF0YXNldHMvaW5kZXguaHRtbA==&#34;&gt;https://scikit-learn.org/stable/,https://scikit-learn.org/stable/stable/datasets/index.html&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;常用数据集数据的结构组成&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#常用数据集数据的结构组成&#34;&gt;#&lt;/a&gt; 常用数据集数据的结构组成&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;特征值 + 目标值 (目标值是练习的和离散的)。特征？比如分辨男女，一个人身高体重皮肤颜色，头发长度。都是特征值。目标值：这个人是男是女，就是目标值。&lt;/li&gt;
+&lt;li&gt;只有特征值，没有目标值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据分割&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据分割&#34;&gt;#&lt;/a&gt; 数据分割&lt;/h3&gt;
+&lt;p&gt;机器学习一般的数据集会划分为两个部分。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;训练数据：用于训练，构建模型&lt;/li&gt;
+&lt;li&gt;测试数据：在数据检验时使用，用于评估模型是否有效、&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;划分比例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;训练集： 79% 80% 75%&lt;/li&gt;
+&lt;li&gt;测试集： 30%， 20% 25%&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;数据的特征工程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据的特征工程&#34;&gt;#&lt;/a&gt; 数据的特征工程&lt;/h2&gt;
+&lt;h3 id=&#34;数据特征是什么&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据特征是什么&#34;&gt;#&lt;/a&gt; 数据特征是什么&lt;/h3&gt;
+&lt;p&gt;将原始数据转换为更好的代表预测模型的潜在问题的特征的过程，从而提高对未知数据的预测准确性。&lt;/p&gt;
+&lt;p&gt;使用专业背景知识和技巧处理数据，使得特征能在机器学习算法上发送更好的作用的过程。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;特征提取： 将任意数据 (文本或者图像) 转换为可用于机器学习的数字特征。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;特征预处理：通过转化函数将特征数据转换成更加适合算法模型的特征数据过程。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;归一化：为什么要进行归一化？特征的单位或者大小相差较大，或者某特征的方法相比其他特征要大出几个数量级，容易影响 (支配) 目标结果，使得算法无法学习到其他的特征。
+&lt;ul&gt;
+&lt;li&gt;归一化的定义： 通过对原始数据进行变换，把数据映射到默认 &lt;code&gt;[0,1]&lt;/code&gt;  之间。&lt;br&gt;
+计算公式:&lt;br&gt;
+&lt;img data-src=&#34;./images/%E5%BD%92%E4%B8%80%E5%8C%96%E5%85%AC%E5%BC%8F.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标准化：通过对原始数据进行把数据变换到均值为 0，标准差为 1 的范围内。&lt;br&gt;
+&lt;img data-src=&#34;./images/%E6%A0%87%E5%87%86%E5%8C%96%E5%85%AC%E5%BC%8F.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+对于归一化来说：如果出现异常点，影响了最大值和最小值，那么结果显然会发生改变&lt;br&gt;
+对于标准化来说：如果出现异常点，由于具有一定数据量，少量的异常点对于平均值的影响并不大，从而方差改变较小。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;特征降维：指在限定条件下，降低随机变量 (特征) 个数，得到一组 &amp;quot;不相关&amp;quot; 主变量的过程。&lt;br&gt;
+减少特征的数量，同时保留原来数据的大部分信息。可以通过 PCA 算法来是实现特征降维。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么要降维呢？随着数据维度不断降低，数据存储所需的空间也会随之减少。低维数据有助于减少计算 / 训练用时。一些算法在高维度数据上容易表现不佳，降维可提高算法可用性。降维可以用删除冗余特征解决多重共线性问题。比如我们有两个变量：“一段时间内在跑步机上的耗时” 和 “卡路里消耗量”。这两个变量高度相关，在跑步机上花的时间越长，燃烧的卡路里自然就越多。因此，同时存储这两个数据意义不大，只需一个就够了。降维有助于数据可视化。如前所述，如果数据维度很高，可视化会变得相当困难，而绘制二维三维数据的图表非常简单。&lt;/p&gt;
+&lt;h3 id=&#34;特征工程的意义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征工程的意义&#34;&gt;#&lt;/a&gt; 特征工程的意义&lt;/h3&gt;
+&lt;p&gt;直接影响预测结果。&lt;/p&gt;
+&lt;h4 id=&#34;特征抽取实例演示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征抽取实例演示&#34;&gt;#&lt;/a&gt; 特征抽取实例演示&lt;/h4&gt;
+&lt;h4 id=&#34;特征抽取api&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征抽取api&#34;&gt;#&lt;/a&gt; 特征抽取 API&lt;/h4&gt;
+&lt;p&gt;字典特征抽取类:   &lt;code&gt;sklearn.feature_extraction.DictVectorizer&lt;/code&gt; &lt;br&gt;
+ 作用：对字典进行特征值化。&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;DictVectorizer(sparse=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;,....)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# X: 字典或者包含字典的迭代器&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 返回值: 返回sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;DictVectorizer.fit_transform(X):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# X: array数组或者sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 返回值: 转换之前的数据格式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;DictVectorizer.invers_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 返回类别名称&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;DictVectorizer.get_feature_names()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 按照原先的标准转换&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;DictVectorizerr.transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&#34;使用流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用流程&#34;&gt;#&lt;/a&gt; 使用流程&lt;/h5&gt;
+&lt;p&gt;1. 实例化类 DictVectorizer&lt;br&gt;
+2. 调用 fit_transform 方法进行特征抽取&lt;/p&gt;
+&lt;h4 id=&#34;字典数据提取的现象&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#字典数据提取的现象&#34;&gt;#&lt;/a&gt; 字典数据提取的现象:&lt;/h4&gt;
+&lt;p&gt;把字典中国的一些类别数据，分别进行转换特征数据。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;文本特征抽取 Count&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;作用-对文本数据进行特征值化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#作用-对文本数据进行特征值化&#34;&gt;#&lt;/a&gt; 作用：对文本数据进行特征值化&lt;/h4&gt;
+&lt;h4 id=&#34;类-sklearnfeature_extractiontextcountvectorizer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#类-sklearnfeature_extractiontextcountvectorizer&#34;&gt;#&lt;/a&gt; 类: sklearn.feature_extraction.text.CountVectorizer&lt;/h4&gt;
+&lt;h4 id=&#34;api&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#api&#34;&gt;#&lt;/a&gt; API&lt;/h4&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 返回的是词频矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;CountVectorizer()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 统计所有文章中出现的词的位置标识，对应着列表中的单词(单个字母不统计,不支持中文,需要使用jieba分词)，&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X 文本或者包含文本字符串的可迭代对象&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 返回sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVectorizer.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X： array数据或者sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值：转换之前的数据格式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVetorizer.inverse_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 单词列表&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVetorizer.get_feature_names()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;文本特征抽取 tfidf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;主要思想是： 如果某个词或短语在一篇文章中出现的概率高，b 并且在其他文章中很少出现，则认为该词或者短语具有很好的类别区分能力，适合用来分类。&lt;/p&gt;
+&lt;p&gt;TF-IDF 的作用：  用以评估一字词对于一个文件集成一个语料库中的其中一份文件的重要程度。&lt;/p&gt;
+&lt;p&gt;tf (term frequency 词的频率)&lt;br&gt;
+ idf (inverse document frequency 逆文档频率) log (总文档数据 / 该词出现的文档数量)&lt;/p&gt;
+&lt;p&gt;tf * idf 这个值称为重要性。&lt;/p&gt;
+&lt;h4 id=&#34;类-sklearnfeature_extractiontexttfidfvectorizer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#类-sklearnfeature_extractiontexttfidfvectorizer&#34;&gt;#&lt;/a&gt; 类  &lt;code&gt;sklearn.feature_extraction.text.TfidfVectorizer &lt;/code&gt;&lt;/h4&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 返回的是词频矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;CountVectorizer(stop_worlds=N)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 统计所有文章中出现的词的位置标识，对应着列表中的单词(单个字母不统计,不支持中文,需要使用jieba分词)，&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X 文本或者包含文本字符串的可迭代对象&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 返回sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVectorizer.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X： array数据或者sparse矩阵&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值：转换之前的数据格式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVetorizer.inverse_transform(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 单词列表&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    CountVetorizer.get_feature_names()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;为什么需要这&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#为什么需要这&#34;&gt;#&lt;/a&gt; 为什么需要这&lt;/h4&gt;
+&lt;p&gt;分类机器学习算法的应用基础。&lt;/p&gt;
+&lt;h4 id=&#34;应用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#应用&#34;&gt;#&lt;/a&gt; 应用&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;文本分类&lt;/li&gt;
+&lt;li&gt;情感分析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;数据的预处理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据的预处理&#34;&gt;#&lt;/a&gt; 数据的预处理&lt;/h4&gt;
+&lt;p&gt;通过特定的统计方法 (数学方法), 将数据转换成算法要求的数据。&lt;/p&gt;
+&lt;h5 id=&#34;数据处理的方法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据处理的方法&#34;&gt;#&lt;/a&gt; 数据处理的方法&lt;/h5&gt;
+&lt;p&gt;API:&lt;br&gt;
+ 在 sklearn.preprocessing 中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数值型数据:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;标准缩放&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;归一化:&lt;br&gt;
+ 通过对原始数据机型交换把数据映射到 (默认 [0,1]) 之间&lt;br&gt;
+&lt;img data-src=&#34;./images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E5%BD%92%E4%B8%80%E5%BD%92%E4%B8%80%E5%8C%96%E5%85%AC%E5%BC%8F.png&#34; alt=&#34;机器学习_归一归一化公式.png&#34;&gt;&lt;br&gt;
+ &lt;code&gt; API: MinMaxScalar&lt;/code&gt; &lt;br&gt;
+ 实现归一化的步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实例化 &lt;code&gt;MinMaxScalar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;调用  &lt;code&gt;fit_transform&lt;/code&gt;  进行转换&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mm = MinMaxScalar(feature_range=(&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;data = mm.fit_transform([[],[],[]])&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(data)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;标准化&lt;br&gt;
+通过对原始数据进行变换把数据变换到均值为 0，标准差为 1 的范围内。&lt;br&gt;
+&lt;img data-src=&#34;./images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0_%E6%A0%87%E5%87%86%E5%8C%96%E5%85%AC%E5%BC%8F.png&#34; alt=&#34;机器学习_标准化公式&#34;&gt;&lt;br&gt;
+对于归一化来讲，如果出现了异常点，影响了最大值和最小值，那么结果显然会发生改变.&lt;br&gt;
+ 对标准化来讲，如果出现异常点，由于具有一定数据量，少量的异常点对平均值的影响并不大，从而方差改变较小。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;API: StandardScalar(....) &lt;/code&gt; &lt;br&gt;
+标准化的步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实例化 StandardScalar&lt;/li&gt;
+&lt;li&gt;调用 fit_transfrom&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;#处理之后每列来说所有数据都聚集在均值0附近标准差差为1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;StandardScalar(...)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X:numpy array格式的数据[n_samples,n_features]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 转换后的形状相同的array&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    StandardScalar.fit_transfrom(X)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 原始数据中每列特征的平均值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    StandardScalar.mean_&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 原始数据每列特征的方差&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    StandardScalar.std_&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;缺失值&lt;br&gt;
+处理缺失值的方法:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;删除&lt;/li&gt;
+&lt;li&gt;插补&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;插补使用的是:  &lt;code&gt;Imputer&lt;/code&gt;  方法&lt;/p&gt;
+  &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 完成缺失值插补&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Imputer(miss_values=&lt;span class=&#34;string&#34;&gt;&amp;#x27;NaN&amp;#x27;&lt;/span&gt;,strategy=&lt;span class=&#34;string&#34;&gt;&amp;#x27;mean&amp;#x27;&lt;/span&gt;,axis=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X: numpy array格式的数据[n_samples,n_features]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 转换后的形状相同的array&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Imputer.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;类别型数据&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one-hot 编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;时间类型&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间的拆分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据的降维&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据的降维&#34;&gt;#&lt;/a&gt; 数据的降维&lt;/h3&gt;
+&lt;p&gt;降维指的是降的是特征的维度 (特征的数量)。&lt;br&gt;
+两种方式：特征选择 和 主成分分析&lt;/p&gt;
+&lt;h4 id=&#34;特征选择的原因&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征选择的原因&#34;&gt;#&lt;/a&gt; 特征选择的原因&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;冗余：部分特征的相关度高，容易消耗计算机性能&lt;/li&gt;
+&lt;li&gt;噪声：部分特征会对结果产生影响&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;特征选择是什么&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征选择是什么&#34;&gt;#&lt;/a&gt; 特征选择是什么？&lt;/h4&gt;
+&lt;p&gt;就是单纯的从提取到的所有特征中选择部分特征作为训练集特征，特征在选择前后可以改变值，也可以不改变值。但是选择后的特征维数肯定比选择前小，毕竟我们只选择了其中一部分特征。&lt;br&gt;
+主要方法有:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;filter (过滤式): varianceThreshold&lt;/li&gt;
+&lt;li&gt;Embedde (嵌入式): 正则化，决策树&lt;/li&gt;
+&lt;li&gt;Wrapper (包裹式)&lt;/li&gt;
+&lt;li&gt;神经网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;API:  &lt;code&gt; sklearn.feature_selection.VarianceThreshold&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 删除所有低方差特征&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;VarianceThreshold(threhold=&lt;span class=&#34;number&#34;&gt;0.0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X: numpy array格式的数据[n_samples,n_features]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 训练集差异地域threshold的特征将被删除&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 默认值是保留所有非零方差特征,即删除所有样本中具有相同值的特征&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Variance.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;pca-分析简化数据集的技术&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pca-分析简化数据集的技术&#34;&gt;#&lt;/a&gt; PCA 分析简化数据集的技术&lt;/h3&gt;
+&lt;p&gt;目的是： 数据维度压缩，尽可能降低原数据的维度 (复杂度), 损失少量信息&lt;br&gt;
+作用：可以削减回归分析或者聚类分析中特征的数量。&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 将数据分解为较低维数的空间&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;PCA(n_components=&lt;span class=&#34;literal&#34;&gt;None&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# X: numpy array格式的数据[n_samples,n_features]&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 返回值: 转化后制定维度的array&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    PCA.fit_transform(X)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;机器学习算法基础&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#机器学习算法基础&#34;&gt;#&lt;/a&gt; 机器学习算法基础&lt;/h2&gt;
+&lt;h3 id=&#34;监督学习supervised-learnning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#监督学习supervised-learnning&#34;&gt;#&lt;/a&gt; 监督学习：supervised learnning&lt;/h3&gt;
+&lt;p&gt;输入数据由输入特征值 和 目标值组成。&lt;/p&gt;
+&lt;p&gt;目标值连续则是回归问题， 目标值离散则是分类问题。&lt;/p&gt;
+&lt;h3 id=&#34;无监督学习-unsupervised-learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#无监督学习-unsupervised-learning&#34;&gt;#&lt;/a&gt; 无监督学习. unsupervised learning&lt;/h3&gt;
+&lt;p&gt;输入数据并未进行标记，没有目标值。 =&amp;gt; 聚类 (kmeans)&lt;/p&gt;
+&lt;h3 id=&#34;半监督学习-semi-supervised-learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#半监督学习-semi-supervised-learning&#34;&gt;#&lt;/a&gt; 半监督学习： semi-supervised learning&lt;/h3&gt;
+&lt;p&gt;训练集同时包含有标记样本数据 和 未标记样本数据&lt;/p&gt;
+&lt;h3 id=&#34;强化学习-reinforcement-learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#强化学习-reinforcement-learning&#34;&gt;#&lt;/a&gt; 强化学习: reinforcement learning&lt;/h3&gt;
+&lt;p&gt;本质是 make decisions 问题，即自动决策问题，并且可以做连续决策。&lt;/p&gt;
+&lt;p&gt;没有训练数据，建立模型的时候人为设定好可以操作的规则，不断自我尝试，自己去探索。&lt;/p&gt;
+&lt;p&gt;强化学习的目标就是获取更多的累计奖励。&lt;/p&gt;
+&lt;p&gt;举个例子:&lt;/p&gt;
+&lt;p&gt;小孩子想要走路，但是在这之前，他需要先站起来，站起来之后还要保持平衡，接下来就要先迈出一条腿，是左腿还是右腿，迈出一步还要迈出下一步。&lt;/p&gt;
+&lt;p&gt;小孩子就是 agent，他试图通过 行动 (即行走) 来模型环境 (行走的表面) 并且从一个状态转变到另一个状态 (即他走的每一步)，当他完成了任务的子任务（即走了几步) 时，孩子收到奖励，并且当他不能走路时，就不会给奖励。&lt;/p&gt;
+&lt;p&gt;主要包含四个元素: agent  行动 环境  奖励&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%88%86%E7%B1%BB.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/rocketmq/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="MachineLearn" />
+        <updated>2021-10-28T10:18:00.000Z</updated>
+    </entry>
+</feed>

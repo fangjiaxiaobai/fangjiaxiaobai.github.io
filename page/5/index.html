@@ -89,12 +89,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,262 +120,266 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" itemprop="url" title="哈希算法"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciub8ja1j20zk0m81ky.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 18:38:55">
+  <span class="item" title="创建时间：2021-09-01 12:17:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:38:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:17:55+08:00">2021-09-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>14k</span>
+    <span>3.9k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>13 分钟</span>
+    <span>4 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></h3>
+    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" itemprop="url" title="哈希算法">哈希算法</a></h3>
     <div class="excerpt">
-        # 书接上回
-上一篇我们学习的 set 集合这一数据类型。其内部是由 inset 和 hashtable 这种两种数据结构编码的。
-如果不记得了，那就来坐穿梭机回去看看吧。 开始穿梭
-接下来，我们继续学习一个新的数据类型，有序集合. zset .
-# zset 简介
-zset , 中文名字叫 有序集合。序这个字，在 Redis 的实现是 score 字段。我们先不急这个字段，后面会介绍。
-在 Redis 中有序的数据类型，还有一个就是我们前面学习的 list 了。 它们还都可以获得某一定范围内的元素。
-而 zset 的优点是： list...
+        # 哈希算法
+哈希算法，又称为：散列函数，散列算法。
+哈希算法是指将任意长度的二进制值串映射为固定长度的二进制串的这一规则。
+举个例子: Jdk 的 HashMap 中。
+1234static final int hash(Object key) &amp;#123; int h; return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;
+看似实现非常简单，但是设计一个优秀的哈希算法却不是简单的事情。优秀的 Hash 算法有什么要求？
+
+从 Hash...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" title="数据结构与算法"><i class="ic i-flag"></i>数据结构与算法</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset" class="btn">more...</a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" itemprop="url" title="哈希算法" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" title="Redis数据结构之集合 Set"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitzannuj20zk0m8b29.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" title="动态规划"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicis081o9j20zk0m8dmr.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 18:28:55">
+  <span class="item" title="创建时间：2021-09-01 12:13:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:28:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:13:55+08:00">2021-09-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>10k</span>
+    <span>3.2k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>9 分钟</span>
+    <span>3 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></h3>
+    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" title="动态规划">动态规划</a></h3>
     <div class="excerpt">
-        # 书接上回
-前一篇文章，我们学习的是 Redis 的数据结构之 hash， 学习了其基本的操作和使用内部数据结构是 hashtable 和 ziplist ，其中 Redis 中的 hashtable 是用 dict 表示的。如果不记得了其内部构成，就再看看看着上篇文章吧。现在我们继续学习下一个数据类型 set 。
-# set 简介
-Redis 的 set 数据类型表示 一堆不重复值的集合。
-Redis 的 set 数据类型有两种编码方式. OBJ_ENCODING_INTSET 和 OBJ_ENCODING_HT .
+        👉 动态规划其实就是动态递推👈
+# 要点
 
-OBJ_ENCODING_HT 这种编码方式在上一篇文章...
+递归 + 记忆化 -&amp;gt; 递推 (自下而上的递推)
+状态的定义，opt [n],dp [n],fib [n]
+状态转移方程 (dp 方程)， opt [n]=best_of (opt [n-1],opt [n-2])
+最优子结构
+
+# 例子
+# 斐波那契数列
+我们先使用递归的方式，我们实现斐波那契数列.
+123456789101112131415161718192021222324252627282930313233343536373839404142#include &amp;lt;stdio.h&amp;gt;int...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" title="数据结构与算法"><i class="ic i-flag"></i>数据结构与算法</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" title="Redis数据结构之集合 Set" class="btn">more...</a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" title="动态规划" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" title="Redis数据结构之 Hash"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclx6phq6j20zk0m8e36.jpg"></a>
+    <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" title="Elastic Search基本概念"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipevuctzzj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 15:18:55">
+  <span class="item" title="创建时间：2021-08-31 16:28:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T15:18:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T16:28:55+08:00">2021-08-31</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>7.4k</span>
+    <span>3.4k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>7 分钟</span>
+    <span>3 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></h3>
+    <h3><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" title="Elastic Search基本概念">Elastic Search基本概念</a></h3>
     <div class="excerpt">
-        # 书接上回
-前一篇文章，我们学习的是 Redis 的数据结构 list， 学习了其基本的操作和使用内部数据结构是 quicklist 和 ziplist ，这两种数据结构虽然起得名字是 list ，但是其内部结构却是链表。如果不记得了其内部构成，就再看看看着上篇文章吧。现在我们继续学习下一个数据类型 hash
-# hash 简介
-hash 是一个键值对集合。是 string 类型的 key 和 value 的映射表，hash 特别适合用于存储对象，每个 hash 类型可以存储 2^32-1 个键值对。
-hash 实际上就是一个 哈希表。类似于 Java 里的 HashTable 。
-但是...
+        # 文档
+es 是面向文档的，文档是 es 中可搜索的最小单位， es 的文档由一个或多个字段组成，类似于关系型数据库中的一行记录，但 es 的文档是以 JSON 进行序列化并保存的，每个 JSON 对象由一个或多个字段组成，字段类型可以是布尔，数值，字符串、二进制、日期等数据类型。
+es 每个文档都有唯一的 id , 这个 id 可以由我们自己指定，也可以由 es 自动生成。
+es 每一个文档，除了保存我们写入进行的文档原始数据外，也有文档自己的元数据，这些元数据，用于标识文档的相关信息。
+123456789101112&amp;#123;...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="url" title="搜索之 Es"><i class="ic i-flag"></i>搜索之 Es</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" title="Redis数据结构之 Hash" class="btn">more...</a>
+    <a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="url" title="Elastic Search基本概念" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicljitigmj20zk0m87fp.jpg"></a>
+    <a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" itemprop="url" title="Elastic Search配置"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeun65urj20zk0m81ii.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 15:08:55">
+  <span class="item" title="创建时间：2021-08-31 15:28:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T15:08:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T15:28:55+08:00">2021-08-31</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>13k</span>
+    <span>6.6k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>12 分钟</span>
+    <span>6 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List">Redis数据结构之 List</a></h3>
+    <h3><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" itemprop="url" title="Elastic Search配置">Elastic Search配置</a></h3>
     <div class="excerpt">
-        # 书接上回
-上一篇文章 Redis 的数据结构 string 我们一起学习了这种类型的常用命令，并且还学习了 Redis 中的字符串的结构表示以及好处，这里我们接着学习另外一种数据结构 list 。
-# list 简介
-list , 一般都会称为列表。在 Redis 中，这种数据结构是一种比较灵活的结构，由于其元素的是有序的，所以可以充当栈和队列这两种数据结构。实际在开发总也有很多应用场景。
-一个 List 最多可以包含 2^32-1 个元素。
-很多人都会以为 list 是用数组来实现的，非也，非也。它内部是 quicklist 这种数据结构。想要先睹为快的，那么坐电梯直达吧。
-# list...
+        # Elastic Search 配置
+ES 提供了很多默认的参数设置，使我们不用添加任何参数就可以成功的启动 ES 。 作为一个认真的学习者。我们还是来一起看看 如何更好的自定义 ES 配置。 详细的配置内容，可以参考 https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html.
+ES 的属性，分为 静态属性 和 动态属性。
+所有的静态属性，都必须重启后才能生效。
+对于动态属性可以通过调用
+1234POST _nodes/reload_secure_settings&amp;#123;...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="url" title="搜索之 Es"><i class="ic i-flag"></i>搜索之 Es</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List" class="btn">more...</a>
+    <a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" itemprop="url" title="Elastic Search配置" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></a>
+    <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" itemprop="url" title="ES栈安装"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm07ih54j20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 14:58:55">
+  <span class="item" title="创建时间：2021-08-31 15:20:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:58:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T15:20:55+08:00">2021-08-31</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>9.6k</span>
+    <span>3k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>9 分钟</span>
+    <span>3 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String">Redis数据结构之 String</a></h3>
+    <h3><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" itemprop="url" title="ES栈安装">ES栈安装</a></h3>
     <div class="excerpt">
-        今天来聊聊 Redis 的 string ，这一数据结构。
-# string 简介
-string 是 Redis 中最基本，也是最简单的数据结构。一个键 ( key ) 对应着一个 string 类型的值 ( value ). 我们都知道 redis 是使用 C 语言来编写的，但是 string 这一个数据结构并非是使用 C 语言的 string(char[]) 来实现的，要想先了解，那就做电梯吧 -&amp;gt;( 电梯直达 ).
-现在，先暂且抛开内部实现，我们先看看有怎么使用这一数据结构。
-# string 相关常用命令
-# set 命令
-SET key value...
+        # 安装 ElasticSearch 7.10.1
+# 下载安装包
+我们在 es 的官网上可以找到 ES 软件的下载地址，我放到下面:
+LINUX : elasticsearch-7.10.1-linux-x86_64.tar.gz
+MACOS : elasticsearch-7.10.1-darwin-x86_64.tar.gz
+Windows : elasticsearch-7.10.1-windows-x86_64.zip
+ps : 我试了下好像需要 科学上网 。 你可以可以通过公众号中 回复 es-系统名称 就可以获取到对应的下载连接了。下拉到底哦～
+#...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="url" title="搜索之 Es"><i class="ic i-flag"></i>搜索之 Es</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String" class="btn">more...</a>
+    <a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" itemprop="url" title="ES栈安装" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclgi503lj20zk0m8hdt.jpg"></a>
+    <a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" itemprop="url" title="Elastic Search简介"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 14:48:55">
+  <span class="item" title="创建时间：2021-08-31 14:28:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:48:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T14:28:55+08:00">2021-08-31</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>1.7k</span>
+    <span>2.5k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -386,44 +390,44 @@ SET key value...
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库">Redis 多个数据库</a></h3>
+    <h3><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" itemprop="url" title="Elastic Search简介">Elastic Search简介</a></h3>
     <div class="excerpt">
-        Redis 默认提供了 16 个数据库。每个数据库都有一个 id , 从 0 开始，[0,15]。 不同的数据库中数据隔离保存。我们可以通过修改 redis 的配置文件进行修改数据库的数量。
-1database 32
-
-使用 select &amp;lt;ID&amp;gt; 可以切换数据库.
-
-示例如下:
-12345678910127.0.0.1:6379&amp;gt; select 1OK# 演示数据隔离127.0.0.1:6379[1]&amp;gt; set test 1OK127.0.0.1:6379[1]&amp;gt; select...
+        # Elasticsearch 简介
+Elasticsearch 是一个开源的分布式 RESTful 搜索和分析引擎，能够解决越来越多不同的应用场景。
+Elasticsearch 是一个高度可扩展的开源分布式全文本搜索和分析引擎。 它使您可以快速，近乎实时地存储，搜索和分析大量数据。 它通常用作支持具有复杂搜索功能和要求的应用程序的基础引擎 / 技术。提供了丰富的 RESTful API.
+这里 特别记住 搜索 和 分析 这两个词，后面我们花大量篇幅去学习 ES 的这两个功能，体验 ES 的强大之处。
+# ES 发展历史
+# 2010 年 2 月 第一次发布
+# 2014 年 1 月 发布了...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="url" title="搜索之 Es"><i class="ic i-flag"></i>搜索之 Es</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库" class="btn">more...</a>
+    <a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" itemprop="url" title="Elastic Search简介" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeun65urj20zk0m81ii.jpg"></a>
+    <a href="/2021/08/31/es-series/README/" itemprop="url" title="Elastic Search 目录"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 14:40:55">
+  <span class="item" title="创建时间：2021-08-31 14:20:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:40:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-31T14:20:55+08:00">2021-08-31</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>601</span>
+    <span>391</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -434,163 +438,232 @@ SET key value...
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介">Redis 简介</a></h3>
+    <h3><a href="/2021/08/31/es-series/README/" itemprop="url" title="Elastic Search 目录">Elastic Search 目录</a></h3>
     <div class="excerpt">
-        Redis 是一个开放源代码（ BSD 许可）的内存中数据结构存储，用作数据库，缓存和消息代理。它支持数据结构，例如字符串，哈希，列表，集合，带范围查询的排序集合，位图 ( bitMap )，超日志 ( hyperlog )，带有半径查询和流的地理空间索引 ( geohash )。 Redis 还内置了副本， Lua 脚本， LRU 驱逐策略，事务和不同级别的磁盘持久性，并通过 Redis Sentinel 和 Redis Cluster 自动分区提供了高可用性。
-Redis 还支持一下特性:
+        # 搜索之 ES 系列
+本系列基于版本 7.10
+# 目录
 
-事务
-发布 / 订阅模式
-lua 脚本
-键值的允许生存时长.
-LRU 驱逐
-故障自动转移
+ES 简介
+
+ES 发展历史
+ES 的生态圈
+ES 的应用场景
+使用架构
+
+ES 栈安装
+
+ElasticSearch 安装
+
+下载
+文件目录结构，JVM 配置，
+多实例运行
+常用命令
+
+kibana 安装
+
+安装
+页面浏览 devTool
+
+logstash 安装
+
+ElasticSearch 配置
+
+# 入门
+
+基本概念
+
+文档
+
+元数据 (mapping)
+
+索引
+
+概念
+语意
+
+Type
+节点
+
+master 节点
+data 节点
+ingist 节点
+coordinating 节点
+其他类型节点:...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="url" title="搜索之 Es"><i class="ic i-flag"></i>搜索之 Es</a>
+      </span>
+    </div>
+    <a href="/2021/08/31/es-series/README/" itemprop="url" title="Elastic Search 目录" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" itemprop="url" title="LC:反转链表I"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-29 17:25:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-29T17:25:55+08:00">2021-08-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" itemprop="url" title="LC:反转链表I">LC:反转链表I</a></h3>
+    <div class="excerpt">
+        # 题目
+给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+
+示例一
+
+输入：head = [1,2,3,4,5]
+输出：[5,4,3,2,1]
+
+示例二
+
+输入：head = [1,2]
+输出：[2,1]
+
+示例三
+
+输入：head = []
+输出：[]
+提示：
+链表中节点的数目范围是 [0, 5000]
+-5000 &amp;lt;= Node.val &amp;lt;= 5000
+进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？
+
+力扣（LeetCode）206.反转链表
+https://leetcode-cn.com/
 
 #...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介" class="btn">more...</a>
+    <a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" itemprop="url" title="LC:反转链表I" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxfdlttj20zk0m8npd.jpg"></a>
+    <a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" itemprop="url" title="JDK的Stream之系列一 初窥流原理"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-08-01 14:38:55">
+  <span class="item" title="创建时间：2021-08-23 23:13:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:38:55+08:00">2021-08-01</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-23T23:13:55+08:00">2021-08-23</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>667</span>
+    <span>8.3k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>1 分钟</span>
+    <span>8 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署">Redis的单机部署</a></h3>
+    <h3><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" itemprop="url" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></h3>
     <div class="excerpt">
-        # 源码安装
-# 下载地址
-http://download.redis.io/releases/redis-5.0.7.tar.gz
-# 安装步骤
-123456789wget http://download.redis.io/releases/redis-5.0.7.tar.gztar xvf redis-5.0.7.tar.gz[root@fangjiaxiaobai local]# cd ./redis-5.0.7/[root@fangjiaxiaobai redis-5.0.7]# make &amp;amp;&amp;amp; make installHint:...
+        学东西的时候最好是理论先行，为什么？没有理论，想当然的去干，干好了是 瞎猫碰上死耗子，干不好就瞎干，浪费时间，只会弄得身心俱疲。
+可是在真正的工作中，很少工作会允许你先弄清原理再去实操。但是不管怎么说，欠下的债终究是需要还的。
+今天咱们的主题是 stream . 咱们就从 Stream 的 &amp;quot;道，术，法，器&amp;quot; 四个阶段来聊好好的聊聊这个 Stream .
+# 以 &amp;quot;器&amp;quot; 始：从使用开始
+
+你平时是怎么使用 Stream 的？
+
+比如我会使用 Stream...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+        <a href="/categories/Java%E7%B3%BB%E5%88%97/" itemprop="url" title="Java 系列"><i class="ic i-flag"></i>Java 系列</a>
       </span>
     </div>
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署" class="btn">more...</a>
+    <a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" itemprop="url" title="JDK的Stream之系列一 初窥流原理" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
+    <a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" itemprop="url" title="JVM之你没见过的OOM"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-24 14:48:55">
+  <span class="item" title="创建时间：2021-08-19 17:13:55">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-24T14:48:55+08:00">2021-07-24</time>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-19T17:13:55+08:00">2021-08-19</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>1.8k</span>
+    <span>9.7k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
     <span class="icon">
       <i class="ic i-clock"></i>
     </span>
-    <span>2 分钟</span>
+    <span>9 分钟</span>
   </span>
 </div>
 
-    <h3><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本">MySQL数据库的版本</a></h3>
+    <h3><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" itemprop="url" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></h3>
     <div class="excerpt">
-        # MySQL 数据库的版本
-mysql-5.0 : mysql-5.0 版本之前， myisam 默认支持的表大小为 4G 。从 mysql-5.0 以后， MyISAM 默认支持 256T 的表单数据。 myisam 只缓存索引数据。 2005 年的 5.0 版本又添加了存储过程、服务端游标、触发器、查询优化以及分布式事务功能。
-MySQL5.1 : 2008 年发布的 MySQL 5.1 的版本，基本上就是一个增加了崩溃恢复功能的 MyISAM ，使用表级锁，但可以做到读写不冲突，即在进行任何类型的更新操作的同时都可以进行读操作，但多个写操作不能并发。
-mysql5.5 : 2010 年...
+        一文搞懂内存溢出，保内存平安，防止你被祭天:[手动滑稽]:
+# 释义
+OOM 的含义，到底是什么意思？
+是 JVM 独有的吗？ linux 是否也会存在，那又是怎么肥事？
+OOM : Out Of Memory .  内存溢出。内存溢出来了，也就是说内存不够用了，就会发生这个问题了。
+# 内存又是什么呢？
+1、 内存 是计算机的重要部件之一。它用于暂时存放 CPU 中的运算数据，与硬盘等外部存储交换数据。是外存与 CPU 进行沟通的桥梁。
+2、 Java 内存。说到这里我们就不得说一下 java 的内存模型 (JMM) 了。如下图。
+
+就这个一个图就很不下几十个面试考点：比如 votitle...
     </div>
     <div class="meta footer">
       <span>
-        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
+        <a href="/categories/Java%E7%B3%BB%E5%88%97/" itemprop="url" title="Java 系列"><i class="ic i-flag"></i>Java 系列</a>
       </span>
     </div>
-    <a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" itemprop="url" title="MySQL数据库的版本" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewr8iypj20zk0m8b29.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-23 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:48:55+08:00">2021-07-23</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>58</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></h3>
-    <div class="excerpt">
-        # 版本说明
-本系列文章，以 MySQL 8.0.20 版本为实验背景进行编写。
-MySQL 手册
-# 最后
-期望与你一起遇见更好的自己
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
-      </span>
-    </div>
-    <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" title="MySQL 开篇 &amp; 说明" class="btn">more...</a>
+    <a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" itemprop="url" title="JVM之你没见过的OOM" class="btn">more...</a>
   </div>
 </article>
 
@@ -601,7 +674,7 @@ MySQL 手册
   
   <nav class="pagination">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -629,19 +702,19 @@ MySQL 手册
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">71</span>
+        <span class="count">88</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">13</span>
+        <span class="count">15</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">41</span>
+        <span class="count">51</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -799,27 +872,17 @@ MySQL 手册
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+    <span><a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC:反转链表I">LC:反转链表I</a></span>
   </li>
 
       
@@ -829,7 +892,17 @@ MySQL 手册
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></span>
   </li>
 
       
@@ -839,7 +912,7 @@ MySQL 手册
 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">哈希算法</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
   </li>
 
       
@@ -849,37 +922,17 @@ MySQL 手册
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
   </li>
 
       
@@ -889,7 +942,27 @@ MySQL 手册
 <a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></span>
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
   </li>
 
   </ul>
@@ -914,13 +987,13 @@ MySQL 手册
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">308k 字</span>
+    <span title="站点总字数">364k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">5:31</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
