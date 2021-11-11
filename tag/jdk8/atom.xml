@@ -7,48 +7,48 @@
     <category term="全站地图" />
     <category term="导航" />
     <category term="目录" />
-    <category term="雪花算法" />
-    <category term="算法" />
+    <category term="MySQL" />
+    <category term="Redis" />
+    <category term="源码" />
+    <category term="数据结构" />
+    <category term="git" />
     <category term="Elastic Search" />
     <category term="搜索" />
-    <category term="git" />
-    <category term="源码" />
-    <category term="MySQL" />
+    <category term="MachineLearn" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="RocketMQ" />
     <category term="消息队列" />
-    <category term="MachineLearn" />
-    <category term="Redis" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="数据结构" />
-    <category term="HashMap" />
-    <category term="JDK" />
-    <category term="JDK8" />
-    <category term="数据结构与算法" />
-    <category term="动态规划" />
-    <category term="递归" />
-    <category term="哈希算法" />
-    <category term="String" />
-    <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="分治思想排序" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
-    <category term="交换排序" />
-    <category term="选择排序" />
     <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="快速排序" />
-    <category term="分支思想排序" />
     <category term="链表" />
+    <category term="面经之算法题" />
+    <category term="数组" />
+    <category term="有点难的算法题" />
     <category term="不做也罢的算法题" />
+    <category term="动态规划" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
-    <category term="有点难的算法题" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="String" />
     <category term="Java" />
     <category term="dubbo" />
+    <category term="数据结构与算法" />
+    <category term="哈希算法" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="交换排序" />
+    <category term="递归" />
+    <category term="选择排序" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
     <category term="KNN" />
     <category term="JDK版本" />
     <category term="JDK11" />
@@ -103,7 +103,7 @@
 &lt;/ul&gt;
 &lt;p&gt;二、成员变量：&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;char&lt;/span&gt; value[];  &lt;span class=&#34;comment&#34;&gt;// 存储字符。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; hash;     &lt;span class=&#34;comment&#34;&gt;// 缓存字符串的hash值。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Private &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; ObjectStreamField[] serialPersistentFields = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ObjectStreamFiled[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;];  &lt;span class=&#34;comment&#34;&gt;// 字符串类被指定转化序列化流协议中。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;/** use serialVersionUID from JDK 1.0.2 for interoperability */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;long&lt;/span&gt; serialVersionUID = -&lt;span class=&#34;number&#34;&gt;6849794470754667710L&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;Value 是 final 的，所以 String 一旦定义之后，就不可变的。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Value&lt;/code&gt;  是 &lt;code&gt;final&lt;/code&gt;  的，所以 &lt;code&gt;String&lt;/code&gt;  一旦定义之后，就不可变的。&lt;/p&gt;
 &lt;p&gt;三、构造函数：&lt;/p&gt;
 &lt;p&gt;四、常用方法：&lt;/p&gt;
 &lt;p&gt;由于 String 中重载的方法太多了，所以就只写方法名了。&lt;/p&gt;

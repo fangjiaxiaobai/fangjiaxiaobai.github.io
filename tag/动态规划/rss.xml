@@ -10,48 +10,48 @@
         <category>全站地图</category>
         <category>导航</category>
         <category>目录</category>
-        <category>雪花算法</category>
-        <category>算法</category>
+        <category>MySQL</category>
+        <category>Redis</category>
+        <category>源码</category>
+        <category>数据结构</category>
+        <category>git</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>git</category>
-        <category>源码</category>
-        <category>MySQL</category>
+        <category>MachineLearn</category>
+        <category>雪花算法</category>
+        <category>算法</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
-        <category>MachineLearn</category>
-        <category>Redis</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>数据结构</category>
-        <category>HashMap</category>
-        <category>JDK</category>
-        <category>JDK8</category>
-        <category>数据结构与算法</category>
-        <category>动态规划</category>
-        <category>递归</category>
-        <category>哈希算法</category>
-        <category>String</category>
-        <category>排序</category>
-        <category>冒泡排序</category>
-        <category>分治思想排序</category>
-        <category>桶排序</category>
-        <category>线性思想排序</category>
-        <category>交换排序</category>
-        <category>选择排序</category>
         <category>leetCode</category>
-        <category>数组</category>
-        <category>面经之算法题</category>
-        <category>快速排序</category>
-        <category>分支思想排序</category>
         <category>链表</category>
+        <category>面经之算法题</category>
+        <category>数组</category>
+        <category>有点难的算法题</category>
         <category>不做也罢的算法题</category>
+        <category>动态规划</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
-        <category>有点难的算法题</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>String</category>
         <category>Java</category>
         <category>dubbo</category>
+        <category>数据结构与算法</category>
+        <category>哈希算法</category>
+        <category>排序</category>
+        <category>冒泡排序</category>
+        <category>分治思想排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>交换排序</category>
+        <category>递归</category>
+        <category>选择排序</category>
+        <category>桶排序</category>
+        <category>线性思想排序</category>
         <category>KNN</category>
         <category>JDK版本</category>
         <category>JDK11</category>
@@ -62,9 +62,9 @@
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/</guid>
             <title>LC:1218.最长定差子序列</title>
             <link>https://fangjiaxiaobai.github.io/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/</link>
-            <category>动态规划</category>
             <category>leetCode</category>
             <category>面经之算法题</category>
+            <category>动态规划</category>
             <pubDate>Mon, 01 Nov 2021 18:18:18 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
 &lt;p&gt;给你一个整数数组  &lt;code&gt;arr&lt;/code&gt;  和一个整数  &lt;code&gt;difference&lt;/code&gt; ，请你找出并返回  &lt;code&gt;arr&lt;/code&gt;  中最长等差子序列的长度，该子序列中相邻元素之间的差等于  &lt;code&gt;difference&lt;/code&gt;  。&lt;/p&gt;
@@ -157,8 +157,8 @@ Total Submission(s): 377960    Accepted Submission(s): 90742&lt;/p&gt;
             <title>动态规划</title>
             <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
             <category>算法</category>
-            <category>数据结构与算法</category>
             <category>动态规划</category>
+            <category>数据结构与算法</category>
             <pubDate>Wed, 01 Sep 2021 12:13:55 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;👉 &lt;span class=&#34;label success&#34;&gt;动态规划其实就是动态递推&lt;/span&gt;👈&lt;/p&gt;
 &lt;h2 id=&#34;要点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#要点&#34;&gt;#&lt;/a&gt; 要点&lt;/h2&gt;
