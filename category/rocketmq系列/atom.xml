@@ -5,62 +5,62 @@
     <link href="https://fangjiaxiaobai.github.io" />
     <updated>2021-09-28T11:26:00.000Z</updated>
     <category term="MySQL" />
-    <category term="全站地图" />
-    <category term="导航" />
-    <category term="目录" />
-    <category term="Redis" />
-    <category term="源码" />
-    <category term="数据结构" />
-    <category term="git" />
     <category term="雪花算法" />
     <category term="算法" />
     <category term="Elastic Search" />
     <category term="搜索" />
+    <category term="全站地图" />
+    <category term="导航" />
+    <category term="目录" />
+    <category term="Redis" />
+    <category term="git" />
+    <category term="数据结构" />
+    <category term="MachineLearn" />
+    <category term="源码" />
     <category term="RocketMQ" />
     <category term="消息队列" />
-    <category term="MachineLearn" />
-    <category term="leetCode" />
-    <category term="链表" />
-    <category term="面经之算法题" />
     <category term="线程池" />
     <category term="面经" />
+    <category term="leetCode" />
+    <category term="面经之算法题" />
+    <category term="链表" />
     <category term="数组" />
-    <category term="不做也罢的算法题" />
     <category term="有点难的算法题" />
+    <category term="不做也罢的算法题" />
     <category term="动态规划" />
-    <category term="HashMap" />
-    <category term="JDK" />
-    <category term="JDK8" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
     <category term="数据结构与算法" />
-    <category term="String" />
     <category term="哈希算法" />
     <category term="递归" />
     <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="交换排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
+    <category term="冒泡排序" />
+    <category term="交换排序" />
+    <category term="分治思想排序" />
     <category term="桶排序" />
     <category term="线性思想排序" />
     <category term="选择排序" />
-    <category term="分治思想排序" />
+    <category term="模型评估" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="String" />
     <category term="Java" />
     <category term="dubbo" />
-    <category term="模型评估" />
     <category term="KNN" />
-    <category term="JDK版本" />
-    <category term="JDK11" />
+    <category term="Stream" />
     <category term="OOM" />
     <category term="JVM" />
-    <category term="Stream" />
+    <category term="JDK版本" />
+    <category term="JDK11" />
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/</id>
         <title>RocketMQ系列-架构设计之消息</title>
         <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/"/>
-        <content type="html">&lt;p&gt;上一篇文章&lt;a href=&#34;./2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8.md&#34;&gt; RocketMQ 架构设计之启动过程解析&lt;/a&gt; 分析了  &lt;code&gt;NameServer&lt;/code&gt; ,  &lt;code&gt;Broker&lt;/code&gt; ,  &lt;code&gt;Producer&lt;/code&gt; ,  &lt;code&gt;Consumer&lt;/code&gt;  四个部分的启动过程，这边文章我们分析 &lt;b&gt;消息的收发过程&lt;/b&gt;.&lt;/p&gt;
+        <content type="html">&lt;p&gt;上一篇文章&lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/&#34;&gt; RocketMQ 架构设计之启动过程解析&lt;/a&gt; 分析了  &lt;code&gt;NameServer&lt;/code&gt; ,  &lt;code&gt;Broker&lt;/code&gt; ,  &lt;code&gt;Producer&lt;/code&gt; ,  &lt;code&gt;Consumer&lt;/code&gt;  四个部分的启动过程，这边文章我们分析 &lt;b&gt;消息的收发过程&lt;/b&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;生产者发送消息过程解析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#生产者发送消息过程解析&#34;&gt;#&lt;/a&gt; 生产者发送消息过程解析&lt;/h2&gt;
 &lt;p&gt;我们还是看上篇文章中的例子:&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 使用GroupName初始化Producer&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;DefaultMQProducer producer = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; DefaultMQProducer(&lt;span class=&#34;string&#34;&gt;&amp;quot;please_rename_unique_group_name&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 指定NameSrv的地址: 也可以通过环境变量NAMESRV_ADDR来指定，则不需要下面这一行。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;producer.setNamesrvAddr(&lt;span class=&#34;string&#34;&gt;&amp;quot;name-server1-ip:9876;name-server2-ip:9876&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 启动实例&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;producer.start();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 创建消息实例,指定 topic, tag, message body.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Message msg = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; Message(&lt;span class=&#34;string&#34;&gt;&amp;quot;TopicTest&amp;quot;&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;/* Topic */&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;string&#34;&gt;&amp;quot;TagA&amp;quot;&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;/* Tag */&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        (&lt;span class=&#34;string&#34;&gt;&amp;quot;Hello RocketMQ !!&amp;quot;&lt;/span&gt;).getBytes(RemotingHelper.DEFAULT_CHARSET) &lt;span class=&#34;comment&#34;&gt;/* Message body */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    );&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 发送消息给Broker&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    SendResult sendResult = producer.send(msg);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.printf(&lt;span class=&#34;string&#34;&gt;&amp;quot;%s%n&amp;quot;&lt;/span&gt;, sendResult);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; &lt;span class=&#34;keyword&#34;&gt;catch&lt;/span&gt; (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Thread.sleep(&lt;span class=&#34;number&#34;&gt;1000&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 关闭生产者&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;producer.shutdown();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -216,7 +216,7 @@
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// index: 表示第index个消费者&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; index = cidAll.indexOf(currentCID);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = index; i &amp;lt; mqAll.size(); i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 循环分配给消费者。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (i % cidAll.size() == index) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        result.add(mqAll.get(i));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h5 id=&#34;一致性哈希队列算法allocatemessagequeueconsistenthash&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一致性哈希队列算法allocatemessagequeueconsistenthash&#34;&gt;#&lt;/a&gt; 一致性哈希队列算法 (AllocateMessageQueueConsistentHash)&lt;/h5&gt;
 &lt;p&gt;这个算法实现起来比较复杂，涉及到了一个分布式算法，一致性哈希算法。&lt;/p&gt;
-&lt;p&gt;具体的算法实现内容可以参考: &lt;a href=&#34;https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/&#34;&gt;哈希算法&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;具体的算法实现内容可以参考: &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/&#34;&gt;哈希算法&lt;/a&gt;&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 哈希环的节点&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Collection&amp;lt;ClientNode&amp;gt; cidNodes = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ArrayList&amp;lt;&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (String cid : cidAll) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    cidNodes.add(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ClientNode(cid));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 创建一致性哈希的Router&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; ConsistentHashRouter&amp;lt;ClientNode&amp;gt; router;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (customHashFunction != &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    router = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ConsistentHashRouter&amp;lt;&amp;gt;(cidNodes, virtualNodeCnt, customHashFunction);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    router = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ConsistentHashRouter&amp;lt;&amp;gt;(cidNodes, virtualNodeCnt);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 将MQf通过Router分配给消费者&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;List&amp;lt;MessageQueue&amp;gt; results = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ArrayList&amp;lt;&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (MessageQueue mq : mqAll) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ClientNode clientNode = router.routeNode(mq.toString());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (clientNode != &lt;span class=&#34;keyword&#34;&gt;null&lt;/span&gt; &amp;amp;&amp;amp; currentCID.equals(clientNode.getKey())) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        results.add(mq);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; results;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;这种算法的好处也特别明显：当有消费者加入或者退出的时候，不会移动跨节点的 &lt;code&gt;MQ&lt;/code&gt;  分配情况。&lt;/p&gt;
 &lt;h5 id=&#34;通过配置的属性分配队列allocatemessagequeuebyconfig&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#通过配置的属性分配队列allocatemessagequeuebyconfig&#34;&gt;#&lt;/a&gt; 通过配置的属性分配队列 (AllocateMessageQueueByConfig)&lt;/h5&gt;
