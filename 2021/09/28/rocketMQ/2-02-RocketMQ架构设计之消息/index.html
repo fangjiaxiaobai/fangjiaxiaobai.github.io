@@ -76,7 +76,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>8.9k</span>
+    <span>26k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -84,7 +84,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
       <i class="ic i-clock"></i>
     </span>
     <span class="text">阅读时长</span>
-    <span>8 分钟</span>
+    <span>23 分钟</span>
   </span>
 </div>
 
@@ -117,12 +117,12 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -237,10 +237,10 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
 <p>我直接进入主题，从  <code>SendMessageProcessor</code>  说起。</p>
 <p>为什么上来就说 这个类呢？上篇文章中，我们分析了 <code>Broker</code>  的启动过程中，可以知道的  <code>Broker</code>  启动了 <code>NettyServer</code>  等待生产者，消费者发送来请求。这个  <code>SendMessageProcessor</code>  就是 <code>Broker</code>  接受生产者发送消息的处理器。</p>
 <p>具体的代码在  <code>org.apache.rocketmq.broker.BrokerController#registerProcessor</code>  中。</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF1.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF1.png" alt=""></p>
 <p>根据之前的内容，我们已知 发送的消息有 事务消息，批量消息，单条的普通消息三种类型，并且  <code>RocketMQ</code>  支持同步存储和异步存储两种方式。所以 肯定是 <code>Broker</code>  端提供了这六种消息的存储方式。</p>
 <p>实际上，也确实支持了这 6 种方式。我们先从  <code>SendMessageProcessor</code>  的类继承关系来看一下  <code>Broker</code>  是如何进行消息存储，我也会按照这样的思路来行文。</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF2.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF2.png" alt=""></p>
 <h3 id="接收同步消息"><a class="markdownIt-Anchor" href="#接收同步消息">#</a> 接收同步消息</h3>
 <p>同步消息处理的本质上还是异步的处理方式。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = asyncProcessRequest(ctx, request).get();</span><br></pre></td></tr></table></figure>
@@ -249,29 +249,180 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> CompletableFuture&lt;RemotingCommand&gt; <span class="title">asyncProcessRequest</span><span class="params">(ChannelHandlerContext ctx,</span></span></span><br><span class="line"><span class="params"><span class="function">        RemotingCommand request)</span> <span class="keyword">throws</span> RemotingCommandException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> SendMessageContext mqtraceContext;</span><br><span class="line">        <span class="keyword">switch</span> (request.getCode()) &#123;</span><br><span class="line">            <span class="comment">// 消费者发送回来的消息(可能是消费失败之后的?)</span></span><br><span class="line">            <span class="keyword">case</span> RequestCode.CONSUMER_SEND_MSG_BACK:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.asyncConsumerSendMsgBack(ctx, request);</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="comment">// 处理生产者发送来的消息</span></span><br><span class="line">                SendMessageRequestHeader requestHeader = parseRequestHeader(request);</span><br><span class="line">                <span class="keyword">if</span> (requestHeader == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> CompletableFuture.completedFuture(<span class="keyword">null</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                mqtraceContext = buildMsgContext(ctx, requestHeader);</span><br><span class="line">                <span class="comment">// 消息发送前的钩子。在消息发送之前，执行一些操作。</span></span><br><span class="line">                <span class="keyword">this</span>.executeSendMessageHookBefore(ctx, request, mqtraceContext);</span><br><span class="line">                <span class="keyword">if</span> (requestHeader.isBatch()) &#123;</span><br><span class="line">                    <span class="comment">// 如果是批量消息</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">this</span>.asyncSendBatchMessage(ctx, request, mqtraceContext, requestHeader);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 不是批量消息</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">this</span>.asyncSendMessage(ctx, request, mqtraceContext, requestHeader);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到， <code>Broker</code>  不仅处理来自 生产者发送来的消息，还需要处理 消费者 消费失败重试的消息。消费者重试的消息这部分比较复杂，我们后面再分析。我们先看处理生产者发送来的消息这部分。</p>
 <p>代码中显示，会判断消息的类型，是否是批量消息，分别调用不同的方法，进行存储。如下图。</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF3.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF3.png" alt=""></p>
 <p>上图中不是完整的代码，我删除了一些不重要的代码，可以看出来，不管是批量消息还是单条消息 (除事务消息) 都是交给了  <code>MessageStore</code>  进行存储的。 当然，事务消息是交给了  <code>TransactionalMessageService</code>  进行存储的，这个内容我们在分析 <code>RocketMQ</code>  事务消息的时候，会着重的分析，本文中就不做分析了。</p>
 <p>继续跟进代码</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF4.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF4.png" alt=""></p>
 <p><code>MessageStore</code>  只是对消息 和  <code>Broker</code>  进行了简单的校验，并没有真正的去存储消息。 而是把消息交给了  <code>commitLog</code>  进行存储消息。</p>
 <p>我们以单条消息为例，来看一下  <code>commitLog</code>  将消息存储到文件中的具体流程。</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF5.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF5.png" alt=""></p>
 <p>如上图中，  <code>commitLog</code>  收到消息，首先会选择一个 <code>MappedFile</code> , 这个  <code>MappedFile</code>  代表 磁盘上的物理文件在内容中的映射。指代  <code>$HOME/store/commitlog</code>  目录下的文件。也代表了消息要写入的文件。  <code>MappedFile</code>  会把消息写到缓冲区中 (即右上图)， 消息顺利写完之后，就触发刷盘动作，刷盘有两种方式： 同步写盘和异步刷盘。 同步写盘是指等待  <code>FlushCommitLogService</code>  把消息真正写到物理磁盘上，然后再返回。异步刷盘是指 唤醒  <code>FlushCommitLogService</code>  执行的线程，不等待其是否真正把消息写入了物理磁盘中。 最后，会把消息同步到其他的副本服务中。</p>
 <h3 id="存储消息流程总结"><a class="markdownIt-Anchor" href="#存储消息流程总结">#</a> 存储消息流程总结</h3>
 <p><code>Broker</code>  收到生产者发送的消息，会由  <code>SendMessageProcessor</code>  进行接收，然后会根据消息的类型单条消息，批量消息，还是事务消息，分别进行不同的处理。当然也会区分异步存储还是同步的存储消息。方法实现上本质还是调用 异步的方法来实现的， <code>SendMessageProcessor</code>  会把消息转交给  <code>CommitLog</code>  进行校验，会检查当前 <code>Broker</code>  和当前消息的状态，然后交给 <code>MappedFile</code>  真正的存储消息， <code>MappedFile</code>  表示存储消息的物理文件在内存中的映射，首先会把消息的内容写到缓冲区中，然后调用刷盘的方式 (同步写盘或者异步刷盘) 将消息真正的写到物理磁盘上。然后，将消息同步给其他副本。</p>
 <h3 id="再探讨一点细节"><a class="markdownIt-Anchor" href="#再探讨一点细节">#</a> 再探讨一点细节</h3>
 <h4 id="获取mappedfile"><a class="markdownIt-Anchor" href="#获取mappedfile">#</a> 获取 MappedFile</h4>
 <p>在 Broker 将消息写入 MappedFile 之前，就需要需要获取到一个 MappedFile 进行写入。如何获取的呢？</p>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF6.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF6.png" alt=""></p>
 <p>在 asyncPutMessages 方法中，有两处获取 MappedFile 的代码。</p>
 <p>第一处代码，倒是没有复杂的逻辑</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> MappedFile <span class="title">getLastMappedFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MappedFile mappedFileLast = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="keyword">this</span>.mappedFiles.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mappedFileLast = <span class="keyword">this</span>.mappedFiles.get(<span class="keyword">this</span>.mappedFiles.size() - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IndexOutOfBoundsException e) &#123;</span><br><span class="line">            <span class="comment">//continue;</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;getLastMappedFile has exception.&quot;</span>, e);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mappedFileLast;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第二处代码，稍有猫腻。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> MappedFile <span class="title">getLastMappedFile</span><span class="params">(<span class="keyword">final</span> <span class="keyword">long</span> startOffset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getLastMappedFile(startOffset, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img data-src="./images/2-02-Broker%E6%B6%88%E6%81%AF7.png" alt=""></p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF7.png" alt=""></p>
 <p>创建文件的代码和执行过程如上图所示，代码有删减。</p>
 <p>解释一下猫腻：创建  <code>MappedFile</code>  的时候，一次会创建两个 <code>MappedFile</code> , 这样下次就可以直接通过 一处的代码获取到  <code>MappedFile</code> ，而不用再去创建  <code>MappedFile</code>  了。 由于 真实的创建 <code>MappedFile</code>  是由 后台  <code>AllocateMappedFileService</code>  线程来创建的，所以也不会浪费时间。</p>
 <p>代码显示，会把  <code>AllocateRequest</code>  分别放到  <code>requestTable</code>  和  <code>requestQueue</code>  中。  <code>AllocateRequest</code>  是 创建  <code>MappedFile</code>  文件请求，  <code>requesetTable</code>  是一个  <code>concurrentHashMap</code>  ,  <code>key</code>  是文件的路径， <code>Value</code>  是  <code>AllocateRequest</code> 。 存储了 路径和 <code>AllocateRequest</code>  的映射关系。  <code>requestQueue</code> ，是请求的队列， <code>PriorityBlockingQueue</code> ，后台 <code>AllocateMappedFileService</code>  线程会 <code>requestQueue</code>  取出一个请求，分配的时候有两种策略，一种是使用 <code>Mmap</code>  的方式来构建 <code>MappedFile</code>  实例，另外一种是从 <code>TransientStorePool</code>  堆外内存池中获取相应的 <code>DirectByteBuffer</code>  来构建 <code>MappedFile</code> .</p>
+<h2 id="consumer-消费消息"><a class="markdownIt-Anchor" href="#consumer-消费消息">#</a> Consumer 消费消息</h2>
+<p>在上一篇文章中，我们介绍了 消费者有两种实现:  <code>DefaultLitePullConsumerImpl</code>  和  <code>DefaultMQPushConsumerImpl</code> . 我们先暂时抛开这两种具体的实现方式。 从稍微高一点的角度来看一下消息者消费消息的逻辑。从 <b>消费者注册</b>, <b>负载均衡</b>，<b>拉取消息</b>，<b>消费消息</b> 这个思路来行文。</p>
+<h3 id="消息者注册"><a class="markdownIt-Anchor" href="#消息者注册">#</a> 消息者注册</h3>
+<p>消费者启动后，每隔 <code>10ms</code>  会从  <code>NameServer</code>  查询一次用户订阅的所有话题路由信息.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 每10ms从NameServer拉取一下 TopicRouteInfo*/</span></span><br><span class="line"><span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            MQClientInstance.<span class="keyword">this</span>.updateTopicRouteInfoFromNameServer();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;ScheduledTask updateTopicRouteInfoFromNameServer exception&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="number">10</span>, <span class="keyword">this</span>.clientConfig.getPollNameServerInterval(), TimeUnit.MILLISECONDS);</span><br></pre></td></tr></table></figure>
+<p>更新 <code>topic</code>  路由信息在上篇文中已经介绍过了，这里就不详细的去介绍了，只是简单的串一下消息者消费消息的流程。</p>
+<p>除此之外，还有一下操作：</p>
+<ul>
+<li>每秒发送一次心跳检测.</li>
+<li>每 10s 持久化一次  <code>Consumer</code>  的 <code>offset</code> . 说到这类， 在启动的时候也会加载指定目录下的  <code>consumeOffset</code> .</li>
+<li>每分钟 扫描  <code>consumerTable</code>  自动调整线程池大小</li>
+</ul>
+<h3 id="消费者负载均衡"><a class="markdownIt-Anchor" href="#消费者负载均衡">#</a> 消费者负载均衡</h3>
+<p>在消费者启动过程中，会启动  <code>RebalenceService</code> . 看名字就知道这是一个负载均衡服务。 什么作用呢？在任何一个消费者 启动，关闭，重置消费偏移 的时候，都会触发这个这个服务的重平衡操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本机 启动时=&gt;其他的消费者会受到 consumerIds发生变更的请求。</span></span><br><span class="line"><span class="comment">/** 5.启动负载均衡服务 org.apache.rocketmq.client.impl.factory.MQClientInstance#start*/</span></span><br><span class="line"><span class="keyword">this</span>.rebalanceService.start();</span><br><span class="line"><span class="comment">// 其他的消息者启动或者关闭时,即 consumerId 发生变动的时候 org.apache.rocketmq.client.impl.ClientRemotingProcessor#processRequest</span></span><br><span class="line"><span class="keyword">case</span> RequestCode.NOTIFY_CONSUMER_IDS_CHANGED:</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.notifyConsumerIdsChanged(ctx, request);</span><br><span class="line"><span class="comment">// 控制端 重置消费偏移量时 org.apache.rocketmq.client.impl.ClientRemotingProcessor#processRequest</span></span><br><span class="line"><span class="keyword">case</span> RequestCode.RESET_CONSUMER_CLIENT_OFFSET:</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.resetOffset(ctx, request);</span><br></pre></td></tr></table></figure>
+<p>重平衡操作发生了什么？</p>
+<p>我们都知道 在 <code>Broker</code>  端管理消息的最小单位是 <code>MessageQueue</code>  , 而不是  <code>topic</code> 。比如 当你发送了  <code>10</code>  条相同话题的消息，这  <code>10</code>  条话题可能存储在了不同  <code>Broker</code>  服务器的不同队列中。所以 当我们讨论消息队列负载均衡的时候，就是在讨论服务器端的所有队列如何给所有消费者消费的问题。在  <code>RocketMQ</code>  中，客户端有两种消费模式，一种是<b>广播模式</b>，另外一种是<b>集群模式</b>。</p>
+<p>我们现在假设总共有两台  <code>Broker</code>  服务器，假设用户使用  <code>Producer</code>  已经发送了  <code>8</code>  条消息，这  <code>8</code>  条消息现在均衡的分布在两台 Broker 服务器的  <code>8</code>  个队列中，每个队列中有一个消息。现在有  <code>3</code>  台消费者都订阅了  <code>Test</code>  话题的消费者实例，我们来看在不同消费模式下，不同的消费者会收到哪几条消息。</p>
+<h4 id="广播模式"><a class="markdownIt-Anchor" href="#广播模式">#</a> 广播模式</h4>
+<p>这种方式下，每台消费者都会收到 <code>8</code>  条消息。所以，在广播的模式下，重平衡操作执行如下所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 消费者的模式: 广播还是集群模式</span></span><br><span class="line"><span class="keyword">switch</span> (messageModel) &#123;</span><br><span class="line">    <span class="comment">// 广播方式。</span></span><br><span class="line">    <span class="keyword">case</span> BROADCASTING: &#123;</span><br><span class="line">        <span class="comment">// topicSubscribeInfoTable: 存储topic 对应的 MessageQueue 列表.</span></span><br><span class="line">        Set&lt;MessageQueue&gt; mqSet = <span class="keyword">this</span>.topicSubscribeInfoTable.get(topic);</span><br><span class="line">        <span class="keyword">if</span> (mqSet != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 更新 消费者消费订阅表。返回是否发生了变动。</span></span><br><span class="line">            <span class="keyword">boolean</span> changed = <span class="keyword">this</span>.updateProcessQueueTableInRebalance(topic, mqSet, isOrder);</span><br><span class="line">            <span class="keyword">if</span> (changed) &#123;</span><br><span class="line">                <span class="comment">// 如果发生了变动，则根据不同的消费消费方式处理：</span></span><br><span class="line">                <span class="comment">// push,则需要通知给Broker，更新各个消费者的订阅关系。</span></span><br><span class="line">                <span class="comment">// pull,则会通知消费者，执行消费逻辑。</span></span><br><span class="line">                <span class="keyword">this</span>.messageQueueChanged(topic, mqSet, mqSet);</span><br><span class="line">                log.info(<span class="string">&quot;messageQueueChanged &#123;&#125; &#123;&#125; &#123;&#125; &#123;&#125;&quot;</span>, consumerGroup, topic, mqSet, mqSet);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;doRebalance, &#123;&#125;, but the topic[&#123;&#125;] not exist.&quot;</span>, consumerGroup, topic);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> ....:</span><br><span class="line">    <span class="comment">// 省略..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上面代码中的注释， 主要注意的是，广播模式下， <code>messageQueue</code>  发生变动，需要根据不同的消费方式 ( <code>pull</code> / <code>push</code> ), 执行不同的逻辑。</p>
+<ul>
+<li><code>push</code>  方式：会更新消息消费订阅表的版本，然后会通知 <code>Broker</code> ，触发 <code>consumerId</code>  变动。</li>
+<li><code>pull</code>  方式：会重新 <code>pull</code>  消息，执行 <code>pullTask</code> .</li>
+</ul>
+<h4 id="集群模式"><a class="markdownIt-Anchor" href="#集群模式">#</a> 集群模式</h4>
+<p>集群模式是指所有的消息队列会按照某种分配策略来分给不同的消费者客户端。</p>
+<p>集群方式，不就是多个消费者协同的消费一个 <code>topic</code>  的数据吗，也就是说多个消费者协同的订阅 <code>topic</code>  下的多个消息队列 ( <code>MessageQueue</code> ). 那就需要一种策略去分配多个 <code>MessageQueue</code>  给每个消费者。</p>
+<p><code>RocktMQ</code>  提供了六种 <code>MessageQueue</code>  的消费策略。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当前消费者 需要消费哪几个消息队列中消息的分配策略。</span></span><br><span class="line">AllocateMessageQueueStrategy strategy = <span class="keyword">this</span>.allocateMessageQueueStrategy;</span><br><span class="line"></span><br><span class="line">List&lt;MessageQueue&gt; allocateResult = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// mqAll:当前topic和group下的消费队列列表.   cidAll: 所有消费队列的id.</span></span><br><span class="line">    <span class="comment">// 两者一一对应。</span></span><br><span class="line">    allocateResult = strategy.allocate(<span class="keyword">this</span>.consumerGroup, <span class="keyword">this</span>.mQClientFactory.getClientId(),</span><br><span class="line">        mqAll, cidAll);</span><br><span class="line">&#125;<span class="keyword">catch</span>(Throwable e)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>根据分配策略分配好自己要订阅的 <code>MessageQueue</code>  之后，就会 更新消费者消费订阅表。然后需要根据不同的消费方式 ( <code>pull</code> / <code>push</code> ), 执行不同的逻辑。</p>
+<ul>
+<li><code>push</code>  方式：会更新消息消费订阅表的版本，然后会通知 <code>Broker</code> ，触发 <code>consumerId</code>  变动。</li>
+<li><code>pull</code>  方式：会重新 <code>pull</code>  消息，执行 <code>pullTask</code> .</li>
+</ul>
+<p>我们就一起看下  <code>AllocateMessageQueueStrategy</code>  的六种实现。</p>
+<h5 id="平均哈希队列算法allocatemessagequeueaveragely"><a class="markdownIt-Anchor" href="#平均哈希队列算法allocatemessagequeueaveragely">#</a> 平均哈希队列算法 (AllocateMessageQueueAveragely)</h5>
+<p>这种策略比较简单。举个例子来说明:</p>
+<p>假设有 <code>5</code>  个 <code>mq</code> ,  <code>3</code>  个消费者，那么消费者 <code>id</code>  为 <code>1</code>  的 <code>C1</code>  会订阅 <code>mq1,mq2</code> .   <code>C2=&gt;mq3,mq4</code> .   <code>C3=&gt;mq5</code> .<br>
+ 假设有 <code>5</code>  个 <code>mq</code> ,  <code>6</code>  个消费者，那么订阅关系则为:  <code>C1=&gt;mq1</code> , <code>C2=&gt;mq2</code> , <code>C3=&gt;mq3</code> , <code>C4=&gt;mq4</code> , <code>C5=&gt;mq5</code> , <code>C6=&gt;[]</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cidAll: 消费者id列表</span></span><br><span class="line"><span class="keyword">int</span> index = cidAll.indexOf(currentCID);</span><br><span class="line"><span class="comment">// mqAll: 消息队列的列表</span></span><br><span class="line"><span class="comment">// mod: 表示 有多个队列无法平均分配。</span></span><br><span class="line"><span class="keyword">int</span> mod = mqAll.size() % cidAll.size();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4 &lt;= 5 ? 1 : (4 &gt; 0 &amp;&amp; 1 &lt; 4 ? 4 / 5 + 1 : 4 / 5)</span></span><br><span class="line"><span class="keyword">int</span> averageSize;</span><br><span class="line"><span class="keyword">if</span> (mqAll.size() &lt;= cidAll.size()) &#123;</span><br><span class="line">    <span class="comment">// 队列比消费者少，每个消费者最大消费1个队列。</span></span><br><span class="line">    averageSize = <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (mod &gt; <span class="number">0</span> &amp;&amp; index &lt; mod) &#123;</span><br><span class="line">        <span class="comment">// 不能平均分, 并且消费者的id比余数小。那么该消费者要多消费一个MessageQueue.</span></span><br><span class="line">        averageSize = mqAll.size() / cidAll.size() + <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 正好平均分 或者 当前消费者的id大于mod, 那么该消费者就平均分.</span></span><br><span class="line">        <span class="comment">// 会有两种情况: 1、mq有5个,consumer有5个， cid=5,则每个消费者都正好订阅一个mq</span></span><br><span class="line">        <span class="comment">// 2、mq有5个，consumer有6个,cid=6, 则该消费者不会订阅mq</span></span><br><span class="line">        averageSize = mqAll.size() / cidAll.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//        int averageSize =</span></span><br><span class="line"><span class="comment">//            mqAll.size() &lt;= cidAll.size() ? 1 : (mod &gt; 0 &amp;&amp; index &lt; mod ? mqAll.size() / cidAll.size()</span></span><br><span class="line"><span class="comment">//                + 1 : mqAll.size() / cidAll.size());</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅mq 的起始 索引. 比如5个mq，3个consumer, 那么,c1=&gt;m1,m2; c2=&gt;m3,m4; c3=&gt;m5</span></span><br><span class="line"><span class="keyword">int</span> startIndex = (mod &gt; <span class="number">0</span> &amp;&amp; index &lt; mod) ? index * averageSize : index * averageSize + mod;</span><br><span class="line"><span class="keyword">int</span> range = Math.min(averageSize, mqAll.size() - startIndex);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; range; i++) &#123;</span><br><span class="line">    result.add(mqAll.get((startIndex + i) % mqAll.size()));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+<h5 id="循环平均哈希队列算法allocatemessagequeueaveragelybycircle"><a class="markdownIt-Anchor" href="#循环平均哈希队列算法allocatemessagequeueaveragelybycircle">#</a> 循环平均哈希队列算法 (AllocateMessageQueueAveragelyByCircle)</h5>
+<p>这种实现页是很简单的实现。举例来说明，不过多介绍了。</p>
+<p>假设有 <code>5</code>  个 <code>mq</code> ,  <code>3</code>  个消费者，那么订阅关系则为:<br>
+ <code>C1=&gt;mq1,mq4</code> .<br>
+ <code>C2=&gt;mq2,mq5</code> .<br>
+ <code>C3=&gt;mq3</code> .</p>
+<p>假设有 <code>5</code>  个 <code>mq</code> ,  <code>6</code>  个消费者，那么订阅关系则为:  <code>C1=&gt;mq1</code> , <code>C2=&gt;mq2</code> , <code>C3=&gt;mq3</code> , <code>C4=&gt;mq4</code> , <code>C5=&gt;mq5</code> , <code>C6=&gt;[]</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index: 表示第index个消费者</span></span><br><span class="line"><span class="keyword">int</span> index = cidAll.indexOf(currentCID);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; mqAll.size(); i++) &#123;</span><br><span class="line">    <span class="comment">// 循环分配给消费者。</span></span><br><span class="line">    <span class="keyword">if</span> (i % cidAll.size() == index) &#123;</span><br><span class="line">        result.add(mqAll.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="一致性哈希队列算法allocatemessagequeueconsistenthash"><a class="markdownIt-Anchor" href="#一致性哈希队列算法allocatemessagequeueconsistenthash">#</a> 一致性哈希队列算法 (AllocateMessageQueueConsistentHash)</h5>
+<p>这个算法实现起来比较复杂，涉及到了一个分布式算法，一致性哈希算法。</p>
+<p>具体的算法实现内容可以参考: <a href="https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/">哈希算法</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 哈希环的节点</span></span><br><span class="line">Collection&lt;ClientNode&gt; cidNodes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String cid : cidAll) &#123;</span><br><span class="line">    cidNodes.add(<span class="keyword">new</span> ClientNode(cid));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一致性哈希的Router</span></span><br><span class="line"><span class="keyword">final</span> ConsistentHashRouter&lt;ClientNode&gt; router;</span><br><span class="line"><span class="keyword">if</span> (customHashFunction != <span class="keyword">null</span>) &#123;</span><br><span class="line">    router = <span class="keyword">new</span> ConsistentHashRouter&lt;&gt;(cidNodes, virtualNodeCnt, customHashFunction);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    router = <span class="keyword">new</span> ConsistentHashRouter&lt;&gt;(cidNodes, virtualNodeCnt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将MQf通过Router分配给消费者</span></span><br><span class="line">List&lt;MessageQueue&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (MessageQueue mq : mqAll) &#123;</span><br><span class="line">    ClientNode clientNode = router.routeNode(mq.toString());</span><br><span class="line">    <span class="keyword">if</span> (clientNode != <span class="keyword">null</span> &amp;&amp; currentCID.equals(clientNode.getKey())) &#123;</span><br><span class="line">        results.add(mq);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> results;</span><br></pre></td></tr></table></figure>
+<p>这种算法的好处也特别明显：当有消费者加入或者退出的时候，不会移动跨节点的 <code>MQ</code>  分配情况。</p>
+<h5 id="通过配置的属性分配队列allocatemessagequeuebyconfig"><a class="markdownIt-Anchor" href="#通过配置的属性分配队列allocatemessagequeuebyconfig">#</a> 通过配置的属性分配队列 (AllocateMessageQueueByConfig)</h5>
+<p>这种算法就是 根据配置的 <code>MQ</code> , 进行消费。</p>
+<p>通过  <code>set</code>  方法设置该消费者要消费的 <code>MQ</code> ,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessageQueueList</span><span class="params">(List&lt;MessageQueue&gt; messageQueueList)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.messageQueueList = messageQueueList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分配方法则，直接将  <code>messageQueueList</code>  返回即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;MessageQueue&gt; <span class="title">allocate</span><span class="params">(String consumerGroup, String currentCID, List&lt;MessageQueue&gt; mqAll,</span></span></span><br><span class="line"><span class="params"><span class="function">    List&lt;String&gt; cidAll)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.messageQueueList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="机房hash队列算法allocatemessagequeuebymachineroom"><a class="markdownIt-Anchor" href="#机房hash队列算法allocatemessagequeuebymachineroom">#</a> 机房 Hash 队列算法 (AllocateMessageQueueByMachineRoom)</h5>
+<p>这个算法 和 循环平均哈希队列算法 是一样的。只不过是根据  <code>brokerName</code>  进行 <code>Hash</code>  计算的。</p>
+<p>举个例子来说:</p>
+<p>假设 5 个 <code>mq</code>  ( <code>fxb-test01@fxb.com</code> , <code>fxb-test02@fxb.com</code> , <code>fxb-test03@fxb.com</code> , <code>fxb-test04@fxb.com</code> , <code>fxb-test05@fxb.com</code> ),3 个消费者。则订阅关系如下:<br>
+ <code>C1=&gt;mq1,mq4</code> .<br>
+ <code>C2=&gt;mq2,mq5</code> .<br>
+ <code>C3=&gt;mq3</code> .</p>
+<p>代码实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">List&lt;MessageQueue&gt; premqAll = <span class="keyword">new</span> ArrayList&lt;MessageQueue&gt;();</span><br><span class="line"><span class="keyword">for</span> (MessageQueue mq : mqAll) &#123;</span><br><span class="line">    String[] temp = mq.getBrokerName().split(<span class="string">&quot;@&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (temp.length == <span class="number">2</span> &amp;&amp; consumeridcs.contains(temp[<span class="number">0</span>])) &#123;</span><br><span class="line">        premqAll.add(mq);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> mod = premqAll.size() / cidAll.size();</span><br><span class="line"><span class="keyword">int</span> rem = premqAll.size() % cidAll.size();</span><br><span class="line"><span class="keyword">int</span> startIndex = mod * currentIndex;</span><br><span class="line"><span class="keyword">int</span> endIndex = startIndex + mod;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = startIndex; i &lt; endIndex; i++) &#123;</span><br><span class="line">    result.add(premqAll.get(i));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (rem &gt; currentIndex) &#123;</span><br><span class="line">    result.add(premqAll.get(currentIndex + mod * cidAll.size()));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+<h5 id="基于机房远近优先allocatemachineroomnearby"><a class="markdownIt-Anchor" href="#基于机房远近优先allocatemachineroomnearby">#</a> 基于机房远近优先 (AllocateMachineRoomNearby)</h5>
+<p>这种算法会根据消费者的命名来区分。比如相同机房的消费者有相同的命名格式: <code>beijing-mxy-001</code> , <code>beijing-mxy-002...</code>  ，那么这类的消费者和 <code>MQ</code>  会被认为属于同一个机房。<b>在同一个机房内的 <code>MQ</code>  会优先被本机房的消费者进行消费</b> 如果本机房内没有存活的消费者，那该机房中的 <code>MQ</code>  会被所有的消费者所共享。  至于某一个消费者会订阅哪个 <code>MQ</code> ，则由具体指定的分配策略来分配。具体如下代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  根据机房分组 broker,</span></span><br><span class="line">Map&lt;String<span class="comment">/*machine room */</span>, List&lt;MessageQueue&gt;&gt; mr2Mq = <span class="keyword">new</span> TreeMap&lt;String, List&lt;MessageQueue&gt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (MessageQueue mq : mqAll) &#123;</span><br><span class="line">    String brokerMachineRoom = machineRoomResolver.brokerDeployIn(mq);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isNoneEmpty(brokerMachineRoom)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mr2Mq.get(brokerMachineRoom) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mr2Mq.put(brokerMachineRoom, <span class="keyword">new</span> ArrayList&lt;MessageQueue&gt;());</span><br><span class="line">        &#125;</span><br><span class="line">        mr2Mq.get(brokerMachineRoom).add(mq);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Machine room is null for mq &quot;</span> + mq);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据机房分组consumer</span></span><br><span class="line">Map&lt;String<span class="comment">/*machine room */</span>, List&lt;String<span class="comment">/*clientId*/</span>&gt;&gt; mr2c = <span class="keyword">new</span> TreeMap&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (String cid : cidAll) &#123;</span><br><span class="line">    <span class="comment">// 根据cid判断出所属的机房==&gt; 相同机房的消费需要有相同的命名格式.</span></span><br><span class="line">    String consumerMachineRoom = machineRoomResolver.consumerDeployIn(cid);</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isNoneEmpty(consumerMachineRoom)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mr2c.get(consumerMachineRoom) == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mr2c.put(consumerMachineRoom, <span class="keyword">new</span> ArrayList&lt;String&gt;());</span><br><span class="line">        &#125;</span><br><span class="line">        mr2c.get(consumerMachineRoom).add(cid);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Machine room is null for consumer id &quot;</span> + cid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;MessageQueue&gt; allocateResults = <span class="keyword">new</span> ArrayList&lt;MessageQueue&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算当前consumer可以消费的MQ. 当前机房有多个消费者的时候，则使用真正分配策略(其他的分配策略)进行分配。</span></span><br><span class="line"><span class="comment">// 1.allocate the mq that deploy in the same machine room with the current consumer</span></span><br><span class="line">String currentMachineRoom = machineRoomResolver.consumerDeployIn(currentCID);</span><br><span class="line">List&lt;MessageQueue&gt; mqInThisMachineRoom = mr2Mq.remove(currentMachineRoom);</span><br><span class="line">List&lt;String&gt; consumerInThisMachineRoom = mr2c.get(currentMachineRoom);</span><br><span class="line"><span class="keyword">if</span> (mqInThisMachineRoom != <span class="keyword">null</span> &amp;&amp; !mqInThisMachineRoom.isEmpty()) &#123;</span><br><span class="line">    allocateResults.addAll(allocateMessageQueueStrategy.allocate(consumerGroup, currentCID, mqInThisMachineRoom, consumerInThisMachineRoom));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.allocate the rest mq to each machine room if there are no consumer alive in that machine room</span></span><br><span class="line"><span class="comment">// 如果当前机房没有存活的消费者，那么当前机房的MQ会被所有的消费者共享。根据真实的分配策略进行分配</span></span><br><span class="line"><span class="keyword">for</span> (String machineRoom : mr2Mq.keySet()) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!mr2c.containsKey(machineRoom)) &#123; <span class="comment">// no alive consumer in the corresponding machine room, so all consumers share these queues</span></span><br><span class="line">        allocateResults.addAll(allocateMessageQueueStrategy.allocate(consumerGroup, currentCID, mr2Mq.get(machineRoom), cidAll));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> allocateResults;</span><br></pre></td></tr></table></figure>
+<p>以上就是 <code>RocketMQ</code>  使用的负载均衡的内容了，当然，我们也可以自定义 分配策略。只需要实现  <code>AllocateMessageQueueStrategy</code>  , 在创建消费者实例的时候使用就好了。</p>
+<h3 id="拉取消息"><a class="markdownIt-Anchor" href="#拉取消息">#</a> 拉取消息</h3>
+<p>我们知道的是， RocketMQ 支持两种消费者类型，一种是推送方式的，一种是主动拉取消息。</p>
+<p>这里我们先从拉取消息说起。  你懂的，我们是要讲的是:  <code>DefaultLitePullConsumer</code> .</p>
+<h4 id="defaultlitepullconsumer"><a class="markdownIt-Anchor" href="#defaultlitepullconsumer">#</a> DefaultLitePullConsumer</h4>
+<p><code>DefaultLitePullConsumer</code> ，会为每个  <code>messageQueue</code>  创建一个 <code>PullTaskImpl</code> .  它会定时的从  <code>Broker</code>  端拉取消息。然后封装成  <code>PullRequest</code> , 放到  <code>consumeRequestCache</code>  这个阻塞队列中， 然 后  <code>DefaultLitePullConsumer</code>  会调用 <code>poll</code>  方法，获取 List<MessageExt>, 这样就算是消费完成了。</p>
+<p>是客户端 定时任务主动想 <code>Broker</code>  端发送请求，拉取消息。</p>
+<p>而 推的方式，就不是这么简单了。</p>
+<h4 id="defaultmqpushconsumer"><a class="markdownIt-Anchor" href="#defaultmqpushconsumer">#</a> DefaultMQPushConsumer</h4>
+<p>这还是要从 <code>Broker</code>  端存储完消息之后说起，Broker 会运行一个  <code>ReputMessageService</code> . 这是一个线程，有什么作用呢？<br>
+ 它是推送消息的线程，负责将写入 <code>CommitLog</code>  的消息推送给对应的消费者。</p>
+<p>这里会有两个问题:</p>
+<ul>
+<li>1、 <code>ReputMessageService</code>  怎么知道要去推送消息给消费者呢</li>
+</ul>
+<p><code>ReputMessageService</code>  每隔 1 秒会检查一下这个  <code>CommitLog</code>  是否有新的数据写入。 <code>ReputMessageService</code>  自身维护了一个偏移量  <code>reputFromOffset</code> ，用以对比和  <code>CommitLog</code>  文件中的消息总偏移量的差距。当这两个偏移量不同的时候，就代表有新的消息到来了。</p>
+<p>如下图:</p>
+<p><img data-src="/images/rocketmq/2-03-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF.png" alt=""></p>
+<ul>
+<li><code>ReputMessageService</code>  是怎样推送消息的</li>
+</ul>
+<p>从上图中可以看见，  <code>ReputMessageService</code>  封装了一个  <code>DispatchRequest</code> ，然后通过  <code>DefaultMessageStore.doDispatch</code>  方法，转发了出去。虽说是转发了出去，但是并非直接发送给了消费者。</p>
+<p>而是转发给了  <code>CommitLogDispatcherBuildConsumeQueue</code> . 它主要是根据这条请求按照不同的队列  <code>ID</code>  创建不同的消费队列文件，并在内存中维护一份消费队列列表。然后将  <code>DispatchRequest</code>  请求中这条消息的消息偏移量、消息大小以及消息在发送时候附带的标签的  <code>Hash</code>  值写入到相应的消费队列文件中去。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putMessagePositionInfo</span><span class="params">(DispatchRequest dispatchRequest)</span> </span>&#123;</span><br><span class="line">    ConsumeQueue cq = <span class="keyword">this</span>.findConsumeQueue(dispatchRequest.getTopic(), dispatchRequest.getQueueId());</span><br><span class="line">    cq.putMessagePositionInfoWrapper(dispatchRequest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后台通过 <code>FlushConsumeQueueService</code>  线程来定时的持久化到磁盘中，写文件和  <code>Broker</code>  写入 <code>MappedLogFile</code>  一样。只是位置不同。</p>
+<p>好家伙，到现在还没有给消息推送消息，自己先存起来了。</p>
+<p>而事实上，RocketMQ 并没有实现 Broker 端 发送消息给 消费者。 推模型的消息消费模式，是通过拉模式实现的。</p>
+<p>这里需要区分 广播模式 和 集群模型分开来说了。</p>
+<h5 id="广播模式-2"><a class="markdownIt-Anchor" href="#广播模式-2">#</a> 广播模式</h5>
+<p>每个消费队列的偏移量肯定不能存储在  <code>Broker</code>  服务器端，因为多个消费者对于同一个队列的消费可能不一致，偏移量会互相覆盖掉。因此，在广播模式下，每个客户端的消费偏移量是存储在本地的，然后每隔  <code>5</code>  秒将内存中的  <code>offsetTable</code>  持久化到磁盘中。当首次从服务器获取可消费队列的时候，偏移量是直接从本地文件中读取的。</p>
+<h5 id="集群模式-2"><a class="markdownIt-Anchor" href="#集群模式-2">#</a> 集群模式</h5>
+<p>在集群模式下，由于每个客户端所消费的消息队列不同，所以每个消息队列已经消费到哪里的消费偏移量是记录在  <code>Broker</code>  服务器端的。</p>
+<p>消费者客户端在内存中维护了一个  <code>offsetTable</code>  表，在  <code>Broker</code>  服务器端也维护了一个偏移量表。在消费者客户端， <code>RebalanceService</code>  服务会定时地 (默认 20 秒) 从  <code>Broker</code>  服务器获取当前客户端所需要消费的消息队列，并与当前消费者客户端的消费队列进行对比，看是否有变化。对于每个消费队列，会从  <code>Broker</code>  服务器查询这个队列当前的消费偏移量。然后根据这几个消费队列，创建对应的拉取请求  <code>PullRequest</code>  准备从  <code>Broker</code>  服务器拉取消息。当从  <code>Broker</code>  服务器拉取下来消息以后，只有当用户成功消费的时候，才会更新本地的偏移量表。本地的偏移量表再通过定时服务每隔  <code>5</code>  秒同步到  <code>Broker</code>  服务器端，维护在  <code>Broker</code>  服务器端的偏移量表也会每隔  <code>5</code>  秒钟序列化到磁盘中.</p>
+<p>那么重点来了，创建的 <code>PullRequest</code>  就会被放到  <code>pullRequestQueue</code>  中。</p>
+<h4 id="拉取消息-2"><a class="markdownIt-Anchor" href="#拉取消息-2">#</a> 拉取消息</h4>
+<p>在 消费者启动 一文中，可以知道 消费者启动后，后台会一直运行一个  <code>PullMessageService</code>  线程。它会阻塞的从  <code>pullRequestQueue</code>  中获取  <code>PullRequest</code>  向 <code>Broker</code>  端发送请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!<span class="keyword">this</span>.isStopped()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 出队</span></span><br><span class="line">            PullRequest pullRequest = <span class="keyword">this</span>.pullRequestQueue.take();</span><br><span class="line">            <span class="comment">// 拉取消息</span></span><br><span class="line">            <span class="keyword">this</span>.pullMessage(pullRequest);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>pullRequestQueue</code>  便是  <code>pull Message Request Queue</code>  了。(拉取消息请求的队列了)</p>
+<p>当真正尝试拉取消息之前，其会检查当前请求的内部缓存的消息数量、消息大小、消息阈值跨度是否超过了某个阈值，如果超过某个阈值，则推迟  <code>50</code>  毫秒重新执行这个请求，当执行完一些必要的检查之后，客户端会将用户指定的过滤信息以及一些其它必要消费字段封装到请求信息体中，然后才开始从  <code>Broker</code>  服务器拉取这个请求从当前偏移量开始的消息，默认一次性最多拉取  <code>32</code>  条，服务器返回的响应会告诉客户端这个队列下次开始拉取时的偏移量。客户端每次都会注册一个  <code>PullCallback</code>  回调，用以接受服务器返回的响应信息，根据响应信息的不同状态信息，然后修正这个请求的偏移量，并进行下次请求。</p>
+<p>对了，都有些什么时候会将  <code>PullRequest</code>  放入  <code>pullRequestQueue</code>  中的呢？</p>
+<ul>
+<li>重平衡的时候
+<ul>
+<li>有消费者加入，发生重平衡</li>
+<li>定时任务，发送重平衡。</li>
+</ul>
+</li>
+<li>消息消费失败，重试。</li>
+<li>启动的时候。</li>
+</ul>
+<p>这些都是会触发拉取消息的。</p>
+<p>最后，终于到最后一步了，消费消息。</p>
+<h4 id="消费消息"><a class="markdownIt-Anchor" href="#消费消息">#</a> 消费消息</h4>
+<p>当把消息放在  <code>PullRequestQueue</code>  这个阻塞队列中之后，后台线程会不断从这个阻塞队列中获取  <code>PullRequest</code> . 如下图代码中所示。拿到了  <code>PullRequest</code>  则会提交了一个  <code>ConsumeRequest</code> . 我想这又被你猜到了。哈哈。这里将  <code>ConsumeRequest</code>   <code>submit</code>  给了一个后台线程  <code>consumeExecutor</code> 。接着往下看吧。该线程会每分钟执行一次。进行消息消费。</p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF8.png" alt=""></p>
+<p>依赖于用户指定的消息回调函数的不同，消息的消费分为两种：并发消费和有序消费。</p>
+<p>并发消费没有考虑消息发送的顺序，客户端从服务器获取到消息就会直接回调给用户。而有序消费会考虑每个队列消息发送的顺序，注意此处并不是每个话题消息发送的顺序，一定要记住  <code>RocketMQ</code>  控制消息的最细粒度是消息队列。当我们讲有序消费的时候，就是在说对于某个话题的某个队列，发往这个队列的消息，客户端接受消息的顺序与发送的顺序完全一致。</p>
+<h5 id="并发消费"><a class="markdownIt-Anchor" href="#并发消费">#</a> 并发消费</h5>
+<p>当用户注册消息回调类的时候，如果注册的是  <code>MessageListenerConcurrently</code>  回调类，那么就认为用户不关心消息的顺序问题。我们在上文提到过每个  <code>PullRequest</code>  都关联了一个处理队列  <code>ProcessQueue</code> ，而每个处理队列又都关联了一颗消息树  <code>msgTreeMap</code> 。当客户端拉取到新的消息以后，其先将消息放入到这个请求所关联的处理队列的消息树中，然后提交一个消息消费请求，用以回调用户端的代码消费消息.</p>
+<p>提交给  <code>consumeExecutor</code>  之后，  <code>ConsumeRequest</code>  实现逻辑如下:</p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF9.png" alt=""></p>
+<h5 id="有序消费"><a class="markdownIt-Anchor" href="#有序消费">#</a> 有序消费</h5>
+<p><code>RocketMQ</code>  的有序消费主要依靠两把锁，一把是维护在  <code>Broker</code>  端，一把维护在消费者客户端。 <code>Broker</code>  端有一个  <code>RebalanceLockManager</code>  服务，其内部维护了一个  <code>mqLockTable</code>  消息队列锁表:</p>
+<p><img data-src="/images/rocketmq/2-02-Broker%E6%B6%88%E6%81%AF10.png" alt=""></p>
+<p>在有序消费的时候， <code>Broker</code>  需要确保任何一个队列在任何时候都只有一个客户端在消费它，都在被一个客户端所锁定。当客户端在本地根据消息队列构建  <code>PullRequest</code>  之前，会与  <code>Broker</code>  沟通尝试锁定这个队列，另外当进行有序消费的时候，客户端也会周期性地 (默认是  <code>20</code>  秒) 锁定所有当前需要消费的消息队列.</p>
+<p>代码逻辑如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 顺序消费</span></span><br><span class="line"><span class="comment">* 每秒 定时多实例消费的所有队列，上锁成功将 ProcessQueue的lock属性设置为true</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (MessageModel.CLUSTERING.equals(ConsumeMessageOrderlyService.<span class="keyword">this</span>.defaultMQPushConsumerImpl.messageModel())) &#123; <span class="comment">/// 只支持集群模式</span></span><br><span class="line">        <span class="keyword">this</span>.scheduledExecutorService.scheduleAtFixedRate(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                ConsumeMessageOrderlyService.<span class="keyword">this</span>.lockMQPeriodically();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">1000</span> * <span class="number">1</span>, ProcessQueue.REBALANCE_LOCK_INTERVAL, TimeUnit.MILLISECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而在  <code>Broker</code>  这端，每个客户端所锁定的消息队列对应的锁项  <code>LogEntry</code>  有一个上次锁定时的时间戳，当超过锁的超时时间 (默认是 60 秒) 后，也会判定这个客户端已经不再持有这把锁，以让其他客户端能够有序消费这个队列。</p>
+<p>在前面我们说到过  <code>RebalanceService</code>  均衡服务会定时地依据不同消费者数量分配消费队列。我们假设  <code>Consumer-1</code>  消费者客户端一开始需要消费  <code>3</code>  个消费队列，这个时候又加入了  <code>Consumer-2</code>  消费者客户端，并且分配到了  <code>MessageQueue-2</code>  消费队列。当  <code>Consumer-1</code>  内部的均衡服务检测到当前消费队列需要移除  <code>MessageQueue-2</code>  队列，这个时候，会首先解除  <code>Broker</code>  端的锁，确保新加入的  <code>Consumer-2</code>  消费者客户端能够成功锁住这个队列，以进行有序消费。</p>
+<p>消费者客户端每一次拉取消息请求，如果有发现新的消息，那么都会将这些消息封装为  <code>ConsumeRequest</code>  来喂给消费线程池，等待消费。如果消息特别多，这样一个队列可能有多个消费请求正在等待客户端消费，用户可能会先消费偏移量大的消息，后消费偏移量小的消息。所以消费同一队列的时候，需要一把锁以消费请求顺序化。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumeMessageOrderlyService</span> <span class="keyword">implements</span> <span class="title">ConsumeMessageService</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ConsumeRequest</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> ProcessQueue processQueue;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> MessageQueue messageQueue;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ConsumeRequest</span><span class="params">(ProcessQueue processQueue, MessageQueue messageQueue)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.processQueue = processQueue;</span><br><span class="line">            <span class="keyword">this</span>.messageQueue = messageQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ProcessQueue <span class="title">getProcessQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> processQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> MessageQueue <span class="title">getMessageQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> messageQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">final</span> Object objLock = messageQueueLock.fetchLockObject(<span class="keyword">this</span>.messageQueue);</span><br><span class="line">            <span class="keyword">synchronized</span> (objLock) &#123;</span><br><span class="line">                <span class="keyword">if</span> (MessageModel.BROADCASTING.equals(ConsumeMessageOrderlyService.<span class="keyword">this</span>.defaultMQPushConsumerImpl.messageModel())|| (<span class="keyword">this</span>.processQueue.isLocked() &amp;&amp; !<span class="keyword">this</span>.processQueue.isLockExpired())) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">boolean</span> continueConsume = <span class="keyword">true</span>; continueConsume; ) &#123;</span><br><span class="line">                        <span class="comment">// 每次获取消息的数量</span></span><br><span class="line">                        <span class="keyword">final</span> <span class="keyword">int</span> consumeBatchSize =</span><br><span class="line">                            ConsumeMessageOrderlyService.<span class="keyword">this</span>.defaultMQPushConsumer.getConsumeMessageBatchMaxSize();</span><br><span class="line">                        <span class="comment">// 拿到可以消费的消息列表。默认为 1 条。</span></span><br><span class="line">                        List&lt;MessageExt&gt; msgs = <span class="keyword">this</span>.processQueue.takeMessages(consumeBatchSize);</span><br><span class="line">                        defaultMQPushConsumerImpl.resetRetryAndNamespace(msgs, defaultMQPushConsumer.getConsumerGroup());</span><br><span class="line">                        <span class="keyword">if</span> (!msgs.isEmpty()) &#123;</span><br><span class="line">                            <span class="keyword">final</span> ConsumeOrderlyContext context = <span class="keyword">new</span> ConsumeOrderlyContext(<span class="keyword">this</span>.messageQueue);</span><br><span class="line">                            ConsumeOrderlyStatus status = <span class="keyword">null</span>;</span><br><span class="line">                            ConsumeMessageContext consumeMessageContext = <span class="keyword">null</span>;</span><br><span class="line">                            <span class="keyword">try</span> &#123;</span><br><span class="line">                                <span class="comment">// 消费者加锁</span></span><br><span class="line">                                <span class="keyword">this</span>.processQueue.getConsumeLock().lock();</span><br><span class="line">                                <span class="comment">// 回调消费者消息</span></span><br><span class="line">                                status = messageListener.consumeMessage(Collections.unmodifiableList(msgs), context);</span><br><span class="line">                            &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">                            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                                <span class="keyword">this</span>.processQueue.getConsumeLock().unlock();</span><br><span class="line">                            &#125;</span><br><span class="line">                            continueConsume = ConsumeMessageOrderlyService.<span class="keyword">this</span>.processConsumeResult(msgs, status, context, <span class="keyword">this</span>);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            continueConsume = <span class="keyword">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ConsumeMessageOrderlyService.<span class="keyword">this</span>.tryLockLaterAndReconsume(<span class="keyword">this</span>.messageQueue, <span class="keyword">this</span>.processQueue, <span class="number">100</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样消息就消费完了。不得不说，这个消费的整体消费的逻辑是真的复杂。</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h2>
+<p>我们从生产者发送消息，到  <code>Broker</code>  端存储消息， 再到 消费者消费消息。将整个流程都跑通了。<br>
+每个过程都不是我们想象的那样直接发送消息给 <code>Broker</code> ， <code>Broker</code>  将消息直接写入硬盘， 消费者直接去 <code>Broker</code>  中拉取消息，拉取到之后直接调用客户端进行消费。</p>
+<p>接下来，我们会深入到  <code>RocketMQ</code>  某个特性的具体实现中去。会逐一分析 事务消息，延时消息，消息可靠性措施，载均衡，消息重放，消息过滤等功能的实现。</p>
+<p>下一篇文章：事务消息。请期待～</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
 <p>期望和你一起遇见更好的自己</p>
 <p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
@@ -290,7 +441,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-11-11 21:42:06" itemprop="dateModified" datetime="2021-11-11T21:42:06+08:00">2021-11-11</time>
+    <time title="修改时间：2021-11-17 22:20:32" itemprop="dateModified" datetime="2021-11-17T22:20:32+08:00">2021-11-17</time>
   </span>
   <span id="2021/09/28/rocketMQ/2-02-RocketMQ架构设计之消息/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - 架构设计之消息" title="阅读次数">
       <span class="icon">
@@ -352,7 +503,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeun65urj20zk0m81ii.jpg" title="RocketMQ系列-架构设计之启动">
+  <a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclgi503lj20zk0m8hdt.jpg" title="RocketMQ系列-架构设计之启动">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ系列-架构设计之启动</h3>
@@ -362,7 +513,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
     <div class="item right">
       
 
-  <a href="/2021/10/13/BQ/hdoj/HD-1000/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4lm9i7j20zk0m84qp.jpg" title="1000 A + B Problem">
+  <a href="/2021/10/13/BQ/hdoj/HD-1000/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclip4jbpj20zk0m87cv.jpg" title="1000 A + B Problem">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> 杭电 Oj</span>
   <h3>1000 A + B Problem</h3>
@@ -384,7 +535,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> 生产者发送消息过程解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text"> 延迟容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E8%AF%95"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 重试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 生产者总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broker-%E5%AD%98%E5%82%A8%E6%B6%88%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text"> Broker 存储消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E5%90%8C%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 接收同步消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text"> 异步消息处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%B6%88%E6%81%AF%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">2.3.</span> <span class="toc-text"> 存储消息流程总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%8E%A2%E8%AE%A8%E4%B8%80%E7%82%B9%E7%BB%86%E8%8A%82"><span class="toc-number">2.4.</span> <span class="toc-text"> 再探讨一点细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96mappedfile"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 获取 MappedFile</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text"> 最后</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> 生产者发送消息过程解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E5%AE%B9%E9%94%99%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text"> 延迟容错机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E8%AF%95"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 重试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 生产者总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broker-%E5%AD%98%E5%82%A8%E6%B6%88%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text"> Broker 存储消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E5%90%8C%E6%AD%A5%E6%B6%88%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text"> 接收同步消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text"> 异步消息处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%B6%88%E6%81%AF%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">2.3.</span> <span class="toc-text"> 存储消息流程总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%8E%A2%E8%AE%A8%E4%B8%80%E7%82%B9%E7%BB%86%E8%8A%82"><span class="toc-number">2.4.</span> <span class="toc-text"> 再探讨一点细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96mappedfile"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 获取 MappedFile</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#consumer-%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text"> Consumer 消费消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%80%85%E6%B3%A8%E5%86%8C"><span class="toc-number">3.1.</span> <span class="toc-text"> 消息者注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">3.2.</span> <span class="toc-text"> 消费者负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 广播模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 集群模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B3%E5%9D%87%E5%93%88%E5%B8%8C%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95allocatemessagequeueaveragely"><span class="toc-number">3.2.2.1.</span> <span class="toc-text"> 平均哈希队列算法 (AllocateMessageQueueAveragely)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E5%B9%B3%E5%9D%87%E5%93%88%E5%B8%8C%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95allocatemessagequeueaveragelybycircle"><span class="toc-number">3.2.2.2.</span> <span class="toc-text"> 循环平均哈希队列算法 (AllocateMessageQueueAveragelyByCircle)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95allocatemessagequeueconsistenthash"><span class="toc-number">3.2.2.3.</span> <span class="toc-text"> 一致性哈希队列算法 (AllocateMessageQueueConsistentHash)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AE%E7%9A%84%E5%B1%9E%E6%80%A7%E5%88%86%E9%85%8D%E9%98%9F%E5%88%97allocatemessagequeuebyconfig"><span class="toc-number">3.2.2.4.</span> <span class="toc-text"> 通过配置的属性分配队列 (AllocateMessageQueueByConfig)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%BA%E6%88%BFhash%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95allocatemessagequeuebymachineroom"><span class="toc-number">3.2.2.5.</span> <span class="toc-text"> 机房 Hash 队列算法 (AllocateMessageQueueByMachineRoom)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%BA%E6%88%BF%E8%BF%9C%E8%BF%91%E4%BC%98%E5%85%88allocatemachineroomnearby"><span class="toc-number">3.2.2.6.</span> <span class="toc-text"> 基于机房远近优先 (AllocateMachineRoomNearby)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E6%B6%88%E6%81%AF"><span class="toc-number">3.3.</span> <span class="toc-text"> 拉取消息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#defaultlitepullconsumer"><span class="toc-number">3.3.1.</span> <span class="toc-text"> DefaultLitePullConsumer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#defaultmqpushconsumer"><span class="toc-number">3.3.2.</span> <span class="toc-text"> DefaultMQPushConsumer</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E6%A8%A1%E5%BC%8F-2"><span class="toc-number">3.3.2.1.</span> <span class="toc-text"> 广播模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F-2"><span class="toc-number">3.3.2.2.</span> <span class="toc-text"> 集群模式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E6%B6%88%E6%81%AF-2"><span class="toc-number">3.3.3.</span> <span class="toc-text"> 拉取消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF"><span class="toc-number">3.3.4.</span> <span class="toc-text"> 消费消息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%B6%88%E8%B4%B9"><span class="toc-number">3.3.4.1.</span> <span class="toc-text"> 并发消费</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E6%B6%88%E8%B4%B9"><span class="toc-number">3.3.4.2.</span> <span class="toc-text"> 有序消费</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -402,7 +553,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">88</span>
+        <span class="count">91</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -414,7 +565,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">51</span>
+        <span class="count">52</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -570,40 +721,10 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
   </li>
 
       
@@ -613,7 +734,7 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
 <a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
   </li>
 
       
@@ -630,6 +751,26 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="排序算法">排序算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
@@ -640,30 +781,40 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" title="LC:42.接雨水">LC:42.接雨水</a></span>
+    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
   </li>
 
   </ul>
@@ -688,13 +839,13 @@ RocketMQ 系列 - 架构设计之消息 - RocketMQ 系列 |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">364k 字</span>
+    <span title="站点总字数">385k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:31</span>
+    <span title="站点阅读时长">5:50</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
