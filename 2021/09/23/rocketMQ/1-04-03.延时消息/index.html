@@ -117,12 +117,12 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey0a334j20zk0m8qpt.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
         </ul>
       </div>
     </header>
@@ -168,7 +168,8 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
   <div class="body md" itemprop="articleBody">
     
 
-    <h2 id="启动消费者等待传入订阅消息"><a class="markdownIt-Anchor" href="#启动消费者等待传入订阅消息">#</a> 启动消费者等待传入订阅消息</h2>
+    <div id="fxb_container" class="fxb_container_style">
+      <h2 id="启动消费者等待传入订阅消息"><a class="markdownIt-Anchor" href="#启动消费者等待传入订阅消息">#</a> 启动消费者等待传入订阅消息</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.MessageExt;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledMessageConsumer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">      <span class="comment">// 实例化消费者</span></span><br><span class="line">      DefaultMQPushConsumer consumer = <span class="keyword">new</span> DefaultMQPushConsumer(<span class="string">&quot;ExampleConsumer&quot;</span>);</span><br><span class="line">      <span class="comment">// 订阅Topics</span></span><br><span class="line">      consumer.subscribe(<span class="string">&quot;TestTopic&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">      <span class="comment">// 注册消息监听者</span></span><br><span class="line">      consumer.registerMessageListener(<span class="keyword">new</span> MessageListenerConcurrently() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> ConsumeConcurrentlyStatus <span class="title">consumeMessage</span><span class="params">(List&lt;MessageExt&gt; messages, ConsumeConcurrentlyContext context)</span> </span>&#123;</span><br><span class="line">              <span class="keyword">for</span> (MessageExt message : messages) &#123;</span><br><span class="line">                  <span class="comment">// Print approximate delay time period</span></span><br><span class="line">                  System.out.println(<span class="string">&quot;Receive message[msgId=&quot;</span> + message.getMsgId() + <span class="string">&quot;] &quot;</span> + (System.currentTimeMillis() - message.getBornTimestamp()) + <span class="string">&quot;ms later&quot;</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> ConsumeConcurrentlyStatus.CONSUME_SUCCESS;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="comment">// 启动消费者</span></span><br><span class="line">      consumer.start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="发送延时消息"><a class="markdownIt-Anchor" href="#发送延时消息">#</a> 发送延时消息</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.DefaultMQProducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.Message;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledMessageProducer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">      <span class="comment">// 实例化一个生产者来产生延时消息</span></span><br><span class="line">      DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;ExampleProducerGroup&quot;</span>);</span><br><span class="line">      <span class="comment">// 启动生产者</span></span><br><span class="line">      producer.start();</span><br><span class="line">      <span class="keyword">int</span> totalMessagesToSend = <span class="number">100</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalMessagesToSend; i++) &#123;</span><br><span class="line">          Message message = <span class="keyword">new</span> Message(<span class="string">&quot;TestTopic&quot;</span>, (<span class="string">&quot;Hello scheduled message &quot;</span> + i).getBytes());</span><br><span class="line">          <span class="comment">// 设置延时等级3,这个消息将在10s之后发送(现在只支持固定的几个时间,详看delayTimeLevel)</span></span><br><span class="line">          message.setDelayTimeLevel(<span class="number">3</span>);</span><br><span class="line">          <span class="comment">// 发送消息</span></span><br><span class="line">          producer.send(message);</span><br><span class="line">      &#125;</span><br><span class="line">       <span class="comment">// 关闭生产者</span></span><br><span class="line">      producer.shutdown();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -183,6 +184,23 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
 <p>期望和你一起遇见更好的自己</p>
 <p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
 
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
       <div class="tags">
           <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
           <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
@@ -259,7 +277,7 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesrnqv3j20zk0m8ava.jpg" title="RocketMQ样例:全局顺序消息">
+  <a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0n457cj20zk0m8e81.jpg" title="RocketMQ样例:全局顺序消息">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:全局顺序消息</h3>
@@ -269,7 +287,7 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
     <div class="item right">
       
 
-  <a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciszlczyj20zk0m816d.jpg" title="RocketMQ样例:批量消息">
+  <a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciusoyjnj219g0u0x56.jpg" title="RocketMQ样例:批量消息">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:批量消息</h3>
@@ -477,10 +495,40 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">哈希算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">动态规划</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
   </li>
 
       
@@ -490,27 +538,7 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
-</div>
-
-    <span><a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" title="搭建第一个纯dubbo微服务应用">搭建第一个纯dubbo微服务应用</a></span>
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
   </li>
 
       
@@ -530,47 +558,37 @@ RocketMQ 样例：延时消息 - RocketMQ 系列 |
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
+    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/%E5%85%A8%E7%AB%99%E5%9C%B0%E5%9B%BE/" title="分类于 全站地图">全站地图</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
+    <span><a href="/2021/07/18/RoadMap/" title="全站地图">全站地图</a></span>
   </li>
 
   </ul>

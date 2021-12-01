@@ -117,12 +117,12 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
         </ul>
       </div>
     </header>
@@ -168,8 +168,9 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
   <div class="body md" itemprop="articleBody">
     
 
-    <p>之前我们已经学习了 <code>RocketMQ</code>  是由四个部分组成的。这篇文章更加深入的来看看这个四个部分。</p>
-<p><img data-src="/images/rocketmq/2-01-%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt=""></p>
+    <div id="fxb_container" class="fxb_container_style">
+      <p>之前我们已经学习了 <code>RocketMQ</code>  是由四个部分组成的。这篇文章更加深入的来看看这个四个部分。</p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt=""></p>
 <h2 id="nameserver"><a class="markdownIt-Anchor" href="#nameserver">#</a>  <code>NameServer</code></h2>
 <p>接下来，我们来看  <code>NameServer</code>  的相关内容，我们都知道  <code>NameServer</code>  是  <code>RocketMQ</code>  的注册中心。那它肯定会有 服务发现，检查检查，路由等等功能， 我们就按照这个思路去看看  <code>NameServer</code>  是如何启动的。</p>
 <h3 id="namesrv-的启动过程"><a class="markdownIt-Anchor" href="#namesrv-的启动过程">#</a>  <code>NameSrv</code>  的启动过程</h3>
@@ -275,7 +276,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <li><code>String nameSrvAddr</code> : 这个字段没有在构造方法中，我们可以手动调用 set 方法进行设置，也可以通过系统变量的形式进行设置。</li>
 </ul>
 <p>生产者在设置完对应的参数之后，就会调用 <code>Start()</code>  方法。  <code>start</code>  方法会设置 <code>group</code> , 然后调用在 构造方法中初始化的  <code>defaultMQProducerImpl</code>  实例。</p>
-<p><img data-src="/images/rocketmq/2-01-DefaultProducerImpl%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-DefaultProducerImpl%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
 <p>如上图</p>
 <ul>
 <li>生产者首先会检查  <code>producerGroup</code>  的合法性。</li>
@@ -283,7 +284,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <li>创建  <code>MQClientFactory</code> . 将 <code>producer</code>  注册到 <code>MQClientInstance</code>  中，</li>
 <li>初始化 <code>topicPushlishInfo</code> .  <code>topicPushlishInfo</code>  主要用于存放消息的路由信息。</li>
 <li>然后通过  <code>mQClientFactory.start()</code>  完成启动，这一步骤很重要，我们来看一下里面的具体实现.<br>
-<img data-src="/images/rocketmq/2-01-MQInstance%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt="">
+<img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-MQInstance%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt="">
 <ul>
 <li>1. 首先会设置  <code>NameServerAddr</code> 。前面有说过可以通过  <code>DefaultProducer</code>  的 <code>setNameSrvAddr</code>  方法手动设置，也可以通过系统变量的方式进行设置 <code>NameServer</code>  的地址： <code>System.setProperty(&quot;rocketmq.namesrv.domain&quot;, &quot;localhost&quot;);</code></li>
 <li>2. 开启定时任务：总共启动了 <code>5</code>  个定时器任务，分别是：定时更新 <code>NameServerAddr</code>  信息，定时更新 <code>topic</code>  的路由信息，定时清理下线的 <code>broker</code> ，定时持久化 <code>Consumer</code>  的 <code>Offset</code>  信息，定时调整线程池；</li>
@@ -324,14 +325,14 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <p>生产者首先需要设置 <code>namesrv</code> ，或者指定其他方式更新 <code>namesrv</code> ；然后从 <code>namesrv</code>  获取 <code>topic</code>  的路由信息，路由信息包括 <code>broker</code>  以及 <code>Message Queue</code>  等信息，同时将路由信息保存在本地内存中，方便下次使用；最后从 <code>Message Queue</code>  列表中选择合适的 <code>Queue</code>  发送消息，实现负载均衡；</p>
 <h2 id="consumer"><a class="markdownIt-Anchor" href="#consumer">#</a> Consumer</h2>
 <p>现在我们还剩下 消费者 的启动流程了。从一个简单的例子说起:</p>
-<p><img data-src="/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
 <p>从图中可以看到使用 MQ 的消费者主要分成三部分： 1. 创建消费者对象，2. 配置消费的属性 nameServer, 消费起点，订阅主题，回调事件等。3. 启动消费者。</p>
 <h3 id="consumer的启动过程"><a class="markdownIt-Anchor" href="#consumer的启动过程">#</a> Consumer 的启动过程</h3>
 <p>正如上文所说， 启动 <code>MQ</code>  消费者主要分为三部分，我们主要讲述第一部分和第三部分：创建 <code>Consumer</code>  对象，启动。</p>
 <h4 id="创建-consumer-对象"><a class="markdownIt-Anchor" href="#创建-consumer-对象">#</a> 创建 Consumer 对象</h4>
 <p><code>RocketMQ</code>  支持两种消息消费模式， <code>pull</code>  模式 和  <code>push</code>  模式。  <code>pull</code>  模式是消费者主动拉取消息， <code>push</code>  模式是  <code>broker</code>  端主动推送消息给消息者端。可想而知， <code>push</code>  模式是不管消费者端死活的，只要有消息就会推给消费者端，不管消费者是否能消费完。而 <code>pull</code>  模式是不管 <code>Broker</code>  端的，可能会造成消息积压的问题。</p>
 <p><code>RocketMQ</code>  分别提供了 <code>pull</code>  模式 和  <code>push</code>  模式的消费者的支持。类结构如下图：</p>
-<p><img data-src="/images/rocketmq/2-01-Consuomer%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-Consuomer%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt=""></p>
 <p>图中  <code>push</code>  模式，提供了  <code>MQPushConsumer</code> ( <code>DefaultMQPushConsumer</code> ) 类来实现。  <code>pull</code>  模式提供  <code>MQPullConsumer</code> ( <code>DefaultMQPullConsumer</code> ) 类来实现。但是这个已经标记为废弃，并在 <code>2022</code>  年会移除，提供了  <code>LitePullConsumer</code> ( <code>DefaultLitePullConsumer</code> ) 来实现 <code>Pull</code>  模式。</p>
 <h5 id="创建-defaultmqpushconsumer-对象"><a class="markdownIt-Anchor" href="#创建-defaultmqpushconsumer-对象">#</a> 创建 DefaultMQPushConsumer 对象</h5>
 <p><code>DefaultMQPullConsumer</code>  对象的构造参数</p>
@@ -354,7 +355,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <p>在  <code>DefaultLitePullConsumer</code>  的构造方法中会创建  <code>defaultLitePullConsumerImpl</code>  对象。而后面的启动过程，即是  <code>DefaultLitePullConsumerImpl</code>  的启动过程。即  <code>DefaultLitePullConsumerImpl.start()</code> .</p>
 <h4 id="启动"><a class="markdownIt-Anchor" href="#启动">#</a> 启动</h4>
 <p>这里我再把使用 DefaultMQPushConsumer 消费消息的案例 粘贴到这里</p>
-<p><img data-src="/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-%E6%B6%88%E8%B4%B9%E8%80%85%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
 <p>我们主要看  <code>consumer.start()</code>  内部的具体实现。</p>
 <h5 id="push模式-defaultmqpushconsumerimplstart"><a class="markdownIt-Anchor" href="#push模式-defaultmqpushconsumerimplstart">#</a> push 模式: DefaultMQPushConsumerImpl.start ()</h5>
 <ul>
@@ -374,7 +375,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 </ul>
 <h5 id="pull模式-defaultlitepullconsumerimplstart"><a class="markdownIt-Anchor" href="#pull模式-defaultlitepullconsumerimplstart">#</a>  <code>pull</code>  模式:  <code>DefaultLitePullConsumerImpl.start()</code></h5>
 <p>先看下  <code>DefaultLitePullConsumer</code>  的一个简单使用:</p>
-<p><img data-src="/images/rocketmq/2-01-DefaultLitePullConsumer%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/2-01-DefaultLitePullConsumer%E5%90%AF%E5%8A%A8%E4%BB%A3%E7%A0%81.png" alt=""></p>
 <p><code>DefaultLitePullConsumer</code>  的实现代码要比   <code>DefaultMQPushConsumer</code>  的代码 规整很多。在  <code>start()</code>  方法中定义了很多的子方法进行调用。</p>
 <ul>
 <li>检查属性配置是否合法。</li>
@@ -419,8 +420,25 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <p>不管是 <code>Pull</code>  模式，还是 <code>push</code>  模式，在启动过程都是 创建  <code>MqClientInstance</code>  实例，并启动。</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
 <p>期望和你一起遇见更好的自己</p>
-<p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/qrcode.jpg" alt=""></p>
 
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
       <div class="tags">
           <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
           <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
@@ -435,7 +453,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+    <time title="修改时间：2021-11-28 13:29:24" itemprop="dateModified" datetime="2021-11-28T13:29:24+08:00">2021-11-28</time>
   </span>
   <span id="2021/09/28/rocketMQ/2-01-RocketMQ架构设计之启动/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - 架构设计之启动" title="阅读次数">
       <span class="icon">
@@ -497,7 +515,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm07ih54j20zk0m84qp.jpg" title="RocketMQ样例:事务消息">
+  <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph47e9vtj20zk0m8x6l.jpg" title="RocketMQ样例:事务消息">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:事务消息</h3>
@@ -507,7 +525,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
     <div class="item right">
       
 
-  <a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyonbf9j20zk0m8e81.jpg" title="RocketMQ系列-架构设计之消息">
+  <a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhnx9glj20zk0m8npd.jpg" title="RocketMQ系列-架构设计之消息">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ系列-架构设计之消息</h3>
@@ -715,10 +733,40 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">哈希算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+    <span><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
   </li>
 
       
@@ -735,40 +783,10 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
+    <span><a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" title="LC:575.分糖果">LC:575.分糖果</a></span>
   </li>
 
       
@@ -785,10 +803,20 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
 </div>
 
-    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
   </li>
 
       
@@ -798,17 +826,7 @@ RocketMQ 系列 - 架构设计之启动 - RocketMQ 系列 |
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" title="git开发模型 - github-flow">git开发模型 - github-flow</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
   </li>
 
   </ul>

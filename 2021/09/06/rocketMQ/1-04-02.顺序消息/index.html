@@ -117,12 +117,12 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
         </ul>
       </div>
     </header>
@@ -168,9 +168,10 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
   <div class="body md" itemprop="articleBody">
     
 
-    <p>消息有序指的是可以按照消息的发送顺序来消费 ( <code>FIFO</code> )。 <code>RocketMQ</code>  可以严格的保证消息有序，可以分为分区有序或者全局有序。</p>
+    <div id="fxb_container" class="fxb_container_style">
+      <p>消息有序指的是可以按照消息的发送顺序来消费 ( <code>FIFO</code> )。 <code>RocketMQ</code>  可以严格的保证消息有序，可以分为分区有序或者全局有序。</p>
 <p>顺序消费的原理解析：在默认的情况下消息发送会采取 <code>Round Robin</code>  轮询方式把消息发送到不同的 <code>queue</code>  (分区队列)；而消费消息的时候从多个 <code>queue</code>  上拉取消息，这种情况发送和消费是不能保证顺序。但是如果控制发送的顺序消息只依次发送到同一个 <code>queue</code>  中，消费的时候只从这个 <code>queue</code>  上依次拉取，则就保证了顺序。当发送和消费参与的 <code>queue</code>  只有一个，则是全局有序；如果多个 <code>queue</code>  参与，则为分区有序，即相对每个 <code>queue</code> ，消息都是有序的。</p>
-<p>下面用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个 OrderId 获取到的肯定是同一个队列。</p>
+<p>下面用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个 <code>OrderId</code>  获取到的肯定是同一个队列。</p>
 <p>2.1 顺序消息生产</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.rocketmq.example.order2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.DefaultMQProducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.MessageQueueSelector;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.client.producer.SendResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.Message;</span><br><span class="line"><span class="keyword">import</span> org.apache.rocketmq.common.message.MessageQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Producer，发送顺序消息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">&quot;please_rename_unique_group_name&quot;</span>);</span><br><span class="line"></span><br><span class="line">       producer.setNamesrvAddr(<span class="string">&quot;127.0.0.1:9876&quot;</span>);</span><br><span class="line"></span><br><span class="line">       producer.start();</span><br><span class="line"></span><br><span class="line">       String[] tags = <span class="keyword">new</span> String[]&#123;<span class="string">&quot;TagA&quot;</span>, <span class="string">&quot;TagC&quot;</span>, <span class="string">&quot;TagD&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 订单列表</span></span><br><span class="line">       List&lt;OrderStep&gt; orderList = <span class="keyword">new</span> Producer().buildOrders();</span><br><span class="line"></span><br><span class="line">       Date date = <span class="keyword">new</span> Date();</span><br><span class="line">       SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">       String dateStr = sdf.format(date);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">           <span class="comment">// 加个时间前缀</span></span><br><span class="line">           String body = dateStr + <span class="string">&quot; Hello RocketMQ &quot;</span> + orderList.get(i);</span><br><span class="line">           Message msg = <span class="keyword">new</span> Message(<span class="string">&quot;TopicTest&quot;</span>, tags[i % tags.length], <span class="string">&quot;KEY&quot;</span> + i, body.getBytes());</span><br><span class="line"></span><br><span class="line">           SendResult sendResult = producer.send(msg, <span class="keyword">new</span> MessageQueueSelector() &#123;</span><br><span class="line">               <span class="meta">@Override</span></span><br><span class="line">               <span class="function"><span class="keyword">public</span> MessageQueue <span class="title">select</span><span class="params">(List&lt;MessageQueue&gt; mqs, Message msg, Object arg)</span> </span>&#123;</span><br><span class="line">                   Long id = (Long) arg;  <span class="comment">//根据订单id选择发送queue</span></span><br><span class="line">                   <span class="keyword">long</span> index = id % mqs.size();</span><br><span class="line">                   <span class="keyword">return</span> mqs.get((<span class="keyword">int</span>) index);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;, orderList.get(i).getOrderId());<span class="comment">//订单id</span></span><br><span class="line"></span><br><span class="line">           System.out.println(String.format(<span class="string">&quot;SendResult status:%s, queueId:%d, body:%s&quot;</span>,</span><br><span class="line">               sendResult.getSendStatus(),</span><br><span class="line">               sendResult.getMessageQueue().getQueueId(),</span><br><span class="line">               body));</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       producer.shutdown();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 订单的步骤</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderStep</span> </span>&#123;</span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">long</span> orderId;</span><br><span class="line">       <span class="keyword">private</span> String desc;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getOrderId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> orderId;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOrderId</span><span class="params">(<span class="keyword">long</span> orderId)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">this</span>.orderId = orderId;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> String <span class="title">getDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> desc;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDesc</span><span class="params">(String desc)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">this</span>.desc = desc;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="string">&quot;OrderStep&#123;&quot;</span> +</span><br><span class="line">               <span class="string">&quot;orderId=&quot;</span> + orderId +</span><br><span class="line">               <span class="string">&quot;, desc=&#x27;&quot;</span> + desc + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">               <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 生成模拟订单数据</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> List&lt;OrderStep&gt; <span class="title">buildOrders</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       List&lt;OrderStep&gt; orderList = <span class="keyword">new</span> ArrayList&lt;OrderStep&gt;();</span><br><span class="line"></span><br><span class="line">       OrderStep orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111039L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;创建&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111065L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;创建&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111039L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;付款&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103117235L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;创建&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111065L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;付款&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103117235L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;付款&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111065L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;完成&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111039L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;推送&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103117235L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;完成&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       orderDemo = <span class="keyword">new</span> OrderStep();</span><br><span class="line">       orderDemo.setOrderId(<span class="number">15103111039L</span>);</span><br><span class="line">       orderDemo.setDesc(<span class="string">&quot;完成&quot;</span>);</span><br><span class="line">       orderList.add(orderDemo);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> orderList;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>2.2 顺序消费消息</p>
@@ -179,6 +180,23 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
 <p>期望和你一起遇见更好的自己</p>
 <p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
 
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
       <div class="tags">
           <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
           <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
@@ -193,7 +211,7 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-10-13 22:51:25" itemprop="dateModified" datetime="2021-10-13T22:51:25+08:00">2021-10-13</time>
+    <time title="修改时间：2021-11-28 13:29:24" itemprop="dateModified" datetime="2021-11-28T13:29:24+08:00">2021-11-28</time>
   </span>
   <span id="2021/09/06/rocketMQ/1-04-02.顺序消息/" class="item leancloud_visitors" data-flag-title="RocketMQ 样例：全局顺序消息" title="阅读次数">
       <span class="icon">
@@ -255,7 +273,7 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclga70tsj20zk0m84mr.jpg" title="RocketMQ样例:基本的消息生产和消费">
+  <a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm07ih54j20zk0m84qp.jpg" title="RocketMQ样例:基本的消息生产和消费">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:基本的消息生产和消费</h3>
@@ -265,7 +283,7 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
     <div class="item right">
       
 
-  <a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhpw3lwj20zk0m8gvw.jpg" title="RocketMQ样例:延时消息">
+  <a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljitigmj20zk0m87fp.jpg" title="RocketMQ样例:延时消息">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:延时消息</h3>
@@ -473,10 +491,30 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+    <span><a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" title="LC:367.有效的完全平方数">LC:367.有效的完全平方数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-dubbo-with-springboot/" title="最简版 springboot 集成 dubbo">最简版 springboot 集成 dubbo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
   </li>
 
       
@@ -493,70 +531,40 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
-</div>
-
-    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" title="LC:520.检测大写字母">LC:520.检测大写字母</a></span>
+    <span><a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" title="LC:575.分糖果">LC:575.分糖果</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+    <span><a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" title="搭建第一个纯dubbo微服务应用">搭建第一个纯dubbo微服务应用</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
 </div>
 
-    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" title="Redis 开篇 &amp; 说明">Redis 开篇 & 说明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
   </li>
 
       
@@ -566,7 +574,17 @@ RocketMQ 样例：全局顺序消息 - RocketMQ 系列 |
 <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" title="选择排序">选择排序</a></span>
   </li>
 
   </ul>

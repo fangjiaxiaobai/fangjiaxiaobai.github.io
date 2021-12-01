@@ -1106,6 +1106,135 @@ const mediaPlayer = function(t, config) {
 
   return t;
 }
+var contentContainer = $('#fxb_container');
+var readmoreHalfHeight = 200;
+var defaultToken = '12345';
+var count = 0;
+var minMaskHeight = 700;
+var hostUrl = 'http://150.158.100.2/_api';
+var oldIntervalId = null;
+
+const siteReadMore = function (countsss) {
+ 
+  contentContainer = $('#fxb_container');
+
+  // clearInterval(oldIntervalId);
+  // console.log('删除interval.........');
+  if(countsss > 0){
+    _detect(getToken());
+    // console.log("----------，", countsss)
+    return;
+  }
+  _lock();
+  // 页面变为可见时触发 
+  if (document.visibilityState == 'visible') {
+    if (contentContainer) {
+      _detect(getToken());
+      oldIntervalId = setInterval(function () {
+        _detect(getToken());
+      }, 5000);
+      return false;
+    }
+  }
+  return oldIntervalId;
+}
+
+function removeReadmoreInterval(intervalId){
+    clearInterval(intervalId);
+}
+
+function getToken() {
+  // 获取本地存储的唯一标识
+  var unqiCode = getTokenFromLS();
+  // console.log("getToken...", unqiCode);
+  if (unqiCode !== undefined && unqiCode !== '' && unqiCode !== null) {
+    // console.log('值接返回的token？？？？')
+    return unqiCode;
+  }
+  // console.log('值接返回的token？？？？没有。。。')
+  unqiCode = Math.random().toString(36).slice(-6).toUpperCase();
+  setToken(unqiCode)
+  sessionStorage.removeItem("FXB_UM_visited");
+
+  return unqiCode;
+}
+
+var _lock = function () {
+  var clientHeight = halfHeight = contentContainer.clientHeight;
+  // 找到文章所在的容器
+  if (clientHeight > 0) {
+    // 文章的实际高度
+    if (clientHeight > minMaskHeight) {
+      // 文章隐藏后的高度
+      halfHeight = (clientHeight * 0.3 < minMaskHeight) ? minMaskHeight : clientHeight * 0.3;
+    }
+  }
+  contentContainer.classList.add('lock');
+  contentContainer.style.setProperty('height', halfHeight + 'px');
+  $("#readmore_uniq_code").innerText = getToken();
+  $('.asb-post-01').style.setProperty('display', 'block');
+}
+
+function saveToken2Server(token) {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  // 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数
+  script.src = hostUrl + '/_blog/saveCode?type=saveToken&code=' + token;
+  document.head.appendChild(script);
+}
+
+var _unlock = function () {
+  contentContainer.style.setProperty('height', 'initial');
+  contentContainer.classList.remove('lock');
+  $('.asb-post-01').style.setProperty('display', 'none');
+}
+
+var _detect = function (token) {
+  
+  // console.log(document.title, '-',new Date().getMinutes(), '-',new Date().getSeconds())
+
+  // console.log('恭喜发财');
+  if (sessionStorage.getItem("FXB_UM_visited") === true) {
+    return;
+  }
+
+  // console.log('大吉大利');
+
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  // 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数
+  script.src = hostUrl + '/_blog/visited?visited=callback_visited&code=' + token;
+  document.head.appendChild(script);
+}
+
+// 回调执行函数
+function callback_visited(res) {
+  resJson = res;
+  // console.log("visited_result: ", res);
+  if (resJson.visited) {
+    // console.log("needFlush:", resJson.needFlush, "visisted:", resJson.visited)
+    sessionStorage.setItem("FXB_UM_visited", true);
+    _unlock();
+  } else {
+    if (resJson.needFlush) {
+      removeToken()
+    }
+    _lock();
+  }
+}
+
+var setToken = (code) => {
+  localStorage.setItem("FXB_UM_distinctid", code);
+  // console.log('set token...', getTokenFromLS())
+}
+
+var removeToken = () => {
+  localStorage.removeItem("FXB_UM_distinctid");
+}
+
+var getTokenFromLS = () => {
+  return localStorage.getItem("FXB_UM_distinctid");
+}
 var statics = CONFIG.statics.indexOf('//') > 0 ? CONFIG.statics : CONFIG.root
 var scrollAction = { x: 'undefined', y: 'undefined' };
 var diffY = 0;
@@ -1146,7 +1275,7 @@ const Loader = {
   hide: function(sec) {
     if(!CONFIG.loader.start)
       sec = -1
-    this.timer = setTimeout(this.vanish, sec||3000);
+    this.timer = setTimeout(this.vanish, sec||-1);
   },
   vanish: function() {
     if(Loader.lock)
@@ -2171,8 +2300,8 @@ const algoliaSearch = function(pjax) {
     }
   });
 }
-const domInit = function() {
-  $.each('.overview .menu > .item', function(el) {
+const domInit = function () {
+  $.each('.overview .menu > .item', function (el) {
     siteNav.child('.menu').appendChild(el.cloneNode(true));
   })
 
@@ -2183,7 +2312,7 @@ const domInit = function() {
   quickBtn.child('.down').addEventListener('click', goToBottomHandle);
   quickBtn.child('.up').addEventListener('click', backToTopHandle);
 
-  if(!toolBtn) {
+  if (!toolBtn) {
     toolBtn = siteHeader.createChild('div', {
       id: 'tool',
       innerHTML: '<div class="item player"></div><div class="item contents"><i class="ic i-list-ol"></i></div><div class="item chat"><i class="ic i-comments"></i></div><div class="item back-to-top"><i class="ic i-arrow-up"></i><span>0%</span></div>'
@@ -2200,7 +2329,7 @@ const domInit = function() {
   showContents.addEventListener('click', sideBarToggleHandle);
 
   mediaPlayer(toolPlayer)
-  $('main').addEventListener('click', function() {
+  $('main').addEventListener('click', function () {
     toolPlayer.player.mini()
   })
 }
@@ -2208,17 +2337,19 @@ const domInit = function() {
 const pjaxReload = function () {
   pagePosition()
 
-  if(sideBar.hasClass('on')) {
+  if (sideBar.hasClass('on')) {
     transition(sideBar, function () {
-        sideBar.removeClass('on');
-        menuToggle.removeClass('close');
-      }); // 'transition.slideRightOut'
+      sideBar.removeClass('on');
+      menuToggle.removeClass('close');
+    }); // 'transition.slideRightOut'
   }
 
   $('#main').innerHTML = ''
   $('#main').appendChild(loadCat.lastChild.cloneNode(true));
   pageScroll(0);
 }
+
+var conutsssss = 0;
 
 const siteRefresh = function (reload) {
   LOCAL_HASH = 0
@@ -2228,9 +2359,9 @@ const siteRefresh = function (reload) {
   vendorJs('copy_tex');
   vendorCss('mermaid');
   vendorJs('chart');
-  vendorJs('valine', function() {
+  vendorJs('valine', function () {
     var options = Object.assign({}, CONFIG.valine);
-    options = Object.assign(options, LOCAL.valine||{});
+    options = Object.assign(options, LOCAL.valine || {});
     options.el = '#comments';
     options.pathname = LOCAL.path;
     options.pjax = pjax;
@@ -2238,13 +2369,13 @@ const siteRefresh = function (reload) {
 
     new MiniValine(options);
 
-    setTimeout(function(){
+    setTimeout(function () {
       positionInit(1);
       postFancybox('.v');
     }, 1000);
   }, window.MiniValine);
 
-  if(!reload) {
+  if (!reload) {
     $.each('script[data-pjax]', pjaxScript);
   }
 
@@ -2264,30 +2395,33 @@ const siteRefresh = function (reload) {
   toolPlayer.player.load(LOCAL.audio || CONFIG.audio || {})
 
   Loader.hide()
-
-  setTimeout(function(){
+  setTimeout(function () {
     positionInit()
   }, 500);
 
   cardActive()
 
   lazyload.observe()
+
+  siteReadMore(conutsssss);
+  // console.log(",,,,,,,,,,", conutsssss)
+  conutsssss = conutsssss + 1;
+  
 }
 
 const siteInit = function () {
-
   domInit()
 
   pjax = new Pjax({
-            selectors: [
-              'head title',
-              '.languages',
-              '.pjax',
-              'script[data-config]'
-            ],
-            analytics: false,
-            cacheBust: false
-          })
+    selectors: [
+      'head title',
+      '.languages',
+      '.pjax',
+      'script[data-config]'
+    ],
+    analytics: false,
+    cacheBust: false
+  })
 
   CONFIG.quicklink.ignores = LOCAL.ignores
   quicklink.listen(CONFIG.quicklink)
@@ -2305,16 +2439,23 @@ const siteInit = function () {
 
   window.addEventListener('pjax:success', siteRefresh)
 
-  window.addEventListener('beforeunload', function() {
+  window.addEventListener('beforeunload', function () {
     pagePosition()
   })
 
-  siteRefresh(1)
+  // console.log("site...init.....")
+  // window.addEventListener('visibilitychange', function () {
+  //   siteReadMore(2)
+  // })
+
+  siteRefresh(1);
+
 }
 
+// 入口文件
 window.addEventListener('DOMContentLoaded', siteInit);
 
-console.log('%c Theme.Shoka v' + CONFIG.version + ' %c https://shoka.lostyu.me/ ', 'color: white; background: #e9546b; padding:5px 0;', 'padding:4px;border:1px solid #e9546b;')
+// console.log('%c Theme.Shoka v' + CONFIG.version + ' %c https://shoka.lostyu.me/ ', 'color: white; background: #e9546b; padding:5px 0;', 'padding:4px;border:1px solid #e9546b;')
 var canvasEl = document.createElement('canvas');
 canvasEl.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:9999999';
 document.body.appendChild(canvasEl);

@@ -117,12 +117,12 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
         </ul>
       </div>
     </header>
@@ -168,7 +168,8 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
   <div class="body md" itemprop="articleBody">
     
 
-    <p>在大多数情况下， <code>TAG</code>  是一个简单而有用的设计，其可以来选择您想要的消息。例如：</p>
+    <div id="fxb_container" class="fxb_container_style">
+      <p>在大多数情况下， <code>TAG</code>  是一个简单而有用的设计，其可以来选择您想要的消息。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DefaultMQPushConsumer consumer = <span class="keyword">new</span> DefaultMQPushConsumer(<span class="string">&quot;CID_EXAMPLE&quot;</span>);</span><br><span class="line">consumer.subscribe(<span class="string">&quot;TOPIC&quot;</span>, <span class="string">&quot;TAGA || TAGB || TAGC&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>消费者将接收包含 <code>TAGA</code>  或 <code>TAGB</code>  或 <code>TAGC</code>  的消息。但是限制是一个消息只能有一个标签，这对于复杂的场景可能不起作用。在这种情况下，可以使用 <code>SQL</code>  表达式筛选消息。SQL 特性可以通过发送消息时的属性来进行计算。在 <code>RocketMQ</code>  定义的语法下，可以实现一些简单的逻辑。下面是一个例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">------------</span><br><span class="line">| message  |</span><br><span class="line">|----------|  a &gt; 5 AND b = &#x27;abc&#x27;</span><br><span class="line">| a = 10   |  --------------------&gt; Gotten</span><br><span class="line">| b = &#x27;abc&#x27;|</span><br><span class="line">| c = true |</span><br><span class="line">------------</span><br><span class="line">------------</span><br><span class="line">| message  |</span><br><span class="line">|----------|   a &gt; 5 AND b = &#x27;abc&#x27;</span><br><span class="line">| a = 1    |  --------------------&gt; Missed</span><br><span class="line">| b = &#x27;abc&#x27;|</span><br><span class="line">| c = true |</span><br><span class="line">------------</span><br></pre></td></tr></table></figure>
@@ -198,6 +199,23 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
 <p>期望和你一起遇见更好的自己</p>
 <p><img data-src="/images/rocketmq/qrcode.jpg" alt=""></p>
 
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
       <div class="tags">
           <a href="/tags/RocketMQ/" rel="tag"><i class="ic i-tag"></i> RocketMQ</a>
           <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
@@ -274,7 +292,7 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclgi503lj20zk0m8hdt.jpg" title="RocketMQ样例:批量消息">
+  <a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipewf5l51j20zk0m8b29.jpg" title="RocketMQ样例:批量消息">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:批量消息</h3>
@@ -284,7 +302,7 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
     <div class="item right">
       
 
-  <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclj61ylzj20zk0m8b29.jpg" title="RocketMQ样例:事务消息">
+  <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeu7txpzj20zk0m81kx.jpg" title="RocketMQ样例:事务消息">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> RocketMQ 系列</span>
   <h3>RocketMQ样例:事务消息</h3>
@@ -492,30 +510,30 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
+    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
   </li>
 
       
@@ -525,7 +543,47 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></span>
+    <span><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" title="LC:268.丢失的数字">LC:268.丢失的数字</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" title="git命令详解之 git update-index">git命令详解之 git update-index</a></span>
   </li>
 
       
@@ -542,50 +600,10 @@ RocketMQ 样例：过滤消息 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" title="选择排序">选择排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/08/19/BQ/LeetCode/0001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/" title="LC:反转数组">LC:反转数组</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
   </li>
 
   </ul>
