@@ -3,62 +3,62 @@
     <id>https://fangjiaxiaobai.github.io</id>
     <title>方家小白 • Posts by &#34;日志&#34; category</title>
     <link href="https://fangjiaxiaobai.github.io" />
-    <updated>2022-02-24T10:18:18.000Z</updated>
+    <updated>2022-03-04T10:18:18.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
     <category term="MySQL" />
-    <category term="源码" />
-    <category term="Elastic Search" />
-    <category term="搜索" />
-    <category term="git" />
-    <category term="go" />
-    <category term="go-error" />
-    <category term="MachineLearn" />
     <category term="Redis" />
+    <category term="源码" />
+    <category term="数据结构" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="数据结构" />
+    <category term="git" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="go" />
+    <category term="go-error" />
+    <category term="MachineLearn" />
     <category term="log" />
     <category term="go-log" />
-    <category term="雪花算法" />
-    <category term="算法" />
     <category term="RocketMQ" />
     <category term="消息队列" />
     <category term="图片" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="leetCode" />
-    <category term="面经之算法题" />
-    <category term="数组" />
-    <category term="链表" />
-    <category term="不做也罢的算法题" />
-    <category term="有点难的算法题" />
-    <category term="动态规划" />
-    <category term="HD" />
-    <category term="BQ" />
-    <category term="AC" />
     <category term="HashMap" />
     <category term="JDK" />
     <category term="JDK8" />
     <category term="String" />
-    <category term="Java" />
-    <category term="dubbo" />
-    <category term="模型评估" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
+    <category term="leetCode" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="链表" />
+    <category term="动态规划" />
+    <category term="不做也罢的算法题" />
+    <category term="有点难的算法题" />
     <category term="数据结构与算法" />
-    <category term="架构" />
-    <category term="笔记" />
     <category term="哈希算法" />
-    <category term="递归" />
     <category term="排序" />
     <category term="冒泡排序" />
-    <category term="交换排序" />
     <category term="分治思想排序" />
-    <category term="快速排序" />
-    <category term="分支思想排序" />
+    <category term="交换排序" />
     <category term="桶排序" />
     <category term="线性思想排序" />
     <category term="选择排序" />
+    <category term="递归" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="Java" />
+    <category term="dubbo" />
+    <category term="模型评估" />
+    <category term="架构" />
+    <category term="笔记" />
     <category term="KNN" />
     <category term="JDK版本" />
     <category term="JDK11" />
@@ -66,9 +66,9 @@
     <category term="JVM" />
     <category term="Stream" />
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</id>
+        <id>https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/</id>
         <title>聊聊日志</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/"/>
         <content type="html">&lt;p&gt;&lt;code&gt;https://github.com/golang/glog&lt;/code&gt; ，是  &lt;code&gt;google&lt;/code&gt;  提供的一个不维护的日志库， &lt;code&gt;glog&lt;/code&gt;  有其他语言的一些版本，对我当时使用  &lt;code&gt;log&lt;/code&gt;  库有很大的影响。它包含如下日志级别：  &lt;code&gt;Info&lt;/code&gt; ,  &lt;code&gt;Warning&lt;/code&gt; ,  &lt;code&gt;Error&lt;/code&gt; ,  &lt;code&gt;Fatal&lt;/code&gt;  (会中断程序执行)&lt;br&gt;
  还有类似  &lt;code&gt;log4go&lt;/code&gt; ,  &lt;code&gt;loggo&lt;/code&gt;  , &lt;code&gt;zap&lt;/code&gt;  等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别：  &lt;code&gt;Trace&lt;/code&gt;  ,  &lt;code&gt;Debug&lt;/code&gt;  ,  &lt;code&gt;Info&lt;/code&gt;  ,  &lt;code&gt;Warning&lt;/code&gt;  ,  &lt;code&gt;Error&lt;/code&gt;  ,  &lt;code&gt;Critical&lt;/code&gt; .&lt;/p&gt;
 &lt;h2 id=&#34;日志级别&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志级别&#34;&gt;#&lt;/a&gt; 日志级别&lt;/h2&gt;
@@ -180,12 +180,12 @@
 &lt;li&gt;可监控：实时监控运行状态&lt;/li&gt;
 &lt;li&gt;完善的自我保护机制：限制自身对于宿主机资源的消耗，限制发送速度&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h1&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
 </content>
         <category term="log" />
         <category term="go-log" />
-        <updated>2022-02-24T10:18:18.000Z</updated>
+        <updated>2022-03-04T10:18:18.000Z</updated>
     </entry>
 </feed>

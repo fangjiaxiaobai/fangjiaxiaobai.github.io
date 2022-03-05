@@ -5,63 +5,63 @@
         <link>https://fangjiaxiaobai.github.io</link>
         <description>和你一起遇见更好的自己</description>
         <language>zh-CN</language>
-        <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
-        <lastBuildDate>Thu, 24 Feb 2022 18:18:18 +0800</lastBuildDate>
+        <pubDate>Fri, 04 Mar 2022 18:18:18 +0800</pubDate>
+        <lastBuildDate>Fri, 04 Mar 2022 18:18:18 +0800</lastBuildDate>
         <category>全站地图</category>
         <category>目录</category>
         <category>MySQL</category>
-        <category>源码</category>
-        <category>Elastic Search</category>
-        <category>搜索</category>
-        <category>git</category>
-        <category>go</category>
-        <category>go-error</category>
-        <category>MachineLearn</category>
         <category>Redis</category>
+        <category>源码</category>
+        <category>数据结构</category>
+        <category>雪花算法</category>
+        <category>算法</category>
         <category>日常</category>
         <category>Springboot</category>
         <category>Netty</category>
-        <category>数据结构</category>
+        <category>git</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>MachineLearn</category>
         <category>log</category>
         <category>go-log</category>
-        <category>雪花算法</category>
-        <category>算法</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
         <category>图片</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>leetCode</category>
-        <category>面经之算法题</category>
-        <category>数组</category>
-        <category>链表</category>
-        <category>不做也罢的算法题</category>
-        <category>有点难的算法题</category>
-        <category>动态规划</category>
-        <category>HD</category>
-        <category>BQ</category>
-        <category>AC</category>
         <category>HashMap</category>
         <category>JDK</category>
         <category>JDK8</category>
         <category>String</category>
-        <category>Java</category>
-        <category>dubbo</category>
-        <category>模型评估</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
+        <category>leetCode</category>
+        <category>数组</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
+        <category>动态规划</category>
+        <category>不做也罢的算法题</category>
+        <category>有点难的算法题</category>
         <category>数据结构与算法</category>
-        <category>架构</category>
-        <category>笔记</category>
         <category>哈希算法</category>
-        <category>递归</category>
         <category>排序</category>
         <category>冒泡排序</category>
-        <category>交换排序</category>
         <category>分治思想排序</category>
-        <category>快速排序</category>
-        <category>分支思想排序</category>
+        <category>交换排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
         <category>选择排序</category>
+        <category>递归</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>模型评估</category>
+        <category>架构</category>
+        <category>笔记</category>
         <category>KNN</category>
         <category>JDK版本</category>
         <category>JDK11</category>
@@ -69,12 +69,12 @@
         <category>JVM</category>
         <category>Stream</category>
         <item>
-            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</guid>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/</guid>
             <title>聊聊日志</title>
-            <link>https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</link>
+            <link>https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/</link>
             <category>log</category>
             <category>go-log</category>
-            <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
+            <pubDate>Fri, 04 Mar 2022 18:18:18 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;&lt;code&gt;https://github.com/golang/glog&lt;/code&gt; ，是  &lt;code&gt;google&lt;/code&gt;  提供的一个不维护的日志库， &lt;code&gt;glog&lt;/code&gt;  有其他语言的一些版本，对我当时使用  &lt;code&gt;log&lt;/code&gt;  库有很大的影响。它包含如下日志级别：  &lt;code&gt;Info&lt;/code&gt; ,  &lt;code&gt;Warning&lt;/code&gt; ,  &lt;code&gt;Error&lt;/code&gt; ,  &lt;code&gt;Fatal&lt;/code&gt;  (会中断程序执行)&lt;br&gt;
  还有类似  &lt;code&gt;log4go&lt;/code&gt; ,  &lt;code&gt;loggo&lt;/code&gt;  , &lt;code&gt;zap&lt;/code&gt;  等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别：  &lt;code&gt;Trace&lt;/code&gt;  ,  &lt;code&gt;Debug&lt;/code&gt;  ,  &lt;code&gt;Info&lt;/code&gt;  ,  &lt;code&gt;Warning&lt;/code&gt;  ,  &lt;code&gt;Error&lt;/code&gt;  ,  &lt;code&gt;Critical&lt;/code&gt; .&lt;/p&gt;
 &lt;h2 id=&#34;日志级别&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志级别&#34;&gt;#&lt;/a&gt; 日志级别&lt;/h2&gt;
@@ -186,7 +186,7 @@
 &lt;li&gt;可监控：实时监控运行状态&lt;/li&gt;
 &lt;li&gt;完善的自我保护机制：限制自身对于宿主机资源的消耗，限制发送速度&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h1&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
  ]]></description>
