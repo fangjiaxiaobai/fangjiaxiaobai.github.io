@@ -117,12 +117,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljitigmj20zk0m87fp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -178,11 +178,11 @@
 <p>记录消息后，直接调用  <code>os.Exit(1)</code> ，这意味着： 在其他  <code>goroutine</code>   <code>defer</code>  语句不会被执行； 各种  <code>buffers</code>  不会被  <code>flush</code>  ，包括日志的； 临时文件或者目录不会被移除； 不要使用  <code>fatal</code>  记录日志，而是向调用者返回错误。如果错误一直持续到  <code>main.main</code> 。 <code>main.main</code>  那就是在退出之前做处理任何清理操作的正确位置。</p>
 <h3 id="error"><a class="markdownIt-Anchor" href="#error">#</a> Error</h3>
 <p>也有很多人，在错误发生的地方要立马记录日志，尤其要使用  <code>error</code>  级别记录。</p>
-<p><img data-src="./images/12-log-01.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-01.png" alt=""></p>
 <h4 id="处理-error"><a class="markdownIt-Anchor" href="#处理-error">#</a> 处理 error</h4>
 <p>把  <code>error</code>  抛给调用者，在顶部打印日志；<br>
 如果您选择通过日志记录来处理错误，那么根据定义，它不再是一个错误 — 您已经处理了它。记录错误的行为会处理错误，因此不再适合将其记录为错误。</p>
-<p><img data-src="./images/12-log-02.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-02.png" alt=""></p>
 <h3 id="debug"><a class="markdownIt-Anchor" href="#debug">#</a> DEBUG</h3>
 <p>相信只有两件事你应该记录：</p>
 <ul>
@@ -207,11 +207,11 @@
 <p>此架构由  <code>Logstash</code>  分布于各个节点上搜集相关日志、数据，并经过分析、过滤后发送给远端服务器上的  <code>Elasticsearch</code>  进行存储。<br>
  <code>Elasticsearch</code>  将数据以分片的形式压缩存储并提供多种  <code>API</code>  供用户查询，操作。用户亦可以更直观的通过配置  <code>Kibana Web</code>  方便的对日志查询，并根据数据生成报表。<br>
 因为  <code>logstash</code>  属于  <code>server</code>  角色，必然出现流量集中式的热点问题，因此我们不建议使用这种部署方式，同时因为 还需要做大量  <code>match</code>  操作（格式化日志），消耗的  <code>CPU</code>  也很多，不利于  <code>scale out</code> 。</p>
-<p><img data-src="./images/12-log-03.png" alt=""></p>
-<p><img data-src="./images/12-log-04.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-03.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-04.png" alt=""></p>
 <p>此种架构引入了消息队列机制，位于各个节点上的  <code>Logstash Agent</code>  先将数据 / 日志传递给  <code>Kafka</code> ，并将队列中消息或数据间接传递给  <code>Logstash</code> ， <code>Logstash</code>  过滤、分析后将数据传递给 <code>Elasticsearch</code>  存储。最后由  <code>Kibana</code>  将日志和数据呈现给用户。因为引入了  <code>Kafka</code> ，所以即使远端  <code>Logstash server</code>  因故障停止运行，数据将会先被存储下来，从而避免数据丢失。<br>
 更进一步的：  将收集端  <code>logstash</code>  替换为  <code>beats</code> , 更灵活，消耗资源更少，扩展性更强。</p>
-<p><img data-src="./images/12-log-05.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-05.png" alt=""></p>
 <h2 id="日志系统的设计目标"><a class="markdownIt-Anchor" href="#日志系统的设计目标">#</a> 日志系统的设计目标</h2>
 <ul>
 <li>接入方式收敛；</li>
@@ -226,7 +226,7 @@
  <code>level</code> : 日志等级， <code>ERROR</code> 、 <code>WARN</code> 、 <code>INFO</code> 、 <code>DEBUG</code> ；<br>
  <code>app_id</code> : 应用 <code>id</code> ，用于标示日志来源；<br>
  <code>instance_id</code> : 实例  <code>id</code> ，用于区分同一应用不同实例，即  <code>hostname</code> ；</p>
-<p><img data-src="./images/12-log-06.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-06.png" alt=""></p>
 <h2 id="日志系统的设计与实现"><a class="markdownIt-Anchor" href="#日志系统的设计与实现">#</a> 日志系统的设计与实现</h2>
 <p>日志从产生到可检索，经历几个阶段：</p>
 <ul>
@@ -235,7 +235,7 @@
 <li><b>存储 &amp; 检索</b></li>
 </ul>
 <h3 id="采集"><a class="markdownIt-Anchor" href="#采集">#</a> 采集</h3>
-<p><img data-src="./images/12-log-07.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-07.png" alt=""></p>
 <h4 id="logstash"><a class="markdownIt-Anchor" href="#logstash">#</a>  <code>logstash</code> ：</h4>
 <p>监听  <code>tcp/udp</code> <br>
  适用于通过网络上报日志的方式</p>
@@ -246,7 +246,7 @@
 <p>物理机部署，监听  <code>unixsocket</code> <br>
  日志系统提供各种语言  <code>SDK</code> <br>
  直接读取本地日志文件</p>
-<p><img data-src="./images/12-log-08.png" alt="logagent的设计"></p>
+<p><img data-src="/images/mylogs/12-log-08.png" alt="logagent的设计"></p>
 <h3 id="传输"><a class="markdownIt-Anchor" href="#传输">#</a> 传输</h3>
 <p>基于  <code>flume + Kafka</code>  统一传输平台<br>
 基于  <code>LogID</code>  做日志分流：</p>
@@ -256,7 +256,7 @@
 <li>高级别（ <code>ERROR</code> ）</li>
 </ul>
 <p>现在替换为  <code>Flink + Kafka</code>  的实现方式。</p>
-<p><img data-src="./images/12-log-09.png" alt=""></p>
+<p><img data-src="/images/mylogs/12-log-09.png" alt=""></p>
 <h3 id="切分"><a class="markdownIt-Anchor" href="#切分">#</a> 切分</h3>
 <p>从 <code>kafka</code>  消费日志，解析日志，写入 <code>elasticsearch</code> <br>
  <code>bili-index</code> : 自研， <code>golang</code>  开发，逻辑简单，性能 高，可定制化方便。<br>
@@ -282,7 +282,7 @@
 </ul>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
 <p>期望与你一起遇见更好的自己</p>
-<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+<p><img data-src="/images/mylogs/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
 
       <div class="asb asb-post-01" style="display:none;">
         <div class="mask"></div>
@@ -315,7 +315,7 @@
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-03-05 22:06:19" itemprop="dateModified" datetime="2022-03-05T22:06:19+08:00">2022-03-05</time>
+    <time title="修改时间：2022-03-05 22:15:16" itemprop="dateModified" datetime="2022-03-05T22:15:16+08:00">2022-03-05</time>
   </span>
   <span id="2022/03/04/mylogs/talk_about_log/" class="item leancloud_visitors" data-flag-title="聊聊日志" title="阅读次数">
       <span class="icon">
@@ -377,7 +377,7 @@
     <div class="item left">
       
 
-  <a href="/2022/02/24/go/go-errors/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfb3vzhj20zk0m8wny.jpg" title="浅析go的error">
+  <a href="/2022/02/24/go/go-errors/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipewf5l51j20zk0m8b29.jpg" title="浅析go的error">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> go 系列</span>
   <h3>浅析go的error</h3>
@@ -585,40 +585,10 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
-</div>
-
-    <span><a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" title="雪花算法">雪花算法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search配置">Elastic Search配置</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/picture/" title="分类于 picture">picture</a>
-</div>
-
-    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-dubbo-with-springboot/" title="最简版 springboot 集成 dubbo">最简版 springboot 集成 dubbo</a></span>
   </li>
 
       
@@ -628,27 +598,7 @@
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
-</div>
-
-    <span><a href="/2022/02/24/go/go-errors/" title="浅析go的error">浅析go的error</a></span>
+    <span><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></span>
   </li>
 
       
@@ -658,7 +608,17 @@
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
   </li>
 
       
@@ -668,17 +628,57 @@
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">一致性哈希算法的实现</a></span>
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
   </li>
 
   </ul>
