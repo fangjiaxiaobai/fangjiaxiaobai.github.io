@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://fangjiaxiaobai.github.io</id>
+    <title>方家小白 • Posts by &#34;笔记&#34; category</title>
+    <link href="https://fangjiaxiaobai.github.io" />
+    <updated>2022-02-11T10:18:18.000Z</updated>
+    <category term="全站地图" />
+    <category term="目录" />
+    <category term="MySQL" />
+    <category term="源码" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="git" />
+    <category term="go" />
+    <category term="go-error" />
+    <category term="MachineLearn" />
+    <category term="Redis" />
+    <category term="日常" />
+    <category term="Springboot" />
+    <category term="Netty" />
+    <category term="数据结构" />
+    <category term="log" />
+    <category term="go-log" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="图片" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="leetCode" />
+    <category term="面经之算法题" />
+    <category term="数组" />
+    <category term="链表" />
+    <category term="不做也罢的算法题" />
+    <category term="有点难的算法题" />
+    <category term="动态规划" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="String" />
+    <category term="Java" />
+    <category term="dubbo" />
+    <category term="模型评估" />
+    <category term="数据结构与算法" />
+    <category term="架构" />
+    <category term="笔记" />
+    <category term="哈希算法" />
+    <category term="递归" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="交换排序" />
+    <category term="分治思想排序" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
+    <category term="选择排序" />
+    <category term="KNN" />
+    <category term="JDK版本" />
+    <category term="JDK11" />
+    <category term="OOM" />
+    <category term="JVM" />
+    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/</id>
+        <title>【笔记】 从0开始学架构 一 架构基础</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/"/>
+        <content type="html">&lt;p&gt;&lt;span class=&#34;spoiler&#34; title=&#34;...&#34;&gt;本文是学习 极客时间 - 李运华 - 从 0 开始学架构 的笔记。侵删～&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&#34;gallery&#34; data-height=&#34;300&#34;&gt;&lt;img data-src=&#34;/images/architecture/Learn_Architecture_From_0/course.jpeg&#34; alt=&#34;购课链接&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;label warning&#34;&gt;🔥购买后加微信，返现赏金 (全额)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;架构设计的关键思维在于判断和取舍。程序设计的关键思维在于逻辑和实现.&lt;/mark&gt;&lt;/p&gt;
+&lt;h2 id=&#34;定义架构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#定义架构&#34;&gt;#&lt;/a&gt; 定义架构.&lt;/h2&gt;
+&lt;p&gt;&lt;b&gt;软件架构 指软件系统的顶层结构&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统是一群关联个体组成的。这些个体可以是子系统，模块，组件等。架构需要明确系统中包含哪些个体。&lt;/li&gt;
+&lt;li&gt;系统中的个体需要” 根据魔种规则 “运作，架构需要明确个体运作和协作的规则。&lt;/li&gt;
+&lt;li&gt;维基百科定义的架构用到了 “基础结构” 这个说法，我改为 “顶层结构”，可以更好&lt;br&gt;
+地区分系统和子系统，避免将系统架构和子系统架构混淆在一起导致架构层次混乱。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;架构是顶层设计，框架是面向编程或配置的半成品，组件是从技术维度上的复用， 模型是从业务维度上职责的划分，系统是相互协同可运行的实体。&lt;/p&gt;
+&lt;h2 id=&#34;架构设计的历史背景&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#架构设计的历史背景&#34;&gt;#&lt;/a&gt; 架构设计的历史背景&lt;/h2&gt;
+&lt;h3 id=&#34;软件开发进化的历史&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#软件开发进化的历史&#34;&gt;#&lt;/a&gt; 软件开发进化的历史&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1940&lt;/code&gt;  年之前，机器语言。
+&lt;ul&gt;
+&lt;li&gt;直接使用二进制  &lt;code&gt;0&lt;/code&gt;  和  &lt;code&gt;1&lt;/code&gt;  来标识机器可以识别的指令和数据。&lt;/li&gt;
+&lt;li&gt;机器语言的主要问题是：太难写，太难读，太难改。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;20&lt;/code&gt;  世纪 &lt;code&gt;40&lt;/code&gt;  年代 汇编语言
+&lt;ul&gt;
+&lt;li&gt;符号语言，用助记符代替机器指令的操作码，用地址符号或者标号代替指令和操作数的地址。&lt;/li&gt;
+&lt;li&gt;编写复杂。&lt;/li&gt;
+&lt;li&gt;不同 &lt;code&gt;CPU&lt;/code&gt;  的汇编指令和结构是不同的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;20&lt;/code&gt;  世界 &lt;code&gt;50&lt;/code&gt;  年代 高级语言
+&lt;ul&gt;
+&lt;li&gt;通过编译程序的处理，高级语言可以被编译为适合不同  &lt;code&gt;CPU&lt;/code&gt;  指令的机器语言。&lt;br&gt;
+程序员只要写一次程序，就可以在多个不同的机器上编译运行，无须根据不同的机器指令重&lt;br&gt;
+写整个程序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;20&lt;/code&gt;  世纪 &lt;code&gt;60&lt;/code&gt;  年代 - &lt;code&gt;70&lt;/code&gt;  年代 第一次软件危机和结构化程序设计
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;20&lt;/code&gt;  世纪 &lt;code&gt;60&lt;/code&gt;  年代中期，由于软件的” 逻辑 “变得非常复杂。爆发了软件危机，随后提出了软件工程的解决方法，但是 软件工程无法根除软件危机，只能在一定程度上环节软件危机。&lt;/li&gt;
+&lt;li&gt;差不多同时间，” 结构化程序设计 “作为另外一种解决软件危机的方案被提了出来。并诞生了第一个结构化的程序语言： &lt;code&gt;Pascal&lt;/code&gt; .&lt;/li&gt;
+&lt;li&gt;结构化程序设计本质上还是一种面向过程的设计思想，但通过 “自顶向下、逐步细化、模块化” 的方法，将软件的复杂度控制在一定范围内，从而从整体上降低了软件开发的复杂度。结构化程序方法成为了  &lt;code&gt;20&lt;/code&gt;  世纪  &lt;code&gt;70&lt;/code&gt;  年代软件开发的潮流。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;20&lt;/code&gt;  世纪 &lt;code&gt;80&lt;/code&gt;  年代 第二次软件危机和面向对象
+&lt;ul&gt;
+&lt;li&gt;由于软件生产力远远跟不上硬件和业务的发展。第二次软件危机爆发了。主要表现为 软件的扩展变得非常复杂。&lt;/li&gt;
+&lt;li&gt;软件领域迫切希望找到新的银弹来解决软件危机，在这种背景下，面向对象的思想开始流行起来。&lt;/li&gt;
+&lt;li&gt;面向对象真正开始流行是在  &lt;code&gt;20&lt;/code&gt;  世纪  &lt;code&gt;80&lt;/code&gt;  年代，主要得益于  &lt;code&gt;C++&lt;/code&gt;  的功劳，后来的  &lt;code&gt;Java&lt;/code&gt; 、 &lt;code&gt;C#&lt;/code&gt;  把面向对象推向了新的高峰。到现在为止，面向对象已经成为了主流的开发思想。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;软件架构的历史背景&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#软件架构的历史背景&#34;&gt;#&lt;/a&gt; 软件架构的历史背景&lt;/h3&gt;
+&lt;p&gt;软件架构的出现有其历史必然性。  &lt;code&gt;20&lt;/code&gt;  世纪  &lt;code&gt;60&lt;/code&gt;  年代第一次软件危机引出了 “结构化编程”，创造了 “模块” 概念； &lt;code&gt;20&lt;/code&gt;  世纪  &lt;code&gt;80&lt;/code&gt;  年代第二次软件危机引出了 “面向对象编程”，创造了 “对象” 概念；到了  &lt;code&gt;20&lt;/code&gt;  世纪  &lt;code&gt;90&lt;/code&gt;  年代 “软件架构” 开始流行，创造了 “组件” 概念。我们可以看到，“模块”“对象”“组件” 本质上都是对达到一定规模的软件进行拆分，差别只是在于随着软件的复杂度不断增加，拆分的粒度越来越粗，拆分的层次越来越高。&lt;/p&gt;
+&lt;h2 id=&#34;架构设计的目的&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#架构设计的目的&#34;&gt;#&lt;/a&gt; 架构设计的目的&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;架构设计是解决系统复杂度带来的问题&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;复杂度来源高性能&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源高性能&#34;&gt;#&lt;/a&gt; 复杂度来源：高性能&lt;/h3&gt;
+&lt;p&gt;软件系统中 高性能 带来的复杂度主要体现在两方面。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单台计算机内部为了高性能带来的复杂度&lt;/li&gt;
+&lt;li&gt;多台计算机集群为了高性能带来的复杂度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;复杂度来源高可用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源高可用&#34;&gt;#&lt;/a&gt; 复杂度来源：高可用&lt;/h3&gt;
+&lt;p&gt;系统无中断的执行其功能的能力，代表系统的可用性程度，是进行系统设计时的准则之一。&lt;/p&gt;
+&lt;p&gt;无中断？硬件会出故障，软件会有 &lt;code&gt;bug&lt;/code&gt; , 硬件会老化，软件会越来越复杂和庞大。断电，断网，地震等等外部因素也不可能做到 “无中断”。&lt;/p&gt;
+&lt;p&gt;系统高可用的方案，本质上都是通过 冗余 来实现的。&lt;/p&gt;
+&lt;p&gt;高性能增加机器的目的是在于扩展，高可用增加机器的目的在于 冗余 处理单元。&lt;/p&gt;
+&lt;h4 id=&#34;计算高可用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#计算高可用&#34;&gt;#&lt;/a&gt; 计算高可用&lt;/h4&gt;
+&lt;p&gt;这里的计算是个名词。计算指的是，业务的逻辑处理。&lt;/p&gt;
+&lt;p&gt;从一台业务服务扩展到两台业务服务时，必须要增加一个任务分配器 (第三者) 来协调 (调度) 哪台机器提供服务。这里就要考虑： 性能，成本，可维护性，可用性等方面因素。&lt;/p&gt;
+&lt;p&gt;任务分配器和真正的业务服务器之间有连接和交互，需要选择合适的连接方式，并且对连接进行管理。例如，连接建立、连接检测、连接中断后如何处理等。任务分配器需要增加分配算法。例如，常见的双机算法有主备、主主，主备方案又可以细分为冷备、温备、热备。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/architecture/Learn_Architecture_From_0/01-gaokeyong01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;存储高可用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#存储高可用&#34;&gt;#&lt;/a&gt; 存储高可用&lt;/h4&gt;
+&lt;p&gt;存储和计算相比，有一个本质的区别：将数据从一台机器搬到另一台机器，需要经过线路进行传输。&lt;/p&gt;
+&lt;p&gt;线路传输的速度是毫秒级的，但是对高可用系统，有这本质上的不同。 这意味着整个系统在某个时间点上，数据肯定是不一致的。按照 “&lt;span class=&#34;label warning&#34;&gt;数据 + 逻辑 = 业务&lt;/span&gt;” 这个公式来套的话，数据不一致，即使逻辑一致，最后的业务表现就不一样了。&lt;/p&gt;
+&lt;p&gt;所以： 存储高可用的难点 不在于 如何备份数据，而在于如何减少或者规避数据不一致对业务造成的影响。&lt;/p&gt;
+&lt;h4 id=&#34;高可用状态决策&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#高可用状态决策&#34;&gt;#&lt;/a&gt; 高可用状态决策&lt;/h4&gt;
+&lt;p&gt;无论是计算高可用还是存储高可用，其基础都是 “状态决策”，即系统需要能够判断当前的状态是正常还是异常，如果出现了异常就要采取行动来保证高可用。但在具体实践的过程中，恰好存在一个本质的矛盾：通过冗余来实现的高可用系统，状态决策本质上就不可能做到完全正确。&lt;/p&gt;
+&lt;h5 id=&#34;独裁式决策&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#独裁式决策&#34;&gt;#&lt;/a&gt; 独裁式决策&lt;/h5&gt;
+&lt;p&gt;独裁式决策指的是存在一个独立的决策主体，我们姑且称它为 “决策者”，负责收集信息然后进行决策；所有冗余的个体，我们姑且称它为 “上报者”，都将状态信息发送给决策者。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/architecture/Learn_Architecture_From_0/01-gaokeyong02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;独裁式的决策方式不会出现决策混乱的问题，因为只有一个决策者，但问题也正是在于只有一个决策者。当决策者本身故障时，整个系统就无法实现准确的状态决策。如果决策者本身又做一套状态决策，那就陷入一个递归的死循环了。&lt;/p&gt;
+&lt;h5 id=&#34;协商式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#协商式&#34;&gt;#&lt;/a&gt; 协商式&lt;/h5&gt;
+&lt;p&gt;协商式决策指的是两个独立的个体通过交流信息，然后根据规则进行决策，最常用的协商式决策就是主备决策。&lt;/p&gt;
+&lt;h5 id=&#34;民主式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#民主式&#34;&gt;#&lt;/a&gt; 民主式&lt;/h5&gt;
+&lt;p&gt;民主式决策指的是多个独立的个体通过投票的方式来进行状态决策。例如， &lt;code&gt;ZooKeeper&lt;/code&gt;  集群在选举  &lt;code&gt;leader&lt;/code&gt;  时就是采用这种方式。&lt;/p&gt;
+&lt;p&gt;这种方式实现复杂，还有一个缺陷：脑裂。脑裂的根本原因是，原来统一的集群因为连接中断，造成了两个独立分隔的子集群，每个子集群单独进行选举，于是选出了  &lt;code&gt;2&lt;/code&gt;  个主机，相当于人体有两个大脑了。&lt;/p&gt;
+&lt;p&gt;为了解决脑裂问题，民主式决策的系统一般都采用 “投票节点数必须超过系统总节点数一半” 规则来处理。，但同时降低了系统整体的可用性，即如果系统不是因为脑裂问题导致投票节点数过少，而真的是因为节点故障时系统也不会选出主节点，整个系统就相当于宕机了，&lt;/p&gt;
+&lt;p&gt;综合分析，无论采取什么样的方案，状态决策都不可能做到任何场景下都没有问题，但完全不做高可用方案又会产生更大的问题，如何选取适合系统的高可用方案，也是一个复杂的分析、判断和选择的过程。&lt;/p&gt;
+&lt;h3 id=&#34;复杂度来源可扩展性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源可扩展性&#34;&gt;#&lt;/a&gt; 复杂度来源：可扩展性&lt;/h3&gt;
+&lt;p&gt;设计具备良好可扩展性的系统，有两个基本条件：正确预测变化、完美封装变化。但要达成这两个条件，本身也是一件复杂的事情。&lt;/p&gt;
+&lt;h4 id=&#34;预测变化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#预测变化&#34;&gt;#&lt;/a&gt; 预测变化&lt;/h4&gt;
+&lt;p&gt;预测变化的复杂性在于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;ins class=&#34;wavy success&#34;&gt;不能每个设计点都考虑可扩展性。&lt;/ins&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ins class=&#34;wavy success&#34;&gt;不能完全不考虑可扩展性。&lt;/ins&gt;&lt;/li&gt;
+&lt;li&gt;&lt;ins class=&#34;wavy success&#34;&gt;所有的预测都存在出错的可能性。&lt;/ins&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于架构师来说，如何把握预测的程度和提升预测结果的准确性，是一件很复杂的事情，而且没有通用的标准可以简单套上去，更多是靠自己的经验、直觉，所以架构设计评审的时候经常会出现两个设计师对某个判断争得面红耳赤的情况，原因就在于没有明确标准，不同的人理解和判断有偏差，而最终又只能选择一个判断。&lt;/p&gt;
+&lt;h4 id=&#34;应对变化&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#应对变化&#34;&gt;#&lt;/a&gt; 应对变化&lt;/h4&gt;
+&lt;p&gt;&lt;ins class=&#34;wavy success&#34;&gt;预测变化是一回事，采取什么方案来应对变化，又是另外一个复杂的事情.&lt;/ins&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一种应对变化的常见方案是将 “变化” 封装在一个 “变化层”，将不变的部分封装在一个独立的 “稳定层”。那么主要的问题就会聚焦在 变化层和稳定层。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;系统需要拆分出变化层和稳定层对于哪些属于变化层，哪些属于稳定层，很多时候并不是像前面的示例（不同接口协议或者不同数据库）那样明确，不同的人有不同的理解，导致架构设计评审的时候可能吵翻天。&lt;/li&gt;
+&lt;li&gt;需要设计变化层和稳定层之间的接口接口设计同样至关重要，对于稳定层来说，接口肯定是越稳定越好；但对于变化层来说，在有差异的多个实现方式中找出共同点，并且还要保证当加入新的功能时原有的接口设计不需要太大修改，这是一件很复杂的事情。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二种常见的应对变化的方案是提炼出一个 “抽象层” 和一个 “实现层”。抽象层是稳定的，实现层可以根据具体业务需要定制开发，当加入新的功能时，只需要增加新的实现，无须修改抽象层。这种方案典型的实践就是设计模式和规则引擎。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;ins&gt;封装变化，隔离可变性&lt;/ins&gt;&lt;/p&gt;
+&lt;h3 id=&#34;复杂度来源低成本&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源低成本&#34;&gt;#&lt;/a&gt; 复杂度来源：低成本&lt;/h3&gt;
+&lt;p&gt;低成本给架构设计带来的主要复杂度体现在，往往只有 “创新” 才能达到低成本目标。无论是引入新技术，还是自己创造新技术，都是一件复杂的事情。引入新技术的主要复杂度在于需要去熟悉新技术，并且将新技术与已有技术结合起来；创造新技术的主要复杂度在于需要自己去创造全新的理念和技术，并且新技术跟旧技术相比，需要有质的飞跃。&lt;/p&gt;
+&lt;h3 id=&#34;复杂度来源安全&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源安全&#34;&gt;#&lt;/a&gt; 复杂度来源：安全&lt;/h3&gt;
+&lt;p&gt;安全本身是一个庞大而又复杂的技术领域，并且一旦出问题，对业务和企业形象影响非常大。&lt;br&gt;
+从技术的角度来讲，安全可以分为两类：一类是功能上的安全，一类是架构上的安全。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;功能安全是一个逐步完善的过程，而且往往都是在问题出现后才能有针对性的提出解决方案，我们永远无法预测系统下一个漏洞在哪里，也不敢说自己的系统肯定没有任何问题、&lt;/li&gt;
+&lt;li&gt;架构安全：传统的架构安全主要依靠防火墙，防火墙最基本的功能就是隔离网络，通过将网络划分成不同的区域，制定出不同区域之间的访问控制策略来控制不同信任程度区域间传送的数据流。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于上述原因，互联网系统的架构安全目前并没有太好的设计手段来实现，更多地是依靠运营商或者云服务商强大的带宽和流量清洗的能力，较少自己来设计和实现。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;2018&lt;/code&gt;  年，美国东部时间  &lt;code&gt;2&lt;/code&gt;  月  &lt;code&gt;28&lt;/code&gt;  日， &lt;code&gt;GitHub&lt;/code&gt;  在一瞬间遭到高达  &lt;code&gt;1.35Tbps&lt;/code&gt;  的带宽攻击。&lt;/p&gt;
+&lt;h3 id=&#34;复杂度来源规模&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#复杂度来源规模&#34;&gt;#&lt;/a&gt; 复杂度来源：规模&lt;/h3&gt;
+&lt;p&gt;规模带来复杂度的主要原因就是 “量变引起质变”，当数量超过一定的阈值后，复杂度会发生质的变化。常见的规模带来的复杂度有：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;功能越来越多，导致系统复杂度指数级上升&lt;/li&gt;
+&lt;li&gt;数据越来越多，系统复杂度发生质变&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;架构设计原则&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#架构设计原则&#34;&gt;#&lt;/a&gt; 架构设计原则&lt;/h2&gt;
+&lt;p&gt;对于编程来说，本质上是不能存在不确定的，对于同样一段代码，不管是谁写的，不管什么时候执行，执行的结果应该都是确定的（注意：“确定的” 并不等于 “正确的”，有  &lt;code&gt;bug&lt;/code&gt;  也是确定的）。而对于架构设计来说，本质上是不确定的，同样的一个系统， &lt;code&gt;A&lt;/code&gt;  公司和  &lt;code&gt;B&lt;/code&gt;  公司做出来的架构可能差异很大，但最后都能正常运转；同样一个方案， &lt;code&gt;A&lt;/code&gt;  设计师认为应该这样做， &lt;code&gt;B&lt;/code&gt;  设计师认为应该那样做，看起来好像都有道理…… 相比编程来说，架构设计并没有像编程语言那样的语法来进行约束，更多的时候是面对多种可能性时进行选择。&lt;/p&gt;
+&lt;h3 id=&#34;合适原则&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#合适原则&#34;&gt;#&lt;/a&gt; 合适原则&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;❤️❤️❤️合适原则宣言：“合适优于业界领先”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;真正优秀的架构都是在企业当前人力、条件、业务等各种约束下设计出来的，能够合理地将资源整合在一起并发挥出最大功效，并且能够快速落地。这也是很多 BAT 出来的架构师到了小公司或者创业团队反而做不出成绩的原因，因为没有了大公司的平台、资源、积累，只是生搬硬套大公司的做法，失败的概率非常高。&lt;/p&gt;
+&lt;h3 id=&#34;演化原则&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#演化原则&#34;&gt;#&lt;/a&gt; 演化原则&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;❤️❤️演化原则宣言：“演化优于一步到位”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;对于建筑来说，永恒是主题；而对于软件来说，变化才是主题。软件架构需要根据业务的发展而不断变化。设计  &lt;code&gt;Windows&lt;/code&gt;  和  &lt;code&gt;Android&lt;/code&gt;  的人都是顶尖的天才，即便如此，他们也不可能在  &lt;code&gt;1985&lt;/code&gt;  年设计出  &lt;code&gt;Windows 8&lt;/code&gt; ，不可能在  &lt;code&gt;2009&lt;/code&gt;  年设计出  &lt;code&gt;Android 6.0&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;考虑到软件架构需要根据业务发展不断变化这个本质特点，软件架构设计其实更加类似于大自然 “设计” 一个生物，通过演化让生物适应环境，逐步变得更加强大：&lt;/p&gt;
+&lt;p&gt;首先，设计出来的架构要满足当时的业务需要。&lt;br&gt;
+其次，架构要不断地在实际应用过程中迭代，保留优秀的设计，修复有缺陷的设计，改正错误的设计，去掉无用的设计，使得架构逐渐完善。&lt;br&gt;
+第三，当业务发生变化时，架构要扩展、重构，甚至重写；代码也许会重写，但有价值的经验、教训、逻辑、设计等（类似生物体内的基因）却可以在新架构中延续。&lt;/p&gt;
+&lt;h3 id=&#34;简单原则&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#简单原则&#34;&gt;#&lt;/a&gt; 简单原则&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;label success&#34;&gt;❤️简单原则宣言：“简单优于复杂”&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;结构上的复杂性存在的第三个问题是，定位一个复杂系统中的问题总是比简单系统更加困难。首先是组件多，每个组件都有嫌疑，因此要逐一排查；其次组件间的关系复杂，有可能表现故障的组件并不是真正问题的根源。&lt;/p&gt;
+&lt;p&gt;逻辑上的复杂。&lt;/p&gt;
+&lt;p&gt;综合前面的分析，我们可以看到，无论是结构的复杂性，还是逻辑的复杂性，都会存在各种问题，所以架构设计时如果简单的方案和复杂的方案都可以满足需求，最好选择简单的方案。&lt;/p&gt;
+&lt;p&gt;课程中介绍了两个案例：淘宝和手机 &lt;code&gt;qq&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;两本书：《淘宝技术发展》 . 《QQ 1.4 亿在线背后的故事》&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="架构" />
+        <category term="笔记" />
+        <updated>2022-02-11T10:18:18.000Z</updated>
+    </entry>
+</feed>

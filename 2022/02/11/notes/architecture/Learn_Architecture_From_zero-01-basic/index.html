@@ -1,0 +1,804 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="架构,笔记" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/">
+
+
+
+  <title>
+【笔记】 从 0 开始学架构 一 架构基础 - 笔记 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">【笔记】 从 0 开始学架构 一 架构基础
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-02-11 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-02-11T18:18:18+08:00">2022-02-11</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="item" rel="index" title="分类于 笔记"><span itemprop="name">笔记</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <div id="fxb_container" class="fxb_container_style">
+      <p><span class="spoiler" title="...">本文是学习 极客时间 - 李运华 - 从 0 开始学架构 的笔记。侵删～</span></p>
+<p class="gallery" data-height="300"><img data-src="/images/architecture/Learn_Architecture_From_0/course.jpeg" alt="购课链接"></p>
+<p><span class="label warning">🔥购买后加微信，返现赏金 (全额)</span></p>
+<p><mark>架构设计的关键思维在于判断和取舍。程序设计的关键思维在于逻辑和实现.</mark></p>
+<h2 id="定义架构"><a class="markdownIt-Anchor" href="#定义架构">#</a> 定义架构.</h2>
+<p><b>软件架构 指软件系统的顶层结构</b></p>
+<ul>
+<li>系统是一群关联个体组成的。这些个体可以是子系统，模块，组件等。架构需要明确系统中包含哪些个体。</li>
+<li>系统中的个体需要” 根据魔种规则 “运作，架构需要明确个体运作和协作的规则。</li>
+<li>维基百科定义的架构用到了 “基础结构” 这个说法，我改为 “顶层结构”，可以更好<br>
+地区分系统和子系统，避免将系统架构和子系统架构混淆在一起导致架构层次混乱。</li>
+</ul>
+<p>架构是顶层设计，框架是面向编程或配置的半成品，组件是从技术维度上的复用， 模型是从业务维度上职责的划分，系统是相互协同可运行的实体。</p>
+<h2 id="架构设计的历史背景"><a class="markdownIt-Anchor" href="#架构设计的历史背景">#</a> 架构设计的历史背景</h2>
+<h3 id="软件开发进化的历史"><a class="markdownIt-Anchor" href="#软件开发进化的历史">#</a> 软件开发进化的历史</h3>
+<ul>
+<li><code>1940</code>  年之前，机器语言。
+<ul>
+<li>直接使用二进制  <code>0</code>  和  <code>1</code>  来标识机器可以识别的指令和数据。</li>
+<li>机器语言的主要问题是：太难写，太难读，太难改。</li>
+</ul>
+</li>
+<li><code>20</code>  世纪 <code>40</code>  年代 汇编语言
+<ul>
+<li>符号语言，用助记符代替机器指令的操作码，用地址符号或者标号代替指令和操作数的地址。</li>
+<li>编写复杂。</li>
+<li>不同 <code>CPU</code>  的汇编指令和结构是不同的。</li>
+</ul>
+</li>
+<li><code>20</code>  世界 <code>50</code>  年代 高级语言
+<ul>
+<li>通过编译程序的处理，高级语言可以被编译为适合不同  <code>CPU</code>  指令的机器语言。<br>
+程序员只要写一次程序，就可以在多个不同的机器上编译运行，无须根据不同的机器指令重<br>
+写整个程序。</li>
+</ul>
+</li>
+<li><code>20</code>  世纪 <code>60</code>  年代 - <code>70</code>  年代 第一次软件危机和结构化程序设计
+<ul>
+<li><code>20</code>  世纪 <code>60</code>  年代中期，由于软件的” 逻辑 “变得非常复杂。爆发了软件危机，随后提出了软件工程的解决方法，但是 软件工程无法根除软件危机，只能在一定程度上环节软件危机。</li>
+<li>差不多同时间，” 结构化程序设计 “作为另外一种解决软件危机的方案被提了出来。并诞生了第一个结构化的程序语言： <code>Pascal</code> .</li>
+<li>结构化程序设计本质上还是一种面向过程的设计思想，但通过 “自顶向下、逐步细化、模块化” 的方法，将软件的复杂度控制在一定范围内，从而从整体上降低了软件开发的复杂度。结构化程序方法成为了  <code>20</code>  世纪  <code>70</code>  年代软件开发的潮流。</li>
+</ul>
+</li>
+<li><code>20</code>  世纪 <code>80</code>  年代 第二次软件危机和面向对象
+<ul>
+<li>由于软件生产力远远跟不上硬件和业务的发展。第二次软件危机爆发了。主要表现为 软件的扩展变得非常复杂。</li>
+<li>软件领域迫切希望找到新的银弹来解决软件危机，在这种背景下，面向对象的思想开始流行起来。</li>
+<li>面向对象真正开始流行是在  <code>20</code>  世纪  <code>80</code>  年代，主要得益于  <code>C++</code>  的功劳，后来的  <code>Java</code> 、 <code>C#</code>  把面向对象推向了新的高峰。到现在为止，面向对象已经成为了主流的开发思想。</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件架构的历史背景"><a class="markdownIt-Anchor" href="#软件架构的历史背景">#</a> 软件架构的历史背景</h3>
+<p>软件架构的出现有其历史必然性。  <code>20</code>  世纪  <code>60</code>  年代第一次软件危机引出了 “结构化编程”，创造了 “模块” 概念； <code>20</code>  世纪  <code>80</code>  年代第二次软件危机引出了 “面向对象编程”，创造了 “对象” 概念；到了  <code>20</code>  世纪  <code>90</code>  年代 “软件架构” 开始流行，创造了 “组件” 概念。我们可以看到，“模块”“对象”“组件” 本质上都是对达到一定规模的软件进行拆分，差别只是在于随着软件的复杂度不断增加，拆分的粒度越来越粗，拆分的层次越来越高。</p>
+<h2 id="架构设计的目的"><a class="markdownIt-Anchor" href="#架构设计的目的">#</a> 架构设计的目的</h2>
+<p><span class="label success">架构设计是解决系统复杂度带来的问题</span></p>
+<h3 id="复杂度来源高性能"><a class="markdownIt-Anchor" href="#复杂度来源高性能">#</a> 复杂度来源：高性能</h3>
+<p>软件系统中 高性能 带来的复杂度主要体现在两方面。</p>
+<ul>
+<li>单台计算机内部为了高性能带来的复杂度</li>
+<li>多台计算机集群为了高性能带来的复杂度</li>
+</ul>
+<h3 id="复杂度来源高可用"><a class="markdownIt-Anchor" href="#复杂度来源高可用">#</a> 复杂度来源：高可用</h3>
+<p>系统无中断的执行其功能的能力，代表系统的可用性程度，是进行系统设计时的准则之一。</p>
+<p>无中断？硬件会出故障，软件会有 <code>bug</code> , 硬件会老化，软件会越来越复杂和庞大。断电，断网，地震等等外部因素也不可能做到 “无中断”。</p>
+<p>系统高可用的方案，本质上都是通过 冗余 来实现的。</p>
+<p>高性能增加机器的目的是在于扩展，高可用增加机器的目的在于 冗余 处理单元。</p>
+<h4 id="计算高可用"><a class="markdownIt-Anchor" href="#计算高可用">#</a> 计算高可用</h4>
+<p>这里的计算是个名词。计算指的是，业务的逻辑处理。</p>
+<p>从一台业务服务扩展到两台业务服务时，必须要增加一个任务分配器 (第三者) 来协调 (调度) 哪台机器提供服务。这里就要考虑： 性能，成本，可维护性，可用性等方面因素。</p>
+<p>任务分配器和真正的业务服务器之间有连接和交互，需要选择合适的连接方式，并且对连接进行管理。例如，连接建立、连接检测、连接中断后如何处理等。任务分配器需要增加分配算法。例如，常见的双机算法有主备、主主，主备方案又可以细分为冷备、温备、热备。</p>
+<p><img data-src="/images/architecture/Learn_Architecture_From_0/01-gaokeyong01.png" alt=""></p>
+<h4 id="存储高可用"><a class="markdownIt-Anchor" href="#存储高可用">#</a> 存储高可用</h4>
+<p>存储和计算相比，有一个本质的区别：将数据从一台机器搬到另一台机器，需要经过线路进行传输。</p>
+<p>线路传输的速度是毫秒级的，但是对高可用系统，有这本质上的不同。 这意味着整个系统在某个时间点上，数据肯定是不一致的。按照 “<span class="label warning">数据 + 逻辑 = 业务</span>” 这个公式来套的话，数据不一致，即使逻辑一致，最后的业务表现就不一样了。</p>
+<p>所以： 存储高可用的难点 不在于 如何备份数据，而在于如何减少或者规避数据不一致对业务造成的影响。</p>
+<h4 id="高可用状态决策"><a class="markdownIt-Anchor" href="#高可用状态决策">#</a> 高可用状态决策</h4>
+<p>无论是计算高可用还是存储高可用，其基础都是 “状态决策”，即系统需要能够判断当前的状态是正常还是异常，如果出现了异常就要采取行动来保证高可用。但在具体实践的过程中，恰好存在一个本质的矛盾：通过冗余来实现的高可用系统，状态决策本质上就不可能做到完全正确。</p>
+<h5 id="独裁式决策"><a class="markdownIt-Anchor" href="#独裁式决策">#</a> 独裁式决策</h5>
+<p>独裁式决策指的是存在一个独立的决策主体，我们姑且称它为 “决策者”，负责收集信息然后进行决策；所有冗余的个体，我们姑且称它为 “上报者”，都将状态信息发送给决策者。</p>
+<p><img data-src="/images/architecture/Learn_Architecture_From_0/01-gaokeyong02.png" alt=""></p>
+<p>独裁式的决策方式不会出现决策混乱的问题，因为只有一个决策者，但问题也正是在于只有一个决策者。当决策者本身故障时，整个系统就无法实现准确的状态决策。如果决策者本身又做一套状态决策，那就陷入一个递归的死循环了。</p>
+<h5 id="协商式"><a class="markdownIt-Anchor" href="#协商式">#</a> 协商式</h5>
+<p>协商式决策指的是两个独立的个体通过交流信息，然后根据规则进行决策，最常用的协商式决策就是主备决策。</p>
+<h5 id="民主式"><a class="markdownIt-Anchor" href="#民主式">#</a> 民主式</h5>
+<p>民主式决策指的是多个独立的个体通过投票的方式来进行状态决策。例如， <code>ZooKeeper</code>  集群在选举  <code>leader</code>  时就是采用这种方式。</p>
+<p>这种方式实现复杂，还有一个缺陷：脑裂。脑裂的根本原因是，原来统一的集群因为连接中断，造成了两个独立分隔的子集群，每个子集群单独进行选举，于是选出了  <code>2</code>  个主机，相当于人体有两个大脑了。</p>
+<p>为了解决脑裂问题，民主式决策的系统一般都采用 “投票节点数必须超过系统总节点数一半” 规则来处理。，但同时降低了系统整体的可用性，即如果系统不是因为脑裂问题导致投票节点数过少，而真的是因为节点故障时系统也不会选出主节点，整个系统就相当于宕机了，</p>
+<p>综合分析，无论采取什么样的方案，状态决策都不可能做到任何场景下都没有问题，但完全不做高可用方案又会产生更大的问题，如何选取适合系统的高可用方案，也是一个复杂的分析、判断和选择的过程。</p>
+<h3 id="复杂度来源可扩展性"><a class="markdownIt-Anchor" href="#复杂度来源可扩展性">#</a> 复杂度来源：可扩展性</h3>
+<p>设计具备良好可扩展性的系统，有两个基本条件：正确预测变化、完美封装变化。但要达成这两个条件，本身也是一件复杂的事情。</p>
+<h4 id="预测变化"><a class="markdownIt-Anchor" href="#预测变化">#</a> 预测变化</h4>
+<p>预测变化的复杂性在于：</p>
+<ul>
+<li><ins class="wavy success">不能每个设计点都考虑可扩展性。</ins></li>
+<li><ins class="wavy success">不能完全不考虑可扩展性。</ins></li>
+<li><ins class="wavy success">所有的预测都存在出错的可能性。</ins></li>
+</ul>
+<p>对于架构师来说，如何把握预测的程度和提升预测结果的准确性，是一件很复杂的事情，而且没有通用的标准可以简单套上去，更多是靠自己的经验、直觉，所以架构设计评审的时候经常会出现两个设计师对某个判断争得面红耳赤的情况，原因就在于没有明确标准，不同的人理解和判断有偏差，而最终又只能选择一个判断。</p>
+<h4 id="应对变化"><a class="markdownIt-Anchor" href="#应对变化">#</a> 应对变化</h4>
+<p><ins class="wavy success">预测变化是一回事，采取什么方案来应对变化，又是另外一个复杂的事情.</ins></p>
+<ul>
+<li>
+<p>第一种应对变化的常见方案是将 “变化” 封装在一个 “变化层”，将不变的部分封装在一个独立的 “稳定层”。那么主要的问题就会聚焦在 变化层和稳定层。</p>
+<ol>
+<li>系统需要拆分出变化层和稳定层对于哪些属于变化层，哪些属于稳定层，很多时候并不是像前面的示例（不同接口协议或者不同数据库）那样明确，不同的人有不同的理解，导致架构设计评审的时候可能吵翻天。</li>
+<li>需要设计变化层和稳定层之间的接口接口设计同样至关重要，对于稳定层来说，接口肯定是越稳定越好；但对于变化层来说，在有差异的多个实现方式中找出共同点，并且还要保证当加入新的功能时原有的接口设计不需要太大修改，这是一件很复杂的事情。</li>
+</ol>
+</li>
+<li>
+<p>第二种常见的应对变化的方案是提炼出一个 “抽象层” 和一个 “实现层”。抽象层是稳定的，实现层可以根据具体业务需要定制开发，当加入新的功能时，只需要增加新的实现，无须修改抽象层。这种方案典型的实践就是设计模式和规则引擎。</p>
+</li>
+</ul>
+<p><ins>封装变化，隔离可变性</ins></p>
+<h3 id="复杂度来源低成本"><a class="markdownIt-Anchor" href="#复杂度来源低成本">#</a> 复杂度来源：低成本</h3>
+<p>低成本给架构设计带来的主要复杂度体现在，往往只有 “创新” 才能达到低成本目标。无论是引入新技术，还是自己创造新技术，都是一件复杂的事情。引入新技术的主要复杂度在于需要去熟悉新技术，并且将新技术与已有技术结合起来；创造新技术的主要复杂度在于需要自己去创造全新的理念和技术，并且新技术跟旧技术相比，需要有质的飞跃。</p>
+<h3 id="复杂度来源安全"><a class="markdownIt-Anchor" href="#复杂度来源安全">#</a> 复杂度来源：安全</h3>
+<p>安全本身是一个庞大而又复杂的技术领域，并且一旦出问题，对业务和企业形象影响非常大。<br>
+从技术的角度来讲，安全可以分为两类：一类是功能上的安全，一类是架构上的安全。</p>
+<ul>
+<li>功能安全是一个逐步完善的过程，而且往往都是在问题出现后才能有针对性的提出解决方案，我们永远无法预测系统下一个漏洞在哪里，也不敢说自己的系统肯定没有任何问题、</li>
+<li>架构安全：传统的架构安全主要依靠防火墙，防火墙最基本的功能就是隔离网络，通过将网络划分成不同的区域，制定出不同区域之间的访问控制策略来控制不同信任程度区域间传送的数据流。</li>
+</ul>
+<p>基于上述原因，互联网系统的架构安全目前并没有太好的设计手段来实现，更多地是依靠运营商或者云服务商强大的带宽和流量清洗的能力，较少自己来设计和实现。</p>
+<p><code>2018</code>  年，美国东部时间  <code>2</code>  月  <code>28</code>  日， <code>GitHub</code>  在一瞬间遭到高达  <code>1.35Tbps</code>  的带宽攻击。</p>
+<h3 id="复杂度来源规模"><a class="markdownIt-Anchor" href="#复杂度来源规模">#</a> 复杂度来源：规模</h3>
+<p>规模带来复杂度的主要原因就是 “量变引起质变”，当数量超过一定的阈值后，复杂度会发生质的变化。常见的规模带来的复杂度有：</p>
+<ol>
+<li>功能越来越多，导致系统复杂度指数级上升</li>
+<li>数据越来越多，系统复杂度发生质变</li>
+</ol>
+<h2 id="架构设计原则"><a class="markdownIt-Anchor" href="#架构设计原则">#</a> 架构设计原则</h2>
+<p>对于编程来说，本质上是不能存在不确定的，对于同样一段代码，不管是谁写的，不管什么时候执行，执行的结果应该都是确定的（注意：“确定的” 并不等于 “正确的”，有  <code>bug</code>  也是确定的）。而对于架构设计来说，本质上是不确定的，同样的一个系统， <code>A</code>  公司和  <code>B</code>  公司做出来的架构可能差异很大，但最后都能正常运转；同样一个方案， <code>A</code>  设计师认为应该这样做， <code>B</code>  设计师认为应该那样做，看起来好像都有道理…… 相比编程来说，架构设计并没有像编程语言那样的语法来进行约束，更多的时候是面对多种可能性时进行选择。</p>
+<h3 id="合适原则"><a class="markdownIt-Anchor" href="#合适原则">#</a> 合适原则</h3>
+<p><span class="label success">❤️❤️❤️合适原则宣言：“合适优于业界领先”</span></p>
+<p>真正优秀的架构都是在企业当前人力、条件、业务等各种约束下设计出来的，能够合理地将资源整合在一起并发挥出最大功效，并且能够快速落地。这也是很多 BAT 出来的架构师到了小公司或者创业团队反而做不出成绩的原因，因为没有了大公司的平台、资源、积累，只是生搬硬套大公司的做法，失败的概率非常高。</p>
+<h3 id="演化原则"><a class="markdownIt-Anchor" href="#演化原则">#</a> 演化原则</h3>
+<p><span class="label success">❤️❤️演化原则宣言：“演化优于一步到位”</span></p>
+<p>对于建筑来说，永恒是主题；而对于软件来说，变化才是主题。软件架构需要根据业务的发展而不断变化。设计  <code>Windows</code>  和  <code>Android</code>  的人都是顶尖的天才，即便如此，他们也不可能在  <code>1985</code>  年设计出  <code>Windows 8</code> ，不可能在  <code>2009</code>  年设计出  <code>Android 6.0</code> 。</p>
+<p>考虑到软件架构需要根据业务发展不断变化这个本质特点，软件架构设计其实更加类似于大自然 “设计” 一个生物，通过演化让生物适应环境，逐步变得更加强大：</p>
+<p>首先，设计出来的架构要满足当时的业务需要。<br>
+其次，架构要不断地在实际应用过程中迭代，保留优秀的设计，修复有缺陷的设计，改正错误的设计，去掉无用的设计，使得架构逐渐完善。<br>
+第三，当业务发生变化时，架构要扩展、重构，甚至重写；代码也许会重写，但有价值的经验、教训、逻辑、设计等（类似生物体内的基因）却可以在新架构中延续。</p>
+<h3 id="简单原则"><a class="markdownIt-Anchor" href="#简单原则">#</a> 简单原则</h3>
+<p><span class="label success">❤️简单原则宣言：“简单优于复杂”</span></p>
+<p>结构上的复杂性存在的第三个问题是，定位一个复杂系统中的问题总是比简单系统更加困难。首先是组件多，每个组件都有嫌疑，因此要逐一排查；其次组件间的关系复杂，有可能表现故障的组件并不是真正问题的根源。</p>
+<p>逻辑上的复杂。</p>
+<p>综合前面的分析，我们可以看到，无论是结构的复杂性，还是逻辑的复杂性，都会存在各种问题，所以架构设计时如果简单的方案和复杂的方案都可以满足需求，最好选择简单的方案。</p>
+<p>课程中介绍了两个案例：淘宝和手机 <code>qq</code> .</p>
+<p>两本书：《淘宝技术发展》 . 《QQ 1.4 亿在线背后的故事》</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
+      <div class="tags">
+          <a href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag"><i class="ic i-tag"></i> 架构</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"><i class="ic i-tag"></i> 笔记</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-03-05 21:48:19" itemprop="dateModified" datetime="2022-03-05T21:48:19+08:00">2022-03-05</time>
+  </span>
+  <span id="2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" class="item leancloud_visitors" data-flag-title="【笔记】 从 0 开始学架构 一 架构基础" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从 0 开始学架构 一 架构基础">https://fangjiaxiaobai.github.io/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/01/07/daily/2022-01-07/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclhpw3lwj20zk0m8gvw.jpg" title="Springboot集成Netty.">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 日常</span>
+  <h3>Springboot集成Netty.</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/02/24/mylogs/talk_about_log/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipetlbztpj20zk0m84qp.jpg" title="聊聊日志">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 日志</span>
+  <h3>聊聊日志</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text"> 定义架构.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text"> 架构设计的历史背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%BF%9B%E5%8C%96%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="toc-number">2.1.</span> <span class="toc-text"> 软件开发进化的历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E7%9A%84%E5%8E%86%E5%8F%B2%E8%83%8C%E6%99%AF"><span class="toc-number">2.2.</span> <span class="toc-text"> 软件架构的历史背景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-number">3.</span> <span class="toc-text"> 架构设计的目的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E9%AB%98%E6%80%A7%E8%83%BD"><span class="toc-number">3.1.</span> <span class="toc-text"> 复杂度来源：高性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 复杂度来源：高可用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 计算高可用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 存储高可用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E7%8A%B6%E6%80%81%E5%86%B3%E7%AD%96"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 高可用状态决策</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%8B%AC%E8%A3%81%E5%BC%8F%E5%86%B3%E7%AD%96"><span class="toc-number">3.2.3.1.</span> <span class="toc-text"> 独裁式决策</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%8F%E5%95%86%E5%BC%8F"><span class="toc-number">3.2.3.2.</span> <span class="toc-text"> 协商式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B0%91%E4%B8%BB%E5%BC%8F"><span class="toc-number">3.2.3.3.</span> <span class="toc-text"> 民主式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">3.3.</span> <span class="toc-text"> 复杂度来源：可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E5%8F%98%E5%8C%96"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 预测变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E5%AF%B9%E5%8F%98%E5%8C%96"><span class="toc-number">3.3.2.</span> <span class="toc-text"> 应对变化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E4%BD%8E%E6%88%90%E6%9C%AC"><span class="toc-number">3.4.</span> <span class="toc-text"> 复杂度来源：低成本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E5%AE%89%E5%85%A8"><span class="toc-number">3.5.</span> <span class="toc-text"> 复杂度来源：安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%9D%A5%E6%BA%90%E8%A7%84%E6%A8%A1"><span class="toc-number">3.6.</span> <span class="toc-text"> 复杂度来源：规模</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">4.</span> <span class="toc-text"> 架构设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E9%80%82%E5%8E%9F%E5%88%99"><span class="toc-number">4.1.</span> <span class="toc-text"> 合适原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E5%8C%96%E5%8E%9F%E5%88%99"><span class="toc-number">4.2.</span> <span class="toc-text"> 演化原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%8E%9F%E5%88%99"><span class="toc-number">4.3.</span> <span class="toc-text"> 简单原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" rel="bookmark" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">99</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">20</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">61</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/01/07/daily/2022-01-07/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/02/24/mylogs/talk_about_log/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" title="git命令详解之 git update-index">git命令详解之 git update-index</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
+</div>
+
+    <span><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
+</div>
+
+    <span><a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" title="雪花算法">雪花算法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">417k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:19</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

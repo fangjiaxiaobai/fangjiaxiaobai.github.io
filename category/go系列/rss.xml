@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>方家小白 • Posts by &#34;go系列&#34; category</title>
+        <link>https://fangjiaxiaobai.github.io</link>
+        <description>和你一起遇见更好的自己</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
+        <lastBuildDate>Thu, 24 Feb 2022 18:18:18 +0800</lastBuildDate>
+        <category>全站地图</category>
+        <category>目录</category>
+        <category>MySQL</category>
+        <category>源码</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>git</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>MachineLearn</category>
+        <category>Redis</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>数据结构</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>图片</category>
+        <category>线程池</category>
+        <category>面经</category>
+        <category>leetCode</category>
+        <category>面经之算法题</category>
+        <category>数组</category>
+        <category>链表</category>
+        <category>不做也罢的算法题</category>
+        <category>有点难的算法题</category>
+        <category>动态规划</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>String</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>模型评估</category>
+        <category>数据结构与算法</category>
+        <category>架构</category>
+        <category>笔记</category>
+        <category>哈希算法</category>
+        <category>递归</category>
+        <category>排序</category>
+        <category>冒泡排序</category>
+        <category>交换排序</category>
+        <category>分治思想排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>桶排序</category>
+        <category>线性思想排序</category>
+        <category>选择排序</category>
+        <category>KNN</category>
+        <category>JDK版本</category>
+        <category>JDK11</category>
+        <category>OOM</category>
+        <category>JVM</category>
+        <category>Stream</category>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/02/24/go/go-errors/</guid>
+            <title>浅析go的error</title>
+            <link>https://fangjiaxiaobai.github.io/2022/02/24/go/go-errors/</link>
+            <category>go</category>
+            <category>go-error</category>
+            <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;异常处理 方法解释：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;New&lt;/code&gt; : 创建一个 &lt;code&gt;Error&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Is&lt;/code&gt; ： 判断是不是特定的一个 &lt;code&gt;Error&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;As&lt;/code&gt; ：类型转换为特定的 &lt;code&gt;Error&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;UnWrap&lt;/code&gt; : 解除包装，返回被包装的 &lt;code&gt;error&lt;/code&gt; .&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;error.New(string)&lt;/code&gt;  方法返回的是  &lt;code&gt;error struct&lt;/code&gt;  的指针。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;errors is values&lt;/code&gt; .  &lt;code&gt;error&lt;/code&gt;  其实就是一个 &lt;code&gt;interface (struct)&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;error的类型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#error的类型&#34;&gt;#&lt;/a&gt;  &lt;code&gt;error&lt;/code&gt;  的类型&lt;/h1&gt;
+&lt;h2 id=&#34;sentinel-error&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#sentinel-error&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Sentinel Error&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Sentinel Error&lt;/code&gt;  预定义的特定错误。我们称为  &lt;code&gt;Sentinel Error&lt;/code&gt; . 这个名字来源于计算机编程中使用一个特定值来表示不可能进一步处理的错误。 类似于：  &lt;code&gt;io.EOF&lt;/code&gt;  或者，更底层的： &lt;code&gt;syscall.ENOENT&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;尽可能避免的使用 &lt;code&gt;Sentinel Error&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;demo1&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	err := errors.New(&lt;span class=&#34;string&#34;&gt;&amp;quot;this is a error&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;built_in&#34;&gt;println&lt;/span&gt;(err.Error())&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;error-type-错误类型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#error-type-错误类型&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Error Type&lt;/code&gt;  (错误类型)&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Error Type&lt;/code&gt;  是实现了  &lt;code&gt;error&lt;/code&gt;  接口的自定义类型。例如下面的 &lt;code&gt;MyError&lt;/code&gt; . 用户可以使用断言来转换这个错误，获取更多的异常信息。 如 下代码。相比于  &lt;code&gt;Sentinel Error&lt;/code&gt; ,  &lt;code&gt;Error Type&lt;/code&gt;  的一大改进就是 能够为包装底层  &lt;code&gt;error&lt;/code&gt;  提供上下文。 例如 &lt;code&gt;os.PathError&lt;/code&gt; . 但是：调用使用类型断言和类型  &lt;code&gt;switch&lt;/code&gt;  . 就要让自定义的  &lt;code&gt;error&lt;/code&gt;  变为  &lt;code&gt;public&lt;/code&gt;  。 这种模型会导致错误类型和调用者强耦合，从而导致 &lt;code&gt;Api&lt;/code&gt;  变得脆弱。&lt;/p&gt;
+&lt;p&gt;建议：避免使用  &lt;code&gt;error Type&lt;/code&gt;  或者 至少避免将他们作为公共 &lt;code&gt;API&lt;/code&gt;  的一部分。&lt;/p&gt;
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// MyError /** demo2.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;type&lt;/span&gt; MyError &lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	msg        &lt;span class=&#34;keyword&#34;&gt;string&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	fileName   &lt;span class=&#34;keyword&#34;&gt;string&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	lineNumber &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 实现了 error接口。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;params&#34;&gt;(m *MyError)&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Error&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;string&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; fmt.Sprintf(&lt;span class=&#34;string&#34;&gt;&amp;quot;%s:%d: %s&amp;quot;&lt;/span&gt;, m.fileName, m.lineNumber, m.msg)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;testError&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;error&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &amp;amp;MyError&amp;#123;msg: &lt;span class=&#34;string&#34;&gt;&amp;quot;this is a error&amp;quot;&lt;/span&gt;, fileName: &lt;span class=&#34;string&#34;&gt;&amp;quot;demo8_error_resolve&amp;quot;&lt;/span&gt;, lineNumber: &lt;span class=&#34;number&#34;&gt;50&lt;/span&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;demo2&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	err := testError()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;switch&lt;/span&gt; err := err.(&lt;span class=&#34;keyword&#34;&gt;type&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;literal&#34;&gt;nil&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;case&lt;/span&gt; *MyError:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		fmt.Println(&lt;span class=&#34;string&#34;&gt;&amp;quot;error: &amp;quot;&lt;/span&gt;, err.lineNumber)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;default&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;opaque-error&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#opaque-error&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Opaque Error&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;将这种风格称为 不透明错误。虽然你知道发生了错误，但是您没能力看到错误的内部，作为调用者，关于操作的结果，您所知道的就是他成功或者失败了&lt;br&gt;
+ ==&amp;gt; 只返回错误，但不返回错误内容。 ==&amp;gt; 同时返回错误的类型，而不是错误的类型。 如下示例:&lt;/p&gt;
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(w io.Writer, buf []&lt;span class=&#34;keyword&#34;&gt;byte&lt;/span&gt;)&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;error&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	_, err := w.Write(buf)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; fmt.Errorf(&lt;span class=&#34;string&#34;&gt;&amp;quot;这里发生了错误，%w\n&amp;quot;&lt;/span&gt;, err)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// OpaqueError /***** demo3&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;type&lt;/span&gt; OpaqueError &lt;span class=&#34;keyword&#34;&gt;interface&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	error&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	IsTemporary() &lt;span class=&#34;keyword&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;comment&#34;&gt;// 是否是临时错误。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	IsTimeout() &lt;span class=&#34;keyword&#34;&gt;bool&lt;/span&gt;   &lt;span class=&#34;comment&#34;&gt;// 是否是超时&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;type&lt;/span&gt; temporary &lt;span class=&#34;keyword&#34;&gt;interface&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	Temporary() &lt;span class=&#34;keyword&#34;&gt;bool&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 判断是否为Temporary Error.&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;isTemporary&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(err error)&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;bool&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	te, ok := err.(temporary)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; ok &amp;amp;&amp;amp; te.Temporary()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;handing-error-处理异常&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#handing-error-处理异常&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Handing Error&lt;/code&gt;  处理异常&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;一种处理 &lt;code&gt;error&lt;/code&gt;  的方式，编写代码技巧，让代码更易读。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wrap Errors&lt;/code&gt; . 使用第三方库。  &lt;code&gt;github.com/pkg/errors. go&lt;/code&gt;  的 &lt;code&gt;1.13&lt;/code&gt;  版本之后，可以使用:  &lt;code&gt;fmt.Errorf(&amp;quot;%w&amp;quot;,err)&lt;/code&gt; . 和  &lt;code&gt;errors.Is()&lt;/code&gt; , &lt;code&gt;errors.As()&lt;/code&gt; . 规范：
+&lt;ul&gt;
+&lt;li&gt;如果是一个跨项目，多重复用的项目里，应该直接返回 &lt;code&gt;error&lt;/code&gt; , 而不是返回包装后的 &lt;code&gt;error&lt;/code&gt; .&lt;/li&gt;
+&lt;li&gt;如果函数 / 方法不打算处理错误，那么用足够的上下文  &lt;code&gt;wrap error&lt;/code&gt;  并将其返回到调用堆栈中。&lt;/li&gt;
+&lt;li&gt;一旦确定函数 / 方法要处理错误，错误就不再是错误， 如果函数 / 方法仍然需要发出返回，则它不能返回错误值，它应该只返回零 (比如降级处理中， 你返回了 降级数据，然后需要返回 &lt;code&gt;nil&lt;/code&gt; .)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;go-2x-的发展参考&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#go-2x-的发展参考&#34;&gt;#&lt;/a&gt;  &lt;code&gt;go 2.x&lt;/code&gt;  的发展参考&lt;/h1&gt;
+&lt;p&gt;建议多看看，可以把握一下  &lt;code&gt;go&lt;/code&gt;  未来的发展方向&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9nby5nb29nbGVzb3VyY2UuY29tL3Byb3Bvc2FsLysvbWFzdGVyL2Rlc2lnbi8yOTkzNC1lcnJvci12YWx1ZXMubWQ=&#34;&gt;https://go.googlesource.com/proposal/+/master/design/29934-error-values.md&lt;/span&gt;&lt;br&gt;
+&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9nby5nb29nbGVzb3VyY2UuY29tL3Byb3Bvc2FsLysvbWFzdGVyL2Rlc2lnbi9nbzJkcmFmdC1lcnJvci1oYW5kbGluZy5tZA==&#34;&gt;https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling.md&lt;/span&gt;&lt;br&gt;
+&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9nby5nb29nbGVzb3VyY2UuY29tL3Byb3Bvc2FsLysvbWFzdGVyL2Rlc2lnbi9nbzJkcmFmdC1lcnJvci1oYW5kbGluZy1vdmVydmlldy5tZA==&#34;&gt;https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md&lt;/span&gt;&lt;/p&gt;
+&lt;h1 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h1&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

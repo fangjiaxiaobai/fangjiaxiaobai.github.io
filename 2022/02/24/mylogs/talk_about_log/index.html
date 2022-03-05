@@ -1,0 +1,766 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="log,go-log" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/">
+
+
+
+  <title>
+聊聊日志 - 日志 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">聊聊日志
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-02-24 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-02-24T18:18:18+08:00">2022-02-24</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%97%A5%E5%BF%97/" itemprop="item" rel="index" title="分类于 日志"><span itemprop="name">日志</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <div id="fxb_container" class="fxb_container_style">
+      <p><code>https://github.com/golang/glog</code> ，是  <code>google</code>  提供的一个不维护的日志库， <code>glog</code>  有其他语言的一些版本，对我当时使用  <code>log</code>  库有很大的影响。它包含如下日志级别：  <code>Info</code> ,  <code>Warning</code> ,  <code>Error</code> ,  <code>Fatal</code>  (会中断程序执行)<br>
+ 还有类似  <code>log4go</code> ,  <code>loggo</code>  , <code>zap</code>  等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别：  <code>Trace</code>  ,  <code>Debug</code>  ,  <code>Info</code>  ,  <code>Warning</code>  ,  <code>Error</code>  ,  <code>Critical</code> .</p>
+<h2 id="日志级别"><a class="markdownIt-Anchor" href="#日志级别">#</a> 日志级别</h2>
+<h3 id="warning"><a class="markdownIt-Anchor" href="#warning">#</a> Warning</h3>
+<p>没人看警告，因为从定义上讲，没有什么出错。也许将来会出问题，但这听起来像是别人的问题。我们尽可能的消除警告级别，它要么是一条信息性消息，要么是一个错误。我们参考  <code>Go</code>  语言设计额哲学，所有警告都是错误，其他语言的  <code>warning</code>  都可以忽略，除非  <code>IDE</code>  或者在  <code>CICD</code>  流程中强制他们为  <code>error</code> ，然后逼着程序员们尽可能去消除。同样的，如果想要最终消除  <code>warning</code>  可以记录为  <code>error</code> ，让代码作者重视起来。</p>
+<h3 id="fatal"><a class="markdownIt-Anchor" href="#fatal">#</a> Fatal</h3>
+<p>记录消息后，直接调用  <code>os.Exit(1)</code> ，这意味着： 在其他  <code>goroutine</code>   <code>defer</code>  语句不会被执行； 各种  <code>buffers</code>  不会被  <code>flush</code>  ，包括日志的； 临时文件或者目录不会被移除； 不要使用  <code>fatal</code>  记录日志，而是向调用者返回错误。如果错误一直持续到  <code>main.main</code> 。 <code>main.main</code>  那就是在退出之前做处理任何清理操作的正确位置。</p>
+<h3 id="error"><a class="markdownIt-Anchor" href="#error">#</a> Error</h3>
+<p>也有很多人，在错误发生的地方要立马记录日志，尤其要使用  <code>error</code>  级别记录。</p>
+<p><img data-src="./images/12-log-01.png" alt=""></p>
+<h4 id="处理-error"><a class="markdownIt-Anchor" href="#处理-error">#</a> 处理 error</h4>
+<p>把  <code>error</code>  抛给调用者，在顶部打印日志；<br>
+如果您选择通过日志记录来处理错误，那么根据定义，它不再是一个错误 — 您已经处理了它。记录错误的行为会处理错误，因此不再适合将其记录为错误。</p>
+<p><img data-src="./images/12-log-02.png" alt=""></p>
+<h3 id="debug"><a class="markdownIt-Anchor" href="#debug">#</a> DEBUG</h3>
+<p>相信只有两件事你应该记录：</p>
+<ul>
+<li>开发人员在开发或调试软件时关心的事情。</li>
+<li>用户在使用软件时关心的事情。</li>
+</ul>
+<p>显然，它们分别是调试和信息级别。<br>
+ <code>log.Info</code>  只需将该行写入日志输出。不应该有关闭它的选项，因为用户只应该被告知对他们有用的事情。如果发生了一个无法处理的错误，它就会抛出到  <code>main.main</code> 。 <code>main.main</code>  程序终止的地方。在最后的日志消息前面插入  <code>fatal</code>  前缀，或者直接写入  <code>os.Stderr</code> 。<br>
+ <code>log.Debug</code> ，是完全不同的事情。它由开发人员或支持工程师控制。在开发过程中，调试语句应该是丰富的，而不必求助于  <code>trace</code>  或  <code>debug2</code> （您知道自己是谁）级别。日志包应该支持细粒度控制，以启用或禁用调试，并且只在包或更精细的范围内启用或禁用调试语句。</p>
+<p>B 站的 go 框架是如何设计和思考的：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvLWtyYXRvcy9rcmF0b3MvdHJlZS92Mi4wLngvbG9n">https://github.com/go-kratos/kratos/tree/v2.0.x/log</span></p>
+<h2 id="日志选型"><a class="markdownIt-Anchor" href="#日志选型">#</a> 日志选型</h2>
+<p>一个完整的集中式日志系统，需要包含以下几个主要特点：</p>
+<ul>
+<li>收集－能够采集多种来源的日志数据；</li>
+<li>传输－能够稳定的把日志数据传输到中央系统；</li>
+<li>存储－如何存储日志数据；</li>
+<li>分析－可以支持  <code>UI</code>  分析；</li>
+<li>警告－能够提供错误报告，监控机制；</li>
+</ul>
+<p>开源界鼎鼎大名  <code>ELK stack</code> ，分别表示： <code>Elasticsearch</code>  ,  <code>Logstash</code> ,  <code>Kibana</code>  , 它们都是开源软件。新增了一个  <code>FileBeat</code> ，它是一个轻量级的日志收集处理工具 ( <code>Agent</code> )， <code>Filebeat</code>  占用资源少，适合于在各个服务器上搜集日志后传输给  <code>Logstash</code> ，官方也推荐此工具。</p>
+<h3 id="elk"><a class="markdownIt-Anchor" href="#elk">#</a> ELK</h3>
+<p>此架构由  <code>Logstash</code>  分布于各个节点上搜集相关日志、数据，并经过分析、过滤后发送给远端服务器上的  <code>Elasticsearch</code>  进行存储。<br>
+ <code>Elasticsearch</code>  将数据以分片的形式压缩存储并提供多种  <code>API</code>  供用户查询，操作。用户亦可以更直观的通过配置  <code>Kibana Web</code>  方便的对日志查询，并根据数据生成报表。<br>
+因为  <code>logstash</code>  属于  <code>server</code>  角色，必然出现流量集中式的热点问题，因此我们不建议使用这种部署方式，同时因为 还需要做大量  <code>match</code>  操作（格式化日志），消耗的  <code>CPU</code>  也很多，不利于  <code>scale out</code> 。</p>
+<p><img data-src="./images/12-log-03.png" alt=""></p>
+<p><img data-src="./images/12-log-04.png" alt=""></p>
+<p>此种架构引入了消息队列机制，位于各个节点上的  <code>Logstash Agent</code>  先将数据 / 日志传递给  <code>Kafka</code> ，并将队列中消息或数据间接传递给  <code>Logstash</code> ， <code>Logstash</code>  过滤、分析后将数据传递给 <code>Elasticsearch</code>  存储。最后由  <code>Kibana</code>  将日志和数据呈现给用户。因为引入了  <code>Kafka</code> ，所以即使远端  <code>Logstash server</code>  因故障停止运行，数据将会先被存储下来，从而避免数据丢失。<br>
+更进一步的：  将收集端  <code>logstash</code>  替换为  <code>beats</code> , 更灵活，消耗资源更少，扩展性更强。</p>
+<p><img data-src="./images/12-log-05.png" alt=""></p>
+<h2 id="日志系统的设计目标"><a class="markdownIt-Anchor" href="#日志系统的设计目标">#</a> 日志系统的设计目标</h2>
+<ul>
+<li>接入方式收敛；</li>
+<li>日志格式规范；</li>
+<li>日志解析对日志系统透明；</li>
+<li>系统高吞吐、低延迟；</li>
+<li>系统高可用、容量可扩展、高可运维性；</li>
+</ul>
+<h2 id="日志系统的格式规范"><a class="markdownIt-Anchor" href="#日志系统的格式规范">#</a> 日志系统的格式规范</h2>
+<p><code>JSON</code>  作为日志的输出格式：<br>
+ <code>time</code> : 日志产生时间， <code>ISO8601</code>  格式；<br>
+ <code>level</code> : 日志等级， <code>ERROR</code> 、 <code>WARN</code> 、 <code>INFO</code> 、 <code>DEBUG</code> ；<br>
+ <code>app_id</code> : 应用 <code>id</code> ，用于标示日志来源；<br>
+ <code>instance_id</code> : 实例  <code>id</code> ，用于区分同一应用不同实例，即  <code>hostname</code> ；</p>
+<p><img data-src="./images/12-log-06.png" alt=""></p>
+<h2 id="日志系统的设计与实现"><a class="markdownIt-Anchor" href="#日志系统的设计与实现">#</a> 日志系统的设计与实现</h2>
+<p>日志从产生到可检索，经历几个阶段：</p>
+<ul>
+<li><b>生产 &amp; 采集</b></li>
+<li><b>传输 &amp; 切分</b></li>
+<li><b>存储 &amp; 检索</b></li>
+</ul>
+<h3 id="采集"><a class="markdownIt-Anchor" href="#采集">#</a> 采集</h3>
+<p><img data-src="./images/12-log-07.png" alt=""></p>
+<h4 id="logstash"><a class="markdownIt-Anchor" href="#logstash">#</a>  <code>logstash</code> ：</h4>
+<p>监听  <code>tcp/udp</code> <br>
+ 适用于通过网络上报日志的方式</p>
+<h4 id="filebeat"><a class="markdownIt-Anchor" href="#filebeat">#</a>  <code>filebeat</code> ：</h4>
+<p>直接采集本地生成的日志文件<br>
+适用于日志无法定制化输出的应用</p>
+<h4 id="logagent"><a class="markdownIt-Anchor" href="#logagent">#</a>  <code>logagent</code> ：</h4>
+<p>物理机部署，监听  <code>unixsocket</code> <br>
+ 日志系统提供各种语言  <code>SDK</code> <br>
+ 直接读取本地日志文件</p>
+<p><img data-src="./images/12-log-08.png" alt="logagent的设计"></p>
+<h3 id="传输"><a class="markdownIt-Anchor" href="#传输">#</a> 传输</h3>
+<p>基于  <code>flume + Kafka</code>  统一传输平台<br>
+基于  <code>LogID</code>  做日志分流：</p>
+<ul>
+<li>一般级别</li>
+<li>低级别</li>
+<li>高级别（ <code>ERROR</code> ）</li>
+</ul>
+<p>现在替换为  <code>Flink + Kafka</code>  的实现方式。</p>
+<p><img data-src="./images/12-log-09.png" alt=""></p>
+<h3 id="切分"><a class="markdownIt-Anchor" href="#切分">#</a> 切分</h3>
+<p>从 <code>kafka</code>  消费日志，解析日志，写入 <code>elasticsearch</code> <br>
+ <code>bili-index</code> : 自研， <code>golang</code>  开发，逻辑简单，性能 高，可定制化方便。<br>
+・日志规范产生的日志 ( <code>log agent</code>  收集)<br>
+ <code>logstash</code> :  <code>es</code>  官方组件，基于  <code>jruby</code>  开发，功能强大， 资源消耗高，性能低。<br>
+・处理未按照日志规范产生的日志 ( <code>filebeat</code> 、 <code>logstash</code>  收集)，需配置各种日志解析规则。</p>
+<h3 id="存储和检索"><a class="markdownIt-Anchor" href="#存储和检索">#</a> 存储和检索</h3>
+<p><code>elasticsearch</code>  多集群架构：<br>
+日志分级、高可用</p>
+<p>单数据集群内:<br>
+ <code>master node + data node(hot/stale) + client node</code> <br>
+ 每日固定时间进行热 -&gt; 冷迁移<br>
+ <code>Index</code>  提前一天创建，基于  <code>template</code>  进行 <code>mapping</code>  管理<br>
+检索基于  <code>kibana</code></p>
+<h4 id="存储-文件"><a class="markdownIt-Anchor" href="#存储-文件">#</a> 存储 - 文件</h4>
+<ul>
+<li>使用自定义协议，对  <code>SDK</code>  质量、版本升级都有比较高的要求，因此我们长期会使用 “本地文件” 的方案实现：</li>
+<li>采集本地日志文件：位置不限，容器内 <code>or</code>  物理机</li>
+<li>配置自描述：不做中心化配置，配置由  <code>app/paas</code>  自身提供， <code>agent</code>  读取配置并生效</li>
+<li>日志不重不丢：多级队列，能够稳定地处理日志收集过程中各种异常</li>
+<li>可监控：实时监控运行状态</li>
+<li>完善的自我保护机制：限制自身对于宿主机资源的消耗，限制发送速度</li>
+</ul>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h1>
+<p>期望与你一起遇见更好的自己</p>
+<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
+
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
+      <div class="tags">
+          <a href="/tags/log/" rel="tag"><i class="ic i-tag"></i> log</a>
+          <a href="/tags/go-log/" rel="tag"><i class="ic i-tag"></i> go-log</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-03-05 22:04:41" itemprop="dateModified" datetime="2022-03-05T22:04:41+08:00">2022-03-05</time>
+  </span>
+  <span id="2022/02/24/mylogs/talk_about_log/" class="item leancloud_visitors" data-flag-title="聊聊日志" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/" title="聊聊日志">https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclxxcb6rj20zk0m8b29.jpg" title="【笔记】 从0开始学架构 一 架构基础">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 笔记</span>
+  <h3>【笔记】 从0开始学架构 一 架构基础</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/02/24/go/go-errors/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclize41wj20zk0m87gk.jpg" title="浅析go的error">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> go 系列</span>
+  <h3>浅析go的error</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text"> 日志级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#warning"><span class="toc-number">1.1.</span> <span class="toc-text"> Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fatal"><span class="toc-number">1.2.</span> <span class="toc-text"> Fatal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#error"><span class="toc-number">1.3.</span> <span class="toc-text"> Error</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86-error"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 处理 error</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#debug"><span class="toc-number">1.4.</span> <span class="toc-text"> DEBUG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E9%80%89%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 日志选型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#elk"><span class="toc-number">2.1.</span> <span class="toc-text"> ELK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87"><span class="toc-number">3.</span> <span class="toc-text"> 日志系统的设计目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83"><span class="toc-number">4.</span> <span class="toc-text"> 日志系统的格式规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text"> 日志系统的设计与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E9%9B%86"><span class="toc-number">5.1.</span> <span class="toc-text"> 采集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#logstash"><span class="toc-number">5.1.1.</span> <span class="toc-text">  logstash ：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#filebeat"><span class="toc-number">5.1.2.</span> <span class="toc-text">  filebeat ：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#logagent"><span class="toc-number">5.1.3.</span> <span class="toc-text">  logagent ：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93"><span class="toc-number">5.2.</span> <span class="toc-text"> 传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E5%88%86"><span class="toc-number">5.3.</span> <span class="toc-text"> 切分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%92%8C%E6%A3%80%E7%B4%A2"><span class="toc-number">5.4.</span> <span class="toc-text"> 存储和检索</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8-%E6%96%87%E4%BB%B6"><span class="toc-number">5.4.1.</span> <span class="toc-text"> 存储 - 文件</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number"></span> <span class="toc-text"> 最后</span></a>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2022/02/24/mylogs/talk_about_log/" rel="bookmark" title="聊聊日志">聊聊日志</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">99</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">20</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">61</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/02/24/go/go-errors/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/01-overview/" title="模型评估概述">模型评估概述</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" title="LC:407.接雨水II">LC:407.接雨水II</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" title="LC:42.接雨水">LC:42.接雨水</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">417k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:19</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/02/24/mylogs/talk_about_log/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

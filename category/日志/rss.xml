@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>方家小白 • Posts by &#34;日志&#34; category</title>
+        <link>https://fangjiaxiaobai.github.io</link>
+        <description>和你一起遇见更好的自己</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
+        <lastBuildDate>Thu, 24 Feb 2022 18:18:18 +0800</lastBuildDate>
+        <category>全站地图</category>
+        <category>目录</category>
+        <category>MySQL</category>
+        <category>源码</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>git</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>MachineLearn</category>
+        <category>Redis</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>数据结构</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>图片</category>
+        <category>线程池</category>
+        <category>面经</category>
+        <category>leetCode</category>
+        <category>面经之算法题</category>
+        <category>数组</category>
+        <category>链表</category>
+        <category>不做也罢的算法题</category>
+        <category>有点难的算法题</category>
+        <category>动态规划</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>String</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>模型评估</category>
+        <category>数据结构与算法</category>
+        <category>架构</category>
+        <category>笔记</category>
+        <category>哈希算法</category>
+        <category>递归</category>
+        <category>排序</category>
+        <category>冒泡排序</category>
+        <category>交换排序</category>
+        <category>分治思想排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>桶排序</category>
+        <category>线性思想排序</category>
+        <category>选择排序</category>
+        <category>KNN</category>
+        <category>JDK版本</category>
+        <category>JDK11</category>
+        <category>OOM</category>
+        <category>JVM</category>
+        <category>Stream</category>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</guid>
+            <title>聊聊日志</title>
+            <link>https://fangjiaxiaobai.github.io/2022/02/24/mylogs/talk_about_log/</link>
+            <category>log</category>
+            <category>go-log</category>
+            <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;&lt;code&gt;https://github.com/golang/glog&lt;/code&gt; ，是  &lt;code&gt;google&lt;/code&gt;  提供的一个不维护的日志库， &lt;code&gt;glog&lt;/code&gt;  有其他语言的一些版本，对我当时使用  &lt;code&gt;log&lt;/code&gt;  库有很大的影响。它包含如下日志级别：  &lt;code&gt;Info&lt;/code&gt; ,  &lt;code&gt;Warning&lt;/code&gt; ,  &lt;code&gt;Error&lt;/code&gt; ,  &lt;code&gt;Fatal&lt;/code&gt;  (会中断程序执行)&lt;br&gt;
+ 还有类似  &lt;code&gt;log4go&lt;/code&gt; ,  &lt;code&gt;loggo&lt;/code&gt;  , &lt;code&gt;zap&lt;/code&gt;  等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别：  &lt;code&gt;Trace&lt;/code&gt;  ,  &lt;code&gt;Debug&lt;/code&gt;  ,  &lt;code&gt;Info&lt;/code&gt;  ,  &lt;code&gt;Warning&lt;/code&gt;  ,  &lt;code&gt;Error&lt;/code&gt;  ,  &lt;code&gt;Critical&lt;/code&gt; .&lt;/p&gt;
+&lt;h2 id=&#34;日志级别&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志级别&#34;&gt;#&lt;/a&gt; 日志级别&lt;/h2&gt;
+&lt;h3 id=&#34;warning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#warning&#34;&gt;#&lt;/a&gt; Warning&lt;/h3&gt;
+&lt;p&gt;没人看警告，因为从定义上讲，没有什么出错。也许将来会出问题，但这听起来像是别人的问题。我们尽可能的消除警告级别，它要么是一条信息性消息，要么是一个错误。我们参考  &lt;code&gt;Go&lt;/code&gt;  语言设计额哲学，所有警告都是错误，其他语言的  &lt;code&gt;warning&lt;/code&gt;  都可以忽略，除非  &lt;code&gt;IDE&lt;/code&gt;  或者在  &lt;code&gt;CICD&lt;/code&gt;  流程中强制他们为  &lt;code&gt;error&lt;/code&gt; ，然后逼着程序员们尽可能去消除。同样的，如果想要最终消除  &lt;code&gt;warning&lt;/code&gt;  可以记录为  &lt;code&gt;error&lt;/code&gt; ，让代码作者重视起来。&lt;/p&gt;
+&lt;h3 id=&#34;fatal&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#fatal&#34;&gt;#&lt;/a&gt; Fatal&lt;/h3&gt;
+&lt;p&gt;记录消息后，直接调用  &lt;code&gt;os.Exit(1)&lt;/code&gt; ，这意味着： 在其他  &lt;code&gt;goroutine&lt;/code&gt;   &lt;code&gt;defer&lt;/code&gt;  语句不会被执行； 各种  &lt;code&gt;buffers&lt;/code&gt;  不会被  &lt;code&gt;flush&lt;/code&gt;  ，包括日志的； 临时文件或者目录不会被移除； 不要使用  &lt;code&gt;fatal&lt;/code&gt;  记录日志，而是向调用者返回错误。如果错误一直持续到  &lt;code&gt;main.main&lt;/code&gt; 。 &lt;code&gt;main.main&lt;/code&gt;  那就是在退出之前做处理任何清理操作的正确位置。&lt;/p&gt;
+&lt;h3 id=&#34;error&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#error&#34;&gt;#&lt;/a&gt; Error&lt;/h3&gt;
+&lt;p&gt;也有很多人，在错误发生的地方要立马记录日志，尤其要使用  &lt;code&gt;error&lt;/code&gt;  级别记录。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;处理-error&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#处理-error&#34;&gt;#&lt;/a&gt; 处理 error&lt;/h4&gt;
+&lt;p&gt;把  &lt;code&gt;error&lt;/code&gt;  抛给调用者，在顶部打印日志；&lt;br&gt;
+如果您选择通过日志记录来处理错误，那么根据定义，它不再是一个错误 — 您已经处理了它。记录错误的行为会处理错误，因此不再适合将其记录为错误。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;debug&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#debug&#34;&gt;#&lt;/a&gt; DEBUG&lt;/h3&gt;
+&lt;p&gt;相信只有两件事你应该记录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开发人员在开发或调试软件时关心的事情。&lt;/li&gt;
+&lt;li&gt;用户在使用软件时关心的事情。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;显然，它们分别是调试和信息级别。&lt;br&gt;
+ &lt;code&gt;log.Info&lt;/code&gt;  只需将该行写入日志输出。不应该有关闭它的选项，因为用户只应该被告知对他们有用的事情。如果发生了一个无法处理的错误，它就会抛出到  &lt;code&gt;main.main&lt;/code&gt; 。 &lt;code&gt;main.main&lt;/code&gt;  程序终止的地方。在最后的日志消息前面插入  &lt;code&gt;fatal&lt;/code&gt;  前缀，或者直接写入  &lt;code&gt;os.Stderr&lt;/code&gt; 。&lt;br&gt;
+ &lt;code&gt;log.Debug&lt;/code&gt; ，是完全不同的事情。它由开发人员或支持工程师控制。在开发过程中，调试语句应该是丰富的，而不必求助于  &lt;code&gt;trace&lt;/code&gt;  或  &lt;code&gt;debug2&lt;/code&gt; （您知道自己是谁）级别。日志包应该支持细粒度控制，以启用或禁用调试，并且只在包或更精细的范围内启用或禁用调试语句。&lt;/p&gt;
+&lt;p&gt;B 站的 go 框架是如何设计和思考的：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2dvLWtyYXRvcy9rcmF0b3MvdHJlZS92Mi4wLngvbG9n&#34;&gt;https://github.com/go-kratos/kratos/tree/v2.0.x/log&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;日志选型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志选型&#34;&gt;#&lt;/a&gt; 日志选型&lt;/h2&gt;
+&lt;p&gt;一个完整的集中式日志系统，需要包含以下几个主要特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;收集－能够采集多种来源的日志数据；&lt;/li&gt;
+&lt;li&gt;传输－能够稳定的把日志数据传输到中央系统；&lt;/li&gt;
+&lt;li&gt;存储－如何存储日志数据；&lt;/li&gt;
+&lt;li&gt;分析－可以支持  &lt;code&gt;UI&lt;/code&gt;  分析；&lt;/li&gt;
+&lt;li&gt;警告－能够提供错误报告，监控机制；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;开源界鼎鼎大名  &lt;code&gt;ELK stack&lt;/code&gt; ，分别表示： &lt;code&gt;Elasticsearch&lt;/code&gt;  ,  &lt;code&gt;Logstash&lt;/code&gt; ,  &lt;code&gt;Kibana&lt;/code&gt;  , 它们都是开源软件。新增了一个  &lt;code&gt;FileBeat&lt;/code&gt; ，它是一个轻量级的日志收集处理工具 ( &lt;code&gt;Agent&lt;/code&gt; )， &lt;code&gt;Filebeat&lt;/code&gt;  占用资源少，适合于在各个服务器上搜集日志后传输给  &lt;code&gt;Logstash&lt;/code&gt; ，官方也推荐此工具。&lt;/p&gt;
+&lt;h3 id=&#34;elk&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#elk&#34;&gt;#&lt;/a&gt; ELK&lt;/h3&gt;
+&lt;p&gt;此架构由  &lt;code&gt;Logstash&lt;/code&gt;  分布于各个节点上搜集相关日志、数据，并经过分析、过滤后发送给远端服务器上的  &lt;code&gt;Elasticsearch&lt;/code&gt;  进行存储。&lt;br&gt;
+ &lt;code&gt;Elasticsearch&lt;/code&gt;  将数据以分片的形式压缩存储并提供多种  &lt;code&gt;API&lt;/code&gt;  供用户查询，操作。用户亦可以更直观的通过配置  &lt;code&gt;Kibana Web&lt;/code&gt;  方便的对日志查询，并根据数据生成报表。&lt;br&gt;
+因为  &lt;code&gt;logstash&lt;/code&gt;  属于  &lt;code&gt;server&lt;/code&gt;  角色，必然出现流量集中式的热点问题，因此我们不建议使用这种部署方式，同时因为 还需要做大量  &lt;code&gt;match&lt;/code&gt;  操作（格式化日志），消耗的  &lt;code&gt;CPU&lt;/code&gt;  也很多，不利于  &lt;code&gt;scale out&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-03.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-04.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;此种架构引入了消息队列机制，位于各个节点上的  &lt;code&gt;Logstash Agent&lt;/code&gt;  先将数据 / 日志传递给  &lt;code&gt;Kafka&lt;/code&gt; ，并将队列中消息或数据间接传递给  &lt;code&gt;Logstash&lt;/code&gt; ， &lt;code&gt;Logstash&lt;/code&gt;  过滤、分析后将数据传递给 &lt;code&gt;Elasticsearch&lt;/code&gt;  存储。最后由  &lt;code&gt;Kibana&lt;/code&gt;  将日志和数据呈现给用户。因为引入了  &lt;code&gt;Kafka&lt;/code&gt; ，所以即使远端  &lt;code&gt;Logstash server&lt;/code&gt;  因故障停止运行，数据将会先被存储下来，从而避免数据丢失。&lt;br&gt;
+更进一步的：  将收集端  &lt;code&gt;logstash&lt;/code&gt;  替换为  &lt;code&gt;beats&lt;/code&gt; , 更灵活，消耗资源更少，扩展性更强。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-05.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;日志系统的设计目标&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志系统的设计目标&#34;&gt;#&lt;/a&gt; 日志系统的设计目标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;接入方式收敛；&lt;/li&gt;
+&lt;li&gt;日志格式规范；&lt;/li&gt;
+&lt;li&gt;日志解析对日志系统透明；&lt;/li&gt;
+&lt;li&gt;系统高吞吐、低延迟；&lt;/li&gt;
+&lt;li&gt;系统高可用、容量可扩展、高可运维性；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;日志系统的格式规范&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志系统的格式规范&#34;&gt;#&lt;/a&gt; 日志系统的格式规范&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;JSON&lt;/code&gt;  作为日志的输出格式：&lt;br&gt;
+ &lt;code&gt;time&lt;/code&gt; : 日志产生时间， &lt;code&gt;ISO8601&lt;/code&gt;  格式；&lt;br&gt;
+ &lt;code&gt;level&lt;/code&gt; : 日志等级， &lt;code&gt;ERROR&lt;/code&gt; 、 &lt;code&gt;WARN&lt;/code&gt; 、 &lt;code&gt;INFO&lt;/code&gt; 、 &lt;code&gt;DEBUG&lt;/code&gt; ；&lt;br&gt;
+ &lt;code&gt;app_id&lt;/code&gt; : 应用 &lt;code&gt;id&lt;/code&gt; ，用于标示日志来源；&lt;br&gt;
+ &lt;code&gt;instance_id&lt;/code&gt; : 实例  &lt;code&gt;id&lt;/code&gt; ，用于区分同一应用不同实例，即  &lt;code&gt;hostname&lt;/code&gt; ；&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-06.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;日志系统的设计与实现&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#日志系统的设计与实现&#34;&gt;#&lt;/a&gt; 日志系统的设计与实现&lt;/h2&gt;
+&lt;p&gt;日志从产生到可检索，经历几个阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;生产 &amp;amp; 采集&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;传输 &amp;amp; 切分&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;存储 &amp;amp; 检索&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;采集&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#采集&#34;&gt;#&lt;/a&gt; 采集&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-07.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;logstash&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#logstash&#34;&gt;#&lt;/a&gt;  &lt;code&gt;logstash&lt;/code&gt; ：&lt;/h4&gt;
+&lt;p&gt;监听  &lt;code&gt;tcp/udp&lt;/code&gt; &lt;br&gt;
+ 适用于通过网络上报日志的方式&lt;/p&gt;
+&lt;h4 id=&#34;filebeat&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#filebeat&#34;&gt;#&lt;/a&gt;  &lt;code&gt;filebeat&lt;/code&gt; ：&lt;/h4&gt;
+&lt;p&gt;直接采集本地生成的日志文件&lt;br&gt;
+适用于日志无法定制化输出的应用&lt;/p&gt;
+&lt;h4 id=&#34;logagent&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#logagent&#34;&gt;#&lt;/a&gt;  &lt;code&gt;logagent&lt;/code&gt; ：&lt;/h4&gt;
+&lt;p&gt;物理机部署，监听  &lt;code&gt;unixsocket&lt;/code&gt; &lt;br&gt;
+ 日志系统提供各种语言  &lt;code&gt;SDK&lt;/code&gt; &lt;br&gt;
+ 直接读取本地日志文件&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-08.png&#34; alt=&#34;logagent的设计&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;传输&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#传输&#34;&gt;#&lt;/a&gt; 传输&lt;/h3&gt;
+&lt;p&gt;基于  &lt;code&gt;flume + Kafka&lt;/code&gt;  统一传输平台&lt;br&gt;
+基于  &lt;code&gt;LogID&lt;/code&gt;  做日志分流：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一般级别&lt;/li&gt;
+&lt;li&gt;低级别&lt;/li&gt;
+&lt;li&gt;高级别（ &lt;code&gt;ERROR&lt;/code&gt; ）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现在替换为  &lt;code&gt;Flink + Kafka&lt;/code&gt;  的实现方式。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;./images/12-log-09.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;切分&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#切分&#34;&gt;#&lt;/a&gt; 切分&lt;/h3&gt;
+&lt;p&gt;从 &lt;code&gt;kafka&lt;/code&gt;  消费日志，解析日志，写入 &lt;code&gt;elasticsearch&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;bili-index&lt;/code&gt; : 自研， &lt;code&gt;golang&lt;/code&gt;  开发，逻辑简单，性能 高，可定制化方便。&lt;br&gt;
+・日志规范产生的日志 ( &lt;code&gt;log agent&lt;/code&gt;  收集)&lt;br&gt;
+ &lt;code&gt;logstash&lt;/code&gt; :  &lt;code&gt;es&lt;/code&gt;  官方组件，基于  &lt;code&gt;jruby&lt;/code&gt;  开发，功能强大， 资源消耗高，性能低。&lt;br&gt;
+・处理未按照日志规范产生的日志 ( &lt;code&gt;filebeat&lt;/code&gt; 、 &lt;code&gt;logstash&lt;/code&gt;  收集)，需配置各种日志解析规则。&lt;/p&gt;
+&lt;h3 id=&#34;存储和检索&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#存储和检索&#34;&gt;#&lt;/a&gt; 存储和检索&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;elasticsearch&lt;/code&gt;  多集群架构：&lt;br&gt;
+日志分级、高可用&lt;/p&gt;
+&lt;p&gt;单数据集群内:&lt;br&gt;
+ &lt;code&gt;master node + data node(hot/stale) + client node&lt;/code&gt; &lt;br&gt;
+ 每日固定时间进行热 -&amp;gt; 冷迁移&lt;br&gt;
+ &lt;code&gt;Index&lt;/code&gt;  提前一天创建，基于  &lt;code&gt;template&lt;/code&gt;  进行 &lt;code&gt;mapping&lt;/code&gt;  管理&lt;br&gt;
+检索基于  &lt;code&gt;kibana&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;存储-文件&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#存储-文件&#34;&gt;#&lt;/a&gt; 存储 - 文件&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;使用自定义协议，对  &lt;code&gt;SDK&lt;/code&gt;  质量、版本升级都有比较高的要求，因此我们长期会使用 “本地文件” 的方案实现：&lt;/li&gt;
+&lt;li&gt;采集本地日志文件：位置不限，容器内 &lt;code&gt;or&lt;/code&gt;  物理机&lt;/li&gt;
+&lt;li&gt;配置自描述：不做中心化配置，配置由  &lt;code&gt;app/paas&lt;/code&gt;  自身提供， &lt;code&gt;agent&lt;/code&gt;  读取配置并生效&lt;/li&gt;
+&lt;li&gt;日志不重不丢：多级队列，能够稳定地处理日志收集过程中各种异常&lt;/li&gt;
+&lt;li&gt;可监控：实时监控运行状态&lt;/li&gt;
+&lt;li&gt;完善的自我保护机制：限制自身对于宿主机资源的消耗，限制发送速度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h1&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

@@ -1111,7 +1111,7 @@ var readmoreHalfHeight = 200;
 var defaultToken = '12345';
 var count = 0;
 var minMaskHeight = 700;
-var hostUrl = 'http://150.158.100.2/_api';
+var hostUrl = 'https://fangjiaxiaobai.cn/_api';
 var oldIntervalId = null;
 
 const siteReadMore = function (countsss) {
@@ -1121,11 +1121,13 @@ const siteReadMore = function (countsss) {
   // clearInterval(oldIntervalId);
   // console.log('删除interval.........');
   _lock();
+  
   if(countsss > 0){
     _detect(getToken());
     // console.log("----------，", countsss)
     return;
   }
+  _lock();
   // 页面变为可见时触发 
   if (document.visibilityState == 'visible') {
     if (contentContainer) {
@@ -1176,8 +1178,10 @@ var _lock = function () {
 }
 
 function saveToken2Server(token) {
+  $('#fxb_add_script').remove();
   var script = document.createElement('script');
   script.type = 'text/javascript';
+  script.id = 'fxb_add_script';
   // 传参一个回调函数名给后端，方便后端返回时执行这个在前端定义的回调函数
   script.src = hostUrl + '/_blog/saveCode?type=saveToken&code=' + token;
   document.head.appendChild(script);
