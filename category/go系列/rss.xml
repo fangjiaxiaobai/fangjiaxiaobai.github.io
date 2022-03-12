@@ -5,69 +5,301 @@
         <link>https://fangjiaxiaobai.github.io</link>
         <description>和你一起遇见更好的自己</description>
         <language>zh-CN</language>
-        <pubDate>Thu, 24 Feb 2022 18:18:18 +0800</pubDate>
-        <lastBuildDate>Thu, 24 Feb 2022 18:18:18 +0800</lastBuildDate>
+        <pubDate>Sat, 12 Mar 2022 18:18:18 +0800</pubDate>
+        <lastBuildDate>Sat, 12 Mar 2022 18:18:18 +0800</lastBuildDate>
         <category>全站地图</category>
         <category>目录</category>
+        <category>MySQL</category>
         <category>源码</category>
-        <category>Redis</category>
-        <category>日常</category>
-        <category>Springboot</category>
-        <category>Netty</category>
-        <category>数据结构</category>
         <category>雪花算法</category>
         <category>算法</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>MySQL</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>git</category>
+        <category>Redis</category>
+        <category>数据结构</category>
         <category>go</category>
         <category>go-error</category>
-        <category>MachineLearn</category>
         <category>图片</category>
-        <category>git</category>
         <category>log</category>
         <category>go-log</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
+        <category>MachineLearn</category>
+        <category>leetCode</category>
+        <category>链表</category>
+        <category>面经之算法题</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>leetCode</category>
-        <category>数组</category>
-        <category>面经之算法题</category>
-        <category>有点难的算法题</category>
-        <category>链表</category>
         <category>不做也罢的算法题</category>
+        <category>数组</category>
         <category>动态规划</category>
-        <category>HD</category>
-        <category>BQ</category>
-        <category>AC</category>
         <category>HashMap</category>
         <category>JDK</category>
         <category>JDK8</category>
+        <category>有点难的算法题</category>
         <category>String</category>
         <category>数据结构与算法</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
         <category>哈希算法</category>
+        <category>递归</category>
         <category>排序</category>
         <category>冒泡排序</category>
         <category>交换排序</category>
-        <category>分治思想排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
+        <category>分治思想排序</category>
+        <category>选择排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
-        <category>递归</category>
-        <category>选择排序</category>
-        <category>模型评估</category>
         <category>Java</category>
         <category>dubbo</category>
+        <category>模型评估</category>
         <category>架构</category>
         <category>笔记</category>
+        <category>go-runtimes</category>
         <category>KNN</category>
         <category>JDK版本</category>
         <category>JDK11</category>
         <category>OOM</category>
         <category>JVM</category>
         <category>Stream</category>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/03/12/go/goroutine_runtime/</guid>
+            <title>Go 运行时</title>
+            <link>https://fangjiaxiaobai.github.io/2022/03/12/go/goroutine_runtime/</link>
+            <category>go</category>
+            <category>go-runtimes</category>
+            <pubDate>Sat, 12 Mar 2022 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;goroutine-定义&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#goroutine-定义&#34;&gt;#&lt;/a&gt;  &lt;code&gt;goroutine&lt;/code&gt;  定义&lt;/h2&gt;
+&lt;p&gt;“ &lt;code&gt;Goroutine&lt;/code&gt;  是一个与其他  &lt;code&gt;goroutines&lt;/code&gt;  并行运行在同一地址空间的  &lt;code&gt;Go&lt;/code&gt;  函数或方法。一个运行的程序由一个或更多个  &lt;code&gt;goroutine&lt;/code&gt;  组成。它与线程、协程、进程等不同。它是一个  &lt;code&gt;goroutine&lt;/code&gt; ” ——  &lt;code&gt;Rob Pike&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;Goroutines&lt;/code&gt;  在同一个用户地址空间里并行独立执行  &lt;code&gt;functions&lt;/code&gt;  ，  &lt;code&gt;channels&lt;/code&gt;  则用于  &lt;code&gt;goroutines&lt;/code&gt;  间的通信和同步访问控制。&lt;/p&gt;
+&lt;h3 id=&#34;goroutine-vs-thread&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#goroutine-vs-thread&#34;&gt;#&lt;/a&gt;  &lt;code&gt;goroutine VS thread&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;内存占用&lt;/b&gt;. 创建一个  &lt;code&gt;goroutine&lt;/code&gt;  的栈内存消耗为  &lt;code&gt;2 KB&lt;/code&gt; ( &lt;code&gt;Linux AMD64&lt;/code&gt;   &lt;code&gt;Go v1.4&lt;/code&gt;  后)，运行过程中，如果栈空间不够用，会自动进行扩容。 创建一个  &lt;code&gt;thread&lt;/code&gt;  为了尽量避免极端情况下操作系统线程栈的溢出，默认会为其分配一个较大的栈内存 (  &lt;code&gt;1 - 8 MB&lt;/code&gt;  栈内存，线程标准 &lt;code&gt;POSIX Thread&lt;/code&gt; )，而且还需要一个被称为  &lt;code&gt;“guard page”&lt;/code&gt;  的区域用于和其他  &lt;code&gt;thread&lt;/code&gt;  的栈空间进行隔离。而栈内存空间一旦创建和初始化完成之后其大小就不能再有变化，这决定了&lt;b&gt;在某些特殊场景下系统线程栈还是有溢出的风险&lt;/b&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;创建 / 销毁&lt;/b&gt;，线程创建和销毀都会有巨大的消耗，是内核级的交互 ( &lt;code&gt;trap&lt;/code&gt; )。  &lt;code&gt;POSIX&lt;/code&gt;  线程 (定义了创建和操纵线程的一套  &lt;code&gt;API&lt;/code&gt; ) 通常是在已有的进程模型中增加的逻辑扩展，所以线程控制和进程控制很相似。而进入内核调度所消耗的性能代价比较高，开销较大。  &lt;code&gt;goroutine&lt;/code&gt;  是用户态线程，是由  &lt;code&gt;go runtime&lt;/code&gt;  管理，创建和销毁的消耗非常小。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;调度切换&lt;/b&gt; 抛开陷入内核，线程切换会消耗  &lt;code&gt;1000-1500&lt;/code&gt;  纳秒 (上下文保存成本高，较多寄存器，公平性，复杂时间计算统计)，一个纳秒平均可以执行  &lt;code&gt;12-18&lt;/code&gt;  条指令。 所以由于线程切换，执行指令的条数会减少  &lt;code&gt;12000-18000&lt;/code&gt; 。  &lt;code&gt;goroutine&lt;/code&gt;  的切换约为  &lt;code&gt;200ns&lt;/code&gt;  (用户态、3 个寄存器)，相当于  &lt;code&gt;2400-3600&lt;/code&gt;  条指令。因此，  &lt;code&gt;goroutines&lt;/code&gt;  切换成本比   &lt;code&gt;threads&lt;/code&gt;  要小得多。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;复杂性&lt;/b&gt; 线程的创建和退出复杂，多个  &lt;code&gt;thread&lt;/code&gt;  间通讯复杂 ( &lt;code&gt;share memory&lt;/code&gt; )。 不能大量创建线程 (参考早期的  &lt;code&gt;httpd&lt;/code&gt; )，成本高，使用网络多路复用，存在大量 &lt;code&gt;callback&lt;/code&gt;  (参考 &lt;code&gt;twemproxy&lt;/code&gt; 、 &lt;code&gt;nginx&lt;/code&gt;  的代码) 。对于应用服务线程门槛高，例如需要做第三方库隔离，需要考虑引入线程池等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;goroutine-运行原理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#goroutine-运行原理&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Goroutine&lt;/code&gt;  运行原理&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Go&lt;/code&gt;  程序的执行由两层组成： &lt;code&gt;Go Program&lt;/code&gt; ， &lt;code&gt;Runtime&lt;/code&gt; ，即用户程序和运行时。它们之间通过函数调用来实现内存管理、 &lt;code&gt;channel&lt;/code&gt;  通信、 &lt;code&gt;goroutines&lt;/code&gt;  创建等功能。用户程序进行的系统调用都会被  &lt;code&gt;Runtime&lt;/code&gt;  拦截，以此来帮助它进行调度以及垃圾回收相关的工作。&lt;/p&gt;
+&lt;h3 id=&#34;mn-模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#mn-模型&#34;&gt;#&lt;/a&gt;  &lt;code&gt;M:N&lt;/code&gt;  模型&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Go runtime&lt;/code&gt;  会负责  &lt;code&gt;goroutine&lt;/code&gt;  的生老病死，从创建到销毁，都一手包办。 &lt;code&gt;Runtime&lt;/code&gt;  会在程序启动的时候。  &lt;code&gt;Go&lt;/code&gt;  创建  &lt;code&gt;M&lt;/code&gt;  个线程 ( &lt;code&gt;CPU&lt;/code&gt;  执行调度的单元，内核的  &lt;code&gt;task_struct&lt;/code&gt; )，之后创建的  &lt;code&gt;N&lt;/code&gt;  个  &lt;code&gt;goroutine&lt;/code&gt;  都会依附在这  &lt;code&gt;M&lt;/code&gt;  个线程上执行，即  &lt;code&gt;M:N&lt;/code&gt;  模型。它们能够同时运行，与线程类似，但相比之下非常轻量。因此，程序运行时， &lt;code&gt;Goroutines&lt;/code&gt;  的个数应该是远大于线程的个数的（&lt;a href=&#34;https://www.zhihu.com/question/35128513&#34;&gt; &lt;code&gt;phread&lt;/code&gt;  是内核线程？&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;同一个时刻，一个线程只能跑一个  &lt;code&gt;goroutine&lt;/code&gt; 。当  &lt;code&gt;goroutine&lt;/code&gt;  发生阻塞 ( &lt;code&gt;chan&lt;/code&gt;  阻塞、 &lt;code&gt;mutex&lt;/code&gt; 、 &lt;code&gt;syscall&lt;/code&gt;  等等) 时，Go 会把当前的  &lt;code&gt;goroutine&lt;/code&gt;  调度走，让其他  &lt;code&gt;goroutine&lt;/code&gt;  来继续执行，而不是让线程阻塞休眠，尽可能多的分发任务出去，让  &lt;code&gt;CPU&lt;/code&gt;  忙。&lt;/p&gt;
+&lt;h3 id=&#34;gm-调度模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gm-调度模型&#34;&gt;#&lt;/a&gt; GM 调度模型&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;go&lt;/code&gt;  在 &lt;code&gt;1.2&lt;/code&gt;  版本之前，调度模型使用的是  &lt;code&gt;GM&lt;/code&gt;  调度模型。&lt;/p&gt;
+&lt;h4 id=&#34;g&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#g&#34;&gt;#&lt;/a&gt; G&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;goroutine&lt;/code&gt;  的缩写，每次  &lt;code&gt;go func()&lt;/code&gt;  都代表一个  &lt;code&gt;G&lt;/code&gt; ，无限制。 使用  &lt;code&gt;struct runtime.g&lt;/code&gt; ，包含了当前  &lt;code&gt;goroutine&lt;/code&gt;  的状态、堆栈、上下文。&lt;/p&gt;
+&lt;h4 id=&#34;m&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#m&#34;&gt;#&lt;/a&gt; M&lt;/h4&gt;
+&lt;p&gt;工作线程 ( &lt;code&gt;OS thread&lt;/code&gt; ) 也被称为 Machine，使用  &lt;code&gt;struct runtime.m&lt;/code&gt; ，所有  &lt;code&gt;M&lt;/code&gt;  是有线程栈的。 如果不对该线程栈提供内存的话，系统会给该线程栈提供内存 (不同操作系统提供的线程栈大小不同)&lt;br&gt;
+。当指定了线程栈，则  &lt;code&gt;M.stack→G.stack&lt;/code&gt; ， &lt;code&gt;M&lt;/code&gt;  的  &lt;code&gt;PC&lt;/code&gt;  寄存器指向  &lt;code&gt;G&lt;/code&gt;  提供的函数，然后去执行。&lt;/p&gt;
+&lt;h4 id=&#34;gm-调度&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gm-调度&#34;&gt;#&lt;/a&gt; GM 调度&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Go 1.2&lt;/code&gt;  前的调度器实现，限制了  &lt;code&gt;Go&lt;/code&gt;  并发程序的伸缩性，尤其是对那些有高吞吐或并行计算需求的服务程序。&lt;br&gt;
+每个  &lt;code&gt;goroutine&lt;/code&gt;  对应于  &lt;code&gt;runtime&lt;/code&gt;  中的一个抽象结构： &lt;code&gt;G&lt;/code&gt; ，而  &lt;code&gt;thread&lt;/code&gt;  作为 &lt;code&gt;“物理 CPU”&lt;/code&gt;  的存在而被抽象为一个结构：M ( &lt;code&gt;machine&lt;/code&gt; )。当  &lt;code&gt;goroutine&lt;/code&gt;  调用了一个阻塞的系统调用，运行这个  &lt;code&gt;goroutine&lt;/code&gt;  的线程就会被阻塞，这时至少应该再创建 / 唤醒一个线程来运行别的没有阻塞的  &lt;code&gt;goroutine&lt;/code&gt;  。线程这里可以创建不止一个，可以按需不断地创建，而活跃的线程（处于非阻塞状态的线程）的最大个数存储在变量  &lt;code&gt;GOMAXPROCS&lt;/code&gt;  中。&lt;/p&gt;
+&lt;p&gt;调用过程如下所示:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-75.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;M&lt;/code&gt;  想要执行、放回  &lt;code&gt;G&lt;/code&gt;  都必须访问全局  &lt;code&gt;G&lt;/code&gt;  队列，并且  &lt;code&gt;M&lt;/code&gt;  有多个，即多线程访问同一资源需要加锁进行保证互斥 / 同步，所以全局  &lt;code&gt;G&lt;/code&gt;  队列是有互斥锁进行保护的&lt;/p&gt;
+&lt;h4 id=&#34;gm-调度模型的问题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gm-调度模型的问题&#34;&gt;#&lt;/a&gt; GM 调度模型的问题&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;单一全局互斥锁 ( &lt;code&gt;Sched.Lock&lt;/code&gt; ) 和集中状态存储&lt;br&gt;
+导致所有  &lt;code&gt;goroutine&lt;/code&gt;  相关操作，比如：创建、结束、重新调度等都要上锁。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Goroutine&lt;/code&gt;  传递问题&lt;br&gt;
+ &lt;code&gt;M&lt;/code&gt;  经常在  &lt;code&gt;M&lt;/code&gt;  之间传递” 可运行” 的  &lt;code&gt;goroutine&lt;/code&gt;  ，这导致调度延迟增大以及额外的性能损耗（刚创建的  &lt;code&gt;G&lt;/code&gt;  放到了全局队列，而不是本地 M 执行，不必要的开销和延迟）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Per-M &lt;/code&gt; 持有内存缓存 ( &lt;code&gt;M.mcache&lt;/code&gt; )&lt;br&gt;
+ 每个  &lt;code&gt;M&lt;/code&gt;  持有  &lt;code&gt;mcache&lt;/code&gt;  和  &lt;code&gt;stackalloc&lt;/code&gt;  ，然而只有在  &lt;code&gt;M&lt;/code&gt;  运行  &lt;code&gt;Go&lt;/code&gt;  代码时才需要使用的内存 (每个  &lt;code&gt;mcache&lt;/code&gt;  可以高达  &lt;code&gt;2mb&lt;/code&gt;  )，当  &lt;code&gt;M&lt;/code&gt;  在处于  &lt;code&gt;syscall&lt;/code&gt;  时并不需要。运行  &lt;code&gt;Go&lt;/code&gt;  代码和阻塞在  &lt;code&gt;syscall&lt;/code&gt;  的  &lt;code&gt;M&lt;/code&gt;  的比例高达 &lt;code&gt;1:100&lt;/code&gt; ，造成了很大的浪费。同时内存亲缘性也较差， &lt;code&gt;G&lt;/code&gt;  当前在  &lt;code&gt;M&lt;/code&gt;  运行后对 M 的内存进行了预热，因为现在  &lt;code&gt;G&lt;/code&gt;  调度到同一个  &lt;code&gt;M&lt;/code&gt;  的概率不高，数据局部性不好。&lt;/li&gt;
+&lt;li&gt;严重的线程阻塞 / 解锁&lt;br&gt;
+在系统调用的情况下，工作线程经常被阻塞和取消阻塞，这增加了很多开销。比如  &lt;code&gt;M&lt;/code&gt;  找不到 &lt;code&gt;G&lt;/code&gt; ，此时  &lt;code&gt;M&lt;/code&gt;  就会进入频繁阻塞 / 唤醒来进行检查的逻辑，以便及时发现新的  &lt;code&gt;G&lt;/code&gt;  来执行。&lt;br&gt;
+by Dmitry Vyukov “&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xVFRqNFQySk80MnVENUlEOWU4OW9hMHNMS2hKWUQwWV9rcXhEdjNJM1hNdy9lZGl0IyE=&#34;&gt;Scalable Go Scheduler Design Doc&lt;/span&gt;”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;gmp-调度模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gmp-调度模型&#34;&gt;#&lt;/a&gt; GMP 调度模型&lt;/h3&gt;
+&lt;p&gt;在  &lt;code&gt;go 1.2&lt;/code&gt;  版本及以后，go 引入  &lt;code&gt;GMP&lt;/code&gt;  调度模型&lt;/p&gt;
+&lt;h4 id=&#34;g-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#g-2&#34;&gt;#&lt;/a&gt; G&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;goroutine&lt;/code&gt;  的缩写，每次  &lt;code&gt;go func()&lt;/code&gt;  都代表一个  &lt;code&gt;G&lt;/code&gt; ，无限制。 使用  &lt;code&gt;struct runtime.g&lt;/code&gt; ，包含了当前  &lt;code&gt;goroutine&lt;/code&gt;  的状态、堆栈、上下文。&lt;/p&gt;
+&lt;h4 id=&#34;m-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#m-2&#34;&gt;#&lt;/a&gt; M&lt;/h4&gt;
+&lt;p&gt;工作线程 ( &lt;code&gt;OS thread&lt;/code&gt; ) 也被称为 Machine，使用  &lt;code&gt;struct runtime.m&lt;/code&gt; ，所有  &lt;code&gt;M&lt;/code&gt;  是有线程栈的。 如果不对该线程栈提供内存的话，系统会给该线程栈提供内存 (不同操作系统提供的线程栈大小不同)&lt;br&gt;
+。当指定了线程栈，则  &lt;code&gt;M.stack→G.stack&lt;/code&gt; ， &lt;code&gt;M&lt;/code&gt;  的  &lt;code&gt;PC&lt;/code&gt;  寄存器指向  &lt;code&gt;G&lt;/code&gt;  提供的函数，然后去执行。&lt;/p&gt;
+&lt;h4 id=&#34;p&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#p&#34;&gt;#&lt;/a&gt; P&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;“Processor”&lt;/code&gt;  是一个抽象的概念，并不是真正的物理  &lt;code&gt;CPU&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Dmitry Vyukov&lt;/code&gt;  的方案是引入一个结构  &lt;code&gt;P&lt;/code&gt; ，它代表了  &lt;code&gt;M&lt;/code&gt;  所需的上下文环境，也是处理用户级代码逻辑的处理器。它负责衔接  &lt;code&gt;M&lt;/code&gt;  和  &lt;code&gt;G&lt;/code&gt;  的调度上下文，将等待执行的  &lt;code&gt;G&lt;/code&gt;  与  &lt;code&gt;M&lt;/code&gt;  对接。当 P 有任务时需要创建或者唤醒一个  &lt;code&gt;M&lt;/code&gt;  来执行它队列里的任务。所以  &lt;code&gt;P/M&lt;/code&gt;  需要进行绑定，构成一个执行单元。  &lt;code&gt;P&lt;/code&gt;  决定了并行任务的数量，可通过  &lt;code&gt;runtime.GOMAXPROCS&lt;/code&gt;  来设定。在  &lt;code&gt;Go1.5&lt;/code&gt;  之后  &lt;code&gt;GOMAXPROCS&lt;/code&gt;  被默认设置可用的核数，而之前则默认为 &lt;code&gt;1&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Runtime&lt;/code&gt;  起始时会启动一些  &lt;code&gt;G&lt;/code&gt; ：垃圾回收的  &lt;code&gt;G&lt;/code&gt; ，执行调度的  &lt;code&gt;G&lt;/code&gt; ，运行用户代码的  &lt;code&gt;G&lt;/code&gt; ；并且会创建一个  &lt;code&gt;M&lt;/code&gt;  用来开始  &lt;code&gt;G&lt;/code&gt;  的运行。随着时间的推移，更多的  &lt;code&gt;G&lt;/code&gt;  会被创建出来，更多的  &lt;code&gt;M&lt;/code&gt;  也会被创建出来。&lt;/p&gt;
+&lt;p&gt;Tips: &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3ViZXItZ28vYXV0b21heHByb2Nz&#34;&gt;https://github.com/uber-go/automaxprocs&lt;/span&gt;&lt;br&gt;
+ &lt;code&gt;Automatically set GOMAXPROCS to match Linux container CPU quota.&lt;/code&gt; &lt;br&gt;
+ &lt;code&gt;mcache/stackalloc&lt;/code&gt;  从  &lt;code&gt;M&lt;/code&gt;  移到了  &lt;code&gt;P&lt;/code&gt; ，而  &lt;code&gt;G&lt;/code&gt;  队列也被分成两类，保留全局  &lt;code&gt;G&lt;/code&gt;  队列，同时每个  &lt;code&gt;P&lt;/code&gt;  中都会有一个本地的  &lt;code&gt;G&lt;/code&gt;  队列。&lt;/p&gt;
+&lt;h4 id=&#34;gmp-调度&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gmp-调度&#34;&gt;#&lt;/a&gt;  &lt;code&gt;GMP&lt;/code&gt;  调度&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;GMP&lt;/code&gt;  调度模型，引入了  &lt;code&gt;local queue&lt;/code&gt; ，因为  &lt;code&gt;P&lt;/code&gt;  的存在， &lt;code&gt;runtime&lt;/code&gt;  并不需要做一个集中式的  &lt;code&gt;goroutine&lt;/code&gt;  调度，每一个  &lt;code&gt;M&lt;/code&gt;  都会在  &lt;code&gt;P&#39;s local queue&lt;/code&gt; 、 &lt;code&gt;global queue&lt;/code&gt;  或者其他  &lt;code&gt;P&lt;/code&gt;  队列中找  &lt;code&gt;G&lt;/code&gt;  执行，减少全局锁对性能的影响。&lt;br&gt;
+这也是  &lt;code&gt;GMP Work-stealing&lt;/code&gt;  调度算法的核心。注意  &lt;code&gt;P&lt;/code&gt;  的本地  &lt;code&gt;G&lt;/code&gt;  队列还是可能面临一个并发访问的场景，为了避免加锁，这里  &lt;code&gt;P&lt;/code&gt;  的本地队列是一个  &lt;code&gt;LockFree&lt;/code&gt;  的队列，窃取  &lt;code&gt;G&lt;/code&gt;  时使用  &lt;code&gt;CAS&lt;/code&gt;  原子操作来完成。关于 &lt;code&gt;LockFree&lt;/code&gt;  和  &lt;code&gt;CAS&lt;/code&gt;  的知识参见  &lt;code&gt;Lock-Free&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-49.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;work-stealing&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#work-stealing&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Work Stealing&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;当一个  &lt;code&gt;P&lt;/code&gt;  执行完本地所有的  &lt;code&gt;G&lt;/code&gt;  之后，并且全局队列为空的时候，会尝试挑选一个受害者  &lt;code&gt;P&lt;/code&gt;  ，从它的  &lt;code&gt;G&lt;/code&gt;  队列中窃取一半的  &lt;code&gt;G&lt;/code&gt; 。否则会从全局队列中获取 (当前个数 / &lt;code&gt;GOMAXPROCS&lt;/code&gt; ) 个  &lt;code&gt;G&lt;/code&gt;  。&lt;br&gt;
+为了保证公平性，从随机位置上的  &lt;code&gt;P&lt;/code&gt;  开始，而且遍历的顺序也随机化了 (选择一个小于  &lt;code&gt;GOMAXPROCS&lt;/code&gt;  ，且和它互为质数的步长)，保证遍历的顺序也随机化了。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-50.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;光窃取失败时获取是不够的，可能会导致全局队列饥饿。 &lt;code&gt;P&lt;/code&gt;  的调度算法中还会每个  &lt;code&gt;N&lt;/code&gt;  轮调度之后就去全局队列拿一个  &lt;code&gt;G&lt;/code&gt; 。 如下图。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-52.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;谁放入的全局队列呢&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#谁放入的全局队列呢&#34;&gt;#&lt;/a&gt; 谁放入的全局队列呢&lt;/h4&gt;
+&lt;p&gt;有两种情况会把 &lt;code&gt;G&lt;/code&gt;  放到全局队列中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新建  &lt;code&gt;G&lt;/code&gt;  时  &lt;code&gt;P&lt;/code&gt;  的本地  &lt;code&gt;G&lt;/code&gt;  队列放不下已满并达到 &lt;code&gt;256&lt;/code&gt;  个的时候会放半数  &lt;code&gt;G&lt;/code&gt;  到全局队列去。&lt;/li&gt;
+&lt;li&gt;阻塞的系统调用返回时找不到空闲  &lt;code&gt;P&lt;/code&gt;  也会放到全局队列。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-51.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;syscall-系统调用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#syscall-系统调用&#34;&gt;#&lt;/a&gt; SysCall 系统调用&lt;/h3&gt;
+&lt;p&gt;当  &lt;code&gt;G&lt;/code&gt;  调用  &lt;code&gt;syscall&lt;/code&gt;  后会解绑  &lt;code&gt;P&lt;/code&gt; ，然后  &lt;code&gt;M&lt;/code&gt;  和  &lt;code&gt;G&lt;/code&gt;  进入阻塞，而  &lt;code&gt;P&lt;/code&gt;  此时的状态就是  &lt;code&gt;syscall&lt;/code&gt; ，表明这个  &lt;code&gt;P&lt;/code&gt;  的  &lt;code&gt;G&lt;/code&gt;  正在  &lt;code&gt;syscall&lt;/code&gt;  中，这时的  &lt;code&gt;P&lt;/code&gt;  是不能被调度给别的  &lt;code&gt;M&lt;/code&gt;  的。如果在短时间内阻塞的  &lt;code&gt;M&lt;/code&gt;  就唤醒了，那么  &lt;code&gt;M&lt;/code&gt;  会优先来重新获取这个  &lt;code&gt;P&lt;/code&gt; ，能获取到就继续绑回去，这样有利于数据的局部性。&lt;br&gt;
+系统监视器 ( &lt;code&gt;system monitor&lt;/code&gt; )，称为  &lt;code&gt;sysmon&lt;/code&gt; ，会定时扫描。在执行  &lt;code&gt;syscall&lt;/code&gt;  时，如果某个  &lt;code&gt;P&lt;/code&gt;  的  &lt;code&gt;G&lt;/code&gt;  执行超过一个  &lt;code&gt;sysmon tick&lt;/code&gt; ( &lt;code&gt;10ms&lt;/code&gt; )，就会把他设为  &lt;code&gt;idle&lt;/code&gt; ，重新调度给需要的  &lt;code&gt;M&lt;/code&gt; ，强制解绑。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-53.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;P3&lt;/code&gt;  和  &lt;code&gt;M&lt;/code&gt;  脱离后目前在  &lt;code&gt;idle list&lt;/code&gt;  中等待被绑定（处于  &lt;code&gt;syscall&lt;/code&gt;  状态）。而  &lt;code&gt;syscall&lt;/code&gt;  结束后  &lt;code&gt;M&lt;/code&gt;  按照如下规则执行直到满足其中一个条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;尝试获取同一个  &lt;code&gt;P&lt;/code&gt; ( &lt;code&gt;P3&lt;/code&gt; )，恢复执行  &lt;code&gt;G&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;尝试获取  &lt;code&gt;idle list&lt;/code&gt;  中的其他空闲  &lt;code&gt;P&lt;/code&gt; ，恢复执行  &lt;code&gt;G&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;找不到空闲  &lt;code&gt;P&lt;/code&gt; ，把  &lt;code&gt;G&lt;/code&gt;  放回  &lt;code&gt;global queue&lt;/code&gt; ， &lt;code&gt;M&lt;/code&gt;  放回到  &lt;code&gt;idle list&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;再举一个例子：&lt;br&gt;
+如下图.&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-54.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一步：  &lt;code&gt;G35&lt;/code&gt;  发生了系统调用，长时间没有返回。  &lt;code&gt;P1&lt;/code&gt;  和  &lt;code&gt;M&lt;/code&gt;  解绑。( &lt;code&gt;p1&lt;/code&gt;  不会马上被推送到 &lt;code&gt;idle list&lt;/code&gt; , 而是经过一段时间才会推送到 &lt;code&gt;idle list.&lt;/code&gt; )&lt;/li&gt;
+&lt;li&gt;第二步： &lt;code&gt;G35&lt;/code&gt;  系统调用完成，将 &lt;code&gt;G35&lt;/code&gt;  推向了全局队列.&lt;/li&gt;
+&lt;li&gt;第三步： &lt;code&gt;G35&lt;/code&gt;  被其他的 P 捞到了 (可能 &lt;code&gt;P0&lt;/code&gt;  经过 &lt;code&gt;1/61&lt;/code&gt;  轮次正好 &lt;code&gt;check&lt;/code&gt;  全局队列)， 这样  &lt;code&gt;G35&lt;/code&gt;  就可以继续执行了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;需要注意的是： 当使用了  &lt;code&gt;Syscall&lt;/code&gt; ， &lt;code&gt;Go&lt;/code&gt;  无法限制  &lt;code&gt;Blocked OS threads&lt;/code&gt;  的数量：&lt;br&gt;
+ &lt;code&gt;The GOMAXPROCS variable limits the number of operating system threads that can execute user-level Go code simultaneously. There is no limit to the number of threads that can be blocked in system calls on behalf of Go code; those do not count against the GOMAXPROCS limit. This package’s GOMAXPROCS function queries and changes the limit.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Tips&lt;/code&gt; : 使用  &lt;code&gt;syscall&lt;/code&gt;  写程序要认真考虑  &lt;code&gt;pthread exhaust&lt;/code&gt;  问题。&lt;/p&gt;
+&lt;h3 id=&#34;spining-thread&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#spining-thread&#34;&gt;#&lt;/a&gt; Spining Thread.&lt;/h3&gt;
+&lt;p&gt;线程自旋是相对于线程阻塞而言的，表象就是循环执行一个指定逻辑 (调度逻辑，目的是不停地寻找 G)。这样做的问题显而易见，如果  &lt;code&gt;G&lt;/code&gt;  迟迟不来， &lt;code&gt;CPU&lt;/code&gt;  会白白浪费在这无意义的计算上。但好处也很明显，降低了 M 的上下文切换成本，提高了性能。在两个地方引入自旋：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类型 1:  &lt;code&gt;M&lt;/code&gt;  不带  &lt;code&gt;P&lt;/code&gt;  的找  &lt;code&gt;P&lt;/code&gt;  挂载（一有  &lt;code&gt;P&lt;/code&gt;  释放就结合）&lt;/li&gt;
+&lt;li&gt;类型 2:  &lt;code&gt;M&lt;/code&gt;  带  &lt;code&gt;P&lt;/code&gt;  的找  &lt;code&gt;G&lt;/code&gt;  运行（一有  &lt;code&gt;runable&lt;/code&gt;  的  &lt;code&gt;G&lt;/code&gt;  就执行）。 这种情况下会首先 按照  &lt;code&gt;1/61&lt;/code&gt;  轮次的查询  &lt;code&gt;global Queue&lt;/code&gt;  , 然后再查看  &lt;code&gt;local Queue&lt;/code&gt;  是否有  &lt;code&gt;G&lt;/code&gt; . 如果没有，则去查看  &lt;code&gt;Global Queue&lt;/code&gt; , 如果没有在去检查   &lt;code&gt;net poller&lt;/code&gt; , 看看是否有可用的  &lt;code&gt;goroutine&lt;/code&gt; .&lt;br&gt;
+ 为了避免过多浪费  &lt;code&gt;CPU&lt;/code&gt;  资源，自旋的  &lt;code&gt;M&lt;/code&gt;  最多只允许  &lt;code&gt;GOMAXPROCS&lt;/code&gt;  ( &lt;code&gt;Busy P&lt;/code&gt; )。同时当有类型 1 的自旋  &lt;code&gt;M&lt;/code&gt;  存在时，类型 &lt;code&gt;2&lt;/code&gt;  的自旋  &lt;code&gt;M&lt;/code&gt;  就不阻塞，阻塞会释放  &lt;code&gt;P&lt;/code&gt; ，一释放  &lt;code&gt;P&lt;/code&gt;  就马上被类型 &lt;code&gt;1&lt;/code&gt;  的自旋  &lt;code&gt;M&lt;/code&gt;  抢走了，没必要。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在新  &lt;code&gt;G&lt;/code&gt;  被创建、 &lt;code&gt;M&lt;/code&gt;  进入系统调用、 &lt;code&gt;M&lt;/code&gt;  从空闲被激活这三种状态变化前，调度器会确保至少有一个自旋  &lt;code&gt;M&lt;/code&gt;  存在（唤醒或者创建一个  &lt;code&gt;M&lt;/code&gt; ），除非没有空闲的  &lt;code&gt;P&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;为什么呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当新  &lt;code&gt;G&lt;/code&gt;  创建，如果有可用  &lt;code&gt;P&lt;/code&gt; ，就意味着新  &lt;code&gt;G&lt;/code&gt;  可以被立即执行，即便不在同一个  &lt;code&gt;P&lt;/code&gt;  也无妨，所以我们保留一个自旋的 M（这时应该不存在类型 1 的自旋只有类型 2 的自旋）就可以保证新 G 很快被运行。&lt;/li&gt;
+&lt;li&gt;当  &lt;code&gt;M&lt;/code&gt;  进入系统调用，意味着  &lt;code&gt;M&lt;/code&gt;  不知道何时可以醒来，那么  &lt;code&gt;M&lt;/code&gt;  对应的  &lt;code&gt;P&lt;/code&gt;  中剩下的  &lt;code&gt;G&lt;/code&gt;  就得有新的  &lt;code&gt;M&lt;/code&gt;  来执行，所以我们保留一个自旋的  &lt;code&gt;M&lt;/code&gt;  来执行剩下的  &lt;code&gt;G&lt;/code&gt; （这时应该不存在类型 &lt;code&gt;2&lt;/code&gt;  的自旋只有类型 &lt;code&gt;1&lt;/code&gt;  的自旋）。&lt;/li&gt;
+&lt;li&gt;如果  &lt;code&gt;M&lt;/code&gt;  从空闲变成活跃，意味着可能一个处于自旋状态的  &lt;code&gt;M&lt;/code&gt;  进入工作状态了，这时要检查并确保还有一个自旋  &lt;code&gt;M&lt;/code&gt;  存在，以防还有  &lt;code&gt;G&lt;/code&gt;  或者还有  &lt;code&gt;P&lt;/code&gt;  空着的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;gmp-模型问题总结&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#gmp-模型问题总结&#34;&gt;#&lt;/a&gt;  &lt;code&gt;GMP&lt;/code&gt;  模型问题总结&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;单一全局互斥锁 ( &lt;code&gt;Sched.Lock&lt;/code&gt; ) 和集中状态存储&lt;br&gt;
+ &lt;code&gt;G&lt;/code&gt;  被分成全局队列和  &lt;code&gt;P&lt;/code&gt;  的本地队列，全局队列依旧是全局锁，但是使用场景明显很少， &lt;code&gt;P&lt;/code&gt;  本地队列使用无锁队列，使用原子操作来面对可能的并发场景。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Goroutine&lt;/code&gt;  传递问题&lt;br&gt;
+ &lt;code&gt;G&lt;/code&gt;  创建时就在  &lt;code&gt;P&lt;/code&gt;  的本地队列，可以避免在  &lt;code&gt;G&lt;/code&gt;  之间传递（窃取除外）， &lt;code&gt;G&lt;/code&gt;  对  &lt;code&gt;P&lt;/code&gt;  的数据局部性好；当  &lt;code&gt;G&lt;/code&gt;  开始执行了，系统调用返回后  &lt;code&gt;M&lt;/code&gt;  会尝试获取可用  &lt;code&gt;P&lt;/code&gt; ，获取到了的话可以避免在  &lt;code&gt;M&lt;/code&gt;  之间传递。而且优先获取调用阻塞前的  &lt;code&gt;P&lt;/code&gt; ，所以  &lt;code&gt;G&lt;/code&gt;  对  &lt;code&gt;M&lt;/code&gt;  数据局部性好， &lt;code&gt;G&lt;/code&gt;  对  &lt;code&gt;P&lt;/code&gt;  的数据局部性也好。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Per-M&lt;/code&gt;  持有内存缓存 ( &lt;code&gt;M.mcache&lt;/code&gt; )&lt;br&gt;
+ 内存  &lt;code&gt;mcache&lt;/code&gt;  只存在  &lt;code&gt;P&lt;/code&gt;  结构中， &lt;code&gt;P&lt;/code&gt;  最多只有  &lt;code&gt;GOMAXPROCS&lt;/code&gt;  个，远小于  &lt;code&gt;M&lt;/code&gt;  的个数，所以内存没有过多的消耗。&lt;/li&gt;
+&lt;li&gt;严重的线程阻塞 / 解锁&lt;br&gt;
+通过引入自旋，保证任何时候都有处于等待状态的自旋 M，避免在等待可用的  &lt;code&gt;P&lt;/code&gt;  和  &lt;code&gt;G&lt;/code&gt;  时频繁的阻塞和唤醒。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;syscon&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#syscon&#34;&gt;#&lt;/a&gt; syscon&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sysmon&lt;/code&gt;  也叫监控线程，它&lt;b&gt;无需  &lt;code&gt;P&lt;/code&gt;  也可以运行&lt;/b&gt;，他是一个死循环，每 &lt;code&gt;20us~10ms&lt;/code&gt;  循环一次，循环完一次就  &lt;code&gt;sleep&lt;/code&gt;  一会，为什么会是一个变动的周期呢，主要是避免空转，如果每次循环都没什么需要做的事，那么  &lt;code&gt;sleep&lt;/code&gt;  的时间就会加大。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;释放闲置超过 &lt;code&gt;5&lt;/code&gt;  分钟的  &lt;code&gt;span&lt;/code&gt;  物理内存；&lt;/li&gt;
+&lt;li&gt;如果超过 2 分钟没有垃圾回收，强制执行；&lt;/li&gt;
+&lt;li&gt;将长时间未处理的  &lt;code&gt;netpoll&lt;/code&gt;  添加到全局队列；&lt;/li&gt;
+&lt;li&gt;向长时间运行的  &lt;code&gt;G&lt;/code&gt;  任务发出抢占调度；&lt;/li&gt;
+&lt;li&gt;收回因  &lt;code&gt;syscall&lt;/code&gt;  长时间阻塞的  &lt;code&gt;P&lt;/code&gt; ；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-55.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当  &lt;code&gt;P&lt;/code&gt;  在  &lt;code&gt;M&lt;/code&gt;  上执行时间超过 &lt;code&gt;10ms&lt;/code&gt; ， &lt;code&gt;sysmon&lt;/code&gt;  调用  &lt;code&gt;preemptone&lt;/code&gt;  将  &lt;code&gt;G&lt;/code&gt;  标记为  &lt;code&gt;stackPreempt&lt;/code&gt;  。因此需要在某个地方触发检测逻辑， &lt;code&gt;Go&lt;/code&gt;  当前是在检查栈是否溢出的地方判定 ( &lt;code&gt;morestack()&lt;/code&gt; )， &lt;code&gt;M&lt;/code&gt;  会保存当前  &lt;code&gt;G&lt;/code&gt;  的上下文，重新进入调度逻辑，这样就不会死循环了。&lt;br&gt;
+死循环：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby9pc3N1ZXMvMTE0NjI=&#34;&gt;issues/11462&lt;/span&gt;&lt;br&gt;
+ 信号抢占：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3hpYW9ydWkuY2MvYXJjaGl2ZXMvNjUzNQ==&#34;&gt;go1.14 基于信号的抢占式调度实现原理&lt;/span&gt;&lt;br&gt;
+异步抢占，注册  &lt;code&gt;sigurg&lt;/code&gt;  信号，通过  &lt;code&gt;sysmon&lt;/code&gt;  检测，对  &lt;code&gt;M&lt;/code&gt;  对应的线程发送信号，触发注册的  &lt;code&gt;handler&lt;/code&gt; ，它往当前  &lt;code&gt;G&lt;/code&gt;  的  &lt;code&gt;PC&lt;/code&gt;  中插入一条指令 (调用某个方法)，在处理完  &lt;code&gt;handler&lt;/code&gt; ， &lt;code&gt;G&lt;/code&gt;  恢复后，自己把自己推到了  &lt;code&gt;global queue&lt;/code&gt;  中。&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-56.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;network-poller&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#network-poller&#34;&gt;#&lt;/a&gt; Network poller&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Go&lt;/code&gt;  所有的  &lt;code&gt;I/O&lt;/code&gt;  都是阻塞的。然后通过  &lt;code&gt;goroutine + channel&lt;/code&gt;  来处理并发。因此所有的  &lt;code&gt;IO&lt;/code&gt;  逻辑都是直来直去的，你不再需要回调，不再需要  &lt;code&gt;future&lt;/code&gt; ，要的仅仅是  &lt;code&gt;step by step&lt;/code&gt; 。这对于代码的可读性是很有帮助的。&lt;br&gt;
+ &lt;code&gt;G&lt;/code&gt;  发起网络  &lt;code&gt;I/O&lt;/code&gt;  操作也不会导致  &lt;code&gt;M&lt;/code&gt;  被阻塞 (仅阻塞 &lt;code&gt;G&lt;/code&gt; )，从而不会导致大量  &lt;code&gt;M&lt;/code&gt;  被创建出来。将异步  &lt;code&gt;I/O&lt;/code&gt;  转换为阻塞  &lt;code&gt;I/O&lt;/code&gt;  的部分称为  &lt;code&gt;netpoller&lt;/code&gt; 。打开或接受连接都被设置为非阻塞模式。如果你试图对其进行  &lt;code&gt;I/O&lt;/code&gt;  操作，并且文件描述符数据还没有准备好， &lt;code&gt;G&lt;/code&gt;  会进入  &lt;code&gt;gopark&lt;/code&gt;  函数，将当前正在执行的  &lt;code&gt;G&lt;/code&gt;  状态保存起来，然后切换到新的堆栈上执行新的  &lt;code&gt;G&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-57.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;那什么时候  &lt;code&gt;G&lt;/code&gt;  被调度回来呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sysmon&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;schedule()&lt;/code&gt; ： &lt;code&gt;M&lt;/code&gt;  找  &lt;code&gt;G&lt;/code&gt;  的调度函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GC&lt;/code&gt; ： &lt;code&gt;start the world&lt;/code&gt; &lt;br&gt;
+ 调用  &lt;code&gt;netpoll()&lt;/code&gt;  在某一次调度  &lt;code&gt;G&lt;/code&gt;  的过程中，处于就绪状态的  &lt;code&gt;fd&lt;/code&gt;  对应的  &lt;code&gt;G&lt;/code&gt;  就会被调度回来。&lt;br&gt;
+ &lt;code&gt;G&lt;/code&gt;  的  &lt;code&gt;gopark&lt;/code&gt;  状态： &lt;code&gt;G&lt;/code&gt;  置为  &lt;code&gt;waiting&lt;/code&gt;  状态，等待显示  &lt;code&gt;goready&lt;/code&gt;  唤醒，在  &lt;code&gt;poller&lt;/code&gt;  中用得较多，还有锁、 &lt;code&gt;chan&lt;/code&gt;  等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-58.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;scheduler-affinity-调度亲和性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#scheduler-affinity-调度亲和性&#34;&gt;#&lt;/a&gt; Scheduler Affinity 调度亲和性&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-59.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GM&lt;/code&gt;  调度器时代的， &lt;code&gt;chan&lt;/code&gt;  操作导致的切换代价。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Goroutine#7&lt;/code&gt;  正在等待消息，阻塞在  &lt;code&gt;chan&lt;/code&gt; 。一旦收到消息，这个  &lt;code&gt;goroutine&lt;/code&gt;  就被推到全局队列。&lt;/li&gt;
+&lt;li&gt;然后， &lt;code&gt;chan&lt;/code&gt;  推送消息， &lt;code&gt;goroutine#X&lt;/code&gt;  将在可用线程上运行，而  &lt;code&gt;goroutine#8&lt;/code&gt;  将阻塞在  &lt;code&gt;chan&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;goroutine#7&lt;/code&gt;  现在在可用线程上运行。&lt;br&gt;
+在  &lt;code&gt;chan&lt;/code&gt;  来回通信的  &lt;code&gt;goroutine&lt;/code&gt;  会导致频繁的  &lt;code&gt;blocks&lt;/code&gt; ，即频繁地在本地队列中重新排队。然而，由于本地队列是  &lt;code&gt;FIFO&lt;/code&gt;  实现，如果另一个  &lt;code&gt;goroutine&lt;/code&gt;  占用线程， &lt;code&gt;unblock goroutine&lt;/code&gt;  不能保证尽快运行。同时  &lt;code&gt;Go&lt;/code&gt;  亲缘性调度的一些限制： &lt;code&gt;Work-stealing&lt;/code&gt; 、系统调用。&lt;br&gt;
+ &lt;code&gt;goroutine #9&lt;/code&gt;  在  &lt;code&gt;chan&lt;/code&gt;  被阻塞后恢复。但是，它必须等待 &lt;code&gt;#2&lt;/code&gt; 、 &lt;code&gt;#5&lt;/code&gt;  和 &lt;code&gt;#4&lt;/code&gt;  之后才能运行。 &lt;code&gt;goroutine #5&lt;/code&gt;  将阻塞其线程，从而延迟 &lt;code&gt;goroutine #9&lt;/code&gt; ，并使其面临被另一个  &lt;code&gt;P&lt;/code&gt;  窃取的风险。&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-60.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;针对  &lt;code&gt;communicate-and-wait&lt;/code&gt;  模式，进行了亲缘性调度的优化。 &lt;code&gt;Go 1.5&lt;/code&gt;  在  &lt;code&gt;P&lt;/code&gt;  中引入了  &lt;code&gt;runnext&lt;/code&gt;  特殊的一个字段，可以高优先级执行  &lt;code&gt;unblock G&lt;/code&gt; 。&lt;br&gt;
+ &lt;code&gt;goroutine #9&lt;/code&gt;  现在被标记为下一个可运行的。这种新的优先级排序允许  &lt;code&gt;goroutine&lt;/code&gt;  在再次被阻塞之前快速运行。这一变化对运行中的标准库产生了总体上的积极影响，提高了一些包的性能。&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-61.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;goroutine-lifecycle&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#goroutine-lifecycle&#34;&gt;#&lt;/a&gt; Goroutine Lifecycle&lt;/h2&gt;
+&lt;h3 id=&#34;go-程序的启动&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#go-程序的启动&#34;&gt;#&lt;/a&gt; go 程序的启动&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-62.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;整个程序始于一段汇编，而在随后的 runtime・rt0_go（也是汇编程序）中，会执行很多初始化工作。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-63.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;绑定 m0 和 g0，m0 就是程序的主线程，程序启动必然会拥有一个主线程，这个就是 m0。g0 负责调度，即 shedule () 函数。&lt;/li&gt;
+&lt;li&gt;创建 P，绑定 m0 和 p0，首先会创建 GOMAXPROCS 个 P ，存储在 sched 的 空闲链表 (pidle)。&lt;/li&gt;
+&lt;li&gt;新建任务 g 到 p0 本地队列，m0 的 g0 会创建一个 指向 runtime.main () 的 g ，并放到 p0 的本地队列。&lt;br&gt;
+runtime.main (): 启动 sysmon 线程；启动 GC 协程；执行 init，即代码中的各种 init 函数；执行 main.main 函数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;os-thread-创建&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#os-thread-创建&#34;&gt;#&lt;/a&gt; Os Thread 创建&lt;/h4&gt;
+&lt;p&gt;准备运行的新 goroutine 将唤醒 P 以更好地分发工作。这个 P 将创建一个与之关联的 M 绑定到一个 OS thread。&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-64.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-66.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;go func()&lt;/code&gt;  中 触发  &lt;code&gt;Wakeup&lt;/code&gt;  唤醒机制：&lt;br&gt;
+有空闲的  &lt;code&gt;P&lt;/code&gt;  而没有在  &lt;code&gt;spinning&lt;/code&gt;  状态的 M 时候，需要去唤醒一个空闲 (睡眠) 的  &lt;code&gt;M&lt;/code&gt;  或者新建一个。当线程首次创建时，会执行一个特殊的  &lt;code&gt;G&lt;/code&gt; ，即  &lt;code&gt;g0&lt;/code&gt; ，它负责管理和调度  &lt;code&gt;G&lt;/code&gt; 。&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-65.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;特殊的g0&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特殊的g0&#34;&gt;#&lt;/a&gt; 特殊的 g0&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Go&lt;/code&gt;  基于两种断点将  &lt;code&gt;G&lt;/code&gt;  调度到线程上：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当  &lt;code&gt;G&lt;/code&gt;  阻塞时：系统调用、互斥锁或  &lt;code&gt;chan&lt;/code&gt; 。阻塞的  &lt;code&gt;G&lt;/code&gt;  进入睡眠模式 / 进入队列，并允许  &lt;code&gt;Go&lt;/code&gt;  安排和运行等待其他的  &lt;code&gt;G&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;在函数调用期间，如果  &lt;code&gt;G&lt;/code&gt;  必须扩展其堆栈。这个断点允许  &lt;code&gt;Go&lt;/code&gt;  调度另一个  &lt;code&gt;G&lt;/code&gt;  并避免运行  &lt;code&gt;G&lt;/code&gt;  占用  &lt;code&gt;CPU&lt;/code&gt; 。&lt;br&gt;
+在这两种情况下，运行调度程序的  &lt;code&gt;g0&lt;/code&gt;  将当前  &lt;code&gt;G&lt;/code&gt;  替换为另一个  &lt;code&gt;G&lt;/code&gt; ，即  &lt;code&gt;ready to run&lt;/code&gt; 。然后，选择的  &lt;code&gt;G&lt;/code&gt;  替换  &lt;code&gt;g0&lt;/code&gt;  并在线程上运行。与常规  &lt;code&gt;G&lt;/code&gt;  相反， &lt;code&gt;g0&lt;/code&gt;  有一个固定和更大的栈。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Defer&lt;/code&gt;  函数的分配&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GC&lt;/code&gt;  收集，比如  &lt;code&gt;STW&lt;/code&gt; 、扫描  &lt;code&gt;G&lt;/code&gt;  的堆栈和标记、清除操作&lt;/li&gt;
+&lt;li&gt;栈扩容，当需要的时候，由  &lt;code&gt;g0&lt;/code&gt;  进行扩栈操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-67.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;schedule&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#schedule&#34;&gt;#&lt;/a&gt; Schedule&lt;/h4&gt;
+&lt;p&gt;在  &lt;code&gt;Go&lt;/code&gt;  中， &lt;code&gt;G&lt;/code&gt;  的切换相当轻便，其中需要保存的状态仅仅涉及以下两个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Goroutine&lt;/code&gt;  在停止运行前执行的指令，程序当前要运行的指令是记录在程序计数器（ &lt;code&gt;PC&lt;/code&gt; ）中的，  &lt;code&gt;G&lt;/code&gt;  稍后将在同一指令处恢复运行；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;G&lt;/code&gt;  的堆栈，以便在再次运行时还原局部变量；在切换之前，堆栈将被保存，以便在  &lt;code&gt;G&lt;/code&gt;  再次运行时进行恢复：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-68.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-69.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-70.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;/images/go/13-71.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;从  &lt;code&gt;g&lt;/code&gt;  到  &lt;code&gt;g0&lt;/code&gt;  或从  &lt;code&gt;g0&lt;/code&gt;  到  &lt;code&gt;g&lt;/code&gt;  的切换是相当迅速的，它们只包含少量固定的指令 ( &lt;code&gt;9-10ns&lt;/code&gt; )。相反，对于调度阶段，调度程序需要检查许多资源以便确定下一个要运行的  &lt;code&gt;G&lt;/code&gt; 。&lt;br&gt;
+当前  &lt;code&gt;g&lt;/code&gt;  阻塞在 chan 上并切换到  &lt;code&gt;g0&lt;/code&gt; ：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、PC 和堆栈指针一起保存在内部结构中；&lt;/li&gt;
+&lt;li&gt;2、将 g0 设置为正在运行的 goroutine；&lt;/li&gt;
+&lt;li&gt;3、g0 的堆栈替换当前堆栈；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;g0&lt;/code&gt;  寻找新的  &lt;code&gt;Goroutine&lt;/code&gt;  来运行&lt;br&gt;
+ &lt;code&gt;g0&lt;/code&gt;  使用所选的  &lt;code&gt;Goroutine&lt;/code&gt;  进行切换：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、 &lt;code&gt;PC&lt;/code&gt;  和堆栈指针是从其内部结构中获取的；&lt;/li&gt;
+&lt;li&gt;2、程序跳转到对应的  &lt;code&gt;PC&lt;/code&gt;  地址；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-72.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;goroutine-recycle&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#goroutine-recycle&#34;&gt;#&lt;/a&gt; Goroutine Recycle&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;goroutine&lt;/code&gt;  重用&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;G&lt;/code&gt;  很容易创建，栈很小以及快速的上下文切换。基于这些原因，开发人员非常喜欢并使用它们。然而，一个产生许多  &lt;code&gt;shortlive&lt;/code&gt;  的  &lt;code&gt;G&lt;/code&gt;  的程序将花费相当长的时间来创建和销毁它们。&lt;br&gt;
+每个  &lt;code&gt;P&lt;/code&gt;  维护一个  &lt;code&gt;freelist G&lt;/code&gt; ，保持这个列表是本地的，这样做的好处是不使用任何锁来  &lt;code&gt;push/get&lt;/code&gt;  一个空闲的  &lt;code&gt;G&lt;/code&gt; 。当  &lt;code&gt;G&lt;/code&gt;  退出当前工作时，它将被  &lt;code&gt;push&lt;/code&gt;  到这个空闲列表中。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-73.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;为了更好地分发空闲的  &lt;code&gt;G&lt;/code&gt;  ，调度器也有自己的列表。它实际上有两个列表：一个包含已分配栈的  &lt;code&gt;G&lt;/code&gt; ，另一个包含释放过堆栈的  &lt;code&gt;G&lt;/code&gt; （无栈）。&lt;br&gt;
+锁保护  &lt;code&gt;central list&lt;/code&gt; ，因为任何 M 都可以访问它。当本地列表长度超过 64 时，调度程序持有的列表从  &lt;code&gt;P&lt;/code&gt;  获取  &lt;code&gt;G&lt;/code&gt; 。然后一半的  &lt;code&gt;G&lt;/code&gt;  将移动到中心列表 ( &lt;code&gt;central list&lt;/code&gt; )。需求回收  &lt;code&gt;G&lt;/code&gt;  是一种节省分配成本的好方法。但是，由于堆栈是动态增长的，现有的 &lt;code&gt;G&lt;/code&gt;  最终可能会有一个大栈。因此，&lt;b&gt;当堆栈增长（即超过 &lt;code&gt;2K&lt;/code&gt; ）时， &lt;code&gt;Go&lt;/code&gt;  不会保留这些栈。&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/go/13-74.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;references&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#references&#34;&gt;#&lt;/a&gt; References&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWFybmt1LmNvbS9hcnRpY2xlcy80MTcyOA==&#34;&gt;https://learnku.com/articles/41728&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2022/02/24/go/go-errors/</guid>
             <title>浅析go的error</title>
