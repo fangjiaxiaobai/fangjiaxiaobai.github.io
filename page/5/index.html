@@ -7,7 +7,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#FFF">
+<meta name="theme-color" content="#FFF"> 
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
 <link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
@@ -89,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
         </ul>
       </div>
     </header>
@@ -117,6 +118,101 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" title="RocketMQ系列-在Java应用中的使用"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-04 17:14:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-04T17:14:00+08:00">2021-09-04</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>446</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></h3>
+    <div class="excerpt">
+        上一篇文章中我们成功地搭建了几种 RocketMQ 的部署方式。
+这篇文章，我们就来看一下 RocketMQ 所支持的消息类型在 Java 应用中的使用。
+# 加入依赖
+在上一篇文章中，我们已经使用过 RocketMQ 进行收发消息了。这一篇呢，我从头开始来学习使用 RocketMQ.
+首先，引入 Maven 依赖，
+12345&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.rocketmq&amp;lt;/groupId&amp;gt;...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
+      </span>
+    </div>
+    <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" title="RocketMQ系列-在Java应用中的使用" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" itemprop="url" title="RocketMQ系列-搭建RocketMQ集群"><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/11.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-03 17:17:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-03T17:17:00+08:00">2021-09-03</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>7.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" itemprop="url" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></h3>
+    <div class="excerpt">
+        # 搭建 RocketMQ 集群
+根据之前的了解，我们已经知道了 RocketMQ 可以单机部署，支持集群部署。
+RocketMQ 支持以下集中部署方式 1.单Master模式部署 ， 2.多Master模式部署 ， 3.多Master多Slaver模式部署
+# 单 Master 模式
+这种方式风险较大，一旦 Broker 重启或者宕机时，会导致整个服务不可用。不建议线上环境使用，可以用于本地测试。
+# 启动 NameServer
+123456### 首先启动Name Server$ nohup sh mqnamesrv &amp;amp; ### 验证Name Server 是否启动成功$...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
+      </span>
+    </div>
+    <a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" itemprop="url" title="RocketMQ系列-搭建RocketMQ集群" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -261,7 +357,7 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" itemprop="url" title="冒泡排序"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" itemprop="url" title="冒泡排序"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
   </div>
   <div class="info">
     
@@ -311,7 +407,7 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" itemprop="url" title="桶排序"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" itemprop="url" title="桶排序"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -365,7 +461,7 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" itemprop="url" title="快速排序"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4fomxoj20zk0m8axp.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" itemprop="url" title="快速排序"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></a>
   </div>
   <div class="info">
     
@@ -412,7 +508,7 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="url" title="一致性哈希算法的实现"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicivghyooj20zk0m8dir.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="url" title="一致性哈希算法的实现"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></a>
   </div>
   <div class="info">
     
@@ -461,7 +557,7 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" itemprop="url" title="递归"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url" title="排序算法"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -476,7 +572,7 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>937</span>
+    <span>745</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -487,118 +583,27 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
   </span>
 </div>
 
-    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" itemprop="url" title="递归">递归</a></h3>
+    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url" title="排序算法">排序算法</a></h3>
     <div class="excerpt">
-        数据结构与算法 这一个模块 有两个最难的知识点，一个就是 递归，另一个就是 动态规划
-我们今天来学习下递归这种实现方式。
-个人认为，递归不是一种算法，就是一种语法。所以我就称它为一类问题的解决方法.
-# 何为递归？
-递归，去的过程叫递，回来的过程叫归。凡是递归类的问题，都能总结出一个递归公式.
-比如: f(n+1)=f(n)+1f(n+1) = f(n) + 1f(n+1)=f(n)+1, 我们用代码实现就是:
-123int f(n)&amp;#123; return n==1?1:f(n-1)+1;&amp;#125;
-#...
+        # 排序算法开篇
+排序算法有很多，比如常见的 冒泡排序，插入排序，选择排序，归并排序，快速排序，计数排序，基数排序，桶排序，还有不常见的猴子排序，睡眠排序，面条排序等。
+其中，冒泡排序，插入排序，选择排序 的时间复杂度都是O(n2)O(n^2)O(n2)
+快排，归并排序 的时间复杂度是 O(nlogn)O(nlogn)O(nlogn)
+桶排序，计数排序，基数排序的时间复杂度是 O(n)O(n)O(n)
+# 排序算法好坏的评估
+
+最好情况，最坏情况，平均情况的时间复杂度
+我们要知道排序算法在不同数据下的性能表现。
+
+时间复杂度的系数，常数，低阶
+时间复杂度反应的是数据规模 n...
     </div>
     <div class="meta footer">
       <span>
         <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" title="数据结构与算法"><i class="ic i-flag"></i>数据结构与算法</a>
       </span>
     </div>
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" itemprop="url" title="递归" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="url" title="归并排序"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeun65urj20zk0m81ii.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-01 12:33:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:33:55+08:00">2021-09-01</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>2.8k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="url" title="归并排序">归并排序</a></h3>
-    <div class="excerpt">
-        将数组从中间分成前后两部分，然后对前后两部分分别进行排序，再将排好序的两部分合并在一起，这样整个数组就是有序的了。
-归并体现的思想就是 分治思想 分而治之，将一个大问题分解成小的问题来解决。小问题解决了，大问题也就解决了.
-这种分治的算法，一般都是递归的方式来求解。我们也尝试着写一个递归方式的归并排序。
-写递归的程序，最重要的就是写 递推表达式和查找临界条件
-根据归并排序的思想我们可写出这样的递推公式:
-假设: low 为待排序数组的最小的索引. high 为待排序数组的最大索引. mid 为 (high+low)/2
-那么: merge_sort(low,high) =...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" title="数据结构与算法"><i class="ic i-flag"></i>数据结构与算法</a>
-      </span>
-    </div>
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" itemprop="url" title="归并排序" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" itemprop="url" title="选择排序"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewf5l51j20zk0m8b29.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-01 12:33:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-01T12:33:55+08:00">2021-09-01</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>692</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" itemprop="url" title="选择排序">选择排序</a></h3>
-    <div class="excerpt">
-        # 基本思想
-以第一个元素为基准，与后面的元素进行对比。选择最值 (最大值 / 最小值) 与当前位置进行交换。对每个元素都为基准比较，这就是排序过程了.
-# 实现过程
-
-# 代码实现
-123456789101112131415161718int *select_sort(int *a, int length) &amp;#123; for (int i = 0; i &amp;lt; length; i++) &amp;#123; int min_value_index = i; for (int j = i + 1; j &amp;lt; length; j++) &amp;#123; //...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" title="数据结构与算法"><i class="ic i-flag"></i>数据结构与算法</a>
-      </span>
-    </div>
-    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" itemprop="url" title="选择排序" class="btn">more...</a>
+    <a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url" title="排序算法" class="btn">more...</a>
   </div>
 </article>
 
@@ -609,7 +614,7 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
   
   <nav class="pagination">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -637,19 +642,19 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">101</span>
+        <span class="count">103</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">21</span>
+        <span class="count">22</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">63</span>
+        <span class="count">64</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -804,40 +809,10 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" title="LC:1218.最长定差子序列">LC:1218.最长定差子序列</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="K-近邻算法(KNN)">K-近邻算法(KNN)</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
   </li>
 
       
@@ -847,7 +822,27 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></span>
+    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" title="Redis 开篇 &amp; 说明">Redis 开篇 & 说明</a></span>
   </li>
 
       
@@ -857,47 +852,57 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></span>
+    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" title="哈希算法">哈希算法</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+<a href="/categories/picture/" title="分类于 picture">picture</a>
 </div>
 
-    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
+    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
   </li>
 
   </ul>
@@ -922,13 +927,13 @@ quickSort(low,high)=quickSort(low,std−1)+quickSort(std+1,high)quickSort(low,hi
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">430k 字</span>
+    <span title="站点总字数">438k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:31</span>
+    <span title="站点阅读时长">6:38</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

@@ -4,57 +4,58 @@
     <title>方家小白 • Posts by &#34;模型评估&#34; tag</title>
     <link href="https://fangjiaxiaobai.github.io" />
     <updated>2021-11-17T10:18:00.000Z</updated>
-    <category term="MySQL" />
-    <category term="源码" />
-    <category term="目录" />
     <category term="全站地图" />
+    <category term="目录" />
+    <category term="源码" />
+    <category term="MySQL" />
     <category term="Redis" />
     <category term="数据结构" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="雪花算法" />
-    <category term="算法" />
     <category term="Elastic Search" />
     <category term="搜索" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="git" />
     <category term="go" />
     <category term="go-error" />
+    <category term="MachineLearn" />
     <category term="log" />
     <category term="go-log" />
     <category term="RocketMQ" />
     <category term="消息队列" />
-    <category term="MachineLearn" />
-    <category term="线程池" />
-    <category term="面经" />
     <category term="图片" />
-    <category term="HD" />
-    <category term="BQ" />
-    <category term="AC" />
-    <category term="动态规划" />
+    <category term="猫影视" />
     <category term="leetCode" />
     <category term="链表" />
     <category term="面经之算法题" />
+    <category term="线程池" />
+    <category term="面经" />
     <category term="数组" />
-    <category term="有点难的算法题" />
     <category term="不做也罢的算法题" />
+    <category term="动态规划" />
+    <category term="有点难的算法题" />
     <category term="String" />
     <category term="JDK" />
     <category term="JDK8" />
-    <category term="HashMap" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
     <category term="数据结构与算法" />
-    <category term="递归" />
     <category term="排序" />
     <category term="冒泡排序" />
     <category term="交换排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
-    <category term="哈希算法" />
-    <category term="分治思想排序" />
-    <category term="go-设计模式" />
     <category term="选择排序" />
+    <category term="HashMap" />
+    <category term="递归" />
+    <category term="分治思想排序" />
+    <category term="哈希算法" />
     <category term="桶排序" />
     <category term="线性思想排序" />
+    <category term="go-设计模式" />
     <category term="Java" />
     <category term="dubbo" />
     <category term="模型评估" />
@@ -64,9 +65,68 @@
     <category term="KNN" />
     <category term="JDK版本" />
     <category term="JDK11" />
+    <category term="Stream" />
     <category term="OOM" />
     <category term="JVM" />
-    <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/11/17/machine-learn/Model-evaluation/01-overview/</id>
+        <title>模型评估概述</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/17/machine-learn/Model-evaluation/01-overview/"/>
+        <content type="html">&lt;h2 id=&#34;分类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分类&#34;&gt;#&lt;/a&gt; 分类&lt;/h2&gt;
+&lt;p&gt;模型评估可以分为 离线评估和在线评估 两大类。在产品的不同阶段，我们要根据不同的场景去应用他们。&lt;/p&gt;
+&lt;p&gt;两种评估方式由于其场景不同，所评估的关注点也不尽相同。其中，离线评估关注的是模型效果相关的指标，如精准率、 &lt;code&gt;KS&lt;/code&gt;  等等。在线评估关注的是业务相关指标，比如新用户的转化率、优惠券的核销率、信贷审核的通过率等等。由于模型的在线评估与业务场景强相关，所以我们的课程重点将放在模型的离线评估上。&lt;/p&gt;
+&lt;h3 id=&#34;在线评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#在线评估&#34;&gt;#&lt;/a&gt; 在线评估&lt;/h3&gt;
+&lt;p&gt;在线评估是指在模型部署上线后，使用线上真实数据对模型进行的评估。这个时候，产品经理或者运营同学大多采用  &lt;code&gt;ABTest&lt;/code&gt;  的方式去判断业务的表现.&lt;/p&gt;
+&lt;h3 id=&#34;离线评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#离线评估&#34;&gt;#&lt;/a&gt; 离线评估&lt;/h3&gt;
+&lt;p&gt;离线评估是指在模型部署上线前对模型进行的验证和评估工作，这个时候如果发现问题，我们可以很方便地对模型的参数进行调整和改进。&lt;/p&gt;
+&lt;p&gt;离线评估又可以分为 &lt;code&gt;特征评估&lt;/code&gt; 和 &lt;code&gt;模型评估&lt;/code&gt; 两大类。&lt;/p&gt;
+&lt;h4 id=&#34;特征评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征评估&#34;&gt;#&lt;/a&gt; 特征评估&lt;/h4&gt;
+&lt;p&gt;为什么要关注特征评估呢？如果只评估最终模型的指标是否合规的时候，就相当于把模型作为一个 黑盒子了。但同时也要了解模型里面的内容，所以模型特征的评估也是非常重要的。 那特征评估主要关注那些内容呢？&lt;/p&gt;
+&lt;h5 id=&#34;特征自身的稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征自身的稳定性&#34;&gt;#&lt;/a&gt; 特征自身的稳定性&lt;/h5&gt;
+&lt;p&gt;对于特征自身的稳定，我们一般使用 &lt;code&gt;PSI&lt;/code&gt;  这个指标来判断。  &lt;code&gt;PSI&lt;/code&gt;  是评估某个特征的数据随着时间推移发生变化而不再稳定的指标。简单来说，就是看这个特征是不是稳定的，如果一个重要特征不够稳定，就会直接影响到模型整体的稳定性，自然也会影响业务。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;PSI&lt;/code&gt; : ( &lt;code&gt;Population Stability Index&lt;/code&gt; .  &lt;code&gt;PSI&lt;/code&gt; ), 这里简单介绍一下，后面我会在一篇文章中，详细的介绍 群体稳定性 ( &lt;code&gt;PSI&lt;/code&gt; ) 这个概念。 &lt;code&gt;PSI&lt;/code&gt;  可用来衡量测试样本及模型开发样本评分的分布差异，为最常见的模型稳定度评估指标。计算公式为:  &lt;code&gt;PSI = sum(（实际占比-预期占比）* ln(实际占比/预期占比))&lt;/code&gt; &lt;br&gt;
+ 一般以训练集（ &lt;code&gt;INS&lt;/code&gt; ）的样本分布作为预期分布，进而跨时间窗按月 / 周来计算 &lt;code&gt;PSI&lt;/code&gt; ，得到 &lt;code&gt;Monthly/weekly PSI Report&lt;/code&gt; ，进而剔除不稳定的变量。同理，在模型上线部署后，也将通过 &lt;code&gt;PSI&lt;/code&gt;  曲线报表来观察模型的稳定性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&#34;特征来源的稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征来源的稳定性&#34;&gt;#&lt;/a&gt; 特征来源的稳定性&lt;/h5&gt;
+&lt;p&gt;关于 特征来源的稳定性 评估，大致可以分为两种情况:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果特征数据来源于集团内部，主要考虑具体来自哪条业务线，这条业务是否稳定，以及业务方是否可能收回或者停止共享数据。&lt;/li&gt;
+&lt;li&gt;如果特征接入方是外部公司，特别注意要看这个公司是否合规，是否具备完善的技术储备等等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;成本&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#成本&#34;&gt;#&lt;/a&gt; 成本&lt;/h5&gt;
+&lt;p&gt;在获取数据的时候，也要考虑接入的成本问题。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公司内部数据，一般来说，不存在成本。在不同业务线的角度来说，可能会存在费用分摊的问题。&lt;/li&gt;
+&lt;li&gt;外部数据，肯定是有成本的，或许是公司合作，或许是公司直接购买， 正常支付公司费用就好了。特别是注意，如果数据是按调用次数，流量计费的话，是否可以通过预先拉取数据来减少调用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;模型评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型评估&#34;&gt;#&lt;/a&gt; 模型评估&lt;/h4&gt;
+&lt;p&gt;模型的评估主要包括三个部分：统计性、模型性能和模型稳定性。&lt;/p&gt;
+&lt;h5 id=&#34;统计性指标&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#统计性指标&#34;&gt;#&lt;/a&gt; 统计性指标&lt;/h5&gt;
+&lt;p&gt;统计性指标指的就是模型输出结果的覆盖度、最大值、最小值、人群分布等指标。我们拿到一个模型，最先看的不是性能指标也不是稳定性，而是统计性指标，它决定了模型到底能不能用。&lt;/p&gt;
+&lt;p&gt;在不同的场景下，由于我们的业务不同，对模型的要求不同，对模型统计性指标的关注点也会不同。 对统计性指标进行评估的时候，我们要充分考虑业务场景。&lt;/p&gt;
+&lt;p&gt;比如:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;覆盖度。 在金融风控的场景下，如果一个模型的覆盖率低于  &lt;code&gt;60%&lt;/code&gt; , 基本上就很难给到客户使用了，因为覆盖低低，风控的业务人员基本没办法对这个模型应用到决策引擎中。如果非要调用的话，最好的情况也就是用到决策树的某个分支上，专门用于某一小部分人群中，不过意义不大。&lt;/li&gt;
+&lt;li&gt;最大最小值，也就是分数范围，以信用评分模型为例，如果信用评分模型覆盖的人数很多，但是模型输出的信用分数范围却很窄，假设是 &lt;code&gt;90-95&lt;/code&gt; ，很显然，人群并没有好的区分度。 可以参考下芝麻分的范围就设置到了 &lt;code&gt;350-950&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;人群分布：指的是模型对人打分后，分数和人群的分布形态，这个分布形态应该符合我们的常识，比如用户消费能力评估模型，对于人群的打分结果就应该符合正态分布。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;模型性能&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型性能&#34;&gt;#&lt;/a&gt; 模型性能&lt;/h5&gt;
+&lt;p&gt;模型的性能评估指标是评估模型效果的指标，他和模型要解决的问题相关， 模型要解决的问题，可以分成分类问题和回归问题。&lt;/p&gt;
+&lt;h6 id=&#34;分类模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分类模型&#34;&gt;#&lt;/a&gt; 分类模型&lt;/h6&gt;
+&lt;p&gt;分类模型的性能评价指标主要包括：  &lt;code&gt;混淆矩阵&lt;/code&gt; ， &lt;code&gt;KS&lt;/code&gt; ，  &lt;code&gt;AUC&lt;/code&gt;  等等。分类模型的性能评价指标主要包括： &lt;code&gt;混淆矩阵&lt;/code&gt; 、 &lt;code&gt;KS&lt;/code&gt; 、 &lt;code&gt;AUC&lt;/code&gt;  等等。通过混淆矩阵，我们既可以得到一个模型的精确率、召回率这些指标，从而可以评估一个模型的区分能力，我们也可以计算得到的  &lt;code&gt;TPR&lt;/code&gt; 、 &lt;code&gt;FPR&lt;/code&gt; ，从而计算出  &lt;code&gt;AUC&lt;/code&gt; 、 &lt;code&gt;KS&lt;/code&gt;  等相关指标。因此，混淆矩阵是评估二分类模型的基础工具。&lt;/p&gt;
+&lt;h6 id=&#34;回归模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#回归模型&#34;&gt;#&lt;/a&gt; 回归模型&lt;/h6&gt;
+&lt;p&gt;回归模型的性能评价指标主要包括  &lt;code&gt;MAE&lt;/code&gt;  (平均绝对误差),  &lt;code&gt;MSE&lt;/code&gt;  (均方误差),  &lt;code&gt;RMSE&lt;/code&gt;  (均方根误差), &lt;code&gt;R方&lt;/code&gt; 。&lt;/p&gt;
+&lt;h5 id=&#34;模型稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型稳定性&#34;&gt;#&lt;/a&gt; 模型稳定性&lt;/h5&gt;
+&lt;p&gt;模型的稳定性即判断模型输出结果，是否会随着时间推移，而发生较大变化不再稳定的指标，模型的稳定性会直接影响模型的结果。比如在风控场景下，如果风控模型不够稳定，对于用户风险判断的结果就会发生较大变化。这个时候，我们需要实时调整风控策略，同时也要注意调整后造成决策不合理的情况。对于模型的稳定性，我们主要使用  &lt;code&gt;PSI&lt;/code&gt;  进行评估。&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;qrcode&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="MachineLearn" />
+        <category term="模型评估" />
+        <updated>2021-11-17T10:18:00.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/</id>
         <title>模型评估之 分类模型的评估指标</title>
@@ -159,65 +219,6 @@
 &lt;p&gt;以上就是 由混淆矩阵引申出来的指标了，当然这些指标都是用来评估分类模型的。下篇文章，我们再来介绍回归模型的评估指标。&lt;/p&gt;
 &lt;h3 id=&#34;指标图&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#指标图&#34;&gt;#&lt;/a&gt; 指标图&lt;/h3&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/ml/model_evalution/model-evalution-4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
-&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;qrcode&#34;&gt;&lt;/p&gt;
-</content>
-        <category term="MachineLearn" />
-        <category term="模型评估" />
-        <updated>2021-11-17T10:18:00.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/11/17/machine-learn/Model-evaluation/01-overview/</id>
-        <title>模型评估概述</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/17/machine-learn/Model-evaluation/01-overview/"/>
-        <content type="html">&lt;h2 id=&#34;分类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分类&#34;&gt;#&lt;/a&gt; 分类&lt;/h2&gt;
-&lt;p&gt;模型评估可以分为 离线评估和在线评估 两大类。在产品的不同阶段，我们要根据不同的场景去应用他们。&lt;/p&gt;
-&lt;p&gt;两种评估方式由于其场景不同，所评估的关注点也不尽相同。其中，离线评估关注的是模型效果相关的指标，如精准率、 &lt;code&gt;KS&lt;/code&gt;  等等。在线评估关注的是业务相关指标，比如新用户的转化率、优惠券的核销率、信贷审核的通过率等等。由于模型的在线评估与业务场景强相关，所以我们的课程重点将放在模型的离线评估上。&lt;/p&gt;
-&lt;h3 id=&#34;在线评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#在线评估&#34;&gt;#&lt;/a&gt; 在线评估&lt;/h3&gt;
-&lt;p&gt;在线评估是指在模型部署上线后，使用线上真实数据对模型进行的评估。这个时候，产品经理或者运营同学大多采用  &lt;code&gt;ABTest&lt;/code&gt;  的方式去判断业务的表现.&lt;/p&gt;
-&lt;h3 id=&#34;离线评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#离线评估&#34;&gt;#&lt;/a&gt; 离线评估&lt;/h3&gt;
-&lt;p&gt;离线评估是指在模型部署上线前对模型进行的验证和评估工作，这个时候如果发现问题，我们可以很方便地对模型的参数进行调整和改进。&lt;/p&gt;
-&lt;p&gt;离线评估又可以分为 &lt;code&gt;特征评估&lt;/code&gt; 和 &lt;code&gt;模型评估&lt;/code&gt; 两大类。&lt;/p&gt;
-&lt;h4 id=&#34;特征评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征评估&#34;&gt;#&lt;/a&gt; 特征评估&lt;/h4&gt;
-&lt;p&gt;为什么要关注特征评估呢？如果只评估最终模型的指标是否合规的时候，就相当于把模型作为一个 黑盒子了。但同时也要了解模型里面的内容，所以模型特征的评估也是非常重要的。 那特征评估主要关注那些内容呢？&lt;/p&gt;
-&lt;h5 id=&#34;特征自身的稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征自身的稳定性&#34;&gt;#&lt;/a&gt; 特征自身的稳定性&lt;/h5&gt;
-&lt;p&gt;对于特征自身的稳定，我们一般使用 &lt;code&gt;PSI&lt;/code&gt;  这个指标来判断。  &lt;code&gt;PSI&lt;/code&gt;  是评估某个特征的数据随着时间推移发生变化而不再稳定的指标。简单来说，就是看这个特征是不是稳定的，如果一个重要特征不够稳定，就会直接影响到模型整体的稳定性，自然也会影响业务。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;PSI&lt;/code&gt; : ( &lt;code&gt;Population Stability Index&lt;/code&gt; .  &lt;code&gt;PSI&lt;/code&gt; ), 这里简单介绍一下，后面我会在一篇文章中，详细的介绍 群体稳定性 ( &lt;code&gt;PSI&lt;/code&gt; ) 这个概念。 &lt;code&gt;PSI&lt;/code&gt;  可用来衡量测试样本及模型开发样本评分的分布差异，为最常见的模型稳定度评估指标。计算公式为:  &lt;code&gt;PSI = sum(（实际占比-预期占比）* ln(实际占比/预期占比))&lt;/code&gt; &lt;br&gt;
- 一般以训练集（ &lt;code&gt;INS&lt;/code&gt; ）的样本分布作为预期分布，进而跨时间窗按月 / 周来计算 &lt;code&gt;PSI&lt;/code&gt; ，得到 &lt;code&gt;Monthly/weekly PSI Report&lt;/code&gt; ，进而剔除不稳定的变量。同理，在模型上线部署后，也将通过 &lt;code&gt;PSI&lt;/code&gt;  曲线报表来观察模型的稳定性。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h5 id=&#34;特征来源的稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特征来源的稳定性&#34;&gt;#&lt;/a&gt; 特征来源的稳定性&lt;/h5&gt;
-&lt;p&gt;关于 特征来源的稳定性 评估，大致可以分为两种情况:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;如果特征数据来源于集团内部，主要考虑具体来自哪条业务线，这条业务是否稳定，以及业务方是否可能收回或者停止共享数据。&lt;/li&gt;
-&lt;li&gt;如果特征接入方是外部公司，特别注意要看这个公司是否合规，是否具备完善的技术储备等等。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5 id=&#34;成本&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#成本&#34;&gt;#&lt;/a&gt; 成本&lt;/h5&gt;
-&lt;p&gt;在获取数据的时候，也要考虑接入的成本问题。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;公司内部数据，一般来说，不存在成本。在不同业务线的角度来说，可能会存在费用分摊的问题。&lt;/li&gt;
-&lt;li&gt;外部数据，肯定是有成本的，或许是公司合作，或许是公司直接购买， 正常支付公司费用就好了。特别是注意，如果数据是按调用次数，流量计费的话，是否可以通过预先拉取数据来减少调用。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;模型评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型评估&#34;&gt;#&lt;/a&gt; 模型评估&lt;/h4&gt;
-&lt;p&gt;模型的评估主要包括三个部分：统计性、模型性能和模型稳定性。&lt;/p&gt;
-&lt;h5 id=&#34;统计性指标&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#统计性指标&#34;&gt;#&lt;/a&gt; 统计性指标&lt;/h5&gt;
-&lt;p&gt;统计性指标指的就是模型输出结果的覆盖度、最大值、最小值、人群分布等指标。我们拿到一个模型，最先看的不是性能指标也不是稳定性，而是统计性指标，它决定了模型到底能不能用。&lt;/p&gt;
-&lt;p&gt;在不同的场景下，由于我们的业务不同，对模型的要求不同，对模型统计性指标的关注点也会不同。 对统计性指标进行评估的时候，我们要充分考虑业务场景。&lt;/p&gt;
-&lt;p&gt;比如:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;覆盖度。 在金融风控的场景下，如果一个模型的覆盖率低于  &lt;code&gt;60%&lt;/code&gt; , 基本上就很难给到客户使用了，因为覆盖低低，风控的业务人员基本没办法对这个模型应用到决策引擎中。如果非要调用的话，最好的情况也就是用到决策树的某个分支上，专门用于某一小部分人群中，不过意义不大。&lt;/li&gt;
-&lt;li&gt;最大最小值，也就是分数范围，以信用评分模型为例，如果信用评分模型覆盖的人数很多，但是模型输出的信用分数范围却很窄，假设是 &lt;code&gt;90-95&lt;/code&gt; ，很显然，人群并没有好的区分度。 可以参考下芝麻分的范围就设置到了 &lt;code&gt;350-950&lt;/code&gt; 。&lt;/li&gt;
-&lt;li&gt;人群分布：指的是模型对人打分后，分数和人群的分布形态，这个分布形态应该符合我们的常识，比如用户消费能力评估模型，对于人群的打分结果就应该符合正态分布。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h5 id=&#34;模型性能&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型性能&#34;&gt;#&lt;/a&gt; 模型性能&lt;/h5&gt;
-&lt;p&gt;模型的性能评估指标是评估模型效果的指标，他和模型要解决的问题相关， 模型要解决的问题，可以分成分类问题和回归问题。&lt;/p&gt;
-&lt;h6 id=&#34;分类模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分类模型&#34;&gt;#&lt;/a&gt; 分类模型&lt;/h6&gt;
-&lt;p&gt;分类模型的性能评价指标主要包括：  &lt;code&gt;混淆矩阵&lt;/code&gt; ， &lt;code&gt;KS&lt;/code&gt; ，  &lt;code&gt;AUC&lt;/code&gt;  等等。分类模型的性能评价指标主要包括： &lt;code&gt;混淆矩阵&lt;/code&gt; 、 &lt;code&gt;KS&lt;/code&gt; 、 &lt;code&gt;AUC&lt;/code&gt;  等等。通过混淆矩阵，我们既可以得到一个模型的精确率、召回率这些指标，从而可以评估一个模型的区分能力，我们也可以计算得到的  &lt;code&gt;TPR&lt;/code&gt; 、 &lt;code&gt;FPR&lt;/code&gt; ，从而计算出  &lt;code&gt;AUC&lt;/code&gt; 、 &lt;code&gt;KS&lt;/code&gt;  等相关指标。因此，混淆矩阵是评估二分类模型的基础工具。&lt;/p&gt;
-&lt;h6 id=&#34;回归模型&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#回归模型&#34;&gt;#&lt;/a&gt; 回归模型&lt;/h6&gt;
-&lt;p&gt;回归模型的性能评价指标主要包括  &lt;code&gt;MAE&lt;/code&gt;  (平均绝对误差),  &lt;code&gt;MSE&lt;/code&gt;  (均方误差),  &lt;code&gt;RMSE&lt;/code&gt;  (均方根误差), &lt;code&gt;R方&lt;/code&gt; 。&lt;/p&gt;
-&lt;h5 id=&#34;模型稳定性&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#模型稳定性&#34;&gt;#&lt;/a&gt; 模型稳定性&lt;/h5&gt;
-&lt;p&gt;模型的稳定性即判断模型输出结果，是否会随着时间推移，而发生较大变化不再稳定的指标，模型的稳定性会直接影响模型的结果。比如在风控场景下，如果风控模型不够稳定，对于用户风险判断的结果就会发生较大变化。这个时候，我们需要实时调整风控策略，同时也要注意调整后造成决策不合理的情况。对于模型的稳定性，我们主要使用  &lt;code&gt;PSI&lt;/code&gt;  进行评估。&lt;/p&gt;
 &lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;qrcode&#34;&gt;&lt;/p&gt;

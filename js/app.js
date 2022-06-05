@@ -1121,13 +1121,11 @@ const siteReadMore = function (countsss) {
   // clearInterval(oldIntervalId);
   // console.log('删除interval.........');
   _lock();
-  
   if(countsss > 0){
     _detect(getToken());
     // console.log("----------，", countsss)
     return;
   }
-  _lock();
   // 页面变为可见时触发 
   if (document.visibilityState == 'visible') {
     if (contentContainer) {
@@ -2407,7 +2405,7 @@ const siteRefresh = function (reload) {
 
   lazyload.observe()
 
-  // siteReadMore(conutsssss);
+  siteReadMore(conutsssss);
   // console.log(",,,,,,,,,,", conutsssss)
   conutsssss = conutsssss + 1;
   
