@@ -7,65 +7,65 @@
         <language>zh-CN</language>
         <pubDate>Sat, 09 Jul 2022 18:18:00 +0800</pubDate>
         <lastBuildDate>Sat, 09 Jul 2022 18:18:00 +0800</lastBuildDate>
-        <category>源码</category>
-        <category>目录</category>
         <category>全站地图</category>
+        <category>目录</category>
         <category>MySQL</category>
+        <category>源码</category>
         <category>Redis</category>
         <category>数据结构</category>
-        <category>git</category>
-        <category>雪花算法</category>
-        <category>算法</category>
-        <category>go</category>
-        <category>go-error</category>
-        <category>MachineLearn</category>
-        <category>猫影视</category>
-        <category>图片</category>
-        <category>线程池</category>
-        <category>面经</category>
-        <category>RocketMQ</category>
-        <category>消息队列</category>
-        <category>log</category>
-        <category>go-log</category>
-        <category>Elastic Search</category>
-        <category>搜索</category>
         <category>日常</category>
         <category>Springboot</category>
         <category>Netty</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>git</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>猫影视</category>
+        <category>图片</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>线程池</category>
+        <category>面经</category>
+        <category>MachineLearn</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>go</category>
+        <category>go-error</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
         <category>动态规划</category>
         <category>leetCode</category>
-        <category>数组</category>
         <category>面经之算法题</category>
-        <category>链表</category>
+        <category>数组</category>
         <category>有点难的算法题</category>
+        <category>链表</category>
         <category>不做也罢的算法题</category>
-        <category>String</category>
+        <category>数据结构与算法</category>
+        <category>HashMap</category>
         <category>JDK</category>
         <category>JDK8</category>
-        <category>HashMap</category>
-        <category>数据结构与算法</category>
         <category>哈希算法</category>
-        <category>递归</category>
         <category>排序</category>
         <category>冒泡排序</category>
         <category>交换排序</category>
+        <category>String</category>
+        <category>递归</category>
+        <category>go-设计模式</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
         <category>分治思想排序</category>
         <category>选择排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
-        <category>go-设计模式</category>
-        <category>快速排序</category>
-        <category>分支思想排序</category>
         <category>Java</category>
         <category>dubbo</category>
         <category>模型评估</category>
         <category>架构</category>
         <category>笔记</category>
-        <category>go-runtimes</category>
         <category>KNN</category>
+        <category>go-runtimes</category>
         <category>JDK版本</category>
         <category>JDK11</category>
         <category>OOM</category>
@@ -1429,28 +1429,30 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;进阶架构设计&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#进阶架构设计&#34;&gt;#&lt;/a&gt; 进阶 (架构设计)&lt;/h3&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_10&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_10&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/&#34;&gt;架构设计之启动过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_11&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_11&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/&#34;&gt;架构设计之消息的收发过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_10&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_10&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/&#34;&gt;架构设计之启动过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_11&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_11&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/&#34;&gt;架构设计之消息的收发过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;高手细节设计-解读源码&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#高手细节设计-解读源码&#34;&gt;#&lt;/a&gt; 高手 (细节设计，解读源码)&lt;/h3&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_12&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_12&#34;&gt; &lt;a href=&#34;/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/&#34;&gt;事务消息实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_12&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_12&#34;&gt; &lt;a href=&#34;/2022/01/02/3-01-RocketMQ-Transaction-msg/&#34;&gt;事务消息实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_13&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_13&#34;&gt; 延时消息实现原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_14&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_14&#34;&gt; 消息可靠性实现原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_15&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_15&#34;&gt; 负载均衡原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_16&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_16&#34;&gt; 消息过滤原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; 消息重放原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; 延时消息实现原理&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; 消费者的 &lt;code&gt;Rebalance&lt;/code&gt;  机制&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_14&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_14&#34;&gt; &lt;a href=&#34;/2022/05/16/3-02-reliabllity-msg/&#34;&gt;消息可靠性实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_15&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_15&#34;&gt; 消息可靠性实现原理&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_16&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_16&#34;&gt; 负载均衡原理&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; 消息过滤原理&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; 消息重放原理&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; 延时消息实现原理&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; 消费者的 &lt;code&gt;Rebalance&lt;/code&gt;  机制&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; &lt;a href=&#34;/2022/07/09/3-08-save-msg-details/&#34;&gt;消息刷盘过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;宗师&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#宗师&#34;&gt;#&lt;/a&gt; 宗师&lt;/h3&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; 容灾&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; 运维工具 &lt;code&gt;mqadmin&lt;/code&gt;  的使用&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_22&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_22&#34;&gt; 最佳实践（ &lt;code&gt;Best Practice&lt;/code&gt; ）&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_23&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_23&#34;&gt; 如何处理消息丢失保证消息的可靠性&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_24&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_24&#34;&gt; 如何避免消息重复消费&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_25&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_25&#34;&gt; 如何实现事务消息，保证数据一致性&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_22&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_22&#34;&gt; 容灾&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_23&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_23&#34;&gt; 运维工具 &lt;code&gt;mqadmin&lt;/code&gt;  的使用&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_24&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_24&#34;&gt; 最佳实践（ &lt;code&gt;Best Practice&lt;/code&gt; ）&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_25&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_25&#34;&gt; 如何处理消息丢失保证消息的可靠性&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_26&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_26&#34;&gt; 如何避免消息重复消费&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_27&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_27&#34;&gt; 如何实现事务消息，保证数据一致性&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
