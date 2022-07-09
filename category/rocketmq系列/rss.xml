@@ -9,63 +9,63 @@
         <lastBuildDate>Sat, 09 Jul 2022 18:18:00 +0800</lastBuildDate>
         <category>全站地图</category>
         <category>目录</category>
-        <category>Redis</category>
-        <category>数据结构</category>
-        <category>源码</category>
         <category>MySQL</category>
-        <category>雪花算法</category>
-        <category>算法</category>
+        <category>源码</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
         <category>日常</category>
         <category>Springboot</category>
         <category>Netty</category>
-        <category>Elastic Search</category>
-        <category>搜索</category>
-        <category>git</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>Redis</category>
         <category>MachineLearn</category>
+        <category>git</category>
         <category>go</category>
         <category>go-error</category>
-        <category>log</category>
-        <category>go-log</category>
+        <category>数据结构</category>
         <category>猫影视</category>
         <category>图片</category>
+        <category>log</category>
+        <category>go-log</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>HashMap</category>
-        <category>JDK</category>
-        <category>JDK8</category>
-        <category>String</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
         <category>动态规划</category>
         <category>leetCode</category>
-        <category>链表</category>
-        <category>面经之算法题</category>
         <category>数组</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
         <category>有点难的算法题</category>
         <category>不做也罢的算法题</category>
+        <category>String</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>HashMap</category>
         <category>数据结构与算法</category>
         <category>哈希算法</category>
+        <category>架构</category>
+        <category>笔记</category>
+        <category>模型评估</category>
+        <category>go-设计模式</category>
         <category>排序</category>
         <category>冒泡排序</category>
-        <category>分治思想排序</category>
         <category>交换排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
+        <category>分治思想排序</category>
         <category>选择排序</category>
         <category>递归</category>
-        <category>go-设计模式</category>
-        <category>模型评估</category>
         <category>Java</category>
         <category>dubbo</category>
-        <category>架构</category>
-        <category>笔记</category>
-        <category>KNN</category>
         <category>go-runtimes</category>
+        <category>KNN</category>
         <category>JDK版本</category>
         <category>JDK11</category>
         <category>OOM</category>
@@ -78,7 +78,7 @@
             <category>RocketMQ</category>
             <category>消息队列</category>
             <pubDate>Sat, 09 Jul 2022 18:18:00 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;在 &lt;a href=&#34;./2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF.md&#34;&gt;RocketMQ 架构设计之消息&lt;/a&gt; 这篇文章中，我们学习了 消息发送到消费 的整体流程。这篇文章，我们一起来看看  &lt;code&gt;MappedFile&lt;/code&gt;  的实现细节.&lt;/p&gt;
+            <description><![CDATA[ &lt;p&gt;在 &lt;a href=&#34;/2022/07/09/rocketMQ/3-08-save-msg-detail/s&#34;&gt;RocketMQ 架构设计之消息&lt;/a&gt; 这篇文章中，我们学习了 消息发送到消费 的整体流程。这篇文章，我们一起来看看  &lt;code&gt;MappedFile&lt;/code&gt;  的实现细节.&lt;/p&gt;
 &lt;h2 id=&#34;引言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#引言&#34;&gt;#&lt;/a&gt; 引言&lt;/h2&gt;
 &lt;p&gt;我们都知道的是  &lt;code&gt;RocketMQ消&lt;/code&gt; 息都是持久化到磁盘上的，消息的读取和写入也都是会从磁盘上进行 &lt;code&gt;IO&lt;/code&gt;  的。可是磁盘的性能不禁另 CPU 啧啧撇嘴。 &lt;code&gt;RocketMQ&lt;/code&gt;  是如何实现消息的高性能 &lt;code&gt;IO&lt;/code&gt;  的呢？&lt;/p&gt;
 &lt;p&gt;答案就是  &lt;code&gt;MappedFile&lt;/code&gt;  这个  &lt;code&gt;643&lt;/code&gt;  行的 &lt;code&gt;java&lt;/code&gt;  文件中。&lt;/p&gt;

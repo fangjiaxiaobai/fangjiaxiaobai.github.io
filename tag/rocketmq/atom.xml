@@ -6,63 +6,63 @@
     <updated>2022-07-09T10:18:00.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
-    <category term="Redis" />
-    <category term="数据结构" />
-    <category term="源码" />
     <category term="MySQL" />
-    <category term="雪花算法" />
-    <category term="算法" />
+    <category term="源码" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="Elastic Search" />
-    <category term="搜索" />
-    <category term="git" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="Redis" />
     <category term="MachineLearn" />
+    <category term="git" />
     <category term="go" />
     <category term="go-error" />
-    <category term="log" />
-    <category term="go-log" />
+    <category term="数据结构" />
     <category term="猫影视" />
     <category term="图片" />
+    <category term="log" />
+    <category term="go-log" />
     <category term="RocketMQ" />
     <category term="消息队列" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="HashMap" />
-    <category term="JDK" />
-    <category term="JDK8" />
-    <category term="String" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
     <category term="动态规划" />
     <category term="leetCode" />
-    <category term="链表" />
-    <category term="面经之算法题" />
     <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="链表" />
     <category term="有点难的算法题" />
     <category term="不做也罢的算法题" />
+    <category term="String" />
+    <category term="JDK" />
+    <category term="JDK8" />
+    <category term="HashMap" />
     <category term="数据结构与算法" />
     <category term="哈希算法" />
+    <category term="架构" />
+    <category term="笔记" />
+    <category term="模型评估" />
+    <category term="go-设计模式" />
     <category term="排序" />
     <category term="冒泡排序" />
-    <category term="分治思想排序" />
     <category term="交换排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
     <category term="桶排序" />
     <category term="线性思想排序" />
+    <category term="分治思想排序" />
     <category term="选择排序" />
     <category term="递归" />
-    <category term="go-设计模式" />
-    <category term="模型评估" />
     <category term="Java" />
     <category term="dubbo" />
-    <category term="架构" />
-    <category term="笔记" />
-    <category term="KNN" />
     <category term="go-runtimes" />
+    <category term="KNN" />
     <category term="JDK版本" />
     <category term="JDK11" />
     <category term="OOM" />
@@ -72,7 +72,7 @@
         <id>https://fangjiaxiaobai.github.io/2022/07/09/rocketMQ/3-08-save-msg-detail/</id>
         <title>RocketMQ 消息刷盘过程详解</title>
         <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/07/09/rocketMQ/3-08-save-msg-detail/"/>
-        <content type="html">&lt;p&gt;在 &lt;a href=&#34;./2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF.md&#34;&gt;RocketMQ 架构设计之消息&lt;/a&gt; 这篇文章中，我们学习了 消息发送到消费 的整体流程。这篇文章，我们一起来看看  &lt;code&gt;MappedFile&lt;/code&gt;  的实现细节.&lt;/p&gt;
+        <content type="html">&lt;p&gt;在 &lt;a href=&#34;/2022/07/09/rocketMQ/3-08-save-msg-detail/s&#34;&gt;RocketMQ 架构设计之消息&lt;/a&gt; 这篇文章中，我们学习了 消息发送到消费 的整体流程。这篇文章，我们一起来看看  &lt;code&gt;MappedFile&lt;/code&gt;  的实现细节.&lt;/p&gt;
 &lt;h2 id=&#34;引言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#引言&#34;&gt;#&lt;/a&gt; 引言&lt;/h2&gt;
 &lt;p&gt;我们都知道的是  &lt;code&gt;RocketMQ消&lt;/code&gt; 息都是持久化到磁盘上的，消息的读取和写入也都是会从磁盘上进行 &lt;code&gt;IO&lt;/code&gt;  的。可是磁盘的性能不禁另 CPU 啧啧撇嘴。 &lt;code&gt;RocketMQ&lt;/code&gt;  是如何实现消息的高性能 &lt;code&gt;IO&lt;/code&gt;  的呢？&lt;/p&gt;
 &lt;p&gt;答案就是  &lt;code&gt;MappedFile&lt;/code&gt;  这个  &lt;code&gt;643&lt;/code&gt;  行的 &lt;code&gt;java&lt;/code&gt;  文件中。&lt;/p&gt;
