@@ -170,33 +170,33 @@ RocketMQ 系列 - RocketMQ 概念 - RocketMQ 系列 |
 <p><code>Producer</code>  负责生产消息， <code>Consumer</code>  负责消费消息， <code>Broker</code>  负责存储消息， <code>NameServer</code>  负责对 <code>Producer</code>  和  <code>Customer</code>  的服务发现，还有路由这两个功能。 <code>Broker</code>  在实际部署过程中对应一台服务器，每个  <code>Broker</code>  可以存储多个 <code>Topic</code>  的消息，每个 <code>Topic</code>  的消息也可以分片存储于不同的  <code>Broker</code> 。 <code>Message Queue</code>  用于存储消息的物理地址，每个 <code>Topic</code>  中的消息地址存储于多个  <code>Message Queue</code>  中。 <code>ConsumerGroup</code>  由多个 <code>Consumer</code>  实例构成。</p>
 <h3 id="消息生产者producer"><a class="markdownIt-Anchor" href="#消息生产者producer">#</a> 消息生产者（Producer）</h3>
 <p>负责生产消息，一般由业务系统负责生产消息。一个消息生产者会把业务应用系统里产生的消息发送到 <code>broker</code>  服务器。 <code>RocketMQ</code>  提供多种发送方式，同步发送、异步发送、顺序发送、单向发送。同步和异步方式均需要 <code>Broker</code>  返回确认信息，单向发送不需要。</p>
-<h3 id="消息消费者consumer"><a class="markdownIt-Anchor" href="#消息消费者consumer">#</a> 消息消费者（Consumer）</h3>
+<h3 id="消息消费者consumer"><a class="markdownIt-Anchor" href="#消息消费者consumer">#</a> 消息消费者（ <code>Consumer</code> ）</h3>
 <p>负责消费消息，一般是后台系统负责异步消费。一个消息消费者会从 <code>Broker</code>  服务器拉取消息、并将其提供给应用程序。从用户应用的角度而言提供了两种消费形式：拉取式消费 ( <code>pull</code> )、推动式消费 ( <code>push</code> )。</p>
-<h3 id="生产者组producer-group"><a class="markdownIt-Anchor" href="#生产者组producer-group">#</a> 生产者组（Producer Group）</h3>
+<h3 id="生产者组producer-group"><a class="markdownIt-Anchor" href="#生产者组producer-group">#</a> 生产者组（ <code>Producer Group</code> ）</h3>
 <p>同一类 <code>Producer</code>  的集合，这类 <code>Producer</code>  发送同一类消息且发送逻辑一致。如果发送的是事务消息且原始生产者在发送之后崩溃，则 <code>Broker</code>  服务器会联系同一生产者组的其他生产者实例以提交或回溯消费。</p>
-<h3 id="消费者组consumer-group"><a class="markdownIt-Anchor" href="#消费者组consumer-group">#</a> 消费者组（Consumer Group）</h3>
+<h3 id="消费者组consumer-group"><a class="markdownIt-Anchor" href="#消费者组consumer-group">#</a> 消费者组（ <code>Consumer Group</code> ）</h3>
 <p>同一类 <code>Consumer</code>  的集合，这类 <code>Consumer</code>  通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的 <code>Topic</code> 。 <code>RocketMQ </code> 支持两种消息模式：集群消费（ <code>Clustering</code> ）和广播消费（ <code>Broadcasting</code> ）。</p>
-<h3 id="拉取式消费pull-consumer"><a class="markdownIt-Anchor" href="#拉取式消费pull-consumer">#</a> 拉取式消费（Pull Consumer）</h3>
+<h3 id="拉取式消费pull-consumer"><a class="markdownIt-Anchor" href="#拉取式消费pull-consumer">#</a> 拉取式消费（ <code>Pull Consumer</code> ）</h3>
 <p><code>Consumer</code>  消费的一种类型，应用通常主动调用 <code>Consumer</code>  的拉消息方法从 <code>Broker</code>  服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。</p>
-<h3 id="推动式消费push-consumer"><a class="markdownIt-Anchor" href="#推动式消费push-consumer">#</a> 推动式消费（Push Consumer）</h3>
+<h3 id="推动式消费push-consumer"><a class="markdownIt-Anchor" href="#推动式消费push-consumer">#</a> 推动式消费（ <code>Push Consumer</code> ）</h3>
 <p><code>Consumer</code>  消费的一种类型，该模式下 <code>Broker</code>  收到数据后会主动推送给消费端，该消费模式一般实时性较高。</p>
-<h3 id="主题topic"><a class="markdownIt-Anchor" href="#主题topic">#</a> 主题（Topic）</h3>
+<h3 id="主题topic"><a class="markdownIt-Anchor" href="#主题topic">#</a> 主题（ <code>Topic</code> ）</h3>
 <p>表示一类消息的集合，每个主题包含若干条消息，每条消息只能属于一个主题，是 <code>RocketMQ</code>  进行消息订阅的基本单位。</p>
-<h3 id="代理服务器broker-server"><a class="markdownIt-Anchor" href="#代理服务器broker-server">#</a> 代理服务器（Broker Server）</h3>
+<h3 id="代理服务器broker-server"><a class="markdownIt-Anchor" href="#代理服务器broker-server">#</a> 代理服务器（ <code>Broker Server</code> ）</h3>
 <p>消息中转角色，负责存储消息、转发消息。代理服务器在 <code>RocketMQ</code>  系统中负责接收从生产者发送来的消息并存储、同时为消费者的拉取请求作准备。代理服务器也存储消息相关的元数据，包括消费者组、消费进度偏移和主题和队列消息等。</p>
-<h3 id="nameserver"><a class="markdownIt-Anchor" href="#nameserver">#</a> NameServer</h3>
+<h3 id="nameserver"><a class="markdownIt-Anchor" href="#nameserver">#</a>  <code>NameServer</code></h3>
 <p><code>NameServer</code>  充当路由消息的提供者。生产者或消费者能够通过名字服务查找各主题相应的 <code>Broker IP</code>  列表。多个 <code>Nameserver</code>  实例组成集群，但相互独立，没有信息交换。</p>
-<h3 id="集群消费clustering"><a class="markdownIt-Anchor" href="#集群消费clustering">#</a> 集群消费（Clustering）</h3>
+<h3 id="集群消费clustering"><a class="markdownIt-Anchor" href="#集群消费clustering">#</a> 集群消费（ <code>Clustering</code> ）</h3>
 <p>集群消费模式下，相同 <code>Consumer Group</code>  的每个 <code>Consumer</code>  实例平均分摊消息。</p>
-<h3 id="广播消费broadcasting"><a class="markdownIt-Anchor" href="#广播消费broadcasting">#</a> 广播消费（Broadcasting）</h3>
+<h3 id="广播消费broadcasting"><a class="markdownIt-Anchor" href="#广播消费broadcasting">#</a> 广播消费（ <code>Broadcasting</code> ）</h3>
 <p>广播消费模式下，相同 <code>Consumer Group</code>  的每个 <code>Consumer</code>  实例都接收全量的消息。</p>
-<h3 id="普通顺序消息normal-ordered-message"><a class="markdownIt-Anchor" href="#普通顺序消息normal-ordered-message">#</a> 普通顺序消息（Normal Ordered Message）</h3>
+<h3 id="普通顺序消息normal-ordered-message"><a class="markdownIt-Anchor" href="#普通顺序消息normal-ordered-message">#</a> 普通顺序消息（ <code>Normal Ordered Message</code> ）</h3>
 <p>普通顺序消费模式下，消费者通过同一个消息队列（  <code>Topic</code>  分区，称作 M <code>essage Queue</code> ） 收到的消息是有顺序的，不同消息队列收到的消息则可能是无顺序的。</p>
-<h3 id="严格顺序消息strictly-ordered-message"><a class="markdownIt-Anchor" href="#严格顺序消息strictly-ordered-message">#</a> 严格顺序消息（Strictly Ordered Message）</h3>
+<h3 id="严格顺序消息strictly-ordered-message"><a class="markdownIt-Anchor" href="#严格顺序消息strictly-ordered-message">#</a> 严格顺序消息（ <code>Strictly Ordered Message</code> ）</h3>
 <p>严格顺序消息模式下，消费者收到的所有消息均是有顺序的。</p>
-<h3 id="消息message"><a class="markdownIt-Anchor" href="#消息message">#</a> 消息（Message）</h3>
+<h3 id="消息message"><a class="markdownIt-Anchor" href="#消息message">#</a> 消息（ <code>Message</code> ）</h3>
 <p>消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。 <code>RocketMQ</code>  中每个消息拥有唯一的 <code>Message ID</code> ，且可以携带具有业务标识的 <code>Key</code> 。系统提供了通过 <code>Message ID</code>  和 <code>Key</code>  查询消息的功能。</p>
-<h3 id="标签tag"><a class="markdownIt-Anchor" href="#标签tag">#</a> 标签（Tag）</h3>
+<h3 id="标签tag"><a class="markdownIt-Anchor" href="#标签tag">#</a> 标签（ <code>Tag</code> ）</h3>
 <p>为消息设置的标志，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化 <code>RocketMQ</code>  提供的查询系统。消费者可以根据 <code>Tag</code>  实现对不同子主题的不同消费逻辑，实现更好的扩展性。</p>
 <p>这是一篇极为枯燥的文章。从下篇文章开始，我们开始对 <code>RocketMQ</code>  进行实践。从零搭建 <code>RocketMQ</code>  集群.</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
@@ -234,7 +234,7 @@ RocketMQ 系列 - RocketMQ 概念 - RocketMQ 系列 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-03-12 14:43:51" itemprop="dateModified" datetime="2022-03-12T14:43:51+08:00">2022-03-12</time>
+    <time title="修改时间：2022-07-09 08:01:18" itemprop="dateModified" datetime="2022-07-09T08:01:18+08:00">2022-07-09</time>
   </span>
   <span id="2021/09/02/rocketMQ/1-02-RocketMQ概念/" class="item leancloud_visitors" data-flag-title="RocketMQ 系列 - RocketMQ 概念" title="阅读次数">
       <span class="icon">
@@ -328,11 +328,11 @@ RocketMQ 系列 - RocketMQ 概念 - RocketMQ 系列 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rocketmq%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> RocketMQ 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E7%94%9F%E4%BA%A7%E8%80%85producer"><span class="toc-number">1.2.</span> <span class="toc-text"> 消息生产者（Producer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%B6%88%E8%B4%B9%E8%80%85consumer"><span class="toc-number">1.3.</span> <span class="toc-text"> 消息消费者（Consumer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E7%BB%84producer-group"><span class="toc-number">1.4.</span> <span class="toc-text"> 生产者组（Producer Group）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84consumer-group"><span class="toc-number">1.5.</span> <span class="toc-text"> 消费者组（Consumer Group）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E5%BC%8F%E6%B6%88%E8%B4%B9pull-consumer"><span class="toc-number">1.6.</span> <span class="toc-text"> 拉取式消费（Pull Consumer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E5%8A%A8%E5%BC%8F%E6%B6%88%E8%B4%B9push-consumer"><span class="toc-number">1.7.</span> <span class="toc-text"> 推动式消费（Push Consumer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98topic"><span class="toc-number">1.8.</span> <span class="toc-text"> 主题（Topic）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8broker-server"><span class="toc-number">1.9.</span> <span class="toc-text"> 代理服务器（Broker Server）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nameserver"><span class="toc-number">1.10.</span> <span class="toc-text"> NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%B6%88%E8%B4%B9clustering"><span class="toc-number">1.11.</span> <span class="toc-text"> 集群消费（Clustering）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E6%B6%88%E8%B4%B9broadcasting"><span class="toc-number">1.12.</span> <span class="toc-text"> 广播消费（Broadcasting）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AFnormal-ordered-message"><span class="toc-number">1.13.</span> <span class="toc-text"> 普通顺序消息（Normal Ordered Message）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A5%E6%A0%BC%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AFstrictly-ordered-message"><span class="toc-number">1.14.</span> <span class="toc-text"> 严格顺序消息（Strictly Ordered Message）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AFmessage"><span class="toc-number">1.15.</span> <span class="toc-text"> 消息（Message）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BEtag"><span class="toc-number">1.16.</span> <span class="toc-text"> 标签（Tag）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rocketmq%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> RocketMQ 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 消息模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E7%94%9F%E4%BA%A7%E8%80%85producer"><span class="toc-number">1.2.</span> <span class="toc-text"> 消息生产者（Producer）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E6%B6%88%E8%B4%B9%E8%80%85consumer"><span class="toc-number">1.3.</span> <span class="toc-text"> 消息消费者（ Consumer ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E7%BB%84producer-group"><span class="toc-number">1.4.</span> <span class="toc-text"> 生产者组（ Producer Group ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84consumer-group"><span class="toc-number">1.5.</span> <span class="toc-text"> 消费者组（ Consumer Group ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E5%BC%8F%E6%B6%88%E8%B4%B9pull-consumer"><span class="toc-number">1.6.</span> <span class="toc-text"> 拉取式消费（ Pull Consumer ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E5%8A%A8%E5%BC%8F%E6%B6%88%E8%B4%B9push-consumer"><span class="toc-number">1.7.</span> <span class="toc-text"> 推动式消费（ Push Consumer ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98topic"><span class="toc-number">1.8.</span> <span class="toc-text"> 主题（ Topic ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8broker-server"><span class="toc-number">1.9.</span> <span class="toc-text"> 代理服务器（ Broker Server ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nameserver"><span class="toc-number">1.10.</span> <span class="toc-text">  NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%B6%88%E8%B4%B9clustering"><span class="toc-number">1.11.</span> <span class="toc-text"> 集群消费（ Clustering ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E6%92%AD%E6%B6%88%E8%B4%B9broadcasting"><span class="toc-number">1.12.</span> <span class="toc-text"> 广播消费（ Broadcasting ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AFnormal-ordered-message"><span class="toc-number">1.13.</span> <span class="toc-text"> 普通顺序消息（ Normal Ordered Message ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A5%E6%A0%BC%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AFstrictly-ordered-message"><span class="toc-number">1.14.</span> <span class="toc-text"> 严格顺序消息（ Strictly Ordered Message ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AFmessage"><span class="toc-number">1.15.</span> <span class="toc-text"> 消息（ Message ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BEtag"><span class="toc-number">1.16.</span> <span class="toc-text"> 标签（ Tag ）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li class="active"><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li><a href="/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li><a href="/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li><li><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" rel="bookmark" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></li><li><a href="/2022/05/16/rocketMQ/3-02-reliabllity-msg/" rel="bookmark" title="RocketMQ 消息可靠性实现原理">RocketMQ 消息可靠性实现原理</a></li><li><a href="/2022/07/09/rocketMQ/3-08-save-msg-detail/" rel="bookmark" title="RocketMQ 消息刷盘过程详解">RocketMQ 消息刷盘过程详解</a></li>
+          <li><a href="/2021/09/01/rocketMQ/README/" rel="bookmark" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></li><li><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Rocket系列-入门">Rocket系列-入门</a></li><li class="active"><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" rel="bookmark" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></li><li><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" rel="bookmark" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></li><li><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" rel="bookmark" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></li><li><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" rel="bookmark" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></li><li><a href="/2021/09/06/rocketMQ/1-04-02.%E9%A1%BA%E5%BA%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:全局顺序消息">RocketMQ样例:全局顺序消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></li><li><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" rel="bookmark" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></li><li><a href="/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/" rel="bookmark" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></li><li><a href="/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/" rel="bookmark" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></li><li><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" rel="bookmark" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></li><li><a href="/2022/05/16/rocketMQ/3-02-reliabllity-msg/" rel="bookmark" title="RocketMQ 消息可靠性实现原理">RocketMQ 消息可靠性实现原理</a></li><li><a href="/2022/07/09/rocketMQ/3-08-save-msg-detail/" rel="bookmark" title="RocketMQ 消息刷盘过程详解">RocketMQ 消息刷盘过程详解</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -514,100 +514,100 @@ RocketMQ 系列 - RocketMQ 概念 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%97%A5%E5%BF%97/" title="分类于 日志">日志</a>
-</div>
-
-    <span><a href="/2022/03/04/mylogs/talk_about_log/" title="聊聊日志">聊聊日志</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" title="LC:367.有效的完全平方数">LC:367.有效的完全平方数</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" title="Redis的单机部署">Redis的单机部署</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" title="选择排序">选择排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/01-overview/" title="模型评估概述">模型评估概述</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/" title="JDK的Stream之系列一 初窥流原理">JDK的Stream之系列一 初窥流原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></span>
   </li>
 
   </ul>

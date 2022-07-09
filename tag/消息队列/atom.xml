@@ -4,58 +4,58 @@
     <title>方家小白 • Posts by &#34;消息队列&#34; tag</title>
     <link href="https://fangjiaxiaobai.github.io" />
     <updated>2022-07-09T10:18:00.000Z</updated>
-    <category term="全站地图" />
-    <category term="目录" />
     <category term="源码" />
+    <category term="目录" />
+    <category term="全站地图" />
+    <category term="MySQL" />
     <category term="Redis" />
     <category term="数据结构" />
-    <category term="日常" />
-    <category term="Springboot" />
-    <category term="Netty" />
+    <category term="git" />
     <category term="雪花算法" />
     <category term="算法" />
-    <category term="MySQL" />
-    <category term="Elastic Search" />
-    <category term="搜索" />
-    <category term="git" />
     <category term="go" />
     <category term="go-error" />
     <category term="MachineLearn" />
-    <category term="log" />
-    <category term="go-log" />
     <category term="猫影视" />
     <category term="图片" />
     <category term="线程池" />
     <category term="面经" />
     <category term="RocketMQ" />
     <category term="消息队列" />
+    <category term="log" />
+    <category term="go-log" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="日常" />
+    <category term="Springboot" />
+    <category term="Netty" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
-    <category term="leetCode" />
-    <category term="链表" />
-    <category term="面经之算法题" />
     <category term="动态规划" />
+    <category term="leetCode" />
     <category term="数组" />
-    <category term="不做也罢的算法题" />
+    <category term="面经之算法题" />
+    <category term="链表" />
     <category term="有点难的算法题" />
-    <category term="HashMap" />
+    <category term="不做也罢的算法题" />
+    <category term="String" />
     <category term="JDK" />
     <category term="JDK8" />
+    <category term="HashMap" />
     <category term="数据结构与算法" />
     <category term="哈希算法" />
-    <category term="String" />
+    <category term="递归" />
     <category term="排序" />
     <category term="冒泡排序" />
     <category term="交换排序" />
-    <category term="快速排序" />
-    <category term="分支思想排序" />
     <category term="分治思想排序" />
+    <category term="选择排序" />
     <category term="桶排序" />
     <category term="线性思想排序" />
-    <category term="选择排序" />
     <category term="go-设计模式" />
-    <category term="递归" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
     <category term="Java" />
     <category term="dubbo" />
     <category term="模型评估" />
@@ -419,9 +419,9 @@
         <updated>2022-01-02T10:18:00.000Z</updated>
     </entry>
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/</id>
+        <id>https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/</id>
         <title>RocketMQ系列-架构设计之消息</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E6%B6%88%E6%81%AF/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/"/>
         <content type="html">&lt;p&gt;上一篇文章&lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/&#34;&gt; RocketMQ 架构设计之启动过程解析&lt;/a&gt; 分析了  &lt;code&gt;NameServer&lt;/code&gt; ,  &lt;code&gt;Broker&lt;/code&gt; ,  &lt;code&gt;Producer&lt;/code&gt; ,  &lt;code&gt;Consumer&lt;/code&gt;  四个部分的启动过程，这边文章我们分析 &lt;b&gt;消息的收发过程&lt;/b&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;生产者发送消息过程解析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#生产者发送消息过程解析&#34;&gt;#&lt;/a&gt; 生产者发送消息过程解析&lt;/h2&gt;
 &lt;p&gt;我们还是看上篇文章中的例子:&lt;/p&gt;
@@ -686,9 +686,9 @@
         <updated>2021-09-28T11:26:00.000Z</updated>
     </entry>
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/</id>
+        <id>https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/</id>
         <title>RocketMQ系列-架构设计之启动</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B9%8B%E5%90%AF%E5%8A%A8/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/"/>
         <content type="html">&lt;p&gt;之前我们已经学习了 &lt;code&gt;RocketMQ&lt;/code&gt;  是由四个部分组成的。这篇文章更加深入的来看看这个四个部分。&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/rocketmq/2-01-%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;nameserver&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nameserver&#34;&gt;#&lt;/a&gt;  &lt;code&gt;NameServer&lt;/code&gt;&lt;/h2&gt;
@@ -1293,33 +1293,33 @@
 &lt;p&gt;&lt;code&gt;Producer&lt;/code&gt;  负责生产消息， &lt;code&gt;Consumer&lt;/code&gt;  负责消费消息， &lt;code&gt;Broker&lt;/code&gt;  负责存储消息， &lt;code&gt;NameServer&lt;/code&gt;  负责对 &lt;code&gt;Producer&lt;/code&gt;  和  &lt;code&gt;Customer&lt;/code&gt;  的服务发现，还有路由这两个功能。 &lt;code&gt;Broker&lt;/code&gt;  在实际部署过程中对应一台服务器，每个  &lt;code&gt;Broker&lt;/code&gt;  可以存储多个 &lt;code&gt;Topic&lt;/code&gt;  的消息，每个 &lt;code&gt;Topic&lt;/code&gt;  的消息也可以分片存储于不同的  &lt;code&gt;Broker&lt;/code&gt; 。 &lt;code&gt;Message Queue&lt;/code&gt;  用于存储消息的物理地址，每个 &lt;code&gt;Topic&lt;/code&gt;  中的消息地址存储于多个  &lt;code&gt;Message Queue&lt;/code&gt;  中。 &lt;code&gt;ConsumerGroup&lt;/code&gt;  由多个 &lt;code&gt;Consumer&lt;/code&gt;  实例构成。&lt;/p&gt;
 &lt;h3 id=&#34;消息生产者producer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息生产者producer&#34;&gt;#&lt;/a&gt; 消息生产者（Producer）&lt;/h3&gt;
 &lt;p&gt;负责生产消息，一般由业务系统负责生产消息。一个消息生产者会把业务应用系统里产生的消息发送到 &lt;code&gt;broker&lt;/code&gt;  服务器。 &lt;code&gt;RocketMQ&lt;/code&gt;  提供多种发送方式，同步发送、异步发送、顺序发送、单向发送。同步和异步方式均需要 &lt;code&gt;Broker&lt;/code&gt;  返回确认信息，单向发送不需要。&lt;/p&gt;
-&lt;h3 id=&#34;消息消费者consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息消费者consumer&#34;&gt;#&lt;/a&gt; 消息消费者（Consumer）&lt;/h3&gt;
+&lt;h3 id=&#34;消息消费者consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息消费者consumer&#34;&gt;#&lt;/a&gt; 消息消费者（ &lt;code&gt;Consumer&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;负责消费消息，一般是后台系统负责异步消费。一个消息消费者会从 &lt;code&gt;Broker&lt;/code&gt;  服务器拉取消息、并将其提供给应用程序。从用户应用的角度而言提供了两种消费形式：拉取式消费 ( &lt;code&gt;pull&lt;/code&gt; )、推动式消费 ( &lt;code&gt;push&lt;/code&gt; )。&lt;/p&gt;
-&lt;h3 id=&#34;生产者组producer-group&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#生产者组producer-group&#34;&gt;#&lt;/a&gt; 生产者组（Producer Group）&lt;/h3&gt;
+&lt;h3 id=&#34;生产者组producer-group&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#生产者组producer-group&#34;&gt;#&lt;/a&gt; 生产者组（ &lt;code&gt;Producer Group&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;同一类 &lt;code&gt;Producer&lt;/code&gt;  的集合，这类 &lt;code&gt;Producer&lt;/code&gt;  发送同一类消息且发送逻辑一致。如果发送的是事务消息且原始生产者在发送之后崩溃，则 &lt;code&gt;Broker&lt;/code&gt;  服务器会联系同一生产者组的其他生产者实例以提交或回溯消费。&lt;/p&gt;
-&lt;h3 id=&#34;消费者组consumer-group&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消费者组consumer-group&#34;&gt;#&lt;/a&gt; 消费者组（Consumer Group）&lt;/h3&gt;
+&lt;h3 id=&#34;消费者组consumer-group&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消费者组consumer-group&#34;&gt;#&lt;/a&gt; 消费者组（ &lt;code&gt;Consumer Group&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;同一类 &lt;code&gt;Consumer&lt;/code&gt;  的集合，这类 &lt;code&gt;Consumer&lt;/code&gt;  通常消费同一类消息且消费逻辑一致。消费者组使得在消息消费方面，实现负载均衡和容错的目标变得非常容易。要注意的是，消费者组的消费者实例必须订阅完全相同的 &lt;code&gt;Topic&lt;/code&gt; 。 &lt;code&gt;RocketMQ &lt;/code&gt; 支持两种消息模式：集群消费（ &lt;code&gt;Clustering&lt;/code&gt; ）和广播消费（ &lt;code&gt;Broadcasting&lt;/code&gt; ）。&lt;/p&gt;
-&lt;h3 id=&#34;拉取式消费pull-consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#拉取式消费pull-consumer&#34;&gt;#&lt;/a&gt; 拉取式消费（Pull Consumer）&lt;/h3&gt;
+&lt;h3 id=&#34;拉取式消费pull-consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#拉取式消费pull-consumer&#34;&gt;#&lt;/a&gt; 拉取式消费（ &lt;code&gt;Pull Consumer&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;Consumer&lt;/code&gt;  消费的一种类型，应用通常主动调用 &lt;code&gt;Consumer&lt;/code&gt;  的拉消息方法从 &lt;code&gt;Broker&lt;/code&gt;  服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。&lt;/p&gt;
-&lt;h3 id=&#34;推动式消费push-consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#推动式消费push-consumer&#34;&gt;#&lt;/a&gt; 推动式消费（Push Consumer）&lt;/h3&gt;
+&lt;h3 id=&#34;推动式消费push-consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#推动式消费push-consumer&#34;&gt;#&lt;/a&gt; 推动式消费（ &lt;code&gt;Push Consumer&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;Consumer&lt;/code&gt;  消费的一种类型，该模式下 &lt;code&gt;Broker&lt;/code&gt;  收到数据后会主动推送给消费端，该消费模式一般实时性较高。&lt;/p&gt;
-&lt;h3 id=&#34;主题topic&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#主题topic&#34;&gt;#&lt;/a&gt; 主题（Topic）&lt;/h3&gt;
+&lt;h3 id=&#34;主题topic&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#主题topic&#34;&gt;#&lt;/a&gt; 主题（ &lt;code&gt;Topic&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;表示一类消息的集合，每个主题包含若干条消息，每条消息只能属于一个主题，是 &lt;code&gt;RocketMQ&lt;/code&gt;  进行消息订阅的基本单位。&lt;/p&gt;
-&lt;h3 id=&#34;代理服务器broker-server&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代理服务器broker-server&#34;&gt;#&lt;/a&gt; 代理服务器（Broker Server）&lt;/h3&gt;
+&lt;h3 id=&#34;代理服务器broker-server&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#代理服务器broker-server&#34;&gt;#&lt;/a&gt; 代理服务器（ &lt;code&gt;Broker Server&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;消息中转角色，负责存储消息、转发消息。代理服务器在 &lt;code&gt;RocketMQ&lt;/code&gt;  系统中负责接收从生产者发送来的消息并存储、同时为消费者的拉取请求作准备。代理服务器也存储消息相关的元数据，包括消费者组、消费进度偏移和主题和队列消息等。&lt;/p&gt;
-&lt;h3 id=&#34;nameserver&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nameserver&#34;&gt;#&lt;/a&gt; NameServer&lt;/h3&gt;
+&lt;h3 id=&#34;nameserver&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nameserver&#34;&gt;#&lt;/a&gt;  &lt;code&gt;NameServer&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;NameServer&lt;/code&gt;  充当路由消息的提供者。生产者或消费者能够通过名字服务查找各主题相应的 &lt;code&gt;Broker IP&lt;/code&gt;  列表。多个 &lt;code&gt;Nameserver&lt;/code&gt;  实例组成集群，但相互独立，没有信息交换。&lt;/p&gt;
-&lt;h3 id=&#34;集群消费clustering&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#集群消费clustering&#34;&gt;#&lt;/a&gt; 集群消费（Clustering）&lt;/h3&gt;
+&lt;h3 id=&#34;集群消费clustering&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#集群消费clustering&#34;&gt;#&lt;/a&gt; 集群消费（ &lt;code&gt;Clustering&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;集群消费模式下，相同 &lt;code&gt;Consumer Group&lt;/code&gt;  的每个 &lt;code&gt;Consumer&lt;/code&gt;  实例平均分摊消息。&lt;/p&gt;
-&lt;h3 id=&#34;广播消费broadcasting&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#广播消费broadcasting&#34;&gt;#&lt;/a&gt; 广播消费（Broadcasting）&lt;/h3&gt;
+&lt;h3 id=&#34;广播消费broadcasting&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#广播消费broadcasting&#34;&gt;#&lt;/a&gt; 广播消费（ &lt;code&gt;Broadcasting&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;广播消费模式下，相同 &lt;code&gt;Consumer Group&lt;/code&gt;  的每个 &lt;code&gt;Consumer&lt;/code&gt;  实例都接收全量的消息。&lt;/p&gt;
-&lt;h3 id=&#34;普通顺序消息normal-ordered-message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#普通顺序消息normal-ordered-message&#34;&gt;#&lt;/a&gt; 普通顺序消息（Normal Ordered Message）&lt;/h3&gt;
+&lt;h3 id=&#34;普通顺序消息normal-ordered-message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#普通顺序消息normal-ordered-message&#34;&gt;#&lt;/a&gt; 普通顺序消息（ &lt;code&gt;Normal Ordered Message&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;普通顺序消费模式下，消费者通过同一个消息队列（  &lt;code&gt;Topic&lt;/code&gt;  分区，称作 M &lt;code&gt;essage Queue&lt;/code&gt; ） 收到的消息是有顺序的，不同消息队列收到的消息则可能是无顺序的。&lt;/p&gt;
-&lt;h3 id=&#34;严格顺序消息strictly-ordered-message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#严格顺序消息strictly-ordered-message&#34;&gt;#&lt;/a&gt; 严格顺序消息（Strictly Ordered Message）&lt;/h3&gt;
+&lt;h3 id=&#34;严格顺序消息strictly-ordered-message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#严格顺序消息strictly-ordered-message&#34;&gt;#&lt;/a&gt; 严格顺序消息（ &lt;code&gt;Strictly Ordered Message&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;严格顺序消息模式下，消费者收到的所有消息均是有顺序的。&lt;/p&gt;
-&lt;h3 id=&#34;消息message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息message&#34;&gt;#&lt;/a&gt; 消息（Message）&lt;/h3&gt;
+&lt;h3 id=&#34;消息message&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息message&#34;&gt;#&lt;/a&gt; 消息（ &lt;code&gt;Message&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;消息系统所传输信息的物理载体，生产和消费数据的最小单位，每条消息必须属于一个主题。 &lt;code&gt;RocketMQ&lt;/code&gt;  中每个消息拥有唯一的 &lt;code&gt;Message ID&lt;/code&gt; ，且可以携带具有业务标识的 &lt;code&gt;Key&lt;/code&gt; 。系统提供了通过 &lt;code&gt;Message ID&lt;/code&gt;  和 &lt;code&gt;Key&lt;/code&gt;  查询消息的功能。&lt;/p&gt;
-&lt;h3 id=&#34;标签tag&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#标签tag&#34;&gt;#&lt;/a&gt; 标签（Tag）&lt;/h3&gt;
+&lt;h3 id=&#34;标签tag&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#标签tag&#34;&gt;#&lt;/a&gt; 标签（ &lt;code&gt;Tag&lt;/code&gt; ）&lt;/h3&gt;
 &lt;p&gt;为消息设置的标志，用于同一主题下区分不同类型的消息。来自同一业务单元的消息，可以根据不同业务目的在同一主题下设置不同标签。标签能够有效地保持代码的清晰度和连贯性，并优化 &lt;code&gt;RocketMQ&lt;/code&gt;  提供的查询系统。消费者可以根据 &lt;code&gt;Tag&lt;/code&gt;  实现对不同子主题的不同消费逻辑，实现更好的扩展性。&lt;/p&gt;
 &lt;p&gt;这是一篇极为枯燥的文章。从下篇文章开始，我们开始对 &lt;code&gt;RocketMQ&lt;/code&gt;  进行实践。从零搭建 &lt;code&gt;RocketMQ&lt;/code&gt;  集群.&lt;/p&gt;
 &lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
