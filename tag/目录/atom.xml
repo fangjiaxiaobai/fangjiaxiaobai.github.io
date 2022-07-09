@@ -6,67 +6,67 @@
     <updated>2021-08-18T06:48:55.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
-    <category term="MySQL" />
-    <category term="源码" />
     <category term="Redis" />
     <category term="数据结构" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
+    <category term="MySQL" />
     <category term="雪花算法" />
     <category term="算法" />
-    <category term="git" />
-    <category term="log" />
-    <category term="go-log" />
-    <category term="猫影视" />
-    <category term="图片" />
     <category term="Elastic Search" />
     <category term="搜索" />
-    <category term="线程池" />
-    <category term="面经" />
-    <category term="MachineLearn" />
-    <category term="RocketMQ" />
-    <category term="消息队列" />
     <category term="go" />
     <category term="go-error" />
+    <category term="git" />
+    <category term="源码" />
+    <category term="MachineLearn" />
+    <category term="猫影视" />
+    <category term="log" />
+    <category term="go-log" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="线程池" />
+    <category term="面经" />
+    <category term="图片" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
-    <category term="动态规划" />
     <category term="leetCode" />
-    <category term="面经之算法题" />
-    <category term="数组" />
-    <category term="有点难的算法题" />
     <category term="链表" />
+    <category term="面经之算法题" />
+    <category term="动态规划" />
+    <category term="有点难的算法题" />
     <category term="不做也罢的算法题" />
+    <category term="数组" />
     <category term="数据结构与算法" />
-    <category term="HashMap" />
-    <category term="JDK" />
-    <category term="JDK8" />
-    <category term="哈希算法" />
     <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="交换排序" />
-    <category term="String" />
-    <category term="递归" />
-    <category term="go-设计模式" />
     <category term="快速排序" />
     <category term="分支思想排序" />
-    <category term="分治思想排序" />
-    <category term="选择排序" />
+    <category term="冒泡排序" />
+    <category term="交换排序" />
+    <category term="递归" />
     <category term="桶排序" />
     <category term="线性思想排序" />
+    <category term="选择排序" />
+    <category term="分治思想排序" />
+    <category term="go-设计模式" />
+    <category term="哈希算法" />
     <category term="Java" />
     <category term="dubbo" />
+    <category term="String" />
+    <category term="JDK" />
+    <category term="JDK8" />
     <category term="模型评估" />
+    <category term="HashMap" />
     <category term="架构" />
     <category term="笔记" />
-    <category term="KNN" />
     <category term="go-runtimes" />
-    <category term="JDK版本" />
-    <category term="JDK11" />
+    <category term="KNN" />
     <category term="OOM" />
     <category term="JVM" />
+    <category term="JDK版本" />
+    <category term="JDK11" />
     <category term="Stream" />
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/</id>
@@ -302,11 +302,11 @@ stupid. contemptible and despicable. simple. Take your pick from the dictionary 
 &lt;/div&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;rocketMQ&#34; data-title=&#34;Rocket系列-进阶&#34;&gt;
 &lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/&#34;&gt;架构设计之启动过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/&#34;&gt;架构设计之消息的收发过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; &lt;a href=&#34;/2022/01/02/3-01-RocketMQ-Transaction-msg/&#34;&gt;事务消息实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; &lt;a href=&#34;/2022/05/16/3-02-reliabllity-msg/&#34;&gt;消息可靠性实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; &lt;a href=&#34;/2022/07/09/3-08-save-msg-details/&#34;&gt;消息刷盘过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_17&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_17&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/rocketMQ/2-01-RocketMQ-Arch-Start/&#34;&gt;架构设计之启动过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_18&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_18&#34;&gt; &lt;a href=&#34;/2021/09/28/rocketMQ/rocketMQ/2-02-RocketMQ-Arch-Message/&#34;&gt;架构设计之消息的收发过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_19&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_19&#34;&gt; &lt;a href=&#34;/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/&#34;&gt;事务消息实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_20&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_20&#34;&gt; &lt;a href=&#34;/2022/05/16/rocketMQ/3-02-reliabllity-msg/&#34;&gt;消息可靠性实现原理&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_21&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_21&#34;&gt; &lt;a href=&#34;/2022/07/09/rocketMQ/3-08-save-msg-detail/&#34;&gt;消息刷盘过程详解&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/details&gt;
