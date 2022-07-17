@@ -117,7 +117,7 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/3-08.png">
+          <img src="https://fangjiaxiaobai.github.iohttps://fangjiaxiaobai.github.io/images/rocketmq/covers/3-08.png">
       </div>
     </header>
     <div id="waves">
@@ -174,12 +174,12 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <p>在  <code>Broker</code>  的初始化过程中， <code>Broker</code>  通过  <code>AllocateMappedFileService</code>  完成了  <code>MappedFile</code>  的 初始化过程。其主要的实现就是在  <code>mmapOperation</code>  方法中。主要的职责有: 1、创建  <code>MappedFile</code>  实例  2、对 <code>MappedFile</code>  进行预热。</p>
 <h3 id="创建-mappedfile实例"><a class="markdownIt-Anchor" href="#创建-mappedfile实例">#</a> 创建  <code>MappedFile</code>  实例</h3>
 <p>根据 消息的刷盘方式 初始化  <code>MappedFile</code>  实例的不同的字段。 如下图。</p>
-<p><img data-src="/images/rocketmq/3-08-01.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-01.png" alt=""></p>
 <h3 id="预热-mappedfile"><a class="markdownIt-Anchor" href="#预热-mappedfile">#</a> 预热  <code>MappedFile</code></h3>
 <p><code>MappedFile</code>  预热的条件：实际的消息文件大小超过配置的大小 (默认 <code>1G</code> ) 并且 配置允许 <code>MappedFile</code>  预热。<br>
  <code>MappedFile</code>  预热的作用是：将 存在在磁盘上的消息预先加载到页缓存中 ( <code>Page Cache</code> ), 这也就是所谓的预热，省去了现用现加载的时间。</p>
 <p>预热的主要代码，我贴在下面</p>
-<p><img data-src="/images/rocketmq/3-08-03.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-03.png" alt=""></p>
 <p>注意看下注释的内容。乍一看好像没有什么奇怪。</p>
 <p>我先补充一下关于操作系统中存储的小知识点:</p>
 <h4 id="页"><a class="markdownIt-Anchor" href="#页">#</a> 页</h4>
@@ -205,14 +205,14 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <li>通过  <code>ByteBuffer</code>  写入消息。</li>
 <li>提交刷盘请求。</li>
 </ul>
-<p><img data-src="/images/rocketmq/3-08-04.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-04.png" alt=""></p>
 <p>上图源码中可以看到  <code>CommitLog</code>  调用了  <code>MappedFile</code>  把消息写入文件，真实去写入者是  <code>ByteBuffer.put()</code>  方法把消息写到了物理内存中.</p>
 <p>注意，这个 <code>ByteBuffer</code>  非常的有意思.</p>
 <p>当 刷盘方式是 同步刷盘的时候，使用的是： <code>this.mappedByteBuffer.slice()</code>  , 这个  <code>mappedByteBuffer</code>  对象是有 <code>FileChannel.map()</code>  方法生成。<br>
 当刷盘方式是 异步刷盘的时候，则是使用  <code>DirectByteBuffer </code> 进行写入的。</p>
 <p>这两者有什么区别呢？本质上其实没有什么区别！！</p>
 <p><code>FileChannel.map()</code>  出来的  <code>MappedByteBuffer</code>  类型是一个抽象类，本质上还是通过  <code>DirectByteBuffer</code>  进行构建出来的。</p>
-<p><img data-src="/images/rocketmq/3-08-05.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-05.png" alt=""></p>
 <p>这样， <code>RocketMQ</code>  就把消息写入到了物理内存中.</p>
 <p>什么时候把消息写到磁盘上的呢？</p>
 <p>我们读写的数据都是从  <code>pageCache</code>  中读写的，并不会直接读写磁盘。</p>
@@ -225,23 +225,23 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <p>所以，我们接下来看  <code>RocketMQ</code>  是如何确保消息落盘的。</p>
 <h2 id="消息刷盘"><a class="markdownIt-Anchor" href="#消息刷盘">#</a> 消息刷盘</h2>
 <p><code>RocketMQ</code>  有三种刷盘方式。两种刷盘的实现。</p>
-<p><img data-src="/images/rocketmq/3-08-06.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-06.png" alt=""></p>
 <p>分别是  <code>GroupCommitService</code>  (同步刷盘),  <code>FlushRealTimeService</code>  (异步刷盘),  <code>CommitRealTimeService</code>  (异步刷盘 + 缓冲区). 这三个类有一个共同的父类:</p>
-<p><img data-src="/images/rocketmq/3-08-07.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-07.png" alt=""></p>
 <p>我们详细的去看一下同步刷盘的过程。因为异步刷盘和同步刷盘的 <code>flush</code>  过程是一样的.</p>
 <h3 id="同步刷盘"><a class="markdownIt-Anchor" href="#同步刷盘">#</a> 同步刷盘</h3>
 <p>在消息启动的时候，如果配置了 使用同步刷盘方式的话， <code>Broker</code>  会启动  <code>GroupCommitService</code>  和  <code>CommitRealTimeService</code>  (这个是异步刷盘并且配置内存池的时候使用的刷盘方式，不管配置什么方式的时候都会创建，在启用 <code>isTransientStorePoolEnable</code>  的时候才会  <code>start()</code>  ).</p>
 <p><code>GroupCommitService</code>  在启动之后，会每  <code>10ms</code>  执行一次刷盘操作。</p>
 <p>我们从  <code>CommitLog</code>  添加完消息提交刷盘请求开始，详细分析整个过程.</p>
 <p>如下图。</p>
-<p><img data-src="/images/rocketmq/3-08-08.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-08.png" alt=""></p>
 <p><code>CommitLog</code>  提交一个 刷盘请求，这时根据配置 是否等待消息写入完成 来执行刷盘操作.</p>
 <ul>
 <li>如果不等待消息写入完成，则唤醒  <code>GroupCommitService</code> , 直接返回写入成功，这时 线程是否执行是由 <code>JVM</code>  决定的，所以并不确定线程立刻就执行了。</li>
 <li>如果等待消息写入完成，即第二步，则会放入一个  <code>GroupCommitRequest</code>  同步刷盘请求。实际上是把 这个  <code>Request</code>  放到  <code>GroupCommitService</code>  的  <code>LinkedList</code>  中，为了线程安全和提高效率，使用了两个  <code>LinkedList</code> , 分别是  <code>write</code>  和  <code>read</code> . 当执行刷盘操作的时候，会将  <code>write</code>  和  <code>read</code>  互换。每次都会读取  <code>read</code>  队列中的  <code>Request</code>  进行刷盘。这一步是在  <code>waitForRunning</code>  方法中执行的，见如图第 <code>5-7</code>  步。<br>
 接下来就是刷盘操作了，调用  <code>mappedFileQueue.flush(0)</code>  操作完成刷盘动作。然后，返回  <code>CompleteFuture</code>  如图中第 9 步。 当需要等待消息写入完成的时候， <code>CommitLog</code>  添加消息是在一直等待的。如下图.</li>
 </ul>
-<p><img data-src="/images/rocketmq/3-08-09.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-09.png" alt=""></p>
 <p>那接下来，我就详细的来看下  <code>mappedFileQueue</code>  其实是  <code>MappedFile</code>  的刷盘过程.</p>
 <h4 id="mappedfilequeueflush"><a class="markdownIt-Anchor" href="#mappedfilequeueflush">#</a> MappedFileQueue.flush</h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 刷盘</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> flushLeastPages 最后一页</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">flush</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> flushLeastPages)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> result = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">// flushWhere. 应该刷新数据end的位置。</span></span><br><span class="line">    MappedFile mappedFile = <span class="keyword">this</span>.findMappedFileByOffset(<span class="keyword">this</span>.flushedWhere, <span class="keyword">this</span>.flushedWhere == <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (mappedFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">long</span> tmpTimeStamp = mappedFile.getStoreTimestamp();</span><br><span class="line">        <span class="comment">// 使用 MappedFile 进行刷盘。返回 MappedFile 中 已被刷新到磁盘的数据的偏移量</span></span><br><span class="line">        <span class="keyword">int</span> offset = mappedFile.flush(flushLeastPages);</span><br><span class="line">        <span class="comment">// 在整个MappedFileQueue中的偏移量</span></span><br><span class="line">        <span class="keyword">long</span> where = mappedFile.getFileFromOffset() + offset;</span><br><span class="line">        result = where == <span class="keyword">this</span>.flushedWhere;</span><br><span class="line">        <span class="keyword">this</span>.flushedWhere = where;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> == flushLeastPages) &#123;</span><br><span class="line">            <span class="comment">// 刷新之前，最新一条消息的存储时间戳</span></span><br><span class="line">            <span class="keyword">this</span>.storeTimestamp = tmpTimeStamp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -251,10 +251,10 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <p>看完同步刷盘的流程之后，异步刷盘就简单很多了。<br>
 异步刷盘仍然是使用  <code>mappedFileQueue.flush()</code>  进行刷盘的</p>
 <p>实现逻辑如下图 (代码有精简):</p>
-<p><img data-src="/images/rocketmq/3-08-10.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-10.png" alt=""></p>
 <p>可以看到，异步刷盘的线程在执行的时候，会通过  <code>Thread.sleep()</code>  进行线程等待 或者 通过  <code>CountDownLatch2</code>  进行等待的。需要注意的是:  <code>CountDownLatch2</code>  是  <code>RocketMQ</code>  实现的一个类，作用同 <code>CountDownLatch</code>  一样。</p>
 <p>而且在 消息进行刷盘的时候， 只需要将  <code>FlushRealTimeService</code>  线程  <code>wakeup()</code>  就好了。</p>
-<p><img data-src="/images/rocketmq/3-08-11.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-11.png" alt=""></p>
 <p>此时的  <code>flushCommitLogService</code>  是  <code>FlushRealTimeService</code>  的实例。</p>
 <p>异步刷盘的时机:</p>
 <ul>
@@ -267,12 +267,12 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <p>和同步刷盘相比，异步刷盘提高了 <code>IO</code>  性能。</p>
 <h3 id="异步刷盘缓冲区"><a class="markdownIt-Anchor" href="#异步刷盘缓冲区">#</a> 异步刷盘 + 缓冲区</h3>
 <p>我们先看一下执行的流程。</p>
-<p><img data-src="/images/rocketmq/3-08-12.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-12.png" alt=""></p>
 <p>然后如果是 <code>CountDownLatch2</code>  结束，执行线程的话，就会执行下面的逻辑:</p>
-<p><img data-src="/images/rocketmq/3-08-13.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-13.png" alt=""></p>
 <p>判断是否有新的数据提交， 如果有，则唤醒异步刷盘方式。没有则等待。</p>
 <p><code>waitForRunning</code>  方法的逻辑是：</p>
-<p><img data-src="/images/rocketmq/3-08-14.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/3-08-14.png" alt=""></p>
 <p>可以看到 是通过线程等待的方式，等待时间间隔完成。</p>
 <p>开启缓冲区后的刷盘策略:</p>
 <ul>
@@ -295,7 +295,7 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
  <code>RocketMQ</code>  的大致做法是，将数据文件映射到 <code>OS</code>  的虚拟内存中（通过 <code>JDK</code>   <code>NIO</code>  的 <code>MappedByteBuffer</code> ），写消息的时候首先写入  <code>PageCache</code>  ，并通过异步刷盘的方式将消息批量的做持久化（同时也支持同步刷盘）；订阅消费消息时（对 <code>CommitLog</code>  操作是随机读取），由于 <code>PageCache</code>  的局部性热点原理且整体情况下还是从旧到新的有序读，因此大部分情况下消息还是可以直接从 <code>Page Cache</code> （ <code>cache hit</code> ）中读取，不会产生太多的缺页（ <code>Page Fault</code> ）中断而从磁盘读取。当然， <code>PageCache</code>  机制也不是完全无缺点的，当遇到 <code>OS</code>  进行脏页回写，内存回收，内存 <code>swap</code>  等情况时，就会引起较大的消息读写延迟。对于这些情况，  <code>RocketMQ</code>  采用了多种优化技术，比如内存预分配，文件预热，  <code>mlock</code>  系统调用等，来保证在最大可能地发挥  <code>PageCache</code>  机制优点的同时，尽可能地减少其缺点带来的消息读写延迟.</p>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
 <p>期望和你一起遇见更好的自己</p>
-<p><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/qrcode.jpg" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.iohttps://fangjiaxiaobai.github.io/images/rocketmq/qrcode.jpg" alt=""></p>
 
       <div class="asb asb-post-01" style="display:none;">
         <div class="mask"></div>
@@ -328,7 +328,7 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-07-09 08:50:09" itemprop="dateModified" datetime="2022-07-09T08:50:09+08:00">2022-07-09</time>
+    <time title="修改时间：2022-07-10 14:28:49" itemprop="dateModified" datetime="2022-07-10T14:28:49+08:00">2022-07-10</time>
   </span>
   <span id="2022/07/09/rocketMQ/3-08-save-msg-detail/" class="item leancloud_visitors" data-flag-title="RocketMQ 消息刷盘过程详解" title="阅读次数">
       <span class="icon">
@@ -390,7 +390,7 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
     <div class="item left">
       
 
-  <a href="/2022/06/05/others/cat-movie/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfw2t96j20zk0m8x6p.jpg" title="猫影视接口配置【不定时更新】">
+  <a href="/2022/06/05/others/cat-movie/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicliierfjj20zk0m8npd.jpg" title="猫影视接口配置【不定时更新】">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 其他</span>
   <h3>猫影视接口配置【不定时更新】</h3>
@@ -398,6 +398,14 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 
     </div>
     <div class="item right">
+      
+
+  <a href="/2022/07/17/k8s/how-to-build/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-01.png" title="k8s-搭建K8s集群">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> k8s</span>
+  <h3>k8s-搭建K8s集群</h3>
+  </a>
+
     </div>
 </div>
 
@@ -432,19 +440,19 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">104</span>
+        <span class="count">105</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">22</span>
+        <span class="count">23</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">64</span>
+        <span class="count">66</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -573,10 +581,12 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2022/06/05/others/cat-movie/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2022/07/17/k8s/how-to-build/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -598,10 +608,10 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
   </li>
 
       
@@ -611,37 +621,7 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap/" title="全网最全的 HashMap 源码解读">全网最全的 HashMap 源码解读</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+    <span><a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" title="RocketMQ系列-在Java应用中的使用">RocketMQ系列-在Java应用中的使用</a></span>
   </li>
 
       
@@ -651,17 +631,57 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
 <a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" title="冒泡排序">冒泡排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+</div>
+
+    <span><a href="/2022/07/17/k8s/how-to-build/" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%85%A8%E7%AB%99%E5%9C%B0%E5%9B%BE/" title="分类于 全站地图">全站地图</a>
+</div>
+
+    <span><a href="/2021/07/18/RoadMap/" title="全站地图">全站地图</a></span>
   </li>
 
       
@@ -678,20 +698,10 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/picture/" title="分类于 picture">picture</a>
-</div>
-
-    <span><a href="/2021/07/23/pictures/pic20220127/" title="图片一">图片一</a></span>
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/01-overview/" title="模型评估概述">模型评估概述</a></span>
   </li>
 
   </ul>
@@ -716,13 +726,13 @@ RocketMQ 消息刷盘过程详解 - RocketMQ 系列 |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">446k 字</span>
+    <span title="站点总字数">453k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:45</span>
+    <span title="站点阅读时长">6:52</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
