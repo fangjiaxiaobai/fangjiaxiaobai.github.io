@@ -3,63 +3,63 @@
     <id>https://fangjiaxiaobai.github.io</id>
     <title>方家小白 • Posts by &#34;k8s&#34; category</title>
     <link href="https://fangjiaxiaobai.github.io" />
-    <updated>2022-07-17T10:18:00.000Z</updated>
+    <updated>2022-07-22T10:18:00.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
+    <category term="源码" />
+    <category term="Redis" />
     <category term="MySQL" />
+    <category term="数据结构" />
+    <category term="Elastic Search" />
+    <category term="搜索" />
+    <category term="雪花算法" />
+    <category term="算法" />
+    <category term="go" />
+    <category term="go-error" />
+    <category term="git" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="Redis" />
-    <category term="数据结构" />
-    <category term="雪花算法" />
-    <category term="算法" />
-    <category term="Elastic Search" />
-    <category term="搜索" />
-    <category term="git" />
-    <category term="go" />
-    <category term="go-error" />
-    <category term="源码" />
-    <category term="log" />
-    <category term="go-log" />
     <category term="k8s" />
     <category term="kubernetes" />
+    <category term="log" />
+    <category term="go-log" />
+    <category term="猫影视" />
+    <category term="MachineLearn" />
+    <category term="图片" />
     <category term="RocketMQ" />
     <category term="消息队列" />
-    <category term="MachineLearn" />
-    <category term="猫影视" />
-    <category term="图片" />
-    <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="链表" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="有点难的算法题" />
+    <category term="leetCode" />
+    <category term="面经之算法题" />
+    <category term="链表" />
     <category term="不做也罢的算法题" />
     <category term="动态规划" />
+    <category term="数组" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
-    <category term="数据结构与算法" />
-    <category term="递归" />
-    <category term="哈希算法" />
-    <category term="排序" />
-    <category term="快速排序" />
-    <category term="分支思想排序" />
-    <category term="冒泡排序" />
-    <category term="交换排序" />
-    <category term="选择排序" />
-    <category term="分治思想排序" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
+    <category term="有点难的算法题" />
     <category term="HashMap" />
     <category term="JDK" />
     <category term="JDK8" />
+    <category term="数据结构与算法" />
+    <category term="go-设计模式" />
     <category term="String" />
+    <category term="递归" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="交换排序" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="选择排序" />
+    <category term="哈希算法" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
     <category term="Java" />
     <category term="dubbo" />
-    <category term="go-设计模式" />
     <category term="模型评估" />
     <category term="架构" />
     <category term="笔记" />
@@ -70,6 +70,52 @@
     <category term="OOM" />
     <category term="JVM" />
     <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2022/07/22/k8s/pit01.incompatible-CNI-versions/</id>
+        <title>k8s-incompatible CNI versions</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/07/22/k8s/pit01.incompatible-CNI-versions/"/>
+        <content type="html">&lt;h3 id=&#34;报错内容&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#报错内容&#34;&gt;#&lt;/a&gt; 报错内容&lt;/h3&gt;
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Warning  FailedCreatePodSandBox  5m17s kubelet Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; sandbox &lt;span class=&#34;string&#34;&gt;&amp;quot;1ded5da71b38996763e74f28f609d8d8f26a4cc1e4fdd3272312bf3e168e4111&amp;quot;&lt;/span&gt;: plugin &lt;span class=&#34;built_in&#34;&gt;type&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;bridge&amp;quot;&lt;/span&gt; failed (add): incompatible CNI versions; config is &lt;span class=&#34;string&#34;&gt;&amp;quot;1.0.0&amp;quot;&lt;/span&gt;, plugin supports [&lt;span class=&#34;string&#34;&gt;&amp;quot;0.1.0&amp;quot;&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;0.2.0&amp;quot;&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;0.3.0&amp;quot;&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;0.3.1&amp;quot;&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;0.4.0&amp;quot;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;部署的环境&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#部署的环境&#34;&gt;#&lt;/a&gt; 部署的环境&lt;/h3&gt;
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;centos 8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;kubernetes 1.24.3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;解决问题&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解决问题&#34;&gt;#&lt;/a&gt; 解决问题&lt;/h3&gt;
+&lt;p&gt;这个问题的主要内容是:  &lt;code&gt;incompatible CNI versions&lt;/code&gt; . 当你去网上去搜索解决方案大都是 说 使用  &lt;code&gt;containerd&lt;/code&gt;  的版本不对，也就是说，确实是  &lt;code&gt;CNI&lt;/code&gt;  的版本是有问题的。&lt;/p&gt;
+&lt;p&gt;具体的解决方案在官方网站中是这样说的：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/01-01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;具体内容可以看这里:&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9rdWJlcm5ldGVzLmlvL3poLWNuL2RvY3MvdGFza3MvYWRtaW5pc3Rlci1jbHVzdGVyL21pZ3JhdGluZy1mcm9tLWRvY2tlcnNoaW0vdHJvdWJsZXNob290aW5nLWNuaS1wbHVnaW4tcmVsYXRlZC1lcnJvcnMvI3VwZGF0aW5nLXlvdXItY25pLXBsdWdpbnMtYW5kLWNuaS1jb25maWctZmlsZXM=&#34;&gt;https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/#updating-your-cni-plugins-and-cni-config-files&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;首先可以查看 当前的  &lt;code&gt;containerd&lt;/code&gt;  的版本.&lt;/p&gt;
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[root@k8s-master-01 ~]&lt;span class=&#34;comment&#34;&gt;# containerd -v&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;containerd github.com/containerd/containerd v1.6.4 212e8b6fa2f44b9c21b2798135fc6fb7c53efc16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;不在  &lt;code&gt;v1.6.0-v1.6.3&lt;/code&gt;  中。 文档中说 在  &lt;code&gt;v1.6.4&lt;/code&gt;  版本中已经修复了这个问题.&lt;/p&gt;
+&lt;p&gt;查看  &lt;code&gt;/etc/cni/net.d/10-containerd-net.conflist&lt;/code&gt;  这个文件， cni 版本  &lt;code&gt; &amp;quot;cniVersion&amp;quot;: &amp;quot;1.0.0&amp;quot;,&lt;/code&gt; , 也确实是 &lt;code&gt;1.0.0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;继续搜索&lt;/p&gt;
+&lt;p&gt;在 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcmQvY29udGFpbmVyZC9pc3N1ZXMvNjg3Ng==&#34;&gt;https://github.com/containerd/containerd/issues/6876&lt;/span&gt; 中，有一个人遇到了  &lt;code&gt;v1.6.4&lt;/code&gt;  版本中出现了  &lt;code&gt;incompatible CNI versions&lt;/code&gt;  这个问题。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/01-02.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;仔细看他的这个问题，是我遇到的这个问题是一样的  &lt;code&gt;plugins type=&#39;bridge&#39;&lt;/code&gt; . 而这个  &lt;code&gt;issure&lt;/code&gt;  中提到的问题，是当  &lt;code&gt;plugins type = &#39;loooback&#39;&lt;/code&gt; . 这也是上图中  &lt;code&gt;hakman&lt;/code&gt;  提到的。&lt;/p&gt;
+&lt;p&gt;仔细看  &lt;code&gt;mikebrow&lt;/code&gt;  所说的，需要安装一个  &lt;code&gt;1.0.0&lt;/code&gt;  版本的  &lt;code&gt;bridge&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;那就在网络中搜索 :  &lt;code&gt;k8s 是安装 bridge&lt;/code&gt; ， 在  &lt;code&gt;https://blog.csdn.net/m0_48594855/article/details/107870839&lt;/code&gt;  看到 安装 bridge 的方法，他这里是使用 git 仓库 源码编译。其实直接打开 git 仓库  &lt;code&gt;https://github.com/containernetworking/plugins/releases/tag/v1.1.1&lt;/code&gt;  下载对应版本即可， 今天是  &lt;code&gt;2022&lt;/code&gt;  年 &lt;code&gt;7&lt;/code&gt;  月 &lt;code&gt;22&lt;/code&gt;  日，我就下载了最新的一版本。&lt;/p&gt;
+&lt;p&gt;简单粗暴的  &lt;code&gt;/opt/cni/bin/&lt;/code&gt;  下的内容，全部替换掉，然后重启  &lt;code&gt;kubelet&lt;/code&gt;  服务就可以了。&lt;/p&gt;
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 下载包&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;wget https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 备份一下驱动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mv /opt/cni/bin /opt/cni/bin.bak&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 解压到指定目录&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;tar -zxvf cni-plugins-linux-amd64-v1.1.1.tgz -C /opt/cni/bin &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 重启 kubelet&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;systemctl restart kubelet&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后再所有的节点上都执行一遍上面的内容，然后就可以了。&lt;/p&gt;
+&lt;p&gt;可以通过   &lt;code&gt;kubectl describe pod&lt;/code&gt;  查看下是否开始下载镜像了。&lt;/p&gt;
+&lt;h3 id=&#34;问题解决思路&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#问题解决思路&#34;&gt;#&lt;/a&gt; 问题解决思路&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;先看下  &lt;code&gt;contrainerd&lt;/code&gt;  版本是否  &lt;code&gt;&amp;gt;=1.6.4&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果  &lt;code&gt;&amp;lt;=1.6.3&lt;/code&gt;  那么就需要升级  &lt;code&gt;contrainerd&lt;/code&gt;  运行环境.&lt;/li&gt;
+&lt;li&gt;如果还有这样的问题，那就是要看下对应的插件类型是否满足版本要求了。&lt;/li&gt;
+&lt;li&gt;如果不满足，那就重新安装下对应的插件就行了，比如我的问题中的  &lt;code&gt;bridge&lt;/code&gt;  插件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;举一反三&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#举一反三&#34;&gt;#&lt;/a&gt; 举一反三&lt;/h3&gt;
+&lt;p&gt;假设有一棵树，那个问题只是这棵树的一片叶子， 这里面还涉及到很多  &lt;code&gt;k8s&lt;/code&gt;  的概念性的东西。比如  &lt;code&gt;CNI&lt;/code&gt;  网络插件都有什么，每种插件的功能是什么，以及对应的网络驱动是什么，比如  &lt;code&gt;Calico&lt;/code&gt;  ,  &lt;code&gt;fannel&lt;/code&gt;  ,  &lt;code&gt;bridge&lt;/code&gt;  。  &lt;code&gt;CNI&lt;/code&gt;  和  &lt;code&gt;containerd&lt;/code&gt; ,  &lt;code&gt;cri-o&lt;/code&gt;  都是什么关系。所以，要从根儿上去理解这些概念。 废话不多说，下篇文章见。&lt;/p&gt;
+&lt;h3 id=&#34;参考文档&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#参考文档&#34;&gt;#&lt;/a&gt; 参考文档&lt;/h3&gt;
+&lt;p&gt;1、&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcmQvY29udGFpbmVyZC9pc3N1ZXMvNjg3Ng==&#34;&gt;https://github.com/containerd/containerd/issues/6876&lt;/span&gt;&lt;br&gt;
+2、&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ4NTk0ODU1L2FydGljbGUvZGV0YWlscy8xMDc4NzA4Mzk=&#34;&gt;https://blog.csdn.net/m0_48594855/article/details/107870839&lt;/span&gt;&lt;br&gt;
+3、&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcm5ldHdvcmtpbmcvcGx1Z2lucy9yZWxlYXNlcy90YWcvdjEuMS4x&#34;&gt;https://github.com/containernetworking/plugins/releases/tag/v1.1.1&lt;/span&gt;&lt;br&gt;
+4、&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9rdWJlcm5ldGVzLmlvL3poLWNuL2RvY3MvdGFza3MvYWRtaW5pc3Rlci1jbHVzdGVyL21pZ3JhdGluZy1mcm9tLWRvY2tlcnNoaW0vdHJvdWJsZXNob290aW5nLWNuaS1wbHVnaW4tcmVsYXRlZC1lcnJvcnMvI3VwZGF0aW5nLXlvdXItY25pLXBsdWdpbnMtYW5kLWNuaS1jb25maWctZmlsZXM=&#34;&gt;https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/#updating-your-cni-plugins-and-cni-config-files&lt;/span&gt;&lt;/p&gt;
+</content>
+        <category term="k8s" />
+        <category term="kubernetes" />
+        <updated>2022-07-22T10:18:00.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2022/07/17/k8s/how-to-build/</id>
         <title>k8s-搭建K8s集群</title>
