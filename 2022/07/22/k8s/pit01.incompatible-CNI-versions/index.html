@@ -170,7 +170,7 @@ k8s-incompatible CNI versions - k8s |
 <h3 id="解决问题"><a class="markdownIt-Anchor" href="#解决问题">#</a> 解决问题</h3>
 <p>这个问题的主要内容是:  <code>incompatible CNI versions</code> . 当你去网上去搜索解决方案大都是 说 使用  <code>containerd</code>  的版本不对，也就是说，确实是  <code>CNI</code>  的版本是有问题的。</p>
 <p>具体的解决方案在官方网站中是这样说的：</p>
-<p><img data-src="/images/k8s/01-01.png" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/k8s/01-01.png" alt=""></p>
 <p>具体内容可以看这里:<span class="exturl" data-url="aHR0cHM6Ly9rdWJlcm5ldGVzLmlvL3poLWNuL2RvY3MvdGFza3MvYWRtaW5pc3Rlci1jbHVzdGVyL21pZ3JhdGluZy1mcm9tLWRvY2tlcnNoaW0vdHJvdWJsZXNob290aW5nLWNuaS1wbHVnaW4tcmVsYXRlZC1lcnJvcnMvI3VwZGF0aW5nLXlvdXItY25pLXBsdWdpbnMtYW5kLWNuaS1jb25maWctZmlsZXM=">https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/#updating-your-cni-plugins-and-cni-config-files</span></p>
 <p>首先可以查看 当前的  <code>containerd</code>  的版本.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-01 ~]<span class="comment"># containerd -v</span></span><br><span class="line">containerd github.com/containerd/containerd v1.6.4 212e8b6fa2f44b9c21b2798135fc6fb7c53efc16</span><br></pre></td></tr></table></figure>
@@ -178,7 +178,7 @@ k8s-incompatible CNI versions - k8s |
 <p>查看  <code>/etc/cni/net.d/10-containerd-net.conflist</code>  这个文件， cni 版本  <code> &quot;cniVersion&quot;: &quot;1.0.0&quot;,</code> , 也确实是 <code>1.0.0</code></p>
 <p>继续搜索</p>
 <p>在 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcmQvY29udGFpbmVyZC9pc3N1ZXMvNjg3Ng==">https://github.com/containerd/containerd/issues/6876</span> 中，有一个人遇到了  <code>v1.6.4</code>  版本中出现了  <code>incompatible CNI versions</code>  这个问题。</p>
-<p><img data-src="/images/k8s/01-02.jpg" alt=""></p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/k8s/01-02.jpg" alt=""></p>
 <p>仔细看他的这个问题，是我遇到的这个问题是一样的  <code>plugins type='bridge'</code> . 而这个  <code>issure</code>  中提到的问题，是当  <code>plugins type = 'loooback'</code> . 这也是上图中  <code>hakman</code>  提到的。</p>
 <p>仔细看  <code>mikebrow</code>  所说的，需要安装一个  <code>1.0.0</code>  版本的  <code>bridge</code> .</p>
 <p>那就在网络中搜索 :  <code>k8s 是安装 bridge</code> ， 在  <code>https://blog.csdn.net/m0_48594855/article/details/107870839</code>  看到 安装 bridge 的方法，他这里是使用 git 仓库 源码编译。其实直接打开 git 仓库  <code>https://github.com/containernetworking/plugins/releases/tag/v1.1.1</code>  下载对应版本即可， 今天是  <code>2022</code>  年 <code>7</code>  月 <code>22</code>  日，我就下载了最新的一版本。</p>
@@ -232,7 +232,7 @@ k8s-incompatible CNI versions - k8s |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-07-23 20:30:49" itemprop="dateModified" datetime="2022-07-23T20:30:49+08:00">2022-07-23</time>
+    <time title="修改时间：2022-07-23 20:34:27" itemprop="dateModified" datetime="2022-07-23T20:34:27+08:00">2022-07-23</time>
   </span>
   <span id="2022/07/22/k8s/pit01.incompatible-CNI-versions/" class="item leancloud_visitors" data-flag-title="k8s-incompatible CNI versions" title="阅读次数">
       <span class="icon">
@@ -294,7 +294,7 @@ k8s-incompatible CNI versions - k8s |
     <div class="item left">
       
 
-  <a href="/2022/07/17/k8s/how-to-build/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-01.png" title="k8s-搭建K8s集群">
+  <a href="/2022/07/17/k8s/seris02-how-to-build/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-01.png" title="k8s-搭建K8s集群">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> k8s</span>
   <h3>k8s-搭建K8s集群</h3>
@@ -302,6 +302,14 @@ k8s-incompatible CNI versions - k8s |
 
     </div>
     <div class="item right">
+      
+
+  <a href="/2022/07/31/k8s/seris03-pod-lifecycle/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-03.png" title="k8s-Pod的生命周期">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> k8s</span>
+  <h3>k8s-Pod的生命周期</h3>
+  </a>
+
     </div>
 </div>
 
@@ -322,7 +330,7 @@ k8s-incompatible CNI versions - k8s |
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2022/07/17/k8s/how-to-build/" rel="bookmark" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></li><li class="active"><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" rel="bookmark" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></li>
+          <li><a href="/2022/07/17/k8s/seris02-how-to-build/" rel="bookmark" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></li><li class="active"><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" rel="bookmark" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></li><li><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" rel="bookmark" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -336,7 +344,7 @@ k8s-incompatible CNI versions - k8s |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">106</span>
+        <span class="count">107</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -477,10 +485,12 @@ k8s-incompatible CNI versions - k8s |
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2022/07/17/k8s/seris02-how-to-build/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2022/07/31/k8s/seris03-pod-lifecycle/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -502,10 +512,20 @@ k8s-incompatible CNI versions - k8s |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
   </li>
 
       
@@ -515,7 +535,7 @@ k8s-incompatible CNI versions - k8s |
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/" title="git命令3 - 远程仓库">git命令3 - 远程仓库</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
   </li>
 
       
@@ -525,27 +545,7 @@ k8s-incompatible CNI versions - k8s |
 <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" title="LC:495.提莫攻击">LC:495.提莫攻击</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/" title="git开发模型 - github-flow">git开发模型 - github-flow</a></span>
+    <span><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" title="LC:407.接雨水II">LC:407.接雨水II</a></span>
   </li>
 
       
@@ -562,40 +562,50 @@ k8s-incompatible CNI versions - k8s |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/" title="git命令详解">git命令详解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
-</div>
-
-    <span><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
     <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%97%A5%E5%B8%B8/" title="分类于 日常">日常</a>
+</div>
+
+    <span><a href="/2022/01/07/daily/2022-01-07/" title="Springboot集成Netty.">Springboot集成Netty.</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" title="搭建第一个纯dubbo微服务应用">搭建第一个纯dubbo微服务应用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
   </li>
 
   </ul>
@@ -620,13 +630,13 @@ k8s-incompatible CNI versions - k8s |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">456k 字</span>
+    <span title="站点总字数">465k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">7:03</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
