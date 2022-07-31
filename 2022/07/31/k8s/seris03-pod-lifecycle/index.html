@@ -164,8 +164,8 @@ k8s-Pod 的生命周期 - k8s |
 
     <div id="fxb_container" class="fxb_container_style">
       <p><code>K8s</code>  中所有的内容都抽象为资源，资源实例化为对象。</p>
-<h3 id="集群资源的分类"><a class="markdownIt-Anchor" href="#集群资源的分类">#</a> 集群资源的分类</h3>
-<h4 id="名称空间级别"><a class="markdownIt-Anchor" href="#名称空间级别">#</a> 名称空间级别</h4>
+<h2 id="集群资源的分类"><a class="markdownIt-Anchor" href="#集群资源的分类">#</a> 集群资源的分类</h2>
+<h3 id="名称空间级别"><a class="markdownIt-Anchor" href="#名称空间级别">#</a> 名称空间级别</h3>
 <ul>
 <li>工作负载型资源 (  <code>workload</code>  )：  <code>Pod</code> 、 <code>ReplicaSet</code> 、 <code>Deployment</code> 、 <code>StatefulSet</code> 、 <code>DaemonSet、Job</code> 、  <code>CronJob</code>  (  <code>ReplicationController</code>  在  <code>v1.11</code>  版本被废弃 )</li>
 <li>服务发现及负载均衡型资源 (  <code>ServiceDiscovery LoadBalance</code>  ):  <code>Service</code> 、 <code>Ingress</code> 、…</li>
@@ -257,7 +257,7 @@ k8s-Pod 的生命周期 - k8s |
 </ul>
 <p>可以通过下面的命令实时查看 yaml 的配置内容</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod.</span><br></pre></td></tr></table></figure>
-<h2 id="案例"><a class="markdownIt-Anchor" href="#案例">#</a> 案例</h2>
+<h3 id="案例"><a class="markdownIt-Anchor" href="#案例">#</a> 案例</h3>
 <p>通过资源清单创建一个 pod.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">sample-demo</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">    <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span>   <span class="attr">name:</span> <span class="string">my-app</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">fangjiaxiaobai/my-app:v1</span></span><br></pre></td></tr></table></figure>
 <p>使用  <code>kubectl create -f 01-sample-yaml.yaml</code>  创建</p>
@@ -289,9 +289,9 @@ k8s-Pod 的生命周期 - k8s |
 <li><code>Init</code>  容器使用  <code>Linux Namespace</code> ，所以相对应用程序容器来说具有不同的文件系统视图。因此，它们能够具有访问  <code>Secret</code>  的权限，而应用程序容器则不能。</li>
 <li>它们必须在应用程序容器启动之前运行完成，而应用程序容器是并行运行的，所以  <code>Init</code>  容器能够提供了一种简单的阻塞或延迟应用容器的启动的方法，直到满足了一组先决条件。</li>
 </ul>
-<h3 id="init小实验"><a class="markdownIt-Anchor" href="#init小实验">#</a>  <code>init</code>  小实验。</h3>
+<h4 id="init小实验"><a class="markdownIt-Anchor" href="#init小实验">#</a>  <code>init</code>  小实验。</h4>
 <p>实验目的:  <code>init</code>  容器会依次启动，只有  <code>init</code>  容器启动完成之后， 主容器才会启动.</p>
-<h4 id="实验步骤"><a class="markdownIt-Anchor" href="#实验步骤">#</a> 实验步骤</h4>
+<h5 id="实验步骤"><a class="markdownIt-Anchor" href="#实验步骤">#</a> 实验步骤</h5>
 <ul>
 <li>创建  <code>pod</code> .</li>
 <li>查看  <code>pod</code>  的状态变化</li>
@@ -304,7 +304,7 @@ k8s-Pod 的生命周期 - k8s |
 <li>查看  <code>pod</code>  中  <code>initC</code>  的日志</li>
 <li>查看  <code>pod</code>  的日志</li>
 </ul>
-<h5 id="创建-pod"><a class="markdownIt-Anchor" href="#创建-pod">#</a> 创建  <code>pod</code> .</h5>
+<h6 id="创建-pod"><a class="markdownIt-Anchor" href="#创建-pod">#</a> 创建  <code>pod</code> .</h6>
 <ul>
 <li><code>02-init-demo.yaml</code></li>
 </ul>
@@ -312,10 +312,10 @@ k8s-Pod 的生命周期 - k8s |
 <p>使用命令  <code>kubectl create -f 02-init-demo.yaml</code>  创建  <code>pod</code> .</p>
 <p>新开一个窗口使用  <code>kubectl get pods -w -o wide</code>  命令 查看 pod 的启动变化.<br>
 <img data-src="/images/k8s/03-07.jpg" alt=""></p>
-<h3 id="查看查看-pod-中init-c-1的日志"><a class="markdownIt-Anchor" href="#查看查看-pod-中init-c-1的日志">#</a> 查看查看  <code>pod</code>  中 <code>init-c-1</code>  的日志</h3>
+<h6 id="查看查看-pod-中init-c-1的日志"><a class="markdownIt-Anchor" href="#查看查看-pod-中init-c-1的日志">#</a> 查看查看  <code>pod</code>  中 <code>init-c-1</code>  的日志</h6>
 <p><img data-src="/images/k8s/03-08.jpg" alt=""></p>
 <p>发现  <code>initC-1</code>  一直在  <code>nslookup</code>  查找  <code>my-service-1</code> .</p>
-<h5 id="创建-service-1"><a class="markdownIt-Anchor" href="#创建-service-1">#</a> 创建  <code>Service-1</code></h5>
+<h6 id="创建-service-1"><a class="markdownIt-Anchor" href="#创建-service-1">#</a> 创建  <code>Service-1</code></h6>
 <ul>
 <li><code>02-init-demo-my-service-01.yaml</code></li>
 </ul>
@@ -327,7 +327,7 @@ k8s-Pod 的生命周期 - k8s |
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Server:		10.96.0.10</span><br><span class="line">Address:	10.96.0.10:53</span><br><span class="line"></span><br><span class="line">Name:	my-service-1.default.svc.cluster.local</span><br><span class="line">Address: 10.108.140.48</span><br></pre></td></tr></table></figure>
 <p>然后查看  <code>pod</code>  的状态。会出现一条：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init-demo   0/1     Init:1/2   0          4m1s   10.244.154.204   k8s-node-01   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="创建-service-2"><a class="markdownIt-Anchor" href="#创建-service-2">#</a> 创建  <code>Service-2</code></h5>
+<h6 id="创建-service-2"><a class="markdownIt-Anchor" href="#创建-service-2">#</a> 创建  <code>Service-2</code></h6>
 <ul>
 <li><code>02-init-demo-my-service-02.yaml</code></li>
 </ul>
@@ -341,7 +341,7 @@ k8s-Pod 的生命周期 - k8s |
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init-demo   1/1     Running           0          6m53s   10.244.154.204   k8s-node-01   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
 <p>然后查看  <code>pod</code>  的日志，会输出  <code>the app is running.</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-01 k8s-yamls]# kubectl logs -f init-demo</span><br><span class="line">Defaulted container &quot;my-init-demo&quot; out of: my-init-demo, init-myservice-1 (init), init-myservice-2 (init)</span><br><span class="line">the app is running!</span><br></pre></td></tr></table></figure>
-<h3 id="关于init容器的特殊说明"><a class="markdownIt-Anchor" href="#关于init容器的特殊说明">#</a> 关于 init 容器的特殊说明</h3>
+<h4 id="关于init容器的特殊说明"><a class="markdownIt-Anchor" href="#关于init容器的特殊说明">#</a> 关于 init 容器的特殊说明</h4>
 <ul>
 <li>在  <code>Pod</code>  启动过程中，  <code>Init</code>  容器会按顺序在网络和数据卷初始化之后启动。每个容器必须在下一个容器启动之前成功退出</li>
 <li>如果由于运行时或失败退出，将导致容器启动失败，它会根据  <code>Pod</code>  的  <code>restartPolicy</code>  指定的策略 进行重试。然而，如果  <code>Pod</code>  的  <code>restartPolicy</code>  设置为  <code>Always</code> ， <code>Init</code>  容器失败时会使用  <code>RestartPolicy</code>  策略</li>
@@ -351,7 +351,7 @@ k8s-Pod 的生命周期 - k8s |
 <li><code>Init</code>  容器具有应用容器的所有字段。除了  <code>readinessProbe</code>  ，因为  <code>Init</code>  容器无法定义不同于完成 ( <code>completion</code> ) 的就绪（ <code>readiness</code> ）之外的其他状态。这会在验证过程中强制执行</li>
 <li>在  <code>Pod</code>  中的每个  <code>app</code>  和  <code>Init</code>  容器的名称必须唯一；与任何其它容器共享同一个名称，会在验证时抛出错误.</li>
 </ul>
-<h3 id="探针检测"><a class="markdownIt-Anchor" href="#探针检测">#</a> 探针检测</h3>
+<h2 id="探针检测"><a class="markdownIt-Anchor" href="#探针检测">#</a> 探针检测</h2>
 <p>探针是由  <code>kubelet</code>  对容器执行的定期诊断。要执行诊断， <code>kubelet</code>  调用由容器实现的  <code>Handler</code> 。有三种类型的处理程序：</p>
 <ul>
 <li><code>ExecAction</code> ：在容器内执行指定命令。如果命令退出时返回码为  <code>0</code>  则认为诊断成功。</li>
@@ -364,12 +364,12 @@ k8s-Pod 的生命周期 - k8s |
 <li>失败：容器未通过诊断。</li>
 <li>未知：诊断失败，因此不会采取任何行动</li>
 </ul>
-<h4 id="探测的方式"><a class="markdownIt-Anchor" href="#探测的方式">#</a> 探测的方式</h4>
+<h3 id="探测的方式"><a class="markdownIt-Anchor" href="#探测的方式">#</a> 探测的方式</h3>
 <ul>
 <li><code>livenessProbe</code> ：指示容器是否正在运行。如果存活探测失败，则  <code>kubelet</code>  会杀死容器，并且容器将受到其 重启策略 的影响。如果容器不提供存活探针，则默认状态为  <code>Success</code></li>
 <li><code>readinessProbe</code> ：指示容器是否准备好服务请求。如果就绪探测失败，端点控制器将从与  <code>Pod</code>  匹配的所有  <code>Service</code>  的端点中删除该  <code>Pod</code>  的  <code>IP</code>  地址。初始延迟之前的就绪状态默认为  <code>Failure</code> 。如果容器不提供就绪探针，则默认状态为  <code>Success</code></li>
 </ul>
-<h5 id="pod-hook"><a class="markdownIt-Anchor" href="#pod-hook">#</a> Pod Hook</h5>
+<h4 id="pod-hook"><a class="markdownIt-Anchor" href="#pod-hook">#</a> Pod Hook</h4>
 <p><code>Pod hook</code> （钩子）是由  <code>Kubernetes</code>  管理的  <code>kubelet</code>  发起的，当容器中的进程启动前或者容器中的进程终止之前运行，这是包含在容器的生命周期之中。可以同时为  <code>Pod</code>  中的所有容器都配置  <code>hook</code></p>
 <p><code>Hook</code>  的类型包括两种：</p>
 <ul>
@@ -388,8 +388,8 @@ k8s-Pod 的生命周期 - k8s |
 <li>失败（ <code>Failed</code> ）： <code>Pod</code>  中的所有容器都已终止了，并且至少有一个容器是因为失败终止。也就是说，容器以非  <code>0</code>  状态退出或者被系统终止</li>
 <li>未知（ <code>Unknown</code> ）：因为某些原因无法取得  <code>Pod</code>  的状态，通常是因为与  <code>Pod</code>  所在主机通信失败</li>
 </ul>
-<h4 id="两个小实验"><a class="markdownIt-Anchor" href="#两个小实验">#</a> 两个小实验。</h4>
-<h5 id="readiness"><a class="markdownIt-Anchor" href="#readiness">#</a> Readiness</h5>
+<h3 id="两个小实验"><a class="markdownIt-Anchor" href="#两个小实验">#</a> 两个小实验</h3>
+<h4 id="readiness"><a class="markdownIt-Anchor" href="#readiness">#</a> Readiness</h4>
 <ul>
 <li><code>03-readness-demo.yaml</code></li>
 </ul>
@@ -406,13 +406,15 @@ k8s-Pod 的生命周期 - k8s |
 <p><img data-src="/images/k8s/03-12.png" alt=""></p>
 <p>然后查看一下  <code>pod</code>  的状态。</p>
 <p><img data-src="/images/k8s/03-13.png" alt=""></p>
-<h5 id="liveness"><a class="markdownIt-Anchor" href="#liveness">#</a> Liveness</h5>
+<h4 id="liveness"><a class="markdownIt-Anchor" href="#liveness">#</a> Liveness</h4>
+<h5 id="liveness-exec-demo"><a class="markdownIt-Anchor" href="#liveness-exec-demo">#</a> liveness-exec demo</h5>
 <ul>
 <li><code>04-liveness-demo-exec.yaml</code></li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">liveness-demo</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">liveness-demo-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">fangjiaxiaobai/my-app:v1</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&#x27;/bin/sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>, <span class="string">&#x27;touch /tmp/live; sleep 20; rm -rf /tmp/live; sleep 3600;&#x27;</span>]</span><br><span class="line">    <span class="attr">livenessProbe:</span></span><br><span class="line">      <span class="attr">exec:</span></span><br><span class="line">        <span class="attr">command:</span> [<span class="string">&#x27;test&#x27;</span>, <span class="string">&#x27;-e&#x27;</span>, <span class="string">&#x27;/tmp/live&#x27;</span>]</span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>然后查看 <code>pod</code>  的状态</p>
 <p><img data-src="/images/k8s/03-14.png" alt=""></p>
+<h5 id="liveness-http-get-demo"><a class="markdownIt-Anchor" href="#liveness-http-get-demo">#</a> liveness-http-get demo</h5>
 <ul>
 <li><code>04-liveness-httpGet-demo.yaml</code></li>
 </ul>
@@ -422,7 +424,7 @@ k8s-Pod 的生命周期 - k8s |
 <p><code>kubectl exec liveness-http-get-demo -it -- rm -rf /usr/share/nginx/html/index.html</code></p>
 <p>可以发现 pod 进行了重启。如下图 (我删除了两次)</p>
 <p><img data-src="/images/k8s/03-16.png" alt=""></p>
-<h2 id="启动和停止"><a class="markdownIt-Anchor" href="#启动和停止">#</a> 启动和停止</h2>
+<h3 id="启动和停止"><a class="markdownIt-Anchor" href="#启动和停止">#</a> 启动和停止</h3>
 <p><img data-src="/images/k8s/03-05.png" alt=""></p>
 <p>在 pod 的生命周期中，我们讲完了  <code>pause</code> ,  <code>initC</code> ,  <code>liveness</code> ,  <code>readiness</code> . 还剩下  <code>Starter</code>  和  <code>Stop</code> .</p>
 <p>这个也比较简单，我通过下面这个实验来演示一下 pod 的启动和停止。</p>
@@ -465,7 +467,7 @@ k8s-Pod 的生命周期 - k8s |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-07-31 23:09:32" itemprop="dateModified" datetime="2022-07-31T23:09:32+08:00">2022-07-31</time>
+    <time title="修改时间：2022-08-01 07:48:02" itemprop="dateModified" datetime="2022-08-01T07:48:02+08:00">2022-08-01</time>
   </span>
   <span id="2022/07/31/k8s/seris03-pod-lifecycle/" class="item leancloud_visitors" data-flag-title="k8s-Pod 的生命周期" title="阅读次数">
       <span class="icon">
@@ -551,7 +553,7 @@ k8s-Pod 的生命周期 - k8s |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text"> 集群资源的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4%E7%BA%A7%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text"> 名称空间级别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E7%BA%A7%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text"> 集群级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text"> 元数据型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-number"></span> <span class="toc-text"> 案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number"></span> <span class="toc-text">  Pod  的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pause-%E5%AE%B9%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text"> Pause 容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#init-%E5%AE%B9%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text"> Init 容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#init%E5%B0%8F%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">  init  小实验。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text"> 实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-pod"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 创建  pod .</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%A5%E7%9C%8B-pod-%E4%B8%ADinit-c-1%E7%9A%84%E6%97%A5%E5%BF%97"><span class="toc-number">4.</span> <span class="toc-text"> 查看查看  pod  中 init-c-1  的日志</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-service-1"><span class="toc-number">4.0.1.</span> <span class="toc-text"> 创建  Service-1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-service-2"><span class="toc-number">4.0.2.</span> <span class="toc-text"> 创建  Service-2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Einit%E5%AE%B9%E5%99%A8%E7%9A%84%E7%89%B9%E6%AE%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">5.</span> <span class="toc-text"> 关于 init 容器的特殊说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E9%92%88%E6%A3%80%E6%B5%8B"><span class="toc-number">6.</span> <span class="toc-text"> 探针检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">6.1.</span> <span class="toc-text"> 探测的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pod-hook"><span class="toc-number">6.1.1.</span> <span class="toc-text"> Pod Hook</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pod-phase"><span class="toc-number">6.2.</span> <span class="toc-text"> Pod phase</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#phase%E7%9A%84%E5%80%BC"><span class="toc-number">6.2.1.</span> <span class="toc-text"> phase 的值</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E5%B0%8F%E5%AE%9E%E9%AA%8C"><span class="toc-number">6.3.</span> <span class="toc-text"> 两个小实验。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#readiness"><span class="toc-number">6.3.1.</span> <span class="toc-text"> Readiness</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#liveness"><span class="toc-number">6.3.2.</span> <span class="toc-text"> Liveness</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2"><span class="toc-number"></span> <span class="toc-text"> 启动和停止</span></a>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text"> 集群资源的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4%E7%BA%A7%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text"> 名称空间级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E7%BA%A7%E5%88%AB"><span class="toc-number">1.2.</span> <span class="toc-text"> 集群级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> 元数据型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text"> 案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">  Pod  的生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pause-%E5%AE%B9%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> Pause 容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#init-%E5%AE%B9%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text"> Init 容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#init%E5%B0%8F%E5%AE%9E%E9%AA%8C"><span class="toc-number">2.2.1.</span> <span class="toc-text">  init  小实验。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.1.1.</span> <span class="toc-text"> 实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-pod"><span class="toc-number">2.2.1.1.1.</span> <span class="toc-text"> 创建  pod .</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%A5%E7%9C%8B-pod-%E4%B8%ADinit-c-1%E7%9A%84%E6%97%A5%E5%BF%97"><span class="toc-number">2.2.1.1.2.</span> <span class="toc-text"> 查看查看  pod  中 init-c-1  的日志</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-service-1"><span class="toc-number">2.2.1.1.3.</span> <span class="toc-text"> 创建  Service-1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-service-2"><span class="toc-number">2.2.1.1.4.</span> <span class="toc-text"> 创建  Service-2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Einit%E5%AE%B9%E5%99%A8%E7%9A%84%E7%89%B9%E6%AE%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 关于 init 容器的特殊说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E9%92%88%E6%A3%80%E6%B5%8B"><span class="toc-number">3.</span> <span class="toc-text"> 探针检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text"> 探测的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pod-hook"><span class="toc-number">3.1.1.</span> <span class="toc-text"> Pod Hook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pod-phase"><span class="toc-number">3.1.2.</span> <span class="toc-text"> Pod phase</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#phase%E7%9A%84%E5%80%BC"><span class="toc-number">3.1.2.1.</span> <span class="toc-text"> phase 的值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E5%B0%8F%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.2.</span> <span class="toc-text"> 两个小实验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#readiness"><span class="toc-number">3.2.1.</span> <span class="toc-text"> Readiness</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#liveness"><span class="toc-number">3.2.2.</span> <span class="toc-text"> Liveness</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#liveness-exec-demo"><span class="toc-number">3.2.2.1.</span> <span class="toc-text"> liveness-exec demo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#liveness-http-get-demo"><span class="toc-number">3.2.2.2.</span> <span class="toc-text"> liveness-http-get demo</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2"><span class="toc-number">3.3.</span> <span class="toc-text"> 启动和停止</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -735,80 +737,40 @@ k8s-Pod 的生命周期 - k8s |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
+    <span><a href="/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="K-近邻算法(KNN)">K-近邻算法(KNN)</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+    <span><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL数据库的版本">MySQL数据库的版本</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="排序算法">排序算法</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" title="LC:520.检测大写字母">LC:520.检测大写字母</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%AE%97%E6%B3%95/" title="分类于 算法">算法</a>
-</div>
-
-    <span><a href="/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/" title="雪花算法">雪花算法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/14/BQ/hdoj/HD-1001/" title="1001 Sum Problem">1001 Sum Problem</a></span>
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-dubbo-with-springboot/" title="最简版 springboot 集成 dubbo">最简版 springboot 集成 dubbo</a></span>
   </li>
 
       
@@ -825,10 +787,50 @@ k8s-Pod 的生命周期 - k8s |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
+</div>
+
+    <span><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" title="MySQL 开篇 &amp; 说明">MySQL 开篇 & 说明</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
+</div>
+
+    <span><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
   </li>
 
   </ul>
