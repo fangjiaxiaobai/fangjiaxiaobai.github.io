@@ -7,71 +7,71 @@
         <language>zh-CN</language>
         <pubDate>Wed, 01 Sep 2021 12:47:55 +0800</pubDate>
         <lastBuildDate>Wed, 01 Sep 2021 12:47:55 +0800</lastBuildDate>
-        <category>源码</category>
-        <category>目录</category>
-        <category>全站地图</category>
-        <category>MySQL</category>
-        <category>Redis</category>
-        <category>数据结构</category>
         <category>日常</category>
         <category>Springboot</category>
         <category>Netty</category>
-        <category>雪花算法</category>
-        <category>算法</category>
+        <category>MySQL</category>
+        <category>Redis</category>
+        <category>全站地图</category>
+        <category>目录</category>
+        <category>源码</category>
+        <category>数据结构</category>
+        <category>git</category>
+        <category>go</category>
+        <category>go-error</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>git</category>
-        <category>k8s</category>
-        <category>kubernetes</category>
         <category>MachineLearn</category>
         <category>log</category>
         <category>go-log</category>
+        <category>k8s</category>
+        <category>kubernetes</category>
+        <category>雪花算法</category>
+        <category>算法</category>
         <category>猫影视</category>
         <category>图片</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>go</category>
-        <category>go-error</category>
         <category>leetCode</category>
-        <category>数组</category>
-        <category>面经之算法题</category>
         <category>链表</category>
+        <category>面经之算法题</category>
+        <category>数组</category>
+        <category>动态规划</category>
         <category>有点难的算法题</category>
         <category>不做也罢的算法题</category>
-        <category>动态规划</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
-        <category>HashMap</category>
+        <category>String</category>
         <category>JDK</category>
         <category>JDK8</category>
-        <category>String</category>
+        <category>HashMap</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>go-设计模式</category>
+        <category>模型评估</category>
         <category>数据结构与算法</category>
-        <category>递归</category>
-        <category>哈希算法</category>
         <category>排序</category>
-        <category>快速排序</category>
-        <category>分支思想排序</category>
         <category>冒泡排序</category>
         <category>交换排序</category>
-        <category>go-设计模式</category>
         <category>分治思想排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
         <category>选择排序</category>
-        <category>Java</category>
-        <category>dubbo</category>
-        <category>模型评估</category>
+        <category>哈希算法</category>
+        <category>递归</category>
         <category>架构</category>
         <category>笔记</category>
-        <category>KNN</category>
         <category>go-runtimes</category>
-        <category>JDK版本</category>
-        <category>JDK11</category>
+        <category>KNN</category>
         <category>OOM</category>
         <category>JVM</category>
+        <category>JDK版本</category>
+        <category>JDK11</category>
         <category>Stream</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</guid>
@@ -290,121 +290,6 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/</guid>
-            <title>递归</title>
-            <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/</link>
-            <category>算法</category>
-            <category>数据结构与算法</category>
-            <category>递归</category>
-            <pubDate>Wed, 01 Sep 2021 12:33:55 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;数据结构与算法 这一个模块 有两个最难的知识点，一个就是 递归，另一个就是 动态规划&lt;/p&gt;
-&lt;p&gt;我们今天来学习下递归这种实现方式。&lt;/p&gt;
-&lt;p&gt;个人认为，递归不是一种算法，就是一种语法。所以我就称它为一类问题的解决方法.&lt;/p&gt;
-&lt;h2 id=&#34;何为递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#何为递归&#34;&gt;#&lt;/a&gt; 何为递归？&lt;/h2&gt;
-&lt;p&gt;递归，去的过程叫递，回来的过程叫归。凡是递归类的问题，都能总结出一个递归公式.&lt;br&gt;
- 比如: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;f(n+1) = f(n) + 1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, 我们用代码实现就是:&lt;/p&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(n)&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; n==&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;?&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;:f(n-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;)+&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;判断是否可用递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#判断是否可用递归&#34;&gt;#&lt;/a&gt; 判断是否可用递归&lt;/h2&gt;
-&lt;p&gt;要想使用递归来解决问题，要满足三个条件:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一个问题的解可以分解为几个问题的解。&lt;/li&gt;
-&lt;li&gt;这个问题和分解之后的问题，除了树据规模不一样，求解思路一模一样.&lt;/li&gt;
-&lt;li&gt;存在递归终止条件。比如上例子中的&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;f(n)=1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;如何编写递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#如何编写递归&#34;&gt;#&lt;/a&gt; 如何编写递归&lt;/h2&gt;
-&lt;h3 id=&#34;找出递推公式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#找出递推公式&#34;&gt;#&lt;/a&gt; 找出递推公式！&lt;/h3&gt;
-&lt;p&gt;递归写法的话，最重要的就是写出递推公式，其次就是，找到终止条件.&lt;/p&gt;
-&lt;p&gt;举个例子:&lt;/p&gt;
-&lt;p&gt;人民币的组合方式.&lt;/p&gt;
-&lt;p&gt;假设我有人民币 100 元，50 元，20 元，10 元，5 元，1 元的币种若干张，我想用这些花掉 70 元，我可以怎么花？&lt;/p&gt;
-&lt;p&gt;这个问题就可以转换成了，70 元有多少中组合方式 (A) -&amp;gt; 69 元有多少中组合方式 (B) + 65 元有几种组合方式 © + 60 元有几种组合方式 (D) + 50 元有几种组合方式 (E) + 20 元有几种组合方式 (F)。&lt;/p&gt;
-&lt;p&gt;也就是说，我们把一个问题 A 分解成了若干子问题 B,C,D,E,F. 我们解决了子问题 B,C,D,E,F。 那么对应的 A 问题，也就解决了。而且，在这问题里，我们只要关心 A 与其子问题的关系即可，不用关系其他的子问题与子问题的关系。屏蔽掉递归细节。&lt;/p&gt;
-&lt;h2 id=&#34;递归实现方案的注意点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#递归实现方案的注意点&#34;&gt;#&lt;/a&gt; 递归实现方案的注意点&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;如果递归深度比较大的话，就会出现堆栈溢出的异常。&lt;/li&gt;
-&lt;li&gt;递归的时候，要避免重复计算.&lt;br&gt;
- 这个的话，举个例子，就会很清晰了。斐波那契数列的计算.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;斐波那契数列就是 当前项等于前两项之和.&lt;/p&gt;
-&lt;p&gt;以 fib (6) 为例，即求第 6 个数的数值。&lt;/p&gt;
-&lt;p&gt;如下图:&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib.png&#34; alt=&#34;算法01-动态规划01-fib.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;我们会发现: fib (4),fib (3),fib (2) 都是重复计算的。&lt;/p&gt;
-&lt;p&gt;具体的解决方式呢，在 算法【动态规划】文章里，也有说过。&lt;/p&gt;
-&lt;p&gt;加入一个数据，来记录就行了.&lt;br&gt;
-&lt;img data-src=&#34;/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib02.png&#34; alt=&#34;算法01-动态规划01-fib02.png&#34;&gt; 其中虚线边框的就不用再计算了。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一定要明确终止条件。不然就是死循环！&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;好了，以上就是递归的介绍。&lt;/p&gt;
-&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
-&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
- ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
-            <title>排序算法</title>
-            <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
-            <category>算法</category>
-            <category>数据结构与算法</category>
-            <category>排序</category>
-            <pubDate>Wed, 01 Sep 2021 12:33:55 +0800</pubDate>
-            <description><![CDATA[ &lt;h2 id=&#34;排序算法开篇&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法开篇&#34;&gt;#&lt;/a&gt; 排序算法开篇&lt;/h2&gt;
-&lt;p&gt;排序算法有很多，比如常见的 冒泡排序，插入排序，选择排序，归并排序，快速排序，计数排序，基数排序，桶排序，还有不常见的猴子排序，睡眠排序，面条排序等。&lt;/p&gt;
-&lt;p&gt;其中，冒泡排序，插入排序，选择排序 的时间复杂度都是&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(n^2)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.064108em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;快排，归并排序 的时间复杂度是 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(nlogn)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;桶排序，计数排序，基数排序的时间复杂度是 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(n)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&#34;排序算法好坏的评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法好坏的评估&#34;&gt;#&lt;/a&gt; 排序算法好坏的评估&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;最好情况，最坏情况，平均情况的时间复杂度&lt;br&gt;
-我们要知道排序算法在不同数据下的性能表现。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;时间复杂度的系数，常数，低阶&lt;br&gt;
-时间复杂度反应的是数据规模 n 很大的时候的一个增长趋势，所以它表示的时候，会忽略系数，常数，低阶。但是我排序的时候，涉及到的数据是很小规模的，所以我们需要考虑下系数，常数，低阶。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;比较次数和交换 (移动) 次数&lt;br&gt;
-在基于比较的排序算法的执行过程中，最多的会涉及两种操作，元素比较大小和元素交换或移动.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;内存消耗&lt;br&gt;
-即空间复杂度。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;排序算法的稳定性&lt;br&gt;
-稳定性是指：如果待排序的序列中存在值相等的元素，经过排序之后，相等元素之间原有的先后顺序不变。&lt;br&gt;
-这样的排序算法有什么好处呢？&lt;/p&gt;
-&lt;p&gt;假设有这样一个需求，对一些学生的成绩进行排序。按照总成绩从大到小的顺序进行排列。总成绩相等的按照数学成绩从大到小的顺序进行排列。这时，我们就可以使用稳定的排序算法。先按照数学成绩从大到小的顺序进行排列，这样保证了数学成绩是有序的，然后我们再对总成绩进行排序，这样就满足了整体需求了.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;排序算法实现&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法实现&#34;&gt;#&lt;/a&gt; 排序算法实现&lt;/h2&gt;
-&lt;h3 id=&#34;交换思想排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#交换思想排序&#34;&gt;#&lt;/a&gt; 交换思想排序&lt;/h3&gt;
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_0&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_0&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/&#34;&gt;冒泡排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_1&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_1&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/&#34;&gt;选择排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_2&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_2&#34;&gt; 插入排序&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;分治思想排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分治思想排序&#34;&gt;#&lt;/a&gt; 分治思想排序&lt;/h3&gt;
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_3&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_3&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/&#34;&gt;归并排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_4&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_4&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/&#34;&gt;快速排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;线性排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#线性排序&#34;&gt;#&lt;/a&gt; 线性排序&lt;/h3&gt;
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_5&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_5&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/&#34;&gt;桶排序 (Bubble Sort)&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_6&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_6&#34;&gt; 计数排序 (Counting Sort)&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_7&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_7&#34;&gt; 基数排序 (Radix Sort)&lt;/label&gt;&lt;/li&gt;
-&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_8&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_8&#34;&gt; 堆排序&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
-&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
- ]]></description>
-        </item>
-        <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</guid>
             <title>归并排序</title>
             <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</link>
@@ -502,6 +387,121 @@ T(n) &amp;amp;= 2*T(n/2)+n\\
  主要取决于:   &lt;code&gt;if (a[min_value_index] &amp;gt; a[j]) &amp;#123;min_value_index = j;&amp;#125;&lt;/code&gt; &lt;br&gt;
  如果是   &lt;code&gt;a[min_value_index] &amp;gt;= a[j]&lt;/code&gt;  就是不稳定的排序算法.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+            <title>排序算法</title>
+            <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+            <category>算法</category>
+            <category>数据结构与算法</category>
+            <category>排序</category>
+            <pubDate>Wed, 01 Sep 2021 12:33:55 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;排序算法开篇&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法开篇&#34;&gt;#&lt;/a&gt; 排序算法开篇&lt;/h2&gt;
+&lt;p&gt;排序算法有很多，比如常见的 冒泡排序，插入排序，选择排序，归并排序，快速排序，计数排序，基数排序，桶排序，还有不常见的猴子排序，睡眠排序，面条排序等。&lt;/p&gt;
+&lt;p&gt;其中，冒泡排序，插入排序，选择排序 的时间复杂度都是&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(n^2)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1.064108em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;快排，归并排序 的时间复杂度是 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(nlogn)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;桶排序，计数排序，基数排序的时间复杂度是 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;O(n)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.02778em;&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;排序算法好坏的评估&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法好坏的评估&#34;&gt;#&lt;/a&gt; 排序算法好坏的评估&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;最好情况，最坏情况，平均情况的时间复杂度&lt;br&gt;
+我们要知道排序算法在不同数据下的性能表现。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;时间复杂度的系数，常数，低阶&lt;br&gt;
+时间复杂度反应的是数据规模 n 很大的时候的一个增长趋势，所以它表示的时候，会忽略系数，常数，低阶。但是我排序的时候，涉及到的数据是很小规模的，所以我们需要考虑下系数，常数，低阶。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;比较次数和交换 (移动) 次数&lt;br&gt;
+在基于比较的排序算法的执行过程中，最多的会涉及两种操作，元素比较大小和元素交换或移动.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存消耗&lt;br&gt;
+即空间复杂度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;排序算法的稳定性&lt;br&gt;
+稳定性是指：如果待排序的序列中存在值相等的元素，经过排序之后，相等元素之间原有的先后顺序不变。&lt;br&gt;
+这样的排序算法有什么好处呢？&lt;/p&gt;
+&lt;p&gt;假设有这样一个需求，对一些学生的成绩进行排序。按照总成绩从大到小的顺序进行排列。总成绩相等的按照数学成绩从大到小的顺序进行排列。这时，我们就可以使用稳定的排序算法。先按照数学成绩从大到小的顺序进行排列，这样保证了数学成绩是有序的，然后我们再对总成绩进行排序，这样就满足了整体需求了.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;排序算法实现&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#排序算法实现&#34;&gt;#&lt;/a&gt; 排序算法实现&lt;/h2&gt;
+&lt;h3 id=&#34;交换思想排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#交换思想排序&#34;&gt;#&lt;/a&gt; 交换思想排序&lt;/h3&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_0&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_0&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/&#34;&gt;冒泡排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_1&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_1&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/&#34;&gt;选择排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_2&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_2&#34;&gt; 插入排序&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;分治思想排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分治思想排序&#34;&gt;#&lt;/a&gt; 分治思想排序&lt;/h3&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_3&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_3&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/&#34;&gt;归并排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_4&#34; checked=&#34;true&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_4&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/&#34;&gt;快速排序&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;线性排序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#线性排序&#34;&gt;#&lt;/a&gt; 线性排序&lt;/h3&gt;
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_5&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_5&#34;&gt; 👉 &lt;a href=&#34;/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/&#34;&gt;桶排序 (Bubble Sort)&lt;/a&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_6&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_6&#34;&gt; 计数排序 (Counting Sort)&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_7&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_7&#34;&gt; 基数排序 (Radix Sort)&lt;/label&gt;&lt;/li&gt;
+&lt;li class=&#34;task-list-item&#34;&gt;&lt;input type=&#34;checkbox&#34; id=&#34;cbx_8&#34; disabled=&#34;true&#34;&gt;&lt;label for=&#34;cbx_8&#34;&gt; 堆排序&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/</guid>
+            <title>递归</title>
+            <link>https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/</link>
+            <category>算法</category>
+            <category>数据结构与算法</category>
+            <category>递归</category>
+            <pubDate>Wed, 01 Sep 2021 12:33:55 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;数据结构与算法 这一个模块 有两个最难的知识点，一个就是 递归，另一个就是 动态规划&lt;/p&gt;
+&lt;p&gt;我们今天来学习下递归这种实现方式。&lt;/p&gt;
+&lt;p&gt;个人认为，递归不是一种算法，就是一种语法。所以我就称它为一类问题的解决方法.&lt;/p&gt;
+&lt;h2 id=&#34;何为递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#何为递归&#34;&gt;#&lt;/a&gt; 何为递归？&lt;/h2&gt;
+&lt;p&gt;递归，去的过程叫递，回来的过程叫归。凡是递归类的问题，都能总结出一个递归公式.&lt;br&gt;
+ 比如: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;f(n+1) = f(n) + 1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, 我们用代码实现就是:&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(n)&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; n==&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;?&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;:f(n-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;)+&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;判断是否可用递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#判断是否可用递归&#34;&gt;#&lt;/a&gt; 判断是否可用递归&lt;/h2&gt;
+&lt;p&gt;要想使用递归来解决问题，要满足三个条件:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个问题的解可以分解为几个问题的解。&lt;/li&gt;
+&lt;li&gt;这个问题和分解之后的问题，除了树据规模不一样，求解思路一模一样.&lt;/li&gt;
+&lt;li&gt;存在递归终止条件。比如上例子中的&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;f(n)=1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;如何编写递归&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#如何编写递归&#34;&gt;#&lt;/a&gt; 如何编写递归&lt;/h2&gt;
+&lt;h3 id=&#34;找出递推公式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#找出递推公式&#34;&gt;#&lt;/a&gt; 找出递推公式！&lt;/h3&gt;
+&lt;p&gt;递归写法的话，最重要的就是写出递推公式，其次就是，找到终止条件.&lt;/p&gt;
+&lt;p&gt;举个例子:&lt;/p&gt;
+&lt;p&gt;人民币的组合方式.&lt;/p&gt;
+&lt;p&gt;假设我有人民币 100 元，50 元，20 元，10 元，5 元，1 元的币种若干张，我想用这些花掉 70 元，我可以怎么花？&lt;/p&gt;
+&lt;p&gt;这个问题就可以转换成了，70 元有多少中组合方式 (A) -&amp;gt; 69 元有多少中组合方式 (B) + 65 元有几种组合方式 © + 60 元有几种组合方式 (D) + 50 元有几种组合方式 (E) + 20 元有几种组合方式 (F)。&lt;/p&gt;
+&lt;p&gt;也就是说，我们把一个问题 A 分解成了若干子问题 B,C,D,E,F. 我们解决了子问题 B,C,D,E,F。 那么对应的 A 问题，也就解决了。而且，在这问题里，我们只要关心 A 与其子问题的关系即可，不用关系其他的子问题与子问题的关系。屏蔽掉递归细节。&lt;/p&gt;
+&lt;h2 id=&#34;递归实现方案的注意点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#递归实现方案的注意点&#34;&gt;#&lt;/a&gt; 递归实现方案的注意点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;如果递归深度比较大的话，就会出现堆栈溢出的异常。&lt;/li&gt;
+&lt;li&gt;递归的时候，要避免重复计算.&lt;br&gt;
+ 这个的话，举个例子，就会很清晰了。斐波那契数列的计算.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;斐波那契数列就是 当前项等于前两项之和.&lt;/p&gt;
+&lt;p&gt;以 fib (6) 为例，即求第 6 个数的数值。&lt;/p&gt;
+&lt;p&gt;如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib.png&#34; alt=&#34;算法01-动态规划01-fib.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;我们会发现: fib (4),fib (3),fib (2) 都是重复计算的。&lt;/p&gt;
+&lt;p&gt;具体的解决方式呢，在 算法【动态规划】文章里，也有说过。&lt;/p&gt;
+&lt;p&gt;加入一个数据，来记录就行了.&lt;br&gt;
+&lt;img data-src=&#34;/images/dataStructuresAndAlgorithms/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%9201-fib02.png&#34; alt=&#34;算法01-动态规划01-fib02.png&#34;&gt; 其中虚线边框的就不用再计算了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一定要明确终止条件。不然就是死循环！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;好了，以上就是递归的介绍。&lt;/p&gt;
 &lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
