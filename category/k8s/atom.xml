@@ -3,64 +3,64 @@
     <id>https://fangjiaxiaobai.github.io</id>
     <title>方家小白 • Posts by &#34;k8s&#34; category</title>
     <link href="https://fangjiaxiaobai.github.io" />
-    <updated>2022-07-31T10:18:00.000Z</updated>
+    <updated>2022-08-07T10:18:00.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
-    <category term="源码" />
     <category term="MySQL" />
+    <category term="源码" />
     <category term="Redis" />
     <category term="数据结构" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
     <category term="Elastic Search" />
     <category term="搜索" />
-    <category term="雪花算法" />
-    <category term="算法" />
     <category term="git" />
+    <category term="go" />
+    <category term="go-error" />
     <category term="k8s" />
     <category term="kubernetes" />
     <category term="MachineLearn" />
-    <category term="猫影视" />
     <category term="log" />
     <category term="go-log" />
     <category term="图片" />
-    <category term="RocketMQ" />
-    <category term="消息队列" />
-    <category term="go" />
-    <category term="go-error" />
+    <category term="猫影视" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="链表" />
-    <category term="不做也罢的算法题" />
-    <category term="有点难的算法题" />
-    <category term="HD" />
-    <category term="BQ" />
-    <category term="AC" />
-    <category term="动态规划" />
-    <category term="String" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="HashMap" />
     <category term="JDK" />
     <category term="JDK8" />
+    <category term="String" />
     <category term="数据结构与算法" />
-    <category term="哈希算法" />
+    <category term="递归" />
+    <category term="动态规划" />
     <category term="排序" />
     <category term="冒泡排序" />
     <category term="交换排序" />
-    <category term="HashMap" />
-    <category term="分治思想排序" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
-    <category term="递归" />
     <category term="选择排序" />
+    <category term="分治思想排序" />
+    <category term="哈希算法" />
     <category term="go-设计模式" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
     <category term="Java" />
     <category term="dubbo" />
     <category term="模型评估" />
+    <category term="leetCode" />
+    <category term="链表" />
+    <category term="面经之算法题" />
+    <category term="数组" />
+    <category term="有点难的算法题" />
+    <category term="不做也罢的算法题" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
     <category term="架构" />
     <category term="笔记" />
     <category term="go-runtimes" />
@@ -70,6 +70,202 @@
     <category term="OOM" />
     <category term="JVM" />
     <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2022/08/07/k8s/seris04-work-load/</id>
+        <title>k8s-资源控制器</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2022/08/07/k8s/seris04-work-load/"/>
+        <content type="html">&lt;h2 id=&#34;pod&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pod&#34;&gt;#&lt;/a&gt; Pod&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Pod&lt;/code&gt;  是可以在  &lt;code&gt;Kubernetes&lt;/code&gt;  中创建和管理的、最小的可部署的计算单元。  &lt;code&gt;Pod&lt;/code&gt;  是一组容器，一个  &lt;code&gt;pod&lt;/code&gt;  的所有容器共享  &lt;code&gt;pod&lt;/code&gt;  的网路，存储 以及运行容器的声明。&lt;/p&gt;
+&lt;p&gt;通常用户需要直接创建  &lt;code&gt;Pod&lt;/code&gt;  , 而是使用负载资源来替用户管理一组  &lt;code&gt;Pod&lt;/code&gt;  . 这些负载资源通过配置 &lt;strong&gt;控制器&lt;/strong&gt; 来确保正确类型的、处于运行状态的  &lt;code&gt;Pod&lt;/code&gt;  个数是正确的，与用户所指定的状态相一致。&lt;/p&gt;
+&lt;h2 id=&#34;控制器&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#控制器&#34;&gt;#&lt;/a&gt; 控制器&lt;/h2&gt;
+&lt;h3 id=&#34;replication-controller-和-replicaset&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#replication-controller-和-replicaset&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Replication Controller&lt;/code&gt;  和  &lt;code&gt;ReplicaSet&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;ReplicationController(RC)&lt;/code&gt;  用来确保容器应用的副本数始终保持在用户定义的副本数，即如果有容器异常退&lt;br&gt;
+出，会自动创建新的  &lt;code&gt;Pod&lt;/code&gt;  来替代；而如果异常多出来的容器也会自动回收；&lt;br&gt;
+ 在新版本的  &lt;code&gt;Kubernetes&lt;/code&gt;  中建议使用  &lt;code&gt;ReplicaSet&lt;/code&gt;  来取代  &lt;code&gt;ReplicationController&lt;/code&gt;  。  &lt;code&gt;ReplicaSet&lt;/code&gt;  跟&lt;br&gt;
+ &lt;code&gt;ReplicationController&lt;/code&gt;  没有本质的不同，只是名字不一样，并且  &lt;code&gt;ReplicaSet&lt;/code&gt;  支持集合式的  &lt;code&gt;selector&lt;/code&gt; .&lt;/p&gt;
+&lt;h4 id=&#34;实验&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#实验&#34;&gt;#&lt;/a&gt; 实验&lt;/h4&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;apps/v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;ReplicaSet&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;replica-set-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;replicas:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;selector:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;matchLabels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;rs_label:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;rs-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;rs_label:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;rs-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;replica-set-demo-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;fangjiaxiaobai/my-app:v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;env:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;JAVA_VERSION&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          &lt;span class=&#34;attr&#34;&gt;value:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;11&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;containerPort:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;80&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查看 当前的 &lt;code&gt;pod&lt;/code&gt; &lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;新开一个窗口，使用命令:  &lt;code&gt;kubectl get pod -o wide -w&lt;/code&gt;  来查看 pod 的变化过程.&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-02.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;然后使用命令  &lt;code&gt;kubectl delete pod replica-set-demo-2wlcm&lt;/code&gt;  删除其中的任意一个  &lt;code&gt;pod&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;然后 可以看到新窗口中出现了如下的变化:&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-04.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+ 删除的 &lt;code&gt;pod&lt;/code&gt; ( &lt;code&gt;2wlcm&lt;/code&gt; ) 先从  &lt;code&gt;Running&lt;/code&gt;  变成了  &lt;code&gt;Terminating&lt;/code&gt; , 然后启动了一个新的  &lt;code&gt;pod (z48pp)&lt;/code&gt; , 状态从  &lt;code&gt;Pending&lt;/code&gt;  -&amp;gt;  &lt;code&gt;ContainerCreating&lt;/code&gt; -&amp;gt; &lt;code&gt;Running&lt;/code&gt; .&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;修改标签&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#修改标签&#34;&gt;#&lt;/a&gt; 修改标签&lt;/h5&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-05.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过命令  &lt;code&gt;kubectl get pod --show-labels&lt;/code&gt;  查看  &lt;code&gt;pod&lt;/code&gt;  的标签。&lt;/li&gt;
+&lt;li&gt;通过命令  &lt;code&gt;kubectl label pod replica-set-demo-z48pp rs_label=rs-edit-label-exp --overwrite=True&lt;/code&gt;  修改  &lt;code&gt;pod&lt;/code&gt;  的标签。&lt;/li&gt;
+&lt;li&gt;查看  &lt;code&gt;pod&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;发现 新启动了一个  &lt;code&gt;pod&lt;/code&gt; , 如上图中的  &lt;code&gt;(Pod)nbxnf&lt;/code&gt; 。此时 原来的 pod 就变成了新的标签。&lt;/p&gt;
+&lt;p&gt;由此可以看出:  &lt;code&gt;ReplicaSet&lt;/code&gt;  是通过  &lt;code&gt;labels&lt;/code&gt;  来判断 &lt;code&gt;pod&lt;/code&gt;  是否属于当前的  &lt;code&gt;RS&lt;/code&gt;  的。&lt;/p&gt;
+&lt;p&gt;那 新建一个相同标签的 &lt;code&gt;pod&lt;/code&gt;  会发生什么呢？&lt;/p&gt;
+&lt;h5 id=&#34;修改回原来的标签&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#修改回原来的标签&#34;&gt;#&lt;/a&gt; 修改回原来的标签&lt;/h5&gt;
+&lt;p&gt;我先把 标签修改成原来的  &lt;code&gt;kubectl label pod replica-set-demo-z48pp rs_label=rs-demo --overwrite=True&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-06.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;k8s&lt;/code&gt;  删掉了最新创建的那个容器。&lt;/p&gt;
+&lt;h5 id=&#34;新建一个相同标签的pod容器&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#新建一个相同标签的pod容器&#34;&gt;#&lt;/a&gt; 新建一个相同标签的 &lt;code&gt;pod&lt;/code&gt;  容器&lt;/h5&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;Pod&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;rs-demo-add-sample-label-ex&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;rs_label:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;rs-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;rs-demo-add-sample-label-ex-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;fangjiaxiaobai/my-app:v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;containerPort:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;80&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;创建这个容器之后，会发现&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-07.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这个容器在创建时机就会被 &lt;code&gt;kill&lt;/code&gt;  掉。&lt;/p&gt;
+&lt;h5 id=&#34;删除-replicaset&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#删除-replicaset&#34;&gt;#&lt;/a&gt; 删除 ReplicaSet&lt;/h5&gt;
+&lt;p&gt;使用命令  &lt;code&gt;kubectl delete rs replica-set-demo&lt;/code&gt;  删除即可.&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-08.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;deployment&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#deployment&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Deployment&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-11.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Deployment&lt;/code&gt;  为  &lt;code&gt;Pod&lt;/code&gt;  和  &lt;code&gt;ReplicaSet&lt;/code&gt;  提供了一个声明式定义 ( &lt;code&gt;declarative&lt;/code&gt; ) 方法，用来替代以前的  &lt;code&gt;ReplicationController&lt;/code&gt;  来方便的管理应用。典型的应用场景包括；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定义  &lt;code&gt;Deployment&lt;/code&gt;  来创建  &lt;code&gt;Pod&lt;/code&gt;  和  &lt;code&gt;ReplicaSet&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;滚动升级和回滚应用&lt;/li&gt;
+&lt;li&gt;扩容和缩容&lt;/li&gt;
+&lt;li&gt;暂停和继续  &lt;code&gt;Deployment&lt;/code&gt; .&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;升级策略&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#升级策略&#34;&gt;#&lt;/a&gt; 升级策略&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;Deployment&lt;/code&gt;  可以保证在升级时只有一定数量的  &lt;code&gt;Pod&lt;/code&gt;  是  &lt;code&gt;down&lt;/code&gt;  的。默认的，它会确保至少有比期望的 Pod 数量少一个是 &lt;code&gt;up&lt;/code&gt;  状态 (最多一个不可用)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Deployment&lt;/code&gt;  同时也可以确保只创建出超过期望数量的一定数量的  &lt;code&gt;Pod&lt;/code&gt; 。默认的，它会确保最多比期望的 &lt;code&gt;Pod&lt;/code&gt;  数&lt;br&gt;
+量多一个的  &lt;code&gt;Pod&lt;/code&gt;  是  &lt;code&gt;up&lt;/code&gt;  的 (最多 &lt;code&gt;1&lt;/code&gt;  个  &lt;code&gt;surge&lt;/code&gt;  )&lt;/p&gt;
+&lt;p&gt;未来的  &lt;code&gt;Kuberentes&lt;/code&gt;  版本中，将从 &lt;code&gt;1-1&lt;/code&gt;  变成 &lt;code&gt;25%-25%&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;实验-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#实验-2&#34;&gt;#&lt;/a&gt; 实验&lt;/h4&gt;
+&lt;h5 id=&#34;创建deployment&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#创建deployment&#34;&gt;#&lt;/a&gt; 创建 &lt;code&gt;Deployment&lt;/code&gt;&lt;/h5&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;apps/v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;Deployment&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;deployment-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;replicas:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;selector:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;matchLabels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;demo_name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;deployment-labels&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;demo_name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;deployment-labels&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;deployment-demo-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;fangjiaxiaobai/my-app:v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;containerPort:&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;80&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;使用命令  &lt;code&gt;kubectl get pod -w&lt;/code&gt;  监听 Pod 的变化&lt;/li&gt;
+&lt;li&gt;使用命令  &lt;code&gt;kubectl apply -f 07-deployment-demo.yaml&lt;/code&gt;  创建  &lt;code&gt;deployment&lt;/code&gt; &lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-09.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;li&gt;查看对应 &lt;code&gt;Pod&lt;/code&gt;  的变化。&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-10.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;扩缩容&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#扩缩容&#34;&gt;#&lt;/a&gt; 扩缩容&lt;/h5&gt;
+&lt;p&gt;下面我们先演示一个比较简单的案例，扩缩容。&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;kubectl scale deployment deployment-demo --replicas=4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-12.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果集群支持自动扩容的话，还可以为集群设置  &lt;code&gt;autoscaling&lt;/code&gt; .&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;kubectl autoscale deployment xxx --min=10 --max=15 --cpu-percent=80&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&#34;设置镜像&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#设置镜像&#34;&gt;#&lt;/a&gt; 设置镜像&lt;/h5&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;kubectl set image xxxx imagesName:v1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;具体如何操作接着往下看。&lt;/p&gt;
+&lt;h5 id=&#34;滚动升级&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#滚动升级&#34;&gt;#&lt;/a&gt; 滚动升级&lt;/h5&gt;
+&lt;p&gt;在真是的业务场景中，大部分都是通过设置升级镜像的版本来触发  &lt;code&gt;deployment&lt;/code&gt;  的升级.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用命令  &lt;code&gt;kubectl set image deployment/deployment-demo deployment-demo-container=fangjiaxiaobai/my-app:v2&lt;/code&gt;  修改  &lt;code&gt;deployment&lt;/code&gt;  的版本。&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-14.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;li&gt;查看  &lt;code&gt;Deployment&lt;/code&gt;  的变化过程&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-13.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+可以看到  &lt;code&gt;k8s&lt;/code&gt;  先启动一个 &lt;code&gt;pod&lt;/code&gt; , 然后 &lt;code&gt;kill&lt;/code&gt;  一个 &lt;code&gt;pod&lt;/code&gt; . 最终完成整个  &lt;code&gt;Deployment&lt;/code&gt;  的更新。&lt;/li&gt;
+&lt;li&gt;然后，我们访问一下页面，看一个应用的版本&lt;br&gt;
+&lt;img data-src=&#34;/images/k8s/04-15.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;回滚-rollover&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#回滚-rollover&#34;&gt;#&lt;/a&gt; 回滚 rollover&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;使用命令  &lt;code&gt;kubectl rollout undo deployment/deployment-demo&lt;/code&gt;  将  &lt;code&gt;Deployment&lt;/code&gt;  回滚到上一次的版本&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到已经回滚到了  &lt;code&gt;V1&lt;/code&gt;  版本。&lt;/p&gt;
+&lt;h5 id=&#34;清理策略&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#清理策略&#34;&gt;#&lt;/a&gt; 清理策略&lt;/h5&gt;
+&lt;p&gt;可以通过设置  &lt;code&gt;.spec.revisonHistoryLimit&lt;/code&gt;  来指定  &lt;code&gt;deploymenet&lt;/code&gt;  最多保留  &lt;code&gt;revison&lt;/code&gt;  历史版本。默认会保留所有历史版本，如果设置为 &lt;code&gt;0&lt;/code&gt; , 则  &lt;code&gt;Deployment&lt;/code&gt;  就不允许回滚了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;命令式编程 和 命令式编程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;命令式编程：它侧重于 如何实现程序，就像我们刚接触编程的时候那样，我们需要把程序的实现过程按照逻辑一步步写下来。面向过程编程。&lt;/li&gt;
+&lt;li&gt;声明式编程：它侧重于定义想要什么，然后告诉计算机 / 引擎，让他帮你去实现。 面向对象编程.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;daemonset&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#daemonset&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Daemonset&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;DaemonSet&lt;/code&gt;  确保全部 (或者一些) &lt;code&gt;Node&lt;/code&gt;  上运行一个  &lt;code&gt;Pod&lt;/code&gt;  的副本。当有  &lt;code&gt;Node&lt;/code&gt;  加入集群时，也会为他们新增一个  &lt;code&gt;Pod&lt;/code&gt;  。当有  &lt;code&gt;Node&lt;/code&gt;  从集群移除时，这些  &lt;code&gt;Pod&lt;/code&gt;  也会被回收。删除  &lt;code&gt;DaemonSet&lt;/code&gt;  将会删除它创建的所有  &lt;code&gt;Pod&lt;/code&gt; . 使用  &lt;code&gt;DaemonSet&lt;/code&gt;  的一些典型用法:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;运行集群存储  &lt;code&gt;daemon&lt;/code&gt;  ，例如在每个  &lt;code&gt;Node&lt;/code&gt;  上运行  &lt;code&gt;glusterd&lt;/code&gt;  、  &lt;code&gt;ceph&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在每个  &lt;code&gt;Node&lt;/code&gt;  上运行日志收集  &lt;code&gt;daemon&lt;/code&gt;  ，例如  &lt;code&gt;fluentd&lt;/code&gt;  、  &lt;code&gt;logstash&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在每个  &lt;code&gt;Node&lt;/code&gt;  上运行监控  &lt;code&gt;daemon&lt;/code&gt;  ，例如 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3Byb21ldGhldXMvbm9kZV9leHBvcnRlcg==&#34;&gt;Prometheus Node Exporter&lt;/span&gt;、  &lt;code&gt;collectd&lt;/code&gt;   &lt;code&gt;、Datadog&lt;/code&gt;  代理、  &lt;code&gt;New Relic&lt;/code&gt;  代理，或 &lt;code&gt; Ganglia gmond&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;apps/v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;DaemonSet&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;daemon-set-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;app:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;daemon-set&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;selector:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;matchLabels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;app:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;daemon-set&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;app:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;daemon-set&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;daemon-set-demo-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;fangjiaxiaobai/my-app:v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-17.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;job&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#job&#34;&gt;#&lt;/a&gt; Job&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Job&lt;/code&gt;  负责批处理任务，即仅执行一次的任务，它保证批处理任务的一个或多个  &lt;code&gt;Pod&lt;/code&gt;  成功结束&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;特殊说明
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;spec.template&lt;/code&gt; : 格式同  &lt;code&gt;pod&lt;/code&gt; .&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RestartPolicy&lt;/code&gt; : 仅支持  &lt;code&gt;Never&lt;/code&gt;  或者  &lt;code&gt;OnFailure&lt;/code&gt; .&lt;/li&gt;
+&lt;li&gt;单个  &lt;code&gt;Pod&lt;/code&gt;  时 默认  &lt;code&gt;Pod&lt;/code&gt;  成功运行后  &lt;code&gt;Job&lt;/code&gt;  即结束。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.spec.completios&lt;/code&gt; : 标志 Job 结束时需要成功运行的 &lt;code&gt;Pod&lt;/code&gt;  个数。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.spec.parallelism&lt;/code&gt; : 标识 并行运行的 &lt;code&gt;pod&lt;/code&gt;  的个数，默认为 1&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.spec.activeDeadlineSeconds&lt;/code&gt; : 标识失败 &lt;code&gt;Pod&lt;/code&gt;  重试的最后间隔时间，超过这个时间将不会再重试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;实验-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#实验-3&#34;&gt;#&lt;/a&gt; 实验&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一个 Job&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;batch/v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;Job&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;job-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;job-demo-template&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;job-demo-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;perl:5.34.0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;command:&lt;/span&gt; [&lt;span class=&#34;string&#34;&gt;&amp;quot;perl&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;-Mbignum=bpi&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;-wle&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;print bpi(2000)&amp;quot;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;restartPolicy:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;Never&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-18.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;cron-job&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#cron-job&#34;&gt;#&lt;/a&gt; Cron Job&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Cron Job&lt;/code&gt;  管理基于时间的  &lt;code&gt;Job&lt;/code&gt; ，即:&lt;br&gt;
+ 在给定时间点只运行一次&lt;br&gt;
+周期性地在给定时间点运行&lt;br&gt;
+使用前提条件:&lt;strong&gt; 当前使用的 Kubernetes 集群，版本 &amp;gt;= 1.8 (对 CronJob)。对于先前版本的集群，版本 &amp;lt; 1.8，启动 API Server 时，通过传递选项 --runtime-config=batch/v2alpha1=true 可以开启 batch/v2alpha1 API&lt;/strong&gt;&lt;br&gt;
+ 典型的用法如下所示:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在给定的时间点调度  &lt;code&gt;Job&lt;/code&gt;  运行&lt;/li&gt;
+&lt;li&gt;创建周期性运行的  &lt;code&gt;Job&lt;/code&gt; ，例如：数据库备份、发送邮件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;特殊说明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特殊说明&#34;&gt;#&lt;/a&gt; 特殊说明&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;spec.schedule&lt;/code&gt;  ：调度，必需字段，指定任务运行周期，格式同  &lt;code&gt;Cron&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.jobTemplate&lt;/code&gt;  ：  &lt;code&gt;Job&lt;/code&gt;  模板，必需字段，指定需要运行的任务，格式同  &lt;code&gt;Job&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.startingDeadlineSeconds&lt;/code&gt;  ：启动  &lt;code&gt;Job&lt;/code&gt;  的期限（秒级别），该字段是可选的。如果因为任何原因而错&lt;br&gt;
+过了被调度的时间，那么错过执行时间的  &lt;code&gt;Job&lt;/code&gt;  将被认为是失败的。如果没有指定，则没有期限&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.concurrencyPolicy&lt;/code&gt;  ：并发策略，该字段也是可选的。它指定了如何处理被  &lt;code&gt;Cron Job&lt;/code&gt;  创建的  &lt;code&gt;Job&lt;/code&gt;  的并发执行。只允许指定下面策略中的一种：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Allow&lt;/code&gt;  （默认）：允许并发运行  &lt;code&gt;Job&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Forbid&lt;/code&gt;  ：禁止并发运行，如果前一个还没有完成，则直接跳过下一个&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Replace&lt;/code&gt;  ：取消当前正在运行的  &lt;code&gt;Job&lt;/code&gt; ，用一个新的来替换。&lt;br&gt;
+注意，当前策略只能应用于同一个  &lt;code&gt;Cron Job&lt;/code&gt;  创建的  &lt;code&gt;Job&lt;/code&gt; 。如果存在多个  &lt;code&gt;Cron Job&lt;/code&gt; ，它们创建的  &lt;code&gt;Job&lt;/code&gt;  之间总是允许并发运行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.suspend&lt;/code&gt;  ：挂起，该字段也是可选的。如果设置为  &lt;code&gt;true&lt;/code&gt;  ，后续所有执行都会被挂起。它对已经开始执行的  &lt;code&gt;Job&lt;/code&gt;  不起作用。默认值为  &lt;code&gt;false&lt;/code&gt;  。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;spec.successfulJobsHistoryLimit&lt;/code&gt;  和  &lt;code&gt;.spec.failedJobsHistoryLimit&lt;/code&gt;  ：历史限制，是可选的字段。它们指定了可以保留多少完成和失败的  &lt;code&gt;Job&lt;/code&gt; 。默认情况下，它们分别设置为  &lt;code&gt;3&lt;/code&gt;  和  &lt;code&gt;1&lt;/code&gt;  。设置限制的值为  &lt;code&gt;0&lt;/code&gt;  ，相关类型的  &lt;code&gt;Job&lt;/code&gt;  完成后将不会被保留。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;实验-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#实验-4&#34;&gt;#&lt;/a&gt; 实验&lt;/h4&gt;
+&lt;h5 id=&#34;创建-cronjob&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#创建-cronjob&#34;&gt;#&lt;/a&gt; 创建  &lt;code&gt;CronJob&lt;/code&gt;&lt;/h5&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;apiVersion:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;batch/v1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;kind:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;CronJob&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;cron-job-demo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;schedule:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;*/1 * * * *&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;jobTemplate:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;      &lt;span class=&#34;attr&#34;&gt;template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;attr&#34;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          &lt;span class=&#34;attr&#34;&gt;containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;name:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;cron-job-demo-container&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;attr&#34;&gt;image:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;busybox&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;attr&#34;&gt;args:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;/bin/sh&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;-c&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;date;&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;hello ,I‘m from K8s cluster.&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;          &lt;span class=&#34;attr&#34;&gt;restartPolicy:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;OnFailure&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-20.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后可以查看一个 &lt;code&gt;pod&lt;/code&gt;  的运行情况:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/k8s/04-21.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;每个 &lt;code&gt;job&lt;/code&gt;  都是相隔一分钟执行一次。&lt;/p&gt;
+&lt;h3 id=&#34;statefulset&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#statefulset&#34;&gt;#&lt;/a&gt;  &lt;code&gt;StatefulSet&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;StatefulSet&lt;/code&gt;  作为  &lt;code&gt;Controller&lt;/code&gt;  为  &lt;code&gt;Pod&lt;/code&gt;  提供唯一的标识。它可以保证部署和  &lt;code&gt;scale&lt;/code&gt;  的顺序&lt;br&gt;
+ &lt;code&gt;StatefulSet&lt;/code&gt;  是为了解决有状态服务的问题 (对应  &lt;code&gt;Deployments&lt;/code&gt;  和  &lt;code&gt;ReplicaSets&lt;/code&gt;  是为无状态服务而设计)，其应用 场景包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;稳定的持久化存储，即 &lt;code&gt;Pod&lt;/code&gt;  重新调度后还是能访问到相同的持久化数据，基于 &lt;code&gt;PVC&lt;/code&gt;  来实现 稳定的网络标志，即 &lt;code&gt;Pod&lt;/code&gt;  重新调度后其 &lt;code&gt;PodName&lt;/code&gt;  和 &lt;code&gt;HostName&lt;/code&gt;  不变，基于 &lt;code&gt;Headless Service&lt;/code&gt;  (即没有  &lt;code&gt;Cluster IP&lt;/code&gt;  的 &lt;code&gt;Service&lt;/code&gt; ) 来实现。&lt;/li&gt;
+&lt;li&gt;有序部署，有序扩展，即 &lt;code&gt;Pod&lt;/code&gt;  是有顺序的，在部署或者扩展的时候要依据定义的顺序依次依次进行 (即从 &lt;code&gt;0&lt;/code&gt;  到  &lt;code&gt;N-1&lt;/code&gt; ，在下一个 &lt;code&gt;Pod&lt;/code&gt;  运行之前所有之前的 &lt;code&gt;Pod&lt;/code&gt;  必须都是 &lt;code&gt;Running&lt;/code&gt;  和 &lt;code&gt;Ready&lt;/code&gt;  状态)，基于 &lt;code&gt;init containers&lt;/code&gt;  来实 现&lt;br&gt;
+有序收缩，有序删除 (即从 &lt;code&gt;N-1&lt;/code&gt;  到 &lt;code&gt;0&lt;/code&gt; )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;horizontal-pod-autoscaling&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#horizontal-pod-autoscaling&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Horizontal Pod Autoscaling&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;应用的资源使用率通常都有高峰和低谷的时候，如何削峰填谷，提高集群的整体资源利用率，让 &lt;code&gt;service&lt;/code&gt;  中的 &lt;code&gt;Pod&lt;/code&gt;  个数自动调整呢？这就有赖于 &lt;code&gt;Horizontal Pod Autoscaling&lt;/code&gt;  了，顾名思义，使 &lt;code&gt;Pod&lt;/code&gt;  水平自动缩放&lt;/p&gt;
+&lt;p&gt;文中所有的 &lt;code&gt;k8s yaml&lt;/code&gt;  配置文件均可从  &lt;code&gt;https://github.com/fangjiaxiaobai/k8s/tree/main/yamls&lt;/code&gt;  获取。&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="k8s" />
+        <category term="kubernetes" />
+        <updated>2022-08-07T10:18:00.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2022/07/31/k8s/seris03-pod-lifecycle/</id>
         <title>k8s-Pod的生命周期</title>

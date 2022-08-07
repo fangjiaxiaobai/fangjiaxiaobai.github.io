@@ -6,61 +6,61 @@
     <updated>2021-11-13T10:18:18.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
-    <category term="源码" />
     <category term="MySQL" />
+    <category term="源码" />
     <category term="Redis" />
     <category term="数据结构" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
     <category term="Elastic Search" />
     <category term="搜索" />
-    <category term="雪花算法" />
-    <category term="算法" />
     <category term="git" />
+    <category term="go" />
+    <category term="go-error" />
     <category term="k8s" />
     <category term="kubernetes" />
     <category term="MachineLearn" />
-    <category term="猫影视" />
     <category term="log" />
     <category term="go-log" />
     <category term="图片" />
-    <category term="RocketMQ" />
-    <category term="消息队列" />
-    <category term="go" />
-    <category term="go-error" />
+    <category term="猫影视" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="链表" />
-    <category term="不做也罢的算法题" />
-    <category term="有点难的算法题" />
-    <category term="HD" />
-    <category term="BQ" />
-    <category term="AC" />
-    <category term="动态规划" />
-    <category term="String" />
+    <category term="RocketMQ" />
+    <category term="消息队列" />
+    <category term="HashMap" />
     <category term="JDK" />
     <category term="JDK8" />
+    <category term="String" />
     <category term="数据结构与算法" />
-    <category term="哈希算法" />
+    <category term="递归" />
+    <category term="动态规划" />
     <category term="排序" />
     <category term="冒泡排序" />
     <category term="交换排序" />
-    <category term="HashMap" />
-    <category term="分治思想排序" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
     <category term="快速排序" />
     <category term="分支思想排序" />
-    <category term="递归" />
     <category term="选择排序" />
+    <category term="分治思想排序" />
+    <category term="哈希算法" />
     <category term="go-设计模式" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
     <category term="Java" />
     <category term="dubbo" />
     <category term="模型评估" />
+    <category term="leetCode" />
+    <category term="链表" />
+    <category term="面经之算法题" />
+    <category term="数组" />
+    <category term="有点难的算法题" />
+    <category term="不做也罢的算法题" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
     <category term="架构" />
     <category term="笔记" />
     <category term="go-runtimes" />
@@ -70,6 +70,47 @@
     <category term="OOM" />
     <category term="JVM" />
     <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/11/13/BQ/LeetCode/0520-detect-capital/</id>
+        <title>LC:520.检测大写字母</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/13/BQ/LeetCode/0520-detect-capital/"/>
+        <content type="html">&lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
+&lt;p&gt;我们定义，在以下情况时，单词的大写用法是正确的：&lt;/p&gt;
+&lt;p&gt;全部字母都是大写，比如  &lt;code&gt;USA&lt;/code&gt; 。&lt;br&gt;
+单词中所有字母都不是大写，比如  &lt;code&gt;leetcode&lt;/code&gt;  。&lt;br&gt;
+如果单词不只含有一个字母，只有首字母大写， 比如  &lt;code&gt;Google&lt;/code&gt;  。&lt;br&gt;
+给你一个字符串  &lt;code&gt;word&lt;/code&gt;  。如果大写用法正确，返回  &lt;code&gt;true&lt;/code&gt;  ；否则，返回  &lt;code&gt;false&lt;/code&gt;  。&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;h2 id=&#34;示例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例&#34;&gt;#&lt;/a&gt; 示例&lt;/h2&gt;
+&lt;h3 id=&#34;示例-1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-1&#34;&gt;#&lt;/a&gt; 示例 1&lt;/h3&gt;
+&lt;p&gt;输入：word = “USA”&lt;br&gt;
+ 输出：true&lt;/p&gt;
+&lt;h3 id=&#34;示例-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-2&#34;&gt;#&lt;/a&gt; 示例 2&lt;/h3&gt;
+&lt;p&gt;输入：word = “FlaG”&lt;br&gt;
+ 输出：false&lt;/p&gt;
+&lt;h2 id=&#34;提示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#提示&#34;&gt;#&lt;/a&gt; 提示&lt;/h2&gt;
+&lt;p&gt;1. &lt;code&gt;1 &amp;lt;= word.length &amp;lt;= 100&lt;/code&gt; &lt;br&gt;
+2. &lt;code&gt;word&lt;/code&gt;  由小写和大写英文字母组成&lt;/p&gt;
+&lt;p&gt;来源：力扣（LeetCode）&lt;br&gt;
+链接：&lt;br&gt;
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。&lt;/p&gt;
+&lt;h2 id=&#34;相关题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#相关题目&#34;&gt;#&lt;/a&gt; 相关题目&lt;/h2&gt;
+&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）520.检测大写字符&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvZGV0ZWN0LWNhcGl0YWw=&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvZGV0ZWN0LWNhcGl0YWw=&#34;&gt;力扣（LeetCode）520.检测大写字符&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&#34;题解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题解&#34;&gt;#&lt;/a&gt; 题解&lt;/h3&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; java.util.Locale;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;detectCapitalUse&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(String word)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (word.length() == &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;char&lt;/span&gt; c = word.charAt(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (c &amp;lt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;Z&amp;#x27;&lt;/span&gt; &amp;amp;&amp;amp; c &amp;gt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;A&amp;#x27;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 首字符大写&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;char&lt;/span&gt; c2 = word.charAt(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (c2 &amp;lt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;Z&amp;#x27;&lt;/span&gt; &amp;amp;&amp;amp; c2 &amp;gt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;A&amp;#x27;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; word.equals(word.toUpperCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                String substring = word.substring(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; substring.equals(substring.toLowerCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 首字母小写&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; word.equals(word.toLowerCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="leetCode" />
+        <category term="面经之算法题" />
+        <category term="不做也罢的算法题" />
+        <updated>2021-11-13T10:18:18.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2021/11/13/BQ/LeetCode/0495-teemo-attacking/</id>
         <title>LC:495.提莫攻击</title>
@@ -113,47 +154,6 @@
           &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h3 id=&#34;题解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题解&#34;&gt;#&lt;/a&gt; 题解&lt;/h3&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;findPoisonedDuration&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] timeSeries, &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; duration)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 中毒时长&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; poisonedCount = duration;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;; i &amp;lt; timeSeries.length; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(timeSeries[i-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;]+duration &amp;lt; timeSeries[i])&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                poisonedCount += duration;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                poisonedCount += (timeSeries[i] - timeSeries[i-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; poisonedCount;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
-&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
-</content>
-        <category term="leetCode" />
-        <category term="面经之算法题" />
-        <category term="不做也罢的算法题" />
-        <updated>2021-11-13T10:18:18.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/11/13/BQ/LeetCode/0520-detect-capital/</id>
-        <title>LC:520.检测大写字母</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/13/BQ/LeetCode/0520-detect-capital/"/>
-        <content type="html">&lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
-&lt;p&gt;我们定义，在以下情况时，单词的大写用法是正确的：&lt;/p&gt;
-&lt;p&gt;全部字母都是大写，比如  &lt;code&gt;USA&lt;/code&gt; 。&lt;br&gt;
-单词中所有字母都不是大写，比如  &lt;code&gt;leetcode&lt;/code&gt;  。&lt;br&gt;
-如果单词不只含有一个字母，只有首字母大写， 比如  &lt;code&gt;Google&lt;/code&gt;  。&lt;br&gt;
-给你一个字符串  &lt;code&gt;word&lt;/code&gt;  。如果大写用法正确，返回  &lt;code&gt;true&lt;/code&gt;  ；否则，返回  &lt;code&gt;false&lt;/code&gt;  。&lt;/p&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;h2 id=&#34;示例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例&#34;&gt;#&lt;/a&gt; 示例&lt;/h2&gt;
-&lt;h3 id=&#34;示例-1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-1&#34;&gt;#&lt;/a&gt; 示例 1&lt;/h3&gt;
-&lt;p&gt;输入：word = “USA”&lt;br&gt;
- 输出：true&lt;/p&gt;
-&lt;h3 id=&#34;示例-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-2&#34;&gt;#&lt;/a&gt; 示例 2&lt;/h3&gt;
-&lt;p&gt;输入：word = “FlaG”&lt;br&gt;
- 输出：false&lt;/p&gt;
-&lt;h2 id=&#34;提示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#提示&#34;&gt;#&lt;/a&gt; 提示&lt;/h2&gt;
-&lt;p&gt;1. &lt;code&gt;1 &amp;lt;= word.length &amp;lt;= 100&lt;/code&gt; &lt;br&gt;
-2. &lt;code&gt;word&lt;/code&gt;  由小写和大写英文字母组成&lt;/p&gt;
-&lt;p&gt;来源：力扣（LeetCode）&lt;br&gt;
-链接：&lt;br&gt;
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。&lt;/p&gt;
-&lt;h2 id=&#34;相关题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#相关题目&#34;&gt;#&lt;/a&gt; 相关题目&lt;/h2&gt;
-&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）520.检测大写字符&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvZGV0ZWN0LWNhcGl0YWw=&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvZGV0ZWN0LWNhcGl0YWw=&#34;&gt;力扣（LeetCode）520.检测大写字符&lt;/span&gt;
-          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&#34;题解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题解&#34;&gt;#&lt;/a&gt; 题解&lt;/h3&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; java.util.Locale;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;Solution&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;detectCapitalUse&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(String word)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (word.length() == &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;char&lt;/span&gt; c = word.charAt(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (c &amp;lt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;Z&amp;#x27;&lt;/span&gt; &amp;amp;&amp;amp; c &amp;gt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;A&amp;#x27;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 首字符大写&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;char&lt;/span&gt; c2 = word.charAt(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (c2 &amp;lt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;Z&amp;#x27;&lt;/span&gt; &amp;amp;&amp;amp; c2 &amp;gt;= &lt;span class=&#34;string&#34;&gt;&amp;#x27;A&amp;#x27;&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; word.equals(word.toUpperCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                String substring = word.substring(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; substring.equals(substring.toLowerCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 首字母小写&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; word.equals(word.toLowerCase(Locale.ROOT));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
@@ -231,6 +231,45 @@
         <updated>2021-11-06T10:18:18.000Z</updated>
     </entry>
     <entry>
+        <id>https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/</id>
+        <title>LC:407.接雨水II</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/"/>
+        <content type="html">&lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
+&lt;p&gt;给你一个  &lt;code&gt;m x n&lt;/code&gt;  的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。&lt;/p&gt;
+&lt;h2 id=&#34;示例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例&#34;&gt;#&lt;/a&gt; 示例&lt;/h2&gt;
+&lt;h3 id=&#34;示例-1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-1&#34;&gt;#&lt;/a&gt; 示例 1&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/407/demo1.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;输入: heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输出: 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为1+2+1=4。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;示例-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-2&#34;&gt;#&lt;/a&gt; 示例 2&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/407/demo2.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;输入: heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输出: 10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;提示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#提示&#34;&gt;#&lt;/a&gt; 提示&lt;/h2&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;m == heightMap.length&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;n == heightMap[i].length&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 &amp;lt;= m, n &amp;lt;= 200&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;0 &amp;lt;= heightMap[i][j] &amp;lt;= 2 * 104&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;相关题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#相关题目&#34;&gt;#&lt;/a&gt; 相关题目&lt;/h2&gt;
+&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）407.接雨水II&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvdHJhcHBpbmctcmFpbi13YXRlci1paQ==&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvdHJhcHBpbmctcmFpbi13YXRlci1paQ==&#34;&gt;力扣（LeetCode）407.接雨水II&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&#34;题解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题解&#34;&gt;#&lt;/a&gt; 题解&lt;/h3&gt;
+&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;方家小白-LeetCode题解-42.接雨水&#34; style=&#34;--block-color:#e0b971;&#34;&gt;&lt;a href=&#34;http://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/&#34; class=&#34;image&#34; data-background-image=&#34;https://avatars.githubusercontent.com/u/22616214?v=4&#34;&gt;&lt;/a&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;a href=&#34;http://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/&#34; class=&#34;title&#34;&gt;方家小白-LeetCode题解-42.接雨水&lt;/a&gt;
+          &lt;p class=&#34;desc&#34;&gt;日常积累的代码，知识点, 数据结构与算法的学习与实现，以及例题分享&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&#34;解法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解法&#34;&gt;#&lt;/a&gt; 解法&lt;/h2&gt;
+&lt;h3 id=&#34;解法一&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解法一&#34;&gt;#&lt;/a&gt; 解法一&lt;/h3&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;trapRainWater&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[][] heightMap)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (heightMap.length &amp;lt;= &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt; || heightMap[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;].length &amp;lt;= &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; m = heightMap.length;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; n = heightMap[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;].length;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt;[][] visit = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt;[m][n];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    PriorityQueue&amp;lt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;gt; pq = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; PriorityQueue&amp;lt;&amp;gt;((o1, o2) -&amp;gt; o1[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] - o2[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; m; ++i) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; j = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; j &amp;lt; n; ++j) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (i == &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; || i == m - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt; || j == &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; || j == n - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                pq.offer(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;#123;i * n + j, heightMap[i][j]&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                visit[i][j] = &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; res = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] dirs = &amp;#123;-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, -&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (!pq.isEmpty()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] curr = pq.poll();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; k = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; k &amp;lt; &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;; ++k) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; nx = curr[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;] / n + dirs[k];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; ny = curr[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;] % n + dirs[k + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (nx &amp;gt;= &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; nx &amp;lt; m &amp;amp;&amp;amp; ny &amp;gt;= &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; ny &amp;lt; n &amp;amp;&amp;amp; !visit[nx][ny]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] &amp;gt; heightMap[nx][ny]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                    res += curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] - heightMap[nx][ny];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                pq.offer(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;#123;nx * n + ny, Math.max(heightMap[nx][ny], curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;])&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                visit[nx][ny] = &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; res;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="leetCode" />
+        <category term="面经之算法题" />
+        <category term="有点难的算法题" />
+        <updated>2021-11-04T10:18:18.000Z</updated>
+    </entry>
+    <entry>
         <id>https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/</id>
         <title>LC:42.接雨水</title>
         <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/"/>
@@ -268,45 +307,6 @@
 </content>
         <category term="leetCode" />
         <category term="面经之算法题" />
-        <updated>2021-11-04T10:18:18.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/</id>
-        <title>LC:407.接雨水II</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/"/>
-        <content type="html">&lt;h2 id=&#34;题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题目&#34;&gt;#&lt;/a&gt; 题目&lt;/h2&gt;
-&lt;p&gt;给你一个  &lt;code&gt;m x n&lt;/code&gt;  的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。&lt;/p&gt;
-&lt;h2 id=&#34;示例&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例&#34;&gt;#&lt;/a&gt; 示例&lt;/h2&gt;
-&lt;h3 id=&#34;示例-1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-1&#34;&gt;#&lt;/a&gt; 示例 1&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/407/demo1.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;输入: heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输出: 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为1+2+1=4。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&#34;示例-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#示例-2&#34;&gt;#&lt;/a&gt; 示例 2&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/ac-code/407/demo2.jpeg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;输入: heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;输出: 10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;提示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#提示&#34;&gt;#&lt;/a&gt; 提示&lt;/h2&gt;
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;m == heightMap.length&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;n == heightMap[i].length&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;1 &amp;lt;= m, n &amp;lt;= 200&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;0 &amp;lt;= heightMap[i][j] &amp;lt;= 2 * 104&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;相关题目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#相关题目&#34;&gt;#&lt;/a&gt; 相关题目&lt;/h2&gt;
-&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;力扣（LeetCode）407.接雨水II&#34; style=&#34;--block-color:#ffa015;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvdHJhcHBpbmctcmFpbi13YXRlci1paQ==&#34; data-background-image=&#34;https://static.leetcode-cn.com/cn-frontendx-assets/production/_next/static/images/lccn-logo-ce3d56eeedaae618e59e2ec5089e4834.svg&#34;&gt;&lt;/span&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS1jbi5jb20vcHJvYmxlbXMvdHJhcHBpbmctcmFpbi13YXRlci1paQ==&#34;&gt;力扣（LeetCode）407.接雨水II&lt;/span&gt;
-          &lt;p class=&#34;desc&#34;&gt;https://leetcode-cn.com/&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h3 id=&#34;题解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#题解&#34;&gt;#&lt;/a&gt; 题解&lt;/h3&gt;
-&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;方家小白-LeetCode题解-42.接雨水&#34; style=&#34;--block-color:#e0b971;&#34;&gt;&lt;a href=&#34;http://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/&#34; class=&#34;image&#34; data-background-image=&#34;https://avatars.githubusercontent.com/u/22616214?v=4&#34;&gt;&lt;/a&gt;
-          &lt;div class=&#34;info&#34;&gt;
-          &lt;a href=&#34;http://fangjiaxiaobai.github.io/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/&#34; class=&#34;title&#34;&gt;方家小白-LeetCode题解-42.接雨水&lt;/a&gt;
-          &lt;p class=&#34;desc&#34;&gt;日常积累的代码，知识点, 数据结构与算法的学习与实现，以及例题分享&lt;/p&gt;
-          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&#34;解法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解法&#34;&gt;#&lt;/a&gt; 解法&lt;/h2&gt;
-&lt;h3 id=&#34;解法一&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解法一&#34;&gt;#&lt;/a&gt; 解法一&lt;/h3&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;trapRainWater&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[][] heightMap)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (heightMap.length &amp;lt;= &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt; || heightMap[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;].length &amp;lt;= &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; m = heightMap.length;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; n = heightMap[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;].length;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt;[][] visit = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;boolean&lt;/span&gt;[m][n];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    PriorityQueue&amp;lt;&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;gt; pq = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; PriorityQueue&amp;lt;&amp;gt;((o1, o2) -&amp;gt; o1[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] - o2[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; m; ++i) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; j = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; j &amp;lt; n; ++j) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (i == &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; || i == m - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt; || j == &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; || j == n - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                pq.offer(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;#123;i * n + j, heightMap[i][j]&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                visit[i][j] = &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; res = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] dirs = &amp;#123;-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, -&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (!pq.isEmpty()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[] curr = pq.poll();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; k = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; k &amp;lt; &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;; ++k) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; nx = curr[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;] / n + dirs[k];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; ny = curr[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;] % n + dirs[k + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (nx &amp;gt;= &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; nx &amp;lt; m &amp;amp;&amp;amp; ny &amp;gt;= &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; &amp;amp;&amp;amp; ny &amp;lt; n &amp;amp;&amp;amp; !visit[nx][ny]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] &amp;gt; heightMap[nx][ny]) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                    res += curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] - heightMap[nx][ny];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                pq.offer(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt;[]&amp;#123;nx * n + ny, Math.max(heightMap[nx][ny], curr[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;])&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                visit[nx][ny] = &lt;span class=&#34;keyword&#34;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; res;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
-&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
-</content>
-        <category term="leetCode" />
-        <category term="面经之算法题" />
-        <category term="有点难的算法题" />
         <updated>2021-11-04T10:18:18.000Z</updated>
     </entry>
     <entry>
@@ -468,9 +468,9 @@ n 是一个偶数&lt;br&gt;
 &lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
 </content>
+        <category term="动态规划" />
         <category term="leetCode" />
         <category term="面经之算法题" />
-        <category term="动态规划" />
         <updated>2021-11-01T10:18:18.000Z</updated>
     </entry>
     <entry>
@@ -560,8 +560,8 @@ n 是一个偶数&lt;br&gt;
 </content>
         <category term="数据结构" />
         <category term="leetCode" />
-        <category term="面经之算法题" />
         <category term="链表" />
+        <category term="面经之算法题" />
         <updated>2021-08-29T09:25:55.000Z</updated>
     </entry>
     <entry>
@@ -646,8 +646,8 @@ n 是一个偶数&lt;br&gt;
 </content>
         <category term="数据结构" />
         <category term="leetCode" />
-        <category term="数组" />
         <category term="面经之算法题" />
+        <category term="数组" />
         <updated>2021-08-19T06:48:55.000Z</updated>
     </entry>
 </feed>
