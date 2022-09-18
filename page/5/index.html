@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciusoyjnj219g0u0x56.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
         </ul>
       </div>
     </header>
@@ -118,6 +118,54 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" title="RocketMQ样例:事务消息"><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/4.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-09-23 17:50:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-09-23T17:50:00+08:00">2021-09-23</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></h3>
+    <div class="excerpt">
+        事务消息共有三种状态，提交状态、回滚状态、中间状态：
+TransactionStatus.CommitTransaction : 提交事务，它允许消费者消费此消息。
+TransactionStatus.RollbackTransaction : 回滚事务，它代表该消息将被删除，不允许被消费。
+TransactionStatus.Unknown : 中间状态，它代表需要检查消息队列来确定状态。
+# 发送事务消息样例
+# 创建事务性生产者
+使用 TransactionMQProducer 类创建生产者，并指定唯一的 ProducerGroup...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
+      </span>
+    </div>
+    <a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" itemprop="url" title="RocketMQ样例:事务消息" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -345,7 +393,7 @@ RocketMQ ， 给我们提供了三种简单的消息生产方式， 1.同步发�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" title="RocketMQ系列-在Java应用中的使用"><img data-src="https://tva3.sinaimg.cn/mw690/6833939bly1giclffsa1cj20zk0m811l.jpg"></a>
+    <a href="/2021/09/04/rocketMQ/1-04-00.RocketMQ%E5%B8%B8%E8%A7%81%E6%A1%88%E4%BE%8B/" itemprop="url" title="RocketMQ系列-在Java应用中的使用"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -533,51 +581,6 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/09/01/rocketMQ/README/" itemprop="url" title="RocketMQ系列-开篇"><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/12.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-09-01 17:16:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-09-01T17:16:00+08:00">2021-09-01</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>740</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/09/01/rocketMQ/README/" itemprop="url" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></h3>
-    <div class="excerpt">
-        # 开篇
-写这篇文章的时间是 2021 年 9 月 1 日，不知道是否有勇气写完全部系列之后再发布给大家，这只能算是自己学习 RocketMQ 的笔记吧。希望在 2021 年的年底能够将整个系列完整的发布到方家小白公众号和 fangjiaxiaobai.github.io 博客中。想写的文章也还有很多，同时在写的有 《Java 的 Stream 并行流设计》 和 《聊聊面试那点事》。
-2021 年国家发布了很多政策，尤其是互联网行业，特别是 在线教育，我前些日子里也是一名在线教育从业者。
-而写这个系列的最根本的原因，也是因为被人常问的就是 RocketMQ...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
-      </span>
-    </div>
-    <a href="/2021/09/01/rocketMQ/README/" itemprop="url" title="RocketMQ系列-开篇" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -613,7 +616,7 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">108</span>
+        <span class="count">109</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -783,57 +786,17 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
 </div>
 
-    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" title="Redis 开篇 &amp; 说明">Redis 开篇 & 说明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="排序算法">排序算法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
+    <span><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></span>
   </li>
 
       
@@ -843,27 +806,27 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
 <a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
+    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/" title="git基本命令二">git基本命令二</a></span>
+    <span><a href="/2022/07/17/k8s/seris02-how-to-build/" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></span>
   </li>
 
       
@@ -873,7 +836,47 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%97%A5%E5%BF%97/" title="分类于 日志">日志</a>
+</div>
+
+    <span><a href="/2022/03/04/mylogs/talk_about_log/" title="聊聊日志">聊聊日志</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
   </li>
 
   </ul>
@@ -898,13 +901,13 @@ RocketMQ 的发展历程分为两部分， 2001 年开始 RocketMQ 的前身 Not
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">472k 字</span>
+    <span title="站点总字数">479k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:09</span>
+    <span title="站点阅读时长">7:15</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
