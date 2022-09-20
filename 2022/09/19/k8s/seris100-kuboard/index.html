@@ -1,0 +1,677 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF"> 
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="k8s,kubernetes" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2022/09/19/k8s/seris100-kuboard/">
+
+
+
+  <title>
+k8s 监控神器 kuboard - k8s |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">k8s 监控神器 kuboard
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-09-19 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-09-19T18:18:00+08:00">2022-09-19</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>8.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>8 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-100.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/k8s/" itemprop="item" rel="index" title="分类于 k8s"><span itemprop="name">k8s</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2022/09/19/k8s/seris100-kuboard/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <div id="fxb_container" class="fxb_container_style">
+      <p><code>Kubernetes</code>  容器编排已越来越被大家关注，然而学习  <code>Kubernetes</code>  的门槛却依然很高，主要体现在这几个方面：</p>
+<ul>
+<li>集群的安装复杂</li>
+<li><code>Kubernetes</code>  相较于容器，引入了许多新的概念</li>
+<li>需要手工编写  <code>YAML</code>  文件</li>
+<li>没有好的参考案例可以遵循</li>
+</ul>
+<p>今天给大家介绍的这款工具  <code>Kuboard</code> ，是一款免费的  <code>Kubernetes</code>  图形化管理工具， <code>Kuboard</code>  力图帮助用户快速在  <code>Kubernetes</code>  上落地微服务。为了达到此目标， <code>Kuboard</code>  提供了针对上述问题的解决办法：</p>
+<p><code>Kuboard</code>  提供  <code>Kubernetes</code>  免费安装文档、免费在线答疑，每天约有  <code>200</code>  位网友参照  <code>Kuboard</code>  提供的文档进行 K8S 集群安装。<br>
+ <code>Kuboard</code>  提供  <code>Kubernetes</code>  免费中文教程、用户无需付费购买视频教程或参加线下培训班，就可参照  <code>Kuboard</code>  提供的免费教程完成  <code>K8S</code>  的学习，更有  <code>QQ</code>  社群可以和网友互相讨论，共同进步。<br>
+ <code>Kuboard</code>  是  <code>Kubernetes</code>  的一款图形化管理工具，使用 Kuboard，用户无需编写  <code>YAML</code>  文件，就可以完成应用程序的部署和管理。<br>
+ <code>Kuboard</code>  提供  <code>Spring Cloud</code>  等微服务参考架构在  <code>K8S</code>  上的详细部署文档和步骤，是  <code>Spring Cloud</code>  用户将自己的应用迁移到  <code>K8S</code>  部署环境的非常好的参考资料。<br>
+ <code>Kuboard</code>  是一款专为  <code>Kubernetes</code>  设计的免费管理界面，兼容  <code>Kubernetes</code>  版本  <code>1.13</code>  及以上。 <code>Kuboard</code>  每周发布一个  <code>beta</code>  版本，最长每月发布一个正式版本，经过两年的不断迭代和优化，已经具备多集群管理、权限管理、监控套件、日志套件等丰富的功能，并且有  <code>1000+</code>  的企业将  <code>Kuboard</code>  应用于其生产环境。 <code>Kuboard</code>  自  <code>2019年8月</code> 发布第一个版本以来，得到了众多用户的认可，目前已经获得了  <code>10000+ GitHub Star</code></p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装">#</a> 安装</h2>
+<h3 id="给-master-节点添加标签"><a class="markdownIt-Anchor" href="#给-master-节点添加标签">#</a> 给  <code>master</code>  节点添加标签.</h3>
+<p>首先查看一下  <code>master</code>  节点是否有  <code>&quot;k8s.kuboard.cn/role=etcd&quot;</code>  标签:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes --show-labels=true</span><br></pre></td></tr></table></figure>
+<p>如果有则进行下一步.<br>
+ 如果没有，添加标签:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl label nodes k8s-master-01 k8s.kuboard.cn/role=etcd</span><br></pre></td></tr></table></figure>
+<p>其中 将  <code>k8s-master-01</code>  替换成你的 <code>master</code>  节点。</p>
+<h3 id="安装-kuboard"><a class="markdownIt-Anchor" href="#安装-kuboard">#</a> 安装 kuboard.</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml</span><br></pre></td></tr></table></figure>
+<p>然后查看启动情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-01 yamls]# kubectl get pod -n kuboard</span><br><span class="line">NAME                               READY   STATUS    RESTARTS      AGE</span><br><span class="line">kuboard-agent-2-8644cd44c9-wdq5h   1/1     Running   2 (21m ago)   22m</span><br><span class="line">kuboard-agent-8467cc9799-2n4wl     1/1     Running   0             9m5s</span><br><span class="line">kuboard-agent-8467cc9799-p9qb6     1/1     Running   2 (21m ago)   22m</span><br><span class="line">kuboard-etcd-pmdxq                 1/1     Running   0             22m</span><br><span class="line">kuboard-v3-84f9bf8bfc-8gt5z        1/1     Running   0             22m</span><br></pre></td></tr></table></figure>
+<p>都启动成功之后。</p>
+<p>通过浏览器访问  <code>&lt;MasterIp&gt;:30080</code>  即可。</p>
+<p><img data-src="/mages/k8s/10-01.png" alt=""></p>
+<h2 id="页面操作"><a class="markdownIt-Anchor" href="#页面操作">#</a> 页面操作</h2>
+<p><code>Kuboard</code>  是一款专为  <code>Kubernetes</code>  设计的免费管理界面，兼容  <code>Kubernetes</code>  版本  <code>1.13</code>  及以上。  <code>Kuboard</code>  已经具备多集群管理、权限管理、监控套件、日志套件等丰富的功能.</p>
+<h3 id="多集群管理"><a class="markdownIt-Anchor" href="#多集群管理">#</a> 多集群管理</h3>
+<p>管理员可以把 不同的 <code>Kubernetes</code>  集群添加同一个 <code>Kuboard</code>  中， 并且可以分配不同的权限进行控制，将不同集群 / 名称空间的权限分配给指定的用户或用户组。</p>
+<p><img data-src="/mages/k8s/10-02.png" alt=""></p>
+<h3 id="微服务分层展示"><a class="markdownIt-Anchor" href="#微服务分层展示">#</a> 微服务分层展示</h3>
+<p>在  <code>Kuboard</code>  的名称空间概要页中，以经典的微服务分层方式将工作负载划分到不同的分层，更加直观地展示微服务架构的结构，并且可以为每一个名称空间自定义名称空间布局。</p>
+<p><img data-src="/mages/k8s/10-03.png" alt=""></p>
+<p>进入命名空间之后，可以查看各种资源信息。还支持各种常用操作。</p>
+<p><img data-src="/mages/k8s/10-04.png" alt=""></p>
+<h2 id="附录-kuboard-v3安装文件"><a class="markdownIt-Anchor" href="#附录-kuboard-v3安装文件">#</a> 附录 - kuboard-v3 安装文件</h2>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Namespace</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-v3-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="comment"># 关于如下参数的解释，请参考文档 https://kuboard.cn/install/v3/install-built-in.html</span></span><br><span class="line">  <span class="comment"># [common]</span></span><br><span class="line">  <span class="attr">KUBOARD_SERVER_NODE_PORT:</span> <span class="string">&#x27;30080&#x27;</span></span><br><span class="line">  <span class="attr">KUBOARD_AGENT_SERVER_UDP_PORT:</span> <span class="string">&#x27;30081&#x27;</span></span><br><span class="line">  <span class="attr">KUBOARD_AGENT_SERVER_TCP_PORT:</span> <span class="string">&#x27;30081&#x27;</span></span><br><span class="line">  <span class="attr">KUBOARD_SERVER_LOGRUS_LEVEL:</span> <span class="string">info</span>  <span class="comment"># error / debug / trace</span></span><br><span class="line">  <span class="comment"># KUBOARD_AGENT_KEY 是 Agent 与 Kuboard 通信时的密钥，请修改为一个任意的包含字母、数字的32位字符串，此密钥变更后，需要删除 Kuboard Agent 重新导入。</span></span><br><span class="line">  <span class="attr">KUBOARD_AGENT_KEY:</span> <span class="string">32b7d6572c6255211b4eec9009e4a816</span></span><br><span class="line">  <span class="attr">KUBOARD_AGENT_IMAG:</span> <span class="string">eipwork/kuboard-agent</span></span><br><span class="line">  <span class="attr">KUBOARD_QUESTDB_IMAGE:</span> <span class="string">questdb/questdb:6.0.5</span></span><br><span class="line">  <span class="attr">KUBOARD_DISABLE_AUDIT:</span> <span class="string">&#x27;false&#x27;</span> <span class="comment"># 如果要禁用 Kuboard 审计功能，将此参数的值设置为 &#x27;true&#x27;，必须带引号。</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 关于如下参数的解释，请参考文档 https://kuboard.cn/install/v3/install-gitlab.html</span></span><br><span class="line">  <span class="comment"># [gitlab login]</span></span><br><span class="line">  <span class="comment"># KUBOARD_LOGIN_TYPE: &quot;gitlab&quot;</span></span><br><span class="line">  <span class="comment"># KUBOARD_ROOT_USER: &quot;your-user-name-in-gitlab&quot;</span></span><br><span class="line">  <span class="comment"># GITLAB_BASE_URL: &quot;http://gitlab.mycompany.com&quot;</span></span><br><span class="line">  <span class="comment"># GITLAB_APPLICATION_ID: &quot;7c10882aa46810a0402d17c66103894ac5e43d6130b81c17f7f2d8ae182040b5&quot;</span></span><br><span class="line">  <span class="comment"># GITLAB_CLIENT_SECRET: &quot;77c149bd3a4b6870bffa1a1afaf37cba28a1817f4cf518699065f5a8fe958889&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 关于如下参数的解释，请参考文档 https://kuboard.cn/install/v3/install-github.html</span></span><br><span class="line">  <span class="comment"># [github login]</span></span><br><span class="line">  <span class="comment"># KUBOARD_LOGIN_TYPE: &quot;github&quot;</span></span><br><span class="line">  <span class="comment"># KUBOARD_ROOT_USER: &quot;your-user-name-in-github&quot;</span></span><br><span class="line">  <span class="comment"># GITHUB_CLIENT_ID: &quot;17577d45e4de7dad88e0&quot;</span></span><br><span class="line">  <span class="comment"># GITHUB_CLIENT_SECRET: &quot;ff738553a8c7e9ad39569c8d02c1d85ec19115a7&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 关于如下参数的解释，请参考文档 https://kuboard.cn/install/v3/install-ldap.html</span></span><br><span class="line">  <span class="comment"># [ldap login]</span></span><br><span class="line">  <span class="comment"># KUBOARD_LOGIN_TYPE: &quot;ldap&quot;</span></span><br><span class="line">  <span class="comment"># KUBOARD_ROOT_USER: &quot;your-user-name-in-ldap&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_HOST: &quot;ldap-ip-address:389&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_BIND_DN: &quot;cn=admin,dc=example,dc=org&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_BIND_PASSWORD: &quot;admin&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_BASE_DN: &quot;dc=example,dc=org&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_FILTER: &quot;(objectClass=posixAccount)&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_ID_ATTRIBUTE: &quot;uid&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_USER_NAME_ATTRIBUTE: &quot;uid&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_EMAIL_ATTRIBUTE: &quot;mail&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_DISPLAY_NAME_ATTRIBUTE: &quot;cn&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_GROUP_SEARCH_BASE_DN: &quot;dc=example,dc=org&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_GROUP_SEARCH_FILTER: &quot;(objectClass=posixGroup)&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_USER_MACHER_USER_ATTRIBUTE: &quot;gidNumber&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_USER_MACHER_GROUP_ATTRIBUTE: &quot;gidNumber&quot;</span></span><br><span class="line">  <span class="comment"># LDAP_GROUP_NAME_ATTRIBUTE: &quot;cn&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-boostrap-crb</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cluster-admin</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">DaemonSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-etcd</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-etcd</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-etcd</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-etcd</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">affinity:</span></span><br><span class="line">        <span class="attr">nodeAffinity:</span></span><br><span class="line">          <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">            <span class="attr">nodeSelectorTerms:</span></span><br><span class="line">              <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">                    <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">              <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/control-plane</span></span><br><span class="line">                    <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">              <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">k8s.kuboard.cn/role</span></span><br><span class="line">                    <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">                    <span class="attr">values:</span></span><br><span class="line">                      <span class="bullet">-</span> <span class="string">etcd</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">HOSTNAME</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">spec.nodeName</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">HOSTIP</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">status.hostIP</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">&#x27;eipwork/etcd-host:3.4.16-2&#x27;</span></span><br><span class="line">          <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">etcd</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">2381</span></span><br><span class="line">              <span class="attr">hostPort:</span> <span class="number">2381</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">server</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">2382</span></span><br><span class="line">              <span class="attr">hostPort:</span> <span class="number">2382</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">peer</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">          <span class="attr">livenessProbe:</span></span><br><span class="line">            <span class="attr">failureThreshold:</span> <span class="number">3</span></span><br><span class="line">            <span class="attr">httpGet:</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">/health</span></span><br><span class="line">              <span class="attr">port:</span> <span class="number">2381</span></span><br><span class="line">              <span class="attr">scheme:</span> <span class="string">HTTP</span></span><br><span class="line">            <span class="attr">initialDelaySeconds:</span> <span class="number">30</span></span><br><span class="line">            <span class="attr">periodSeconds:</span> <span class="number">10</span></span><br><span class="line">            <span class="attr">successThreshold:</span> <span class="number">1</span></span><br><span class="line">            <span class="attr">timeoutSeconds:</span> <span class="number">1</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/data</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">data</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">          <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/control-plane</span></span><br><span class="line">          <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">hostPath:</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/usr/share/kuboard/etcd</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">data</span></span><br><span class="line">  <span class="attr">updateStrategy:</span></span><br><span class="line">    <span class="attr">rollingUpdate:</span></span><br><span class="line">      <span class="attr">maxUnavailable:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">RollingUpdate</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">revisionHistoryLimit:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">affinity:</span></span><br><span class="line">        <span class="attr">nodeAffinity:</span></span><br><span class="line">          <span class="attr">preferredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">preference:</span></span><br><span class="line">                <span class="attr">matchExpressions:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">                    <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">              <span class="attr">weight:</span> <span class="number">100</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">preference:</span></span><br><span class="line">                <span class="attr">matchExpressions:</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/control-plane</span></span><br><span class="line">                    <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">              <span class="attr">weight:</span> <span class="number">100</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">HOSTIP</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">status.hostIP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">HOSTNAME</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">spec.nodeName</span></span><br><span class="line">          <span class="attr">envFrom:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">configMapRef:</span></span><br><span class="line">                <span class="attr">name:</span> <span class="string">kuboard-v3-config</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">&#x27;eipwork/kuboard:v3&#x27;</span></span><br><span class="line">          <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">          <span class="attr">livenessProbe:</span></span><br><span class="line">            <span class="attr">failureThreshold:</span> <span class="number">3</span></span><br><span class="line">            <span class="attr">httpGet:</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">/kuboard-resources/version.json</span></span><br><span class="line">              <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">              <span class="attr">scheme:</span> <span class="string">HTTP</span></span><br><span class="line">            <span class="attr">initialDelaySeconds:</span> <span class="number">30</span></span><br><span class="line">            <span class="attr">periodSeconds:</span> <span class="number">10</span></span><br><span class="line">            <span class="attr">successThreshold:</span> <span class="number">1</span></span><br><span class="line">            <span class="attr">timeoutSeconds:</span> <span class="number">1</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">kuboard</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">web</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">443</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">https</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">10081</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">peer</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">10081</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">peer-u</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">UDP</span></span><br><span class="line">          <span class="attr">readinessProbe:</span></span><br><span class="line">            <span class="attr">failureThreshold:</span> <span class="number">3</span></span><br><span class="line">            <span class="attr">httpGet:</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">/kuboard-resources/version.json</span></span><br><span class="line">              <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">              <span class="attr">scheme:</span> <span class="string">HTTP</span></span><br><span class="line">            <span class="attr">initialDelaySeconds:</span> <span class="number">30</span></span><br><span class="line">            <span class="attr">periodSeconds:</span> <span class="number">10</span></span><br><span class="line">            <span class="attr">successThreshold:</span> <span class="number">1</span></span><br><span class="line">            <span class="attr">timeoutSeconds:</span> <span class="number">1</span></span><br><span class="line">          <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line">          <span class="comment"># startupProbe:</span></span><br><span class="line">          <span class="comment">#   failureThreshold: 20</span></span><br><span class="line">          <span class="comment">#   httpGet:</span></span><br><span class="line">          <span class="comment">#     path: /kuboard-resources/version.json</span></span><br><span class="line">          <span class="comment">#     port: 80</span></span><br><span class="line">          <span class="comment">#     scheme: HTTP</span></span><br><span class="line">          <span class="comment">#   initialDelaySeconds: 5</span></span><br><span class="line">          <span class="comment">#   periodSeconds: 10</span></span><br><span class="line">          <span class="comment">#   successThreshold: 1</span></span><br><span class="line">          <span class="comment">#   timeoutSeconds: 1</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">kuboard-boostrap</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">          <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kuboard</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">web</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30080</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">tcp</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30081</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">10081</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">10081</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">udp</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30081</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">10081</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">UDP</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">10081</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">k8s.kuboard.cn/name:</span> <span class="string">kuboard-v3</span></span><br><span class="line">  <span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br></pre></td></tr></table></figure>
+<p>以上  <code>yaml</code>  文件可以通过  <code>https://github.com/fangjiaxiaobai/k8s/tree/main/yamls</code>  进行获取。</p>
+
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
+      <div class="tags">
+          <a href="/tags/k8s/" rel="tag"><i class="ic i-tag"></i> k8s</a>
+          <a href="/tags/kubernetes/" rel="tag"><i class="ic i-tag"></i> kubernetes</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-09-20 08:18:26" itemprop="dateModified" datetime="2022-09-20T08:18:26+08:00">2022-09-20</time>
+  </span>
+  <span id="2022/09/19/k8s/seris100-kuboard/" class="item leancloud_visitors" data-flag-title="k8s 监控神器 kuboard" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2022/09/19/k8s/seris100-kuboard/" title="k8s 监控神器 kuboard">https://fangjiaxiaobai.github.io/2022/09/19/k8s/seris100-kuboard/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/09/18/k8s/seris05-service/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-04.png" title="k8s-Service">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> k8s</span>
+  <h3>k8s-Service</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text"> 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99-master-%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.</span> <span class="toc-text"> 给  master  节点添加标签.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-kuboard"><span class="toc-number">1.2.</span> <span class="toc-text"> 安装 kuboard.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text"> 页面操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%9B%86%E7%BE%A4%E7%AE%A1%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text"> 多集群管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B1%82%E5%B1%95%E7%A4%BA"><span class="toc-number">2.2.</span> <span class="toc-text"> 微服务分层展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95-kuboard-v3%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text"> 附录 - kuboard-v3 安装文件</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2022/07/17/k8s/seris02-how-to-build/" rel="bookmark" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></li><li><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" rel="bookmark" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></li><li><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" rel="bookmark" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></li><li><a href="/2022/08/07/k8s/seris04-work-load/" rel="bookmark" title="k8s-资源控制器">k8s-资源控制器</a></li><li><a href="/2022/09/18/k8s/seris05-service/" rel="bookmark" title="k8s-Service">k8s-Service</a></li><li class="active"><a href="/2022/09/19/k8s/seris100-kuboard/" rel="bookmark" title="k8s 监控神器 kuboard">k8s 监控神器 kuboard</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">110</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">23</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">66</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2022/07/09/rocketMQ/3-08-save-msg-detail/" title="RocketMQ 消息刷盘过程详解">RocketMQ 消息刷盘过程详解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
+</div>
+
+    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="分类于 设计模式">设计模式</a>
+</div>
+
+    <span><a href="/2022/03/12/design_pattern/go/dp01-singleton/" title="Go设计模式-单例设计模式">Go设计模式-单例设计模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%97%A5%E5%B8%B8/" title="分类于 日常">日常</a>
+</div>
+
+    <span><a href="/2022/01/07/daily/2022-01-07/" title="Springboot集成Netty.">Springboot集成Netty.</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">487k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:23</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/09/19/k8s/seris100-kuboard/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

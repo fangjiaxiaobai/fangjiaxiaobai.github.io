@@ -117,7 +117,7 @@ k8s-Service - k8s |
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-05.png">
+          <img src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-04.png">
       </div>
     </header>
     <div id="waves">
@@ -163,7 +163,7 @@ k8s-Service - k8s |
     
 
     <div id="fxb_container" class="fxb_container_style">
-      <h2 id="服务service"><a class="markdownIt-Anchor" href="#服务service">#</a> 服务 ( <code>Service</code> )</h2>
+      <h2 id="服务service"><a class="markdownIt-Anchor" href="#服务service">#</a> 服务 (Service)</h2>
 <h3 id="解决的问题"><a class="markdownIt-Anchor" href="#解决的问题">#</a> 解决的问题</h3>
 <p><code>Pod</code>  是非永久性资源。 如果你使用  <code>Deployment</code>  来运行你的应用程序，则它可以动态创建和销毁 Pod。</p>
 <p>每个  <code>Pod</code>  都有自己的  <code>IP</code>  地址，但是在  <code>Deployment</code>  中，在同一时刻运行的  <code>Pod</code>  集合可能与稍后运行该应用程序的  <code>Pod</code>  集合不同。</p>
@@ -175,7 +175,7 @@ k8s-Service - k8s |
 <p>假设，你有一组  <code>pod</code>  , 那如何使用一个  <code>Service</code>  为这组  <code>pod</code>  提供负载均衡的能力呢？刚才说了，通过  <code>Label Selector</code>  选择出符合条件的  <code>Pod</code> . 当请求访问到  <code>Service</code> , 则会请求转到对应的一个  <code>pod</code>  上。 还有一种方式就是  <code>非 Label Selector</code>  方式.</p>
 <h4 id="selector关联"><a class="markdownIt-Anchor" href="#selector关联">#</a> Selector 关联</h4>
 <p>举一个例子:</p>
-<p>假定有一组  <code>Pod</code> ，它们对外暴露了  <code>80</code>  端口，同时还被打上  <code>app.kubernetes.io/name=proxy</code>  标签</p>
+<p>假定有一组 Pod，它们对外暴露了 80 端口，同时还被打上 <span class="exturl" data-url="aHR0cDovL2FwcC5rdWJlcm5ldGVzLmlvL25hbWU9cHJveHk=">app.kubernetes.io/name=proxy</span> 标签</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">proxy</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">http-web-svc</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
 <p>然后创建了一个  <code>Service</code></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">proxy</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">name-of-service-port</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="string">http-web-svc</span></span><br></pre></td></tr></table></figure>
@@ -300,7 +300,7 @@ k8s-Service - k8s |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-09-18 22:24:14" itemprop="dateModified" datetime="2022-09-18T22:24:14+08:00">2022-09-18</time>
+    <time title="修改时间：2022-09-19 08:29:33" itemprop="dateModified" datetime="2022-09-19T08:29:33+08:00">2022-09-19</time>
   </span>
   <span id="2022/09/18/k8s/seris05-service/" class="item leancloud_visitors" data-flag-title="k8s-Service" title="阅读次数">
       <span class="icon">
@@ -370,6 +370,14 @@ k8s-Service - k8s |
 
     </div>
     <div class="item right">
+      
+
+  <a href="/2022/09/19/k8s/seris100-kuboard/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-100.png" title="k8s 监控神器 kuboard">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> k8s</span>
+  <h3>k8s 监控神器 kuboard</h3>
+  </a>
+
     </div>
 </div>
 
@@ -386,11 +394,11 @@ k8s-Service - k8s |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1service"><span class="toc-number">1.</span> <span class="toc-text"> 服务 ( Service )</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text"> 解决的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text"> 定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#selector%E5%85%B3%E8%81%94"><span class="toc-number">1.2.1.</span> <span class="toc-text"> Selector 关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9Eselector%E5%85%B3%E8%81%94"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 非 Selector 关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#service-%E5%8F%AF%E4%BB%A5%E7%AE%A1%E7%90%86%E5%A4%9A%E5%B0%91%E4%B8%AA-endpoint"><span class="toc-number">1.2.3.</span> <span class="toc-text"> Service 可以管理多少个 Endpoint</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 如何解决</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#service%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">  Service  的类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text"> 代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vip-%E5%92%8C-service%E4%BB%A3%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">  VIP  和  Service  代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 代理模式的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#userspace"><span class="toc-number">2.2.1.</span> <span class="toc-text">  userspace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iptables"><span class="toc-number">2.2.2.</span> <span class="toc-text"> iptables</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ipvs"><span class="toc-number">2.2.3.</span> <span class="toc-text"> ipvs</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service-%E7%B1%BB%E5%9E%8B%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text"> Service 类型实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#clusterip"><span class="toc-number">3.1.</span> <span class="toc-text">  ClusterIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAdeploy"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 创建一个 deploy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%8A-deploymenet-%E7%BB%91%E5%AE%9A%E5%88%B0-service-%E4%B8%8A"><span class="toc-number">3.1.2.</span> <span class="toc-text"> 把  Deploymenet  绑定到  Service  上</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#headless-service"><span class="toc-number">3.1.3.</span> <span class="toc-text">  Headless Service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodeport"><span class="toc-number">3.2.</span> <span class="toc-text">  NodePort</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-deployment"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 创建  Deployment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%88%B0-service-%E4%B8%8A"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 绑定到  Service  上。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadbalancer"><span class="toc-number">3.3.</span> <span class="toc-text">  LoadBalancer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#externalname"><span class="toc-number">3.4.</span> <span class="toc-text">  ExternalName</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">4.</span> <span class="toc-text"> 最后</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1service"><span class="toc-number">1.</span> <span class="toc-text"> 服务 (Service)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text"> 解决的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text"> 定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#selector%E5%85%B3%E8%81%94"><span class="toc-number">1.2.1.</span> <span class="toc-text"> Selector 关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9Eselector%E5%85%B3%E8%81%94"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 非 Selector 关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#service-%E5%8F%AF%E4%BB%A5%E7%AE%A1%E7%90%86%E5%A4%9A%E5%B0%91%E4%B8%AA-endpoint"><span class="toc-number">1.2.3.</span> <span class="toc-text"> Service 可以管理多少个 Endpoint</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 如何解决</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#service%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">  Service  的类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text"> 代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vip-%E5%92%8C-service%E4%BB%A3%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">  VIP  和  Service  代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.2.</span> <span class="toc-text"> 代理模式的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#userspace"><span class="toc-number">2.2.1.</span> <span class="toc-text">  userspace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iptables"><span class="toc-number">2.2.2.</span> <span class="toc-text"> iptables</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ipvs"><span class="toc-number">2.2.3.</span> <span class="toc-text"> ipvs</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service-%E7%B1%BB%E5%9E%8B%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text"> Service 类型实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#clusterip"><span class="toc-number">3.1.</span> <span class="toc-text">  ClusterIP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAdeploy"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 创建一个 deploy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%8A-deploymenet-%E7%BB%91%E5%AE%9A%E5%88%B0-service-%E4%B8%8A"><span class="toc-number">3.1.2.</span> <span class="toc-text"> 把  Deploymenet  绑定到  Service  上</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#headless-service"><span class="toc-number">3.1.3.</span> <span class="toc-text">  Headless Service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodeport"><span class="toc-number">3.2.</span> <span class="toc-text">  NodePort</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-deployment"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 创建  Deployment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%88%B0-service-%E4%B8%8A"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 绑定到  Service  上。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadbalancer"><span class="toc-number">3.3.</span> <span class="toc-text">  LoadBalancer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#externalname"><span class="toc-number">3.4.</span> <span class="toc-text">  ExternalName</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">4.</span> <span class="toc-text"> 最后</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2022/07/17/k8s/seris02-how-to-build/" rel="bookmark" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></li><li><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" rel="bookmark" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></li><li><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" rel="bookmark" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></li><li><a href="/2022/08/07/k8s/seris04-work-load/" rel="bookmark" title="k8s-资源控制器">k8s-资源控制器</a></li><li class="active"><a href="/2022/09/18/k8s/seris05-service/" rel="bookmark" title="k8s-Service">k8s-Service</a></li>
+          <li><a href="/2022/07/17/k8s/seris02-how-to-build/" rel="bookmark" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></li><li><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" rel="bookmark" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></li><li><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" rel="bookmark" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></li><li><a href="/2022/08/07/k8s/seris04-work-load/" rel="bookmark" title="k8s-资源控制器">k8s-资源控制器</a></li><li class="active"><a href="/2022/09/18/k8s/seris05-service/" rel="bookmark" title="k8s-Service">k8s-Service</a></li><li><a href="/2022/09/19/k8s/seris100-kuboard/" rel="bookmark" title="k8s 监控神器 kuboard">k8s 监控神器 kuboard</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -404,7 +412,7 @@ k8s-Service - k8s |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">109</span>
+        <span class="count">110</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -545,10 +553,12 @@ k8s-Service - k8s |
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2022/08/07/k8s/seris04-work-load/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2022/09/19/k8s/seris100-kuboard/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -570,70 +580,20 @@ k8s-Service - k8s |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">动态规划</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+    <span><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search配置">Elastic Search配置</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
-</div>
-
-    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
+    <span><a href="/2021/10/14/BQ/hdoj/HD-1001/" title="1001 Sum Problem">1001 Sum Problem</a></span>
   </li>
 
       
@@ -643,27 +603,77 @@ k8s-Service - k8s |
 <a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/HashMap/HashMap%E7%9A%84Hash%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89/" title="HashMap的Hash函数到底有什么意义">HashMap的Hash函数到底有什么意义</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2022/08/07/k8s/seris04-work-load/" title="k8s-资源控制器">k8s-资源控制器</a></span>
+    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" title="LC:407.接雨水II">LC:407.接雨水II</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
+</div>
+
+    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="一致性哈希算法的实现">一致性哈希算法的实现</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+</div>
+
+    <span><a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" title="搭建第一个纯dubbo微服务应用">搭建第一个纯dubbo微服务应用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
   </li>
 
   </ul>
@@ -688,13 +698,13 @@ k8s-Service - k8s |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">479k 字</span>
+    <span title="站点总字数">487k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:15</span>
+    <span title="站点阅读时长">7:23</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
