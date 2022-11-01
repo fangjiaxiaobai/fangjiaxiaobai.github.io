@@ -28,12 +28,12 @@
   <meta name="keywords" content="MySQL" />
 
 
-<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/">
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2022/11/01/MySQL-series/MySQL-1-02.install/">
 
 
 
   <title>
-MySQL 数据库的版本 - MySQL 数据库 |
+02. 安装 MySQL - MySQL 数据库 |
 方家小白 = 和你一起遇见更好的自己</title>
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -61,23 +61,23 @@ MySQL 数据库的版本 - MySQL 数据库 |
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">MySQL 数据库的版本
+  <h1 itemprop="name headline">02. 安装 MySQL
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2021-07-24 14:48:55">
+  <span class="item" title="创建时间：2022-11-01 18:18:18">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-24T14:48:55+08:00">2021-07-24</time>
+    <time itemprop="dateCreated datePublished" datetime="2022-11-01T18:18:18+08:00">2022-11-01</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>1.8k</span>
+    <span>1.5k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -85,7 +85,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
       <i class="ic i-clock"></i>
     </span>
     <span class="text">阅读时长</span>
-    <span>2 分钟</span>
+    <span>1 分钟</span>
   </span>
 </div>
 
@@ -117,14 +117,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
 
       </div>
       <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
-        </ul>
+          <img src="https://fangjiaxiaobai.github.io/images/MySQL-series/covers/1-02.png">
       </div>
     </header>
     <div id="waves">
@@ -154,7 +147,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2022/11/01/MySQL-series/MySQL-1-02.install/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -170,85 +163,63 @@ MySQL 数据库的版本 - MySQL 数据库 |
     
 
     <div id="fxb_container" class="fxb_container_style">
-      <h2 id="mysql数据库的版本"><a class="markdownIt-Anchor" href="#mysql数据库的版本">#</a>  <code>MySQL</code>  数据库的版本</h2>
-<p><code>mysql-5.0</code>   :   <code>mysql-5.0</code>  版本之前， <code>myisam</code>  默认支持的表大小为 <code>4G</code> 。从 <code>mysql-5.0</code>  以后， <code>MyISAM</code>  默认支持 <code>256T</code>  的表单数据。 <code>myisam</code>  只缓存索引数据。  <code>2005</code>  年的 <code>5.0</code>  版本又添加了存储过程、服务端游标、触发器、查询优化以及分布式事务功能。</p>
-<p><code>MySQL5.1</code>   :   <code>2008</code>  年发布的 <code>MySQL 5.1</code>  的版本，基本上就是一个增加了崩溃恢复功能的 <code>MyISAM</code> ，使用表级锁，但可以做到读写不冲突，即在进行任何类型的更新操作的同时都可以进行读操作，但多个写操作不能并发。</p>
-<p><code>mysql5.5</code>  :   <code>2010</code>  年 <code>12</code>  月发布 <code>mysql5.5</code>  版本默认存储引擎更改为 <code>InnoDB</code>  多个回滚段（ <code>Multiple Rollback Segments</code> ）, 之前的 <code>innodb</code>  版本最大能处理 <code>1023</code>  个并发处理操作，现在 <code>mysql5.5</code>  可以处理高达 128K 的并发事务，改善事务处理中的元数据锁定。例如，事物中一个语句需要锁一个表，会在事物结束时释放这个表，而不是像以前在语句结束时释放表。 增加了 <code>INFORMATION_SCHEMA</code>  表，新的表提供了与 InnoDB 压缩和事务处理锁定有关的具体信息。</p>
-<h3 id="mysql56"><a class="markdownIt-Anchor" href="#mysql56">#</a> mysql5.6</h3>
-<p><code>2013</code>  年 <code>2</code>  月发布。</p>
+      <p>官网上有很多种安装方式:<br>
+ <code>https://dev.mysql.com/doc/refman/8.0/en/installing.html</code></p>
+<p>这里我们选择一种比较清晰和简单的安装方式进行安装.</p>
+<h2 id="准备"><a class="markdownIt-Anchor" href="#准备">#</a> 准备</h2>
+<h3 id="mysql-80的rpm-安装包"><a class="markdownIt-Anchor" href="#mysql-80的rpm-安装包">#</a> MySQL 8.0 的 rpm 安装包</h3>
+<p>在页面  <code>https://dev.mysql.com/downloads/repo/yum/</code>  中根据自己的操作系统版本选择需要下载的数据库版本。<br>
+（查看操作系统版本使用  <code>uname -a</code>  就可以了，）</p>
+<p><img data-src="/images/MySQL-series/10101-%E6%9F%A5%E7%9C%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%88%E6%9C%AC.png" alt="10101-查看操作系统的版本.png"></p>
+<p>这里看到我的操作系统版本是  <code>el7</code> . 所以我们使用 <code>el7</code>  版本的 数据库就可以了。</p>
+<p><img data-src="/images/MySQL-series/10102-%E4%B8%8B%E8%BD%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC.png" alt="10102-下载数据库版本.png"></p>
+<p>下载下来之后，使用下面的命令进行安装数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql80-community-release-el7-3.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10103-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10103-安装数据库.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-server</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10104-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10104-安装数据库.png"></p>
+<p>修改 <code>MySQL</code>  文件权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown mysql:mysql -R /var/lib/mysql</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10105-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10105-安装数据库.png"></p>
+<p>初始化 <code>MySQL</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10106-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10106-安装数据库.png"></p>
+<p>启动 <code>MySQL</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10107-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10107-安装数据库.png"></p>
+<p>查看运行状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mysqld.service</span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10107-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="10107-安装数据库.png"></p>
+<p>设置开机自启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mysqld</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>查看数据库版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin --version</span><br></pre></td></tr></table></figure>
+<p>设置数据库的用户名和密码</p>
+<p>MySQL 默认的用户名为 root，密码呢？</p>
+<p>官方文档里说；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A superuser account &#x27;root&#x27;@&#x27;localhost&#x27; is created. A password for the superuser is set and stored in the error log file. To reveal it, use the following command for RHEL, Oracle Linux, CentOS, and Fedora systems:</span><br></pre></td></tr></table></figure>
+<p>使用  <code>shell&gt; sudo grep 'temporary password' /var/log/mysqld.log</code>  或者  <code> sudo grep 'temporary password' /var/log/mysql/mysqld.log</code>  这条命令就可以查询到了，我试了。。我信你个鬼。</p>
+<p><img data-src="/images/MySQL-series/10110-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E9%97%AE%E9%A2%98.png" alt="10110-安装数据库问题.png"></p>
+<p>并没有。。</p>
+<p>还是强制处理吧、</p>
 <ul>
-<li>
-<p>安全性进行了加强。用户的账号和密码进行了更强的加密算法，使用 <code>sha256_passwordSHA-256</code>  密码哈希的身份验证插件来进行加密。 <code>mysql.user</code>  表中新增了 <code>password_expired</code>  字段，过期后，所有连接的执行都会报出异常。</p>
-</li>
-<li>
-<p><code>MySQL Server</code>  的参数默认值进行了更改。如下图所示:</p>
-</li>
+<li>首先：停止 MySQL 服务：  <code>systemctl stop mysqld</code></li>
+<li>然后跳过验证启动： <code>mysqld --user=root --skip-grant-tables &amp;</code></li>
+<li>然后： <code>mysql：mysql -u root -p</code> , 输入密码是直接回车。</li>
+<li>进入后：执行  <code>flush privileges;</code></li>
+<li>最后  <code>flush privileges;</code></li>
+<li>退出，重启正常启动 MySQL</li>
 </ul>
-<p><img data-src="/images/MySQL%E7%B3%BB%E5%88%97/10101-MySQL5.6Server%E7%AB%AF%E5%8F%82%E6%95%B0%E4%BF%AE%E6%94%B9%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC.png" alt="10101-MySQL5.6Server端参数修改的默认值.png"></p>
-<ul>
-<li>
-<p><code>mysql5.6</code>  版本中 <code>InnoDB</code>  可以限制大量表打开的时候内存占用过多的问题 <code>InnoDB</code>  性能加强。如大内存优化等 <code>InnoDB</code>  死锁信息可以记录到  <code>error</code>  日志，<br>
-<b> <code>InnoDB</code>  引擎也支持了 <code>FULLTEXT</code>  索引</b>。并使用 <code>MATCH() ... AGAINST</code>  语法查询它们。 <code>ALTER TABLE </code> 在不复制表，不阻止对表的插入，更新和删除或两者都不进行的情况下，可以执行多种操作。<b> <code>InnoDB</code>  使用更快的新算法来检测 死锁</b></p>
-</li>
-<li>
-<p>分区功能</p>
-<ul>
-<li>分区的最大数量增加到 <code>8192</code> 。此数量包括表的所有分区和所有子分区。</li>
-</ul>
-</li>
-<li>
-<p>复制和日志记录</p>
-<ul>
-<li><code>MySQL</code>  现在支持使用全局事务标识符（也称为  <code>GTID</code> ）进行基于事务的复制 。这样，当每个事务在原始服务器上提交并被任何从属服务器应用时，就可以识别和跟踪每个事务。</li>
-<li><code>MySQL</code>  基于行的复制从该版本开始支持行图像控制</li>
-</ul>
-</li>
-<li>
-<p>优化器增强功能</p>
-<ul>
-<li><code>limit</code>  查询进行了优化，如果 <code>N</code>  行元素小于排序缓冲区，那么就使用内存排序而不是合并文件。</li>
-<li>优化器可以更有效地处理 <code>FROM</code>  子句中的子查询 （即派生表）。FROM 子句中子查询的实现 被推迟到查询执行期间需要其内容时为止，从而提高了性能。在查询执行期间，优化器可以将索引添加到派生表中，以加快从中获取行的速度。</li>
-</ul>
-</li>
-<li>
-<p>数据类型</p>
-<ul>
-<li><code>MySQL</code>  从 <code>5.6</code>  开始允许 <code>TIME</code> ， <code>DATETIME</code>  和 <code>TIMESTAMP</code>  值的小数秒，精度高达微秒（ <code>6</code>  位）。
-<ul>
-<li>取消了每个表最多可以自动将 <code>TIMESTAMP</code>  列初始化或更新为当前日期和时间的限制。任何 <code>TIMESTAMP</code>  列定义都可以具有 <code>DEFAULT CURRENT_TIMESTAMP</code>  和 <code>ON UPDATE CURRENT_TIMESTAMP</code>  子句的任意组合。此外，这些子句现在可以与 DATETIME 列定义一起使用。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>主机缓存。<br>
- <code>MySQL</code>  现在提供有关客户端连接到服务器时发生错误的原因的更多信息，以及对主机缓存的改进访问，该缓存包含客户端 <code>IP</code>  地址和主机名信息，用于避免 <code>DNS</code>  查找。</p>
-</li>
-</ul>
-<h3 id="mysql57"><a class="markdownIt-Anchor" href="#mysql57">#</a> mysql5.7</h3>
-<ul>
-<li>
-<p>将  <code>Undo</code>  从共享表空间  <code>ibdata</code>  文件中分离出来，可以在安装  <code>MySQL</code>  时由用户自行指定文件大小和数量。</p>
-</li>
-<li>
-<p>增加了  <code>temporary</code>  临时表空间，里面存储着临时表或临时查询结果集的数据。</p>
-</li>
-<li>
-<p><code>Buffer Pool</code>  大小可以动态修改，无需重启数据库实例，这是  <code>DBA</code>  的福音。</p>
-</li>
-</ul>
-<h3 id="mysql-80-版本新特性如下"><a class="markdownIt-Anchor" href="#mysql-80-版本新特性如下">#</a> MySQL 8.0 版本新特性如下：</h3>
-<ul>
-<li>
-<p>将  <code>InnoDB</code>  表的数据字典和  <code>Undo</code>  都从共享表空间  <code>ibdata</code>  中彻底分离出来了，以前需要 <code>ibdata</code>  文件中数据字典与独立表空间  <code>ibd</code>  文件中数据字典一致才行， <code>8.0</code>  版本就不需要了。</p>
-</li>
-<li>
-<p><code>temporary</code>  临时表空间也可以配置多个物理文件，而且均为  <code>InnoDB</code>  存储引擎并能创建索引，这样加快了处理的速度。</p>
-</li>
-<li>
-<p>用户可以像  <code>Oracle</code>  数据库那样设置一些表空间，每个表空间对应多个物理文件，每个表空间可以给多个表使用，但一个表只能存储在一个表空间中。</p>
-</li>
-</ul>
+<p>登录成功，至此，数据库安装完毕！</p>
+<h2 id="问题"><a class="markdownIt-Anchor" href="#问题">#</a> 问题</h2>
+<p>运行  <code>systemctl start mysqld</code>  启动 MySQL 的时候，出现下面的报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Job for mysqld.service failed because the control process exited with error code. See &quot;systemctl status mysqld.service&quot; and &quot;journalctl -xe&quot; for details.</span><br></pre></td></tr></table></figure>
+<p>这个时候查看 MySQL 的启动日志</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -n 200 /var/log/mysqld.log </span><br></pre></td></tr></table></figure>
+<p><img data-src="/images/MySQL-series/10109-%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E9%97%AE%E9%A2%98.png" alt="10109-安装数据库问题.png"></p>
+<p>权限问题，无法创建  <code>/varlib/mysql/</code>  这个目录下的文件。</p>
+<p>只需要使用以下命令修改目录的权限就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp -R mysql  /var/lib/mysql/ &amp;&amp; chown -R mysql  /var/lib/mysql/</span><br></pre></td></tr></table></figure>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
 <p>期望与你一起遇见更好的自己</p>
 <p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
@@ -283,9 +254,9 @@ MySQL 数据库的版本 - MySQL 数据库 |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2021-08-19 11:32:12" itemprop="dateModified" datetime="2021-08-19T11:32:12+08:00">2021-08-19</time>
+    <time title="修改时间：2022-11-01 21:32:47" itemprop="dateModified" datetime="2022-11-01T21:32:47+08:00">2022-11-01</time>
   </span>
-  <span id="2021/07/24/MySQL系列/数据库1-01.数据库的版本/" class="item leancloud_visitors" data-flag-title="MySQL 数据库的版本" title="阅读次数">
+  <span id="2022/11/01/MySQL-series/MySQL-1-02.install/" class="item leancloud_visitors" data-flag-title="02. 安装 MySQL" title="阅读次数">
       <span class="icon">
         <i class="ic i-eye"></i>
       </span>
@@ -326,7 +297,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://fangjiaxiaobai.github.io/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" title="MySQL 数据库的版本">https://fangjiaxiaobai.github.io/2021/07/24/MySQL系列/数据库1-01.数据库的版本/</a>
+    <a href="https://fangjiaxiaobai.github.io/2022/11/01/MySQL-series/MySQL-1-02.install/" title="02. 安装 MySQL">https://fangjiaxiaobai.github.io/2022/11/01/MySQL-series/MySQL-1-02.install/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -345,20 +316,20 @@ MySQL 数据库的版本 - MySQL 数据库 |
     <div class="item left">
       
 
-  <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitcxhpij20zk0m8hdt.jpg" title="MySQL 开篇 &amp; 说明">
+  <a href="/2022/09/19/k8s/seris100-kuboard/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;k8s&#x2F;covers&#x2F;k8s-covers-100.png" title="k8s 监控神器 kuboard">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> MySQL 数据库</span>
-  <h3>MySQL 开篇 & 说明</h3>
+  <span class="category"><i class="ic i-flag"></i> k8s</span>
+  <h3>k8s 监控神器 kuboard</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="Redis的单机部署">
+  <a href="/2022/11/02/MySQL-series/MySQL-1-04.connect_to_server/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;MySQL-series&#x2F;covers&#x2F;1-04.png" title="04.连接到服务端">
   <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
-  <h3>Redis的单机部署</h3>
+  <span class="category"><i class="ic i-flag"></i> MySQL 数据库</span>
+  <h3>04.连接到服务端</h3>
   </a>
 
     </div>
@@ -377,11 +348,11 @@ MySQL 数据库的版本 - MySQL 数据库 |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">  MySQL  数据库的版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql56"><span class="toc-number">1.1.</span> <span class="toc-text"> mysql5.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql57"><span class="toc-number">1.2.</span> <span class="toc-text"> mysql5.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-80-%E7%89%88%E6%9C%AC%E6%96%B0%E7%89%B9%E6%80%A7%E5%A6%82%E4%B8%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> MySQL 8.0 版本新特性如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text"> 准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-80%E7%9A%84rpm-%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text"> MySQL 8.0 的 rpm 安装包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text"> 问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text"> 最后</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" rel="bookmark" title="MySQL 开篇 & 说明">MySQL 开篇 & 说明</a></li><li class="active"><a href="/2021/07/24/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%931-01.%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%88%E6%9C%AC/" rel="bookmark" title="MySQL数据库的版本">MySQL数据库的版本</a></li>
+          <li><a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" rel="bookmark" title="00.开篇&&说明">00.开篇&&说明</a></li><li><a href="/2021/07/24/MySQL-series/MySQL-1-01.MySQL_version/" rel="bookmark" title="01.数据库版本">01.数据库版本</a></li><li class="active"><a href="/2022/11/01/MySQL-series/MySQL-1-02.install/" rel="bookmark" title="02.安装MySQL">02.安装MySQL</a></li><li><a href="/2022/11/02/MySQL-series/MySQL-1-04.connect_to_server/" rel="bookmark" title="04.连接到服务端">04.连接到服务端</a></li><li><a href="/2022/11/03/MySQL-series/MySQL-2-01.MySQL-artific/" rel="bookmark" title="05.体系架构">05.体系架构</a></li><li><a href="/2022/11/04/MySQL-series/MySQL-7-03-BinLog/" rel="bookmark" title="MySQL 日志系统 - binLog">MySQL 日志系统 - binLog</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -395,7 +366,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">110</span>
+        <span class="count">114</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -536,12 +507,12 @@ MySQL 数据库的版本 - MySQL 数据库 |
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/07/23/MySQL%E7%B3%BB%E5%88%97/%E6%95%B0%E6%8D%AE%E5%BA%930-00.%E8%AF%B4%E6%98%8E/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2022/09/19/k8s/seris100-kuboard/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2022/11/02/MySQL-series/MySQL-1-04.connect_to_server/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -563,66 +534,6 @@ MySQL 数据库的版本 - MySQL 数据库 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
-</div>
-
-    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" title="LC:495.提莫攻击">LC:495.提莫攻击</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" title="LC:42.接雨水">LC:42.接雨水</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
-</div>
-
-    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-dubbo-with-springboot/" title="最简版 springboot 集成 dubbo">最简版 springboot 集成 dubbo</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
@@ -633,10 +544,60 @@ MySQL 数据库的版本 - MySQL 数据库 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/03-git%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%BB%8E%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%E5%BC%80%E5%A7%8B/" title="从创建仓库开始">从创建仓库开始</a></span>
+    <span><a href="/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="K-近邻算法(KNN)">K-近邻算法(KNN)</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" title="LC:268.丢失的数字">LC:268.丢失的数字</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+</div>
+
+    <span><a href="/2022/09/18/k8s/seris05-service/" title="k8s-Service">k8s-Service</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></span>
   </li>
 
       
@@ -653,10 +614,20 @@ MySQL 数据库的版本 - MySQL 数据库 |
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
 </div>
 
-    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="快速排序">快速排序</a></span>
   </li>
 
   </ul>
@@ -681,13 +652,13 @@ MySQL 数据库的版本 - MySQL 数据库 |
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">487k 字</span>
+    <span title="站点总字数">499k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:23</span>
+    <span title="站点阅读时长">7:34</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
@@ -699,7 +670,7 @@ MySQL 数据库的版本 - MySQL 数据库 |
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2021/07/24/MySQL系列/数据库1-01.数据库的版本/',
+    path: '2022/11/01/MySQL-series/MySQL-1-02.install/',
     favicon: {
       show: "方家小白",
       hide: "方家小白"
