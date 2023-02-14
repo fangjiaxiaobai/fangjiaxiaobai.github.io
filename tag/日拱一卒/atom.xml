@@ -6,75 +6,75 @@
     <updated>2023-02-14T10:18:18.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
+    <category term="源码" />
+    <category term="MySQL" />
+    <category term="Redis" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="Redis" />
-    <category term="数据结构" />
     <category term="雪花算法" />
     <category term="算法" />
-    <category term="源码" />
     <category term="Elastic Search" />
     <category term="搜索" />
+    <category term="数据结构" />
     <category term="git" />
-    <category term="k8s" />
-    <category term="kubernetes" />
-    <category term="log" />
-    <category term="go-log" />
-    <category term="MySQL" />
-    <category term="MachineLearn" />
     <category term="go" />
     <category term="go-error" />
+    <category term="k8s" />
+    <category term="kubernetes" />
     <category term="日拱一卒" />
+    <category term="log" />
+    <category term="go-log" />
+    <category term="MachineLearn" />
     <category term="猫影视" />
     <category term="图片" />
     <category term="RocketMQ" />
     <category term="消息队列" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="leetCode" />
-    <category term="数组" />
-    <category term="面经之算法题" />
-    <category term="链表" />
-    <category term="不做也罢的算法题" />
     <category term="HD" />
     <category term="BQ" />
     <category term="AC" />
     <category term="动态规划" />
+    <category term="leetCode" />
+    <category term="数组" />
+    <category term="面经之算法题" />
+    <category term="链表" />
     <category term="有点难的算法题" />
-    <category term="数据结构与算法" />
-    <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="交换排序" />
-    <category term="快速排序" />
-    <category term="分支思想排序" />
-    <category term="桶排序" />
-    <category term="线性思想排序" />
-    <category term="递归" />
-    <category term="分治思想排序" />
-    <category term="哈希算法" />
+    <category term="不做也罢的算法题" />
     <category term="String" />
     <category term="JDK" />
     <category term="JDK8" />
-    <category term="选择排序" />
-    <category term="go-设计模式" />
+    <category term="数据结构与算法" />
+    <category term="哈希算法" />
     <category term="HashMap" />
+    <category term="排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="go-设计模式" />
+    <category term="快速排序" />
+    <category term="分支思想排序" />
+    <category term="交换排序" />
+    <category term="桶排序" />
+    <category term="线性思想排序" />
+    <category term="选择排序" />
     <category term="Java" />
     <category term="dubbo" />
     <category term="架构" />
     <category term="笔记" />
+    <category term="递归" />
     <category term="模型评估" />
-    <category term="KNN" />
     <category term="go-runtimes" />
+    <category term="KNN" />
     <category term="JDK版本" />
     <category term="JDK11" />
     <category term="OOM" />
     <category term="JVM" />
     <category term="Stream" />
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/</id>
+        <id>https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/</id>
         <title>JVM GC 分析</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/"/>
         <content type="html">&lt;h2 id=&#34;频繁gc&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#频繁gc&#34;&gt;#&lt;/a&gt; 频繁 GC&lt;/h2&gt;
 &lt;p&gt;今天分享一个面试题，频繁 &lt;code&gt;GC&lt;/code&gt;  怎么处理…&lt;/p&gt;
 &lt;p&gt;且不说为什么频繁 &lt;code&gt;GC&lt;/code&gt; , 先聊聊你怎么发现  &lt;code&gt;JVM&lt;/code&gt;  频繁 &lt;code&gt;GC&lt;/code&gt;  的呢？&lt;/p&gt;
@@ -129,9 +129,9 @@
         <updated>2023-02-14T10:18:18.000Z</updated>
     </entry>
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/</id>
+        <id>https://fangjiaxiaobai.github.io/2023/02/12/onedayday/2023-02-12.Https/</id>
         <title>Https连接过程</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/12/onedayday/2023-02-12.Https/"/>
         <content type="html">&lt;h2 id=&#34;https-的连接过程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#https-的连接过程&#34;&gt;#&lt;/a&gt; Https 的连接过程&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;Https&lt;/code&gt;  全称是  &lt;code&gt;Hypertext Transfer Protocol Secure&lt;/code&gt; ，超文本传输安全协议.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Https&lt;/code&gt;  相比  &lt;code&gt;Http&lt;/code&gt;  是在  &lt;code&gt;TCP&lt;/code&gt;  与  &lt;code&gt;HTTP&lt;/code&gt;  之间多加了一层  &lt;code&gt;SSL&lt;/code&gt; ( &lt;code&gt;Secure Socket Layer&lt;/code&gt;  协议位于  &lt;code&gt;TCP/IP&lt;/code&gt;  协议与各种应用层协议之间，为数据通讯提供安全支持)/ &lt;code&gt;TLS&lt;/code&gt; （ &lt;code&gt;Transport Layer Security&lt;/code&gt; ，安全传输层协议）&lt;/p&gt;
@@ -154,7 +154,7 @@
 &lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 </content>
         <category term="日拱一卒" />
-        <updated>2023-02-11T10:18:18.000Z</updated>
+        <updated>2023-02-12T10:18:18.000Z</updated>
     </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2023/02/03/onedayday/2023-02-03.JUC/</id>
@@ -232,9 +232,9 @@
         <updated>2023-02-03T10:18:18.000Z</updated>
     </entry>
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+        <id>https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.ThreadPool/</id>
         <title>线程池工作原理</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.ThreadPool/"/>
         <content type="html">&lt;h2 id=&#34;threadpoolexecutor-参数说明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#threadpoolexecutor-参数说明&#34;&gt;#&lt;/a&gt;  &lt;code&gt;ThreadPoolExecutor&lt;/code&gt;  参数说明&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;ThreadPoolExecutor&lt;/code&gt;  构造方法有以下四个，如下图所示：&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;https://images.gitbook.cn/ce89fc40-d2d4-11e9-b6c4-07be7ef1cd0f&#34; alt=&#34;enter image descriptionhere&#34;&gt;&lt;/p&gt;
@@ -278,9 +278,9 @@
         <updated>2023-02-02T10:18:18.000Z</updated>
     </entry>
     <entry>
-        <id>https://fangjiaxiaobai.github.io/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</id>
+        <id>https://fangjiaxiaobai.github.io/2023/02/01/onedayday/2023-02-01.ThreadLocal/</id>
         <title>ThreadLocal 内存溢出</title>
-        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/"/>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/01/onedayday/2023-02-01.ThreadLocal/"/>
         <content type="html">&lt;h2 id=&#34;threadlocal-内存溢出代码演示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#threadlocal-内存溢出代码演示&#34;&gt;#&lt;/a&gt; ThreadLocal 内存溢出代码演示&lt;/h2&gt;
 &lt;p&gt;下面我们用代码实现  &lt;code&gt;ThreadLocal&lt;/code&gt;  内存溢出的情况，请参考以下代码。&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;ThreadLocalTest&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; ThreadLocal threadLocal = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ThreadLocal();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; Integer MOCK_MAX = &lt;span class=&#34;number&#34;&gt;10000&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; Integer THREAD_MAX = &lt;span class=&#34;number&#34;&gt;100&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(String[] args)&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;throws&lt;/span&gt; InterruptedException &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_MAX);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; THREAD_MAX; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            executorService.execute(() -&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                threadLocal.set(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ThreadLocalTest().getList());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                System.out.println(Thread.currentThread().getName());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                Thread.sleep(&lt;span class=&#34;number&#34;&gt;1000&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125; &lt;span class=&#34;keyword&#34;&gt;catch&lt;/span&gt; (InterruptedException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        executorService.shutdown();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;function&#34;&gt;List &lt;span class=&#34;title&#34;&gt;getList&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        List list = &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; ArrayList();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; MOCK_MAX; i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            list.add(&lt;span class=&#34;string&#34;&gt;&amp;quot;Version：JDK 8&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            list.add(&lt;span class=&#34;string&#34;&gt;&amp;quot;ThreadLocal&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            list.add(&lt;span class=&#34;string&#34;&gt;&amp;quot;Author：老王&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            list.add(&lt;span class=&#34;string&#34;&gt;&amp;quot;DateTime：&amp;quot;&lt;/span&gt; + LocalDateTime.now());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            list.add(&lt;span class=&#34;string&#34;&gt;&amp;quot;Test：ThreadLocal OOM&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; list;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;

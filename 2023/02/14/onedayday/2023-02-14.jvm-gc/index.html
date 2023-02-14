@@ -28,12 +28,12 @@
   <meta name="keywords" content="日拱一卒" />
 
 
-<link rel="canonical" href="https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/">
 
 
 
   <title>
-线程池工作原理 - 日拱一卒 |
+JVM GC 分析 - 日拱一卒 |
 方家小白 = 和你一起遇见更好的自己</title>
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -61,23 +61,23 @@
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">线程池工作原理
+  <h1 itemprop="name headline">JVM GC 分析
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2023-02-02 18:18:18">
+  <span class="item" title="创建时间：2023-02-14 18:18:18">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2023-02-02T18:18:18+08:00">2023-02-02</time>
+    <time itemprop="dateCreated datePublished" datetime="2023-02-14T18:18:18+08:00">2023-02-14</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>1.6k</span>
+    <span>1.2k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -117,7 +117,7 @@
 
       </div>
       <div id="imgs" class="pjax">
-          <img src="https://fangjiaxiaobai.github.io/images/onedayday/covers/2023-02-02-cover.png">
+          <img src="https://fangjiaxiaobai.github.io/images/onedayday/covers/2023-02-14-cover.png">
       </div>
     </header>
     <div id="waves">
@@ -147,7 +147,7 @@
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -163,43 +163,54 @@
     
 
     <div id="fxb_container" class="fxb_container_style">
-      <h2 id="threadpoolexecutor-参数说明"><a class="markdownIt-Anchor" href="#threadpoolexecutor-参数说明">#</a>  <code>ThreadPoolExecutor</code>  参数说明</h2>
-<p><code>ThreadPoolExecutor</code>  构造方法有以下四个，如下图所示：</p>
-<p><img data-src="https://images.gitbook.cn/ce89fc40-d2d4-11e9-b6c4-07be7ef1cd0f" alt="enter image descriptionhere"></p>
-<p>其中最后一个构造方法有  <code>7</code>  个构造参数，包含了前三个方法的构造参数，这  <code>7</code>  个参数名称如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="params"><span class="function">                            <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="params"><span class="function">                            <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="params"><span class="function">                            TimeUnit unit,</span></span></span><br><span class="line"><span class="params"><span class="function">                            BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="params"><span class="function">                            ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="params"><span class="function">                            RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其代表的含义如下：</p>
-<h3 id="1-corepoolsize"><a class="markdownIt-Anchor" href="#1-corepoolsize">#</a> ①  <code>corePoolSize</code></h3>
-<p>线程池中的核心线程数，默认情况下核心线程一直存活在线程池中，如果将  <code>ThreadPoolExecutor</code>  的  <code>allowCoreThreadTimeOut</code>  属性设为  <code>true</code> ，如果线程池一直闲置并超过了  <code>keepAliveTime</code>  所指定的时间，核心线程就会被终止。</p>
-<h3 id="2-maximumpoolsize"><a class="markdownIt-Anchor" href="#2-maximumpoolsize">#</a> ②  <code>maximumPoolSize</code></h3>
-<p>线程池中最大线程数，如果活动的线程达到这个数值以后，后续的新任务将会被阻塞（放入任务队列）。</p>
-<h3 id="3-keepalivetime"><a class="markdownIt-Anchor" href="#3-keepalivetime">#</a> ③  <code>keepAliveTime</code></h3>
-<p>线程池的闲置超时时间，默认情况下对非核心线程生效，如果闲置时间超过这个时间，非核心线程就会被回收。如果  <code>ThreadPoolExecutor</code>  的<br>
- <code>allowCoreThreadTimeOut</code>  设为  <code>true</code>  的时候，核心线程如果超过闲置时长也会被回收。</p>
-<h3 id="4-unit"><a class="markdownIt-Anchor" href="#4-unit">#</a> ④  <code>unit</code></h3>
-<p>配合  <code>keepAliveTime</code>  使用，用来标识  <code>keepAliveTime</code>  的时间单位。</p>
-<h3 id="5-workqueue"><a class="markdownIt-Anchor" href="#5-workqueue">#</a> ⑤  <code>workQueue</code></h3>
-<p>线程池中的任务队列，使用  <code>execute()</code>  或  <code>submit()</code>  方法提交的任务都会存储在此队列中。</p>
-<h3 id="6-threadfactory"><a class="markdownIt-Anchor" href="#6-threadfactory">#</a> ⑥  <code>threadFactory</code></h3>
-<p>为线程池提供创建新线程的线程工厂。</p>
-<h3 id="7-rejectedexecutionhandler"><a class="markdownIt-Anchor" href="#7-rejectedexecutionhandler">#</a> ⑦  <code>rejectedExecutionHandler</code></h3>
-<p>线程池任务队列超过最大值之后的拒绝策略，   <code>RejectedExecutionHandler</code>  是一个接口，里面只有一个  <code>rejectedExecution</code>  方法，可在此方法内添加任务超出最大值的事件处理。  <code>ThreadPoolExecutor</code>  也提供了 4 种默认的拒绝策略：</p>
+      <h2 id="频繁gc"><a class="markdownIt-Anchor" href="#频繁gc">#</a> 频繁 GC</h2>
+<p>今天分享一个面试题，频繁 <code>GC</code>  怎么处理…</p>
+<p>且不说为什么频繁 <code>GC</code> , 先聊聊你怎么发现  <code>JVM</code>  频繁 <code>GC</code>  的呢？</p>
+<p>告警啊！对的。<br>
+第一种就是  <code>FullGC</code>  的告警，<br>
+第二种就是 机器 CPU 的负载过高<br>
+第三种就是 大面积的接口超时，无法处理请求。</p>
+<p>那就好说了，咱们分析下什么地方可以进行 <code>GC</code> ?</p>
+<p>堆！ 但不仅仅是堆，还是堆外内存也会进行 <code>GC</code> 。</p>
+<p>当然我们主要说堆！</p>
+<p>先看一下常用的名词.</p>
+<p><img data-src="./images/2023-02-14-01.png" alt=""></p>
+<h3 id="younggc"><a class="markdownIt-Anchor" href="#younggc">#</a>  <code>YoungGC</code></h3>
+<p><code>YoungGC</code>  指发生在新生代的垃圾收集动作，新生代中的对象朝生夕死，所以  <code>Minor GC</code>  非常频繁，回收速度也比较快。频繁的 <code>YoungGC</code>  是正常的，要看下  <code>YoungGC</code>  之后存活的对象是否有问题。</p>
+<p>对象优先在新生代  <code>Eden</code>  区中分配，如果  <code>Eden</code>  区没有足够的空间时，就会触发一次  <code>Young GC</code>  。</p>
+<p>新生代的垃圾收集器有 <code>Serial</code> ,  <code>ParNew</code> .</p>
+<p>经过几次 YGC 还存活的就到了老年代。</p>
+<h3 id="old-gc"><a class="markdownIt-Anchor" href="#old-gc">#</a>  <code>old GC</code></h3>
+<p>指发生在老年代的 <code>GC</code> ，速度一般比  <code>Minor GC</code>  慢十倍以上。<br>
+老年代的垃圾收集器有  <code>Serial Old</code> ,  <code>Parallel Old</code> ， <code>CMS</code> .</p>
+<p>老年代会在两种情况下触发  <code>Old GC</code> ：<br>
+一是开启分配担保机制，根据历次  <code>Minor GC</code>  后进入老年代的对象大于当前老年代内存大小，判断  <code>Minor GC</code>  有风险，则会触发  <code>Old GC</code> ；比如：</p>
 <ul>
-<li><code>new ThreadPoolExecutor.DiscardPolicy()</code> ：丢弃掉该任务，不进行处理</li>
-<li><code>new ThreadPoolExecutor.DiscardOldestPolicy()</code> ：丢弃队列里最近的一个任务，并执行当前任务</li>
-<li><code>new ThreadPoolExecutor.AbortPolicy()</code> ：直接抛出  <code>RejectedExecutionException</code>  异常</li>
-<li><code>new ThreadPoolExecutor.CallerRunsPolicy()</code> ：既不抛弃任务也不抛出异常，直接使用主线程来执行此任务</li>
+<li>1. 系统并发高、执行耗时过长，或者数据量过大，导致  <code>young gc</code>  频繁，且 <code>gc</code>  后存活对象太多，但是  <code>survivor</code>  区存放不下（太小 或 动态年龄判断） 导致对象快速进入老年代 老年代迅速堆满</li>
+<li>2. 程序一次性加载过多对象到内存 （大对象），导致频繁有大对象进入老年代</li>
+<li>3. 存在内存溢出的情况，老年代驻留了大量释放不掉的对象， 只要有一点点对象进入老年代 就达到  <code>full gc</code>  的水位了<br>
+二是  <code>Minor GC</code>  后剩余对象太多，老年代放不下了也会触发  <code>Old GC</code> 。</li>
 </ul>
-<h2 id="线程池的工作原理"><a class="markdownIt-Anchor" href="#线程池的工作原理">#</a> 线程池的工作原理</h2>
-<p>当线程池中有任务需要执行时，线程池会判断如果线程数量没有超过核心数量就会新建线程池进行任务执行，如果线程池中的线程数量已经超过核心线程数，这时候任务就会被放入任务队列中排队等待执行；如果任务队列超过最大队列数，并且线程池没有达到最大线程数，就会新建线程来执行任务；如果超过了最大线程数，就会执行拒绝执行策略。</p>
-<h2 id="线程池关闭"><a class="markdownIt-Anchor" href="#线程池关闭">#</a> 线程池关闭</h2>
-<p>线程池关闭，可以使用  <code>shutdown()</code>  或  <code>shutdownNow() </code> 方法，它们的区别是：</p>
+<h3 id="full-gc"><a class="markdownIt-Anchor" href="#full-gc">#</a>  <code>Full GC</code></h3>
+<p><code>FGC</code>  收集整个  <code>Young Gen</code>  以及部分  <code>old gen</code>  的  <code>GC</code> ，只有垃圾收集器  <code>G1</code>  有这个模式。但是我们通常说的 <code>Full GC</code>  指的是 针对新生代、老年代、永久代的全体内存空间的垃圾回收。</p>
+<p><code>full gc</code>  触发条件有</p>
 <ul>
-<li><code>shutdown()</code> ：不会立即终止线程池，而是要等所有任务队列中的任务都执行完后才会终止。执行完 shutdown 方法之后，线程池就不会再接受新任务了。</li>
-<li><code>shutdownNow()</code> ：执行该方法，线程池的状态立刻变成  <code>STOP</code>  状态，并试图停止所有正在执行的线程，不再处理还在池队列中等待的任务，执行此方法会返回未执行的任务。</li>
+<li>1、老年代空间不足， 所以追因的方向就是导致 老年代空间不足的原因：<br>
+大量对象频繁进入老年代 + 老年代空间释放不掉</li>
+<li>2、元空间内存不足，也会触发 <code>Full GC</code></li>
+<li>3、堆外内存  <code>direct buffer memory</code>  使用不当导致</li>
+<li>4、代码问题。老年代占用不高，重启效果不明显。这种情况，大概率是在代码里搞执行了  <code>System.gc()</code> ;</li>
+</ul>
+<h3 id="解决"><a class="markdownIt-Anchor" href="#解决">#</a> 解决</h3>
+<p>知道了上面的问题之后，解决就简单了。</p>
+<ul>
+<li>1、观察年轻代  <code>gc</code>  的情况，多久执行一次、每次 <code>gc</code>  后存活对象有多少  <code>survivor</code>  区多大<br>
+存活对象比较多 超过  <code>survivor</code>  区大小或触发动态年龄判断 =&gt; 调整内存分配比例</li>
+<li>2、观察老年代的内存情况 水位情况，多久执行一次、执行耗时多少、回收掉多少内存<br>
+如果在持续的上涨，而且 <code>full gc</code>  后回收效果不好，那么很有可能是内存溢出了 =&gt; 查看堆快照，定位内存溢出位置，修复代码。</li>
+<li>3、如果年轻代和老年代的内存都比较低，而且频率低，那么有可能是元数据区加载太多东西了</li>
 </ul>
 <h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
-<p>希望和你一起遇见更好的自己</p>
 <p><img data-src="https://fangjiaxiaobai.github.io/images/qrcode.jpg" alt=""></p>
 
       <div class="asb asb-post-01" style="display:none;">
@@ -232,9 +243,9 @@
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-02-14 22:10:55" itemprop="dateModified" datetime="2023-02-14T22:10:55+08:00">2023-02-14</time>
+    <time title="修改时间：2023-02-14 22:34:01" itemprop="dateModified" datetime="2023-02-14T22:34:01+08:00">2023-02-14</time>
   </span>
-  <span id="2023/02/02/onedayday/2023-02-02.线程池的使用/" class="item leancloud_visitors" data-flag-title="线程池工作原理" title="阅读次数">
+  <span id="2023/02/14/onedayday/2023-02-14.jvm-gc/" class="item leancloud_visitors" data-flag-title="JVM GC 分析" title="阅读次数">
       <span class="icon">
         <i class="ic i-eye"></i>
       </span>
@@ -275,7 +286,7 @@
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/" title="线程池工作原理">https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.线程池的使用/</a>
+    <a href="https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/" title="JVM GC 分析">https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -294,22 +305,14 @@
     <div class="item left">
       
 
-  <a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;onedayday&#x2F;covers&#x2F;2023-02-01-cover.png" title="ThreadLocal 内存溢出">
+  <a href="/2023/02/12/onedayday/2023-02-12.Https/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;onedayday&#x2F;covers&#x2F;2023-02-12-cover.png" title="Https连接过程">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 日拱一卒</span>
-  <h3>ThreadLocal 内存溢出</h3>
+  <h3>Https连接过程</h3>
   </a>
 
     </div>
     <div class="item right">
-      
-
-  <a href="/2023/02/03/onedayday/2023-02-03.JUC/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;onedayday&#x2F;covers&#x2F;2023-02-03-cover.png" title="JUC的线程同步类">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 日拱一卒</span>
-  <h3>JUC的线程同步类</h3>
-  </a>
-
     </div>
 </div>
 
@@ -326,11 +329,11 @@
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#threadpoolexecutor-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">  ThreadPoolExecutor  参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-corepoolsize"><span class="toc-number">1.1.</span> <span class="toc-text"> ①  corePoolSize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-maximumpoolsize"><span class="toc-number">1.2.</span> <span class="toc-text"> ②  maximumPoolSize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-keepalivetime"><span class="toc-number">1.3.</span> <span class="toc-text"> ③  keepAliveTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-unit"><span class="toc-number">1.4.</span> <span class="toc-text"> ④  unit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-workqueue"><span class="toc-number">1.5.</span> <span class="toc-text"> ⑤  workQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-threadfactory"><span class="toc-number">1.6.</span> <span class="toc-text"> ⑥  threadFactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-rejectedexecutionhandler"><span class="toc-number">1.7.</span> <span class="toc-text"> ⑦  rejectedExecutionHandler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text"> 线程池的工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%85%B3%E9%97%AD"><span class="toc-number">3.</span> <span class="toc-text"> 线程池关闭</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">4.</span> <span class="toc-text"> 最后</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%91%E7%B9%81gc"><span class="toc-number">1.</span> <span class="toc-text"> 频繁 GC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#younggc"><span class="toc-number">1.1.</span> <span class="toc-text">  YoungGC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#old-gc"><span class="toc-number">1.2.</span> <span class="toc-text">  old GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#full-gc"><span class="toc-number">1.3.</span> <span class="toc-text">  Full GC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">1.4.</span> <span class="toc-text"> 解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" rel="bookmark" title="ThreadLocal 内存溢出">ThreadLocal 内存溢出</a></li><li class="active"><a href="/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="bookmark" title="线程池工作原理">线程池工作原理</a></li><li><a href="/2023/02/03/onedayday/2023-02-03.JUC/" rel="bookmark" title="JUC的线程同步类">JUC的线程同步类</a></li><li><a href="/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/" rel="bookmark" title="Https连接过程">Https连接过程</a></li><li><a href="/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/" rel="bookmark" title="JVM GC 分析">JVM GC 分析</a></li>
+          <li><a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal/" rel="bookmark" title="ThreadLocal 内存溢出">ThreadLocal 内存溢出</a></li><li><a href="/2023/02/02/onedayday/2023-02-02.ThreadPool/" rel="bookmark" title="线程池工作原理">线程池工作原理</a></li><li><a href="/2023/02/03/onedayday/2023-02-03.JUC/" rel="bookmark" title="JUC的线程同步类">JUC的线程同步类</a></li><li><a href="/2023/02/12/onedayday/2023-02-12.Https/" rel="bookmark" title="Https连接过程">Https连接过程</a></li><li class="active"><a href="/2023/02/14/onedayday/2023-02-14.jvm-gc/" rel="bookmark" title="JVM GC 分析">JVM GC 分析</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -490,12 +493,10 @@
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2023/02/03/onedayday/2023-02-03.JUC/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -517,40 +518,60 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></span>
+    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/picture/" title="分类于 picture">picture</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" title="冒泡排序">冒泡排序</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
+    <span><a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" title="LC:575.分糖果">LC:575.分糖果</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></span>
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+</div>
+
+    <span><a href="/2022/02/24/go/go-errors/" title="浅析go的error">浅析go的error</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
   </li>
 
       
@@ -567,30 +588,10 @@
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search配置">Elastic Search配置</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></span>
   </li>
 
       
@@ -600,17 +601,17 @@
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/14-git%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4/" title="其他命令">其他命令</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
 </div>
 
-    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
+    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
   </li>
 
   </ul>
@@ -653,7 +654,7 @@
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2023/02/02/onedayday/2023-02-02.线程池的使用/',
+    path: '2023/02/14/onedayday/2023-02-14.jvm-gc/',
     favicon: {
       show: "方家小白",
       hide: "方家小白"
