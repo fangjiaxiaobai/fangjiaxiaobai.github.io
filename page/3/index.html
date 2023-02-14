@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicivghyooj20zk0m8dir.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
           <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeuv80yoj20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -118,6 +118,251 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志"><img data-src="https://fangjiaxiaobai.github.io/images/mylogs/covers/1.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-04 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-04T18:18:18+08:00">2022-03-04</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.9k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志">聊聊日志</a></h3>
+    <div class="excerpt">
+        https://github.com/golang/glog ，是 google 提供的一个不维护的日志库， glog 有其他语言的一些版本，对我当时使用 log 库有很大的影响。它包含如下日志级别： Info , Warning , Error , Fatal (会中断程序执行)
+还有类似 log4go , loggo , zap 等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别： Trace , Debug , Info , Warning , Error , Critical .
+# 日志级别
+#...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E6%97%A5%E5%BF%97/" itemprop="url" title="日志"><i class="ic i-flag"></i>日志</a>
+      </span>
+    </div>
+    <a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error"><img data-src="https://fangjiaxiaobai.github.io/images/go/go-errors0.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-02-24 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-02-24T18:18:18+08:00">2022-02-24</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error">浅析go的error</a></h3>
+    <div class="excerpt">
+        异常处理 方法解释：
+
+New : 创建一个 Error
+Is ： 判断是不是特定的一个 Error
+As ：类型转换为特定的 Error
+UnWrap : 解除包装，返回被包装的 error .
+
+error.New(string) 方法返回的是 error struct 的指针。
+errors is values . error 其实就是一个 interface (struct)
+# error 的类型
+# Sentinel Error
+Sentinel Error 预定义的特定错误。我们称为 Sentinel Error ....
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/go%E7%B3%BB%E5%88%97/" itemprop="url" title="go 系列"><i class="ic i-flag"></i>go 系列</a>
+      </span>
+    </div>
+    <a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础"><img data-src="https://fangjiaxiaobai.github.io/images/architecture/Learn_Architecture_From_0/covers/cover01.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-02-11 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-02-11T18:18:18+08:00">2022-02-11</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>5.1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></h3>
+    <div class="excerpt">
+        本文是学习 极客时间 - 李运华 - 从 0 开始学架构 的笔记。侵删～
+
+🔥购买后加微信，返现赏金 (全额)
+架构设计的关键思维在于判断和取舍。程序设计的关键思维在于逻辑和实现.
+# 定义架构.
+软件架构 指软件系统的顶层结构
+
+系统是一群关联个体组成的。这些个体可以是子系统，模块，组件等。架构需要明确系统中包含哪些个体。
+系统中的个体需要” 根据魔种规则 “运作，架构需要明确个体运作和协作的规则。
+维基百科定义的架构用到了 “基础结构” 这个说法，我改为...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" title="笔记"><i class="ic i-flag"></i>笔记</a>
+      </span>
+    </div>
+    <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty."><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicit31ffoj20zk0m8naf.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-01-07 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-01-07T18:18:18+08:00">2022-01-07</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>7.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty.">Springboot集成Netty.</a></h3>
+    <div class="excerpt">
+        # 添加依赖
+123456&amp;lt;!-- https://mvnrepository.com/artifact/io.netty/netty-all --&amp;gt;&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.netty&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-all&amp;lt;/artifactId&amp;gt;...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" title="日常"><i class="ic i-flag"></i>日常</a>
+      </span>
+    </div>
+    <a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty." class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理"><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/17.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-01-02 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-01-02T18:18:00+08:00">2022-01-02</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>11k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>10 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></h3>
+    <div class="excerpt">
+        最近有点浮躁，玩了一个周，没有写文章了。今天继续搞 RocketMQ 的事务实现。
+# 往期文章
+
+RocketMQ 搭建
+RocketMQ 架构设计之启动
+RocketMQ 架构设计之消息
+
+# 分布式事务
+分布式事务，是指事务的发起者、资源及资源管理器和事务协调者分别位于分布式系统的不同节点之上。当然，分布式事务也是一个老生常谈的话题，尤其是面试中。常用的分布式事务解决方案有很多，比如：两阶段提交， TCC ， SAGA 等等。
+本篇文章，我主要看看 RocketMQ 的事务实现。
+# 从一个例子开始
+1234567891011121314151617181920212223//...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
+      </span>
+    </div>
+    <a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -216,7 +461,53 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" itemprop="url" title="LC:520.检测大写字母"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
+    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicis3attqj20zk0m8k7l.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-11-13 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-11-13T18:18:18+08:00">2021-11-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击">LC:495.提莫攻击</a></h3>
+    <div class="excerpt">
+        # 题目
+在《英雄联盟》的世界中，有一个叫 “提莫” 的英雄。他的攻击可以让敌方英雄艾希（编者注：寒冰射手）进入中毒状态。
+当提莫攻击艾希，艾希的中毒状态正好持续  duration 秒。
+正式地讲，提莫在 t 发起发起攻击意味着艾希在时间区间 [t, t + duration - 1] （含 t 和 t + duration - 1 ）处于中毒状态。如果提莫在中毒影响结束 前 再次攻击，中毒状态计时器将会 重置 ，在新的攻击之后，中毒影响将会在 duration 秒后结束。
+给你一个 非递减 的整数数组 timeSeries ，其中 timeSeries[i] 表示提莫在...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
+      </span>
+    </div>
+    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" itemprop="url" title="LC:520.检测大写字母"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
   </div>
   <div class="info">
     
@@ -274,53 +565,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-13 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-13T18:18:18+08:00">2021-11-13</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击">LC:495.提莫攻击</a></h3>
-    <div class="excerpt">
-        # 题目
-在《英雄联盟》的世界中，有一个叫 “提莫” 的英雄。他的攻击可以让敌方英雄艾希（编者注：寒冰射手）进入中毒状态。
-当提莫攻击艾希，艾希的中毒状态正好持续  duration 秒。
-正式地讲，提莫在 t 发起发起攻击意味着艾希在时间区间 [t, t + duration - 1] （含 t 和 t + duration - 1 ）处于中毒状态。如果提莫在中毒影响结束 前 再次攻击，中毒状态计时器将会 重置 ，在新的攻击之后，中毒影响将会在 duration 秒后结束。
-给你一个 非递减 的整数数组 timeSeries ，其中 timeSeries[i] 表示提莫在...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" itemprop="url" title="不要再在用JDK11写JDK8的代码了!"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></a>
+    <a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" itemprop="url" title="不要再在用JDK11写JDK8的代码了!"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
   </div>
   <div class="info">
     
@@ -382,271 +627,6 @@ Flight Recorder
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" itemprop="url" title="LC:268.丢失的数字"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-06 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-06T18:18:18+08:00">2021-11-06</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.7k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>2 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" itemprop="url" title="LC:268.丢失的数字">LC:268.丢失的数字</a></h3>
-    <div class="excerpt">
-        # 题目
-给定一个包含 [0, n]  中  n  个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。
-# 示例
-# 示例 1
-123输入：nums = [3,0,1]输出：2解释：n = 3，因为有 3 个数字，所以所有的数字都在范围 [0,3] 内。2 是丢失的数字，因为它没有出现在 nums 中。
-# 示例 2
-123输入：nums = [0,1]输出：2解释：n = 2，因为有 2 个数字，所以所有的数字都在范围 [0,2] 内。2 是丢失的数字，因为它没有出现在 nums 中。
-# 示例 3
-123输入：nums =...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" itemprop="url" title="LC:268.丢失的数字" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" itemprop="url" title="LC:42.接雨水"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-04 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-04T18:18:18+08:00">2021-11-04</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.4k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" itemprop="url" title="LC:42.接雨水">LC:42.接雨水</a></h3>
-    <div class="excerpt">
-        # 题目
-给定  n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
-# 示例 1：
-
-123输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]输出：6解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
-# 示例 2：
-12输入：height = [4,2,0,3,2,5]输出：9
-# 提示
-123n == height.length1 &amp;lt;= n &amp;lt;= 2 * 1040 &amp;lt;=...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" itemprop="url" title="LC:42.接雨水" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" itemprop="url" title="LC:407.接雨水II"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicm0n457cj20zk0m8e81.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-04 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-04T18:18:18+08:00">2021-11-04</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.5k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" itemprop="url" title="LC:407.接雨水II">LC:407.接雨水II</a></h3>
-    <div class="excerpt">
-        # 题目
-给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
-# 示例
-# 示例 1
-
-123输入: heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]输出: 4解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为1+2+1=4。
-# 示例 2
-
-12输入: heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]输出: 10
-# 提示
-1234m ==...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" itemprop="url" title="LC:407.接雨水II" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" itemprop="url" title="LC:367.有效的完全平方数"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicliierfjj20zk0m8npd.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-03 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-03T18:18:18+08:00">2021-11-03</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>758</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" itemprop="url" title="LC:367.有效的完全平方数">LC:367.有效的完全平方数</a></h3>
-    <div class="excerpt">
-        # 题目
-给定一个 正整数 num ，编写一个函数，如果 num 是一个完全平方数，则返回 true ，否则返回 false 。
-进阶：不要 使用任何内置的库函数，如  sqrt 。
-
-# 示例
-# 示例 1
-12输入：num = 16输出：true
-# 示例 2
-12输入：num = 14输出：false
-# 提示
-1 &amp;lt;= num &amp;lt;= 2^31 - 1
-# 相关题目
-
-力扣（LeetCode）367. 有效的完全平方数
-https://leetcode-cn.com/
-
-# 分析
-简单的题目，没什么可以分析的。
-# 解法
-# 解法一：规律
-4=1+3...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" itemprop="url" title="LC:367.有效的完全平方数" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" itemprop="url" title="LC:237.删除链表中的节点"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-02 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-02T18:18:18+08:00">2021-11-02</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>698</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" itemprop="url" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></h3>
-    <div class="excerpt">
-        # 题目
-请编写一个函数，用于 删除单链表中某个特定节点 。在设计函数时需要注意，你无法访问链表的头节点  head ，只能直接访问 要被删除的节点 。
-题目数据保证需要删除的节点 不是末尾节点 。
-# 示例
-# 示例 1
-
-123输入：head = [4,5,1,9], node = 5输出：[4,1,9]解释：指定链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&amp;gt; 1 -&amp;gt; 9
-# 示例 2
-
-123输入：head = [4,5,1,9], node =...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" itemprop="url" title="LC:237.删除链表中的节点" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -682,19 +662,19 @@ https://leetcode-cn.com/
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">114</span>
+        <span class="count">119</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">23</span>
+        <span class="count">24</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">66</span>
+        <span class="count">67</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -740,6 +720,11 @@ https://leetcode-cn.com/
   <li class="item dropdown">
       <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
     <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/onedayday" rel="section"><i class="ic i-stars"></i>日拱一卒系列</a>
+  </li>
 
         
   <li class="item">
@@ -849,40 +834,50 @@ https://leetcode-cn.com/
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/picture/" title="分类于 picture">picture</a>
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
 </div>
 
-    <span><a href="/2021/09/23/rocketMQ/1-04-05.%E8%BF%87%E6%BB%A4%E6%B6%88%E6%81%AF/" title="RocketMQ样例:过滤消息">RocketMQ样例:过滤消息</a></span>
+    <span><a href="/2022/11/01/MySQL-series/MySQL-1-02.install/" title="02.安装MySQL">02.安装MySQL</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
 </div>
 
-    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
+    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+</div>
+
+    <span><a href="/2022/09/19/k8s/seris100-kuboard/" title="k8s 监控神器 kuboard">k8s 监控神器 kuboard</a></span>
   </li>
 
       
@@ -892,17 +887,7 @@ https://leetcode-cn.com/
 <a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
 </div>
 
-    <span><a href="/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/" title="git系列开篇">git系列开篇</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" title="Elastic Search配置">Elastic Search配置</a></span>
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
   </li>
 
       
@@ -912,37 +897,37 @@ https://leetcode-cn.com/
 <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" title="LC:495.提莫攻击">LC:495.提莫攻击</a></span>
+    <span><a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC:反转链表I">LC:反转链表I</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
 </div>
 
-    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
+    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-Dubbo%20with%20Springboot/" title="Dubbo 与 Springboot 集成">Dubbo 与 Springboot 集成</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
+    <span><a href="/2021/09/02/rocketMQ/1-02-RocketMQ%E6%A6%82%E5%BF%B5/" title="RocketMQ系列-RocketMQ概念">RocketMQ系列-RocketMQ概念</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
   </li>
 
   </ul>
@@ -957,7 +942,7 @@ https://leetcode-cn.com/
   <div class="copyright">
     
     &copy; 2021 – 
-    <span itemprop="copyrightYear">2022</span>
+    <span itemprop="copyrightYear">2023</span>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
@@ -967,13 +952,13 @@ https://leetcode-cn.com/
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">499k 字</span>
+    <span title="站点总字数">513k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:34</span>
+    <span title="站点阅读时长">7:47</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

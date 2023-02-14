@@ -1,0 +1,670 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF"> 
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="日拱一卒" />
+
+
+<link rel="canonical" href="https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/">
+
+
+
+  <title>
+Https 连接过程 - 日拱一卒 |
+方家小白 = 和你一起遇见更好的自己</title>
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Https 连接过程
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-02-11 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-02-11T18:18:18+08:00">2023-02-11</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">方家小白</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://fangjiaxiaobai.github.io/images/onedayday/covers/2023-02-11-cover.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" itemprop="item" rel="index" title="分类于 日拱一卒"><span itemprop="name">日拱一卒</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="方小白">
+    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="方家小白">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <div id="fxb_container" class="fxb_container_style">
+      <h2 id="https-的连接过程"><a class="markdownIt-Anchor" href="#https-的连接过程">#</a> Https 的连接过程</h2>
+<p><code>Https</code>  全称是  <code>Hypertext Transfer Protocol Secure</code> ，超文本传输安全协议.</p>
+<p><code>Https</code>  相比  <code>Http</code>  是在  <code>TCP</code>  与  <code>HTTP</code>  之间多加了一层  <code>SSL</code> ( <code>Secure Socket Layer</code>  协议位于  <code>TCP/IP</code>  协议与各种应用层协议之间，为数据通讯提供安全支持)/ <code>TLS</code> （ <code>Transport Layer Security</code> ，安全传输层协议）</p>
+<p><code>Http</code>  协议采用明文传输信息，存在信息窃听、信息篡改和信息劫持的风险，而协议 <code>TLS/SSL</code>  具有身份验证、信息加密和完整性校验的功能，可以避免此类问题发生，所以 <code>HTTP</code>  与  <code>Https</code>  之间的关系： <code>HTTP+加密+认证+完整性保护 = Https</code> 。</p>
+<h3 id="连接过程"><a class="markdownIt-Anchor" href="#连接过程">#</a> 连接过程</h3>
+<p><img data-src="/images/onedayday/2023-02-12-01.png" alt=""></p>
+<p>Https 会发送两次请求，经过非对称加密和对称加密两个加密过程.</p>
+<p>1. 客户端发送一个 <code>https</code>  的请求到服务端。首先还是会经过 Http 的三次握手。在第三次握手的时候，会发送客户端支持的加密套件和一个随机数 (随机数 1) 发送给服务端。<br>
+2. 服务端申请配置好数字证书，包含公钥和私钥。<br>
+3. 服务端也会生成一个随机数 (随机数 2)，将客户端发送过来的加密套件中选择一种，服务端生成的随机数，证书传送给客户端，证书中包含了很多信息，比如证书的颁发机构，过期时间，网址，公钥等<br>
+ 4. 客户端解析证书，由客户端的 TLS 完成，首先会验证公钥是否有效，比如颁发机构，过期时间等。如果有异常，就会弹出警告信息，并结束通信。如果正常，则生成一个随机值（用于对称加密），然后用服务端的公钥对随机值进行<b>非对称加密</b>。<br>
+5. 客户端保存服务端的随机数，客户端会使用随机数 1 和随机数 2 再次生成一个随机数 (随机数 3) 并使用服务端发送回来的加密套件与服务端发送来公钥加密后 (预主秘钥) 传送到服务端。<br>
+6. 服务端使用证书的私钥对加密后的预主密钥进行非对称解密得到预主密钥。 使用约定的加密算法对预主密钥 + 随机数 1 + 随机数 2 进行加密生成会话秘钥。<br>
+7. 服务端把对称加密后的会话秘钥到客户端。客户端也会使用随机数 1，随机数 2，随机数 3 生成一个会话秘钥，并且是和服务端的会话秘钥是一样的。<br>
+8. 客户端通过会话秘钥对明文进行加密，然后进行数据传输。</p>
+<h3 id="https-连接为什么只用一次非对称加密内容传输都使用对称传输"><a class="markdownIt-Anchor" href="#https-连接为什么只用一次非对称加密内容传输都使用对称传输">#</a> Https 连接为什么只用一次非对称加密，内容传输都使用对称传输？</h3>
+<p>非对称加密算法十分复杂，加密解密时间长，效率低，因此我们只在 TSL 连接建立时才使用，后面的数据传输环节统一使用对称加密，这样既能保证效率，又能极大的增强安全性。</p>
+<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>希望和你一起遇见更好的自己。</p>
+<p><img data-src="https://fangjiaxiaobai.github.io/images/qrcode.jpg" alt=""></p>
+
+      <div class="asb asb-post-01" style="display:none;">
+        <div class="mask"></div>
+        <div class="info">
+          <div>
+              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
+          </div>
+          <div>
+              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
+          </div>
+          <div>
+              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
+          </div>
+          <div>
+            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
+          </div>
+      </div>
+    </div>
+      <div class="tags">
+          <a href="/tags/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" rel="tag"><i class="ic i-tag"></i> 日拱一卒</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-02-14 22:12:01" itemprop="dateModified" datetime="2023-02-14T22:12:01+08:00">2023-02-14</time>
+  </span>
+  <span id="2023/02/11/onedayday/2023-02-11.Https的链接过程 copy/" class="item leancloud_visitors" data-flag-title="Https 连接过程" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 支持一下</button>
+  <p>请我喝[咖啡]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="方小白 支付宝">
+        <p>支付宝</p>
+      </div>
+      <div>
+        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
+        <p>numberpay</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/" title="Https 连接过程">https://fangjiaxiaobai.github.io/2023/02/11/onedayday/2023-02-11.Https的链接过程 copy/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/02/03/onedayday/2023-02-03.JUC/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;onedayday&#x2F;covers&#x2F;2023-02-03-cover.png" title="JUC的线程同步类">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 日拱一卒</span>
+  <h3>JUC的线程同步类</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;fangjiaxiaobai.github.io&#x2F;images&#x2F;onedayday&#x2F;covers&#x2F;2023-02-14-cover.png" title="JVM GC 分析">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 日拱一卒</span>
+  <h3>JVM GC 分析</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#https-%E7%9A%84%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text"> Https 的连接过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 连接过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#https-%E8%BF%9E%E6%8E%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E7%94%A8%E4%B8%80%E6%AC%A1%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%86%85%E5%AE%B9%E4%BC%A0%E8%BE%93%E9%83%BD%E4%BD%BF%E7%94%A8%E5%AF%B9%E7%A7%B0%E4%BC%A0%E8%BE%93"><span class="toc-number">1.2.</span> <span class="toc-text"> Https 连接为什么只用一次非对称加密，内容传输都使用对称传输？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">2.</span> <span class="toc-text"> 最后</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" rel="bookmark" title="ThreadLocal 内存溢出">ThreadLocal 内存溢出</a></li><li><a href="/2023/02/02/onedayday/2023-02-02.%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="bookmark" title="线程池工作原理">线程池工作原理</a></li><li><a href="/2023/02/03/onedayday/2023-02-03.JUC/" rel="bookmark" title="JUC的线程同步类">JUC的线程同步类</a></li><li class="active"><a href="/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/" rel="bookmark" title="Https连接过程">Https连接过程</a></li><li><a href="/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/" rel="bookmark" title="JVM GC 分析">JVM GC 分析</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="方小白"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">方小白</p>
+  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">119</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">24</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">67</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
+      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/onedayday" rel="section"><i class="ic i-stars"></i>日拱一卒系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/02/03/onedayday/2023-02-03.JUC/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/02/14/onedayday/2023-02-14.%E8%80%81%E5%B9%B4%E4%BB%A3GC%E9%A2%91%E7%B9%81/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%97%A5%E5%BF%97/" title="分类于 日志">日志</a>
+</div>
+
+    <span><a href="/2022/03/04/mylogs/talk_about_log/" title="聊聊日志">聊聊日志</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/" title="git命令详解之 git ls-files">git命令详解之 git ls-files</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+</div>
+
+    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/recursion/%E7%AE%97%E6%B3%9501-%E9%80%92%E5%BD%92/" title="递归">递归</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/" title="git 基础 - 标签 和 别名">git 基础 - 标签 和 别名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%85%B6%E4%BB%96/" title="分类于 其他">其他</a>
+</div>
+
+    <span><a href="/2022/06/05/others/cat-movie/" title="猫影视接口配置【不定时更新】">猫影视接口配置【不定时更新】</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" title="分类于 日拱一卒">日拱一卒</a>
+</div>
+
+    <span><a href="/2023/02/11/onedayday/2023-02-11.Https%E7%9A%84%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B%20copy/" title="Https连接过程">Https连接过程</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2021 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">513k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:47</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/02/11/onedayday/2023-02-11.Https的链接过程 copy/',
+    favicon: {
+      show: "方家小白",
+      hide: "方家小白"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

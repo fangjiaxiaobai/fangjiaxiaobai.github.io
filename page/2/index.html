@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
         </ul>
       </div>
     </header>
@@ -118,6 +118,240 @@
           
   <div class="index wrap">
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/09/18/k8s/seris05-service/" itemprop="url" title="k8s-Service"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-05.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-09-18 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-09-18T18:18:00+08:00">2022-09-18</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>6 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/09/18/k8s/seris05-service/" itemprop="url" title="k8s-Service">k8s-Service</a></h3>
+    <div class="excerpt">
+        # 服务 (Service)
+# 解决的问题
+Pod 是非永久性资源。 如果你使用 Deployment 来运行你的应用程序，则它可以动态创建和销毁 Pod。
+每个 Pod 都有自己的 IP 地址，但是在 Deployment 中，在同一时刻运行的 Pod 集合可能与稍后运行该应用程序的 Pod 集合不同。
+这导致了一个问题： 如果一组 Pod （称为 “后端”）为集群内的其他 Pod （称为 “前端”）提供功能， 那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
+# 定义
+Kubernetes Service 定义了这样一种抽象：一个 Pod...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
+      </span>
+    </div>
+    <a href="/2022/09/18/k8s/seris05-service/" itemprop="url" title="k8s-Service" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/08/07/k8s/seris04-work-load/" itemprop="url" title="k8s-资源控制器"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-04.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-08-07 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-08-07T18:18:00+08:00">2022-08-07</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>6.1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>6 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/08/07/k8s/seris04-work-load/" itemprop="url" title="k8s-资源控制器">k8s-资源控制器</a></h3>
+    <div class="excerpt">
+        # Pod
+Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。 Pod 是一组容器，一个 pod 的所有容器共享 pod 的网路，存储 以及运行容器的声明。
+通常用户需要直接创建 Pod , 而是使用负载资源来替用户管理一组 Pod . 这些负载资源通过配置 控制器 来确保正确类型的、处于运行状态的 Pod 个数是正确的，与用户所指定的状态相一致。
+# 控制器
+# Replication Controller 和 ReplicaSet
+ReplicationController(RC)...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
+      </span>
+    </div>
+    <a href="/2022/08/07/k8s/seris04-work-load/" itemprop="url" title="k8s-资源控制器" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/07/31/k8s/seris03-pod-lifecycle/" itemprop="url" title="k8s-Pod的生命周期"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-03.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-31 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-31T18:18:00+08:00">2022-07-31</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>9.7k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>9 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/07/31/k8s/seris03-pod-lifecycle/" itemprop="url" title="k8s-Pod的生命周期">k8s-Pod的生命周期</a></h3>
+    <div class="excerpt">
+        K8s 中所有的内容都抽象为资源，资源实例化为对象。
+# 集群资源的分类
+# 名称空间级别
+
+工作负载型资源 ( workload )： Pod 、 ReplicaSet 、 Deployment 、 StatefulSet 、 DaemonSet、Job 、 CronJob ( ReplicationController 在 v1.11 版本被废弃 )
+服务发现及负载均衡型资源 ( ServiceDiscovery LoadBalance ): Service 、 Ingress 、…
+配置与存储型资源： Volume (存储卷)、 CSI...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
+      </span>
+    </div>
+    <a href="/2022/07/31/k8s/seris03-pod-lifecycle/" itemprop="url" title="k8s-Pod的生命周期" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" itemprop="url" title="k8s-incompatible CNI versions"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-02.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-22 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-22T18:18:00+08:00">2022-07-22</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2.5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" itemprop="url" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></h3>
+    <div class="excerpt">
+        # 报错内容
+1Warning FailedCreatePodSandBox 5m17s kubelet Failed to create pod sandbox: rpc error: code = Unknown desc = failed to setup network for sandbox &amp;quot;1ded5da71b38996763e74f28f609d8d8f26a4cc1e4fdd3272312bf3e168e4111&amp;quot;: plugin type=&amp;quot;bridge&amp;quot; failed (add):...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
+      </span>
+    </div>
+    <a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" itemprop="url" title="k8s-incompatible CNI versions" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2022/07/17/k8s/seris02-how-to-build/" itemprop="url" title="k8s-搭建K8s集群"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-01.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-17 18:18:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-17T18:18:00+08:00">2022-07-17</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>7.3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>7 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2022/07/17/k8s/seris02-how-to-build/" itemprop="url" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></h3>
+    <div class="excerpt">
+        使用 kubeadm 1.24.3 搭建 k8s 集群
+# 环境准备
+Centos8 三台.
+123k8s-master-01 192.168.0.10k8s-node-01 192.168.0.20k8s-node-02 192.168.0.21
+注意，这三台机器不要做任何配置，尤其不要安装 docker , 因为从 k8s 1.20.x 开始， kubernetes 弃用了 dockershim , 在 1.20.4 正式移除了 dockershim .
+
+Docker support in the kubelet is now deprecated and will be removed...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
+      </span>
+    </div>
+    <a href="/2022/07/17/k8s/seris02-how-to-build/" itemprop="url" title="k8s-搭建K8s集群" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -168,7 +402,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/06/05/others/cat-movie/" itemprop="url" title="猫影视接口配置【不定时更新】"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></a>
+    <a href="/2022/06/05/others/cat-movie/" itemprop="url" title="猫影视接口配置【不定时更新】"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
   </div>
   <div class="info">
     
@@ -361,251 +595,6 @@ Goroutines 在同一个用户地址空间里并行独立执行 functions ， cha
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志"><img data-src="https://fangjiaxiaobai.github.io/images/mylogs/covers/1.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-03-04 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-03-04T18:18:18+08:00">2022-03-04</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>2.9k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志">聊聊日志</a></h3>
-    <div class="excerpt">
-        https://github.com/golang/glog ，是 google 提供的一个不维护的日志库， glog 有其他语言的一些版本，对我当时使用 log 库有很大的影响。它包含如下日志级别： Info , Warning , Error , Fatal (会中断程序执行)
-还有类似 log4go , loggo , zap 等其他第三方日志库，他们还提供了设置日志级别的可见行，一般提供日志级别： Trace , Debug , Info , Warning , Error , Critical .
-# 日志级别
-#...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%97%A5%E5%BF%97/" itemprop="url" title="日志"><i class="ic i-flag"></i>日志</a>
-      </span>
-    </div>
-    <a href="/2022/03/04/mylogs/talk_about_log/" itemprop="url" title="聊聊日志" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error"><img data-src="https://fangjiaxiaobai.github.io/images/go/go-errors0.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-02-24 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-02-24T18:18:18+08:00">2022-02-24</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>2.4k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>2 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error">浅析go的error</a></h3>
-    <div class="excerpt">
-        异常处理 方法解释：
-
-New : 创建一个 Error
-Is ： 判断是不是特定的一个 Error
-As ：类型转换为特定的 Error
-UnWrap : 解除包装，返回被包装的 error .
-
-error.New(string) 方法返回的是 error struct 的指针。
-errors is values . error 其实就是一个 interface (struct)
-# error 的类型
-# Sentinel Error
-Sentinel Error 预定义的特定错误。我们称为 Sentinel Error ....
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/go%E7%B3%BB%E5%88%97/" itemprop="url" title="go 系列"><i class="ic i-flag"></i>go 系列</a>
-      </span>
-    </div>
-    <a href="/2022/02/24/go/go-errors/" itemprop="url" title="浅析go的error" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础"><img data-src="https://fangjiaxiaobai.github.io/images/architecture/Learn_Architecture_From_0/covers/cover01.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-02-11 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-02-11T18:18:18+08:00">2022-02-11</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>5.1k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>5 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础">【笔记】 从0开始学架构 一 架构基础</a></h3>
-    <div class="excerpt">
-        本文是学习 极客时间 - 李运华 - 从 0 开始学架构 的笔记。侵删～
-
-🔥购买后加微信，返现赏金 (全额)
-架构设计的关键思维在于判断和取舍。程序设计的关键思维在于逻辑和实现.
-# 定义架构.
-软件架构 指软件系统的顶层结构
-
-系统是一群关联个体组成的。这些个体可以是子系统，模块，组件等。架构需要明确系统中包含哪些个体。
-系统中的个体需要” 根据魔种规则 “运作，架构需要明确个体运作和协作的规则。
-维基百科定义的架构用到了 “基础结构” 这个说法，我改为...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" title="笔记"><i class="ic i-flag"></i>笔记</a>
-      </span>
-    </div>
-    <a href="/2022/02/11/notes/architecture/Learn_Architecture_From_zero-01-basic/" itemprop="url" title="【笔记】 从0开始学架构 一 架构基础" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty."><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-01-07 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-01-07T18:18:18+08:00">2022-01-07</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>7.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>7 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty.">Springboot集成Netty.</a></h3>
-    <div class="excerpt">
-        # 添加依赖
-123456&amp;lt;!-- https://mvnrepository.com/artifact/io.netty/netty-all --&amp;gt;&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.netty&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;netty-all&amp;lt;/artifactId&amp;gt;...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" title="日常"><i class="ic i-flag"></i>日常</a>
-      </span>
-    </div>
-    <a href="/2022/01/07/daily/2022-01-07/" itemprop="url" title="Springboot集成Netty." class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理"><img data-src="https://fangjiaxiaobai.github.io/images/rocketmq/covers/17.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-01-02 18:18:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-01-02T18:18:00+08:00">2022-01-02</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>11k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>10 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></h3>
-    <div class="excerpt">
-        最近有点浮躁，玩了一个周，没有写文章了。今天继续搞 RocketMQ 的事务实现。
-# 往期文章
-
-RocketMQ 搭建
-RocketMQ 架构设计之启动
-RocketMQ 架构设计之消息
-
-# 分布式事务
-分布式事务，是指事务的发起者、资源及资源管理器和事务协调者分别位于分布式系统的不同节点之上。当然，分布式事务也是一个老生常谈的话题，尤其是面试中。常用的分布式事务解决方案有很多，比如：两阶段提交， TCC ， SAGA 等等。
-本篇文章，我主要看看 RocketMQ 的事务实现。
-# 从一个例子开始
-1234567891011121314151617181920212223//...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" itemprop="url" title="RocketMQ 系列"><i class="ic i-flag"></i>RocketMQ 系列</a>
-      </span>
-    </div>
-    <a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" itemprop="url" title="RocketMQ事务实现原理" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -641,19 +630,19 @@ RocketMQ 架构设计之消息
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">114</span>
+        <span class="count">119</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">23</span>
+        <span class="count">24</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">66</span>
+        <span class="count">67</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -699,6 +688,11 @@ RocketMQ 架构设计之消息
   <li class="item dropdown">
       <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
     <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/series/onedayday" rel="section"><i class="ic i-stars"></i>日拱一卒系列</a>
+  </li>
 
         
   <li class="item">
@@ -810,17 +804,87 @@ RocketMQ 架构设计之消息
 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" title="冒泡排序">冒泡排序</a></span>
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%97%A5%E5%BF%97/" title="分类于 日志">日志</a>
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
 </div>
 
-    <span><a href="/2022/03/04/mylogs/talk_about_log/" title="聊聊日志">聊聊日志</a></span>
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/11/17/machine-learn/Model-evaluation/02-confusion_matrix/" title="模型评估之 分类模型的评估指标">模型评估之 分类模型的评估指标</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/README/" title="Elastic Search 目录">Elastic Search 目录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
+</div>
+
+    <span><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
+</div>
+
+    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/String/String/" title="String类源码解析">String类源码解析</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" title="LC:407.接雨水II">LC:407.接雨水II</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
+</div>
+
+    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
   </li>
 
       
@@ -831,76 +895,6 @@ RocketMQ 架构设计之消息
 </div>
 
     <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" title="Elastic Search简介">Elastic Search简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/03/rocketMQ/1-03-RocketMQ%E6%90%AD%E5%BB%BA/" title="RocketMQ系列-搭建RocketMQ集群">RocketMQ系列-搭建RocketMQ集群</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" title="LC:495.提莫攻击">LC:495.提莫攻击</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/" title="安装git">安装git</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
-</div>
-
-    <span><a href="/2021/10/14/java%E7%B3%BB%E5%88%97/dubbo/02-dubbo-with-springboot/" title="最简版 springboot 集成 dubbo">最简版 springboot 集成 dubbo</a></span>
   </li>
 
   </ul>
@@ -915,7 +909,7 @@ RocketMQ 架构设计之消息
   <div class="copyright">
     
     &copy; 2021 – 
-    <span itemprop="copyrightYear">2022</span>
+    <span itemprop="copyrightYear">2023</span>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
@@ -925,13 +919,13 @@ RocketMQ 架构设计之消息
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">499k 字</span>
+    <span title="站点总字数">513k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:34</span>
+    <span title="站点阅读时长">7:47</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
