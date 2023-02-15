@@ -3,66 +3,66 @@
     <id>https://fangjiaxiaobai.github.io</id>
     <title>方家小白 • Posts by &#34;日拱一卒&#34; category</title>
     <link href="https://fangjiaxiaobai.github.io" />
-    <updated>2023-02-14T10:18:18.000Z</updated>
+    <updated>2023-02-15T10:18:18.000Z</updated>
     <category term="全站地图" />
     <category term="目录" />
-    <category term="源码" />
     <category term="MySQL" />
-    <category term="Redis" />
     <category term="日常" />
     <category term="Springboot" />
     <category term="Netty" />
-    <category term="雪花算法" />
-    <category term="算法" />
+    <category term="Redis" />
+    <category term="数据结构" />
     <category term="Elastic Search" />
     <category term="搜索" />
-    <category term="数据结构" />
-    <category term="git" />
+    <category term="源码" />
     <category term="go" />
     <category term="go-error" />
+    <category term="雪花算法" />
+    <category term="算法" />
     <category term="k8s" />
     <category term="kubernetes" />
+    <category term="图片" />
+    <category term="猫影视" />
     <category term="日拱一卒" />
+    <category term="git" />
     <category term="log" />
     <category term="go-log" />
     <category term="MachineLearn" />
-    <category term="猫影视" />
-    <category term="图片" />
     <category term="RocketMQ" />
     <category term="消息队列" />
     <category term="线程池" />
     <category term="面经" />
-    <category term="HD" />
-    <category term="BQ" />
-    <category term="AC" />
-    <category term="动态规划" />
     <category term="leetCode" />
     <category term="数组" />
     <category term="面经之算法题" />
     <category term="链表" />
     <category term="有点难的算法题" />
     <category term="不做也罢的算法题" />
-    <category term="String" />
-    <category term="JDK" />
-    <category term="JDK8" />
+    <category term="动态规划" />
+    <category term="HD" />
+    <category term="BQ" />
+    <category term="AC" />
     <category term="数据结构与算法" />
+    <category term="递归" />
     <category term="哈希算法" />
-    <category term="HashMap" />
     <category term="排序" />
-    <category term="冒泡排序" />
-    <category term="分治思想排序" />
-    <category term="go-设计模式" />
     <category term="快速排序" />
     <category term="分支思想排序" />
+    <category term="冒泡排序" />
+    <category term="分治思想排序" />
+    <category term="选择排序" />
     <category term="交换排序" />
     <category term="桶排序" />
     <category term="线性思想排序" />
-    <category term="选择排序" />
+    <category term="go-设计模式" />
+    <category term="HashMap" />
+    <category term="JDK" />
+    <category term="JDK8" />
     <category term="Java" />
     <category term="dubbo" />
+    <category term="String" />
     <category term="架构" />
     <category term="笔记" />
-    <category term="递归" />
     <category term="模型评估" />
     <category term="go-runtimes" />
     <category term="KNN" />
@@ -71,6 +71,45 @@
     <category term="OOM" />
     <category term="JVM" />
     <category term="Stream" />
+    <entry>
+        <id>https://fangjiaxiaobai.github.io/2023/02/15/onedayday/2023-02-15-cache-multi/</id>
+        <title>分布式缓存</title>
+        <link rel="alternate" href="https://fangjiaxiaobai.github.io/2023/02/15/onedayday/2023-02-15-cache-multi/"/>
+        <content type="html">&lt;h3 id=&#34;缓存雪崩&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#缓存雪崩&#34;&gt;#&lt;/a&gt; 缓存雪崩&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;缓存在同一时刻一起失效， 大量的请求直接打到了 &lt;code&gt;DB&lt;/code&gt;  上。&lt;/b&gt;&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;解决方案:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;缓存失效时间设置一个随机值，避免大量缓存同时失效。&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;设置热点数据永远不过期，有更新操作就更新缓存。&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;举个例子：&lt;/p&gt;
+&lt;p&gt;假设有个定时任务在每天凌晨 3 点的时候会更新缓存，好巧不巧。凌晨 &lt;code&gt;3&lt;/code&gt;  点，有一个秒杀活动。得！清除缓存的一刹那，大量请求涌入，直接打到了 DB 上。这不就刺激了么，  &lt;code&gt;DBA&lt;/code&gt;  有了一个不眠夜。&lt;/p&gt;
+&lt;p&gt;重启 &lt;code&gt;DBA&lt;/code&gt; ，还是会被瞬间打挂。&lt;/p&gt;
+&lt;h3 id=&#34;缓存击穿&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#缓存击穿&#34;&gt;#&lt;/a&gt; 缓存击穿&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;一个 &lt;code&gt;Key&lt;/code&gt;  非常热点，在不停的扛着大并发，大并发集中对这一个点进行访问，当这个 &lt;code&gt;Key&lt;/code&gt;  在失效的瞬间，持续的大并发就穿破缓存，直接请求数据库。&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;理解就是通过一个点，击穿了缓存这个屏障。&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;解决方案:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;设置热点数据不过期&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;同一个数据，查 &lt;code&gt;DB&lt;/code&gt;  互斥。&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例子同上，区别在于 缓存击穿是一个热点 &lt;code&gt;key&lt;/code&gt; ， 而缓存雪崩时大面积的 &lt;code&gt;key&lt;/code&gt; .&lt;/p&gt;
+&lt;h3 id=&#34;缓存穿透&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#缓存穿透&#34;&gt;#&lt;/a&gt; 缓存穿透&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;缓存穿透是指缓存和数据库中都没有的数据。请求频繁查询数据库。&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;解决办法:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;特定接口可以通过参数校验来解决&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;布隆过滤器。&lt;/b&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;不存在的值也缓存。&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个更简单了。比如 根据 &lt;code&gt;id&lt;/code&gt;  去请求商品，商品 &lt;code&gt;id&lt;/code&gt;  都是大于 &lt;code&gt;0&lt;/code&gt;  的， 请求偏偏用了 &lt;code&gt;id=-1&lt;/code&gt; . 这不又刺激了么又.&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="日拱一卒" />
+        <updated>2023-02-15T10:18:18.000Z</updated>
+    </entry>
     <entry>
         <id>https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/</id>
         <title>JVM GC 分析</title>

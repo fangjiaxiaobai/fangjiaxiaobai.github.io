@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclx29mstj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
         </ul>
       </div>
     </header>
@@ -236,6 +236,59 @@ Rocket 系列 -...
       </div>
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/02/15/onedayday/2023-02-15-cache-multi/" itemprop="url" title="分布式缓存"><img data-src="https://fangjiaxiaobai.github.io/images/onedayday/covers/2023-02-15-cover.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-02-15 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-02-15T18:18:18+08:00">2023-02-15</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>484</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2023/02/15/onedayday/2023-02-15-cache-multi/" itemprop="url" title="分布式缓存">分布式缓存</a></h3>
+    <div class="excerpt">
+        # 缓存雪崩
+缓存在同一时刻一起失效， 大量的请求直接打到了 DB 上。
+解决方案:
+
+缓存失效时间设置一个随机值，避免大量缓存同时失效。
+设置热点数据永远不过期，有更新操作就更新缓存。
+
+举个例子：
+假设有个定时任务在每天凌晨 3 点的时候会更新缓存，好巧不巧。凌晨 3 点，有一个秒杀活动。得！清除缓存的一刹那，大量请求涌入，直接打到了 DB 上。这不就刺激了么， DBA 有了一个不眠夜。
+重启 DBA ，还是会被瞬间打挂。
+# 缓存击穿
+一个 Key 非常热点，在不停的扛着大并发，大并发集中对这一个点进行访问，当这个 Key...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" itemprop="url" title="日拱一卒"><i class="ic i-flag"></i>日拱一卒</a>
+      </span>
+    </div>
+    <a href="/2023/02/15/onedayday/2023-02-15-cache-multi/" itemprop="url" title="分布式缓存" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -676,56 +729,6 @@ https://dev.mysql.com/doc/refman/8.0/en/installing.html
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/09/19/k8s/seris100-kuboard/" itemprop="url" title="k8s 监控神器 kuboard"><img data-src="https://fangjiaxiaobai.github.io/images/k8s/covers/k8s-covers-100.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-09-19 18:18:00">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-09-19T18:18:00+08:00">2022-09-19</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>8.7k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>8 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/09/19/k8s/seris100-kuboard/" itemprop="url" title="k8s 监控神器 kuboard">k8s 监控神器 kuboard</a></h3>
-    <div class="excerpt">
-        Kubernetes 容器编排已越来越被大家关注，然而学习 Kubernetes 的门槛却依然很高，主要体现在这几个方面：
-
-集群的安装复杂
-Kubernetes 相较于容器，引入了许多新的概念
-需要手工编写 YAML 文件
-没有好的参考案例可以遵循
-
-今天给大家介绍的这款工具 Kuboard ，是一款免费的 Kubernetes 图形化管理工具， Kuboard 力图帮助用户快速在 Kubernetes 上落地微服务。为了达到此目标， Kuboard 提供了针对上述问题的解决办法：
-Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有 200 位网友参照...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/k8s/" itemprop="url" title="k8s"><i class="ic i-flag"></i>k8s</a>
-      </span>
-    </div>
-    <a href="/2022/09/19/k8s/seris100-kuboard/" itemprop="url" title="k8s 监控神器 kuboard" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -761,7 +764,7 @@ Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">119</span>
+        <span class="count">120</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -932,60 +935,10 @@ Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+<a href="/categories/Dubbo/" title="分类于 Dubbo">Dubbo</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
-</div>
-
-    <span><a href="/2022/11/02/MySQL-series/MySQL-1-04.connect_to_server/" title="04.连接到服务端">04.连接到服务端</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
-</div>
-
-    <span><a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" title="00.开篇&amp;&amp;说明">00.开篇&&说明</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
-</div>
-
-    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/08/19/BQ/LeetCode/0001-%E5%8F%8D%E8%BD%AC%E6%95%B0%E7%BB%84/" title="LC:反转数组">LC:反转数组</a></span>
+    <span><a href="/2021/10/13/java%E7%B3%BB%E5%88%97/dubbo/01-%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BA%AFdubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8/" title="搭建第一个纯dubbo微服务应用">搭建第一个纯dubbo微服务应用</a></span>
   </li>
 
       
@@ -995,7 +948,77 @@ Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
+    <span><a href="/2022/07/09/rocketMQ/3-08-save-msg-detail/" title="RocketMQ 消息刷盘过程详解">RocketMQ 消息刷盘过程详解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+</div>
+
+    <span><a href="/2022/02/24/go/go-errors/" title="浅析go的error">浅析go的error</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" title="选择排序">选择排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/16/BQ/hdoj/HD-1003/" title="1003 Max Sum">1003 Max Sum</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/" title="git命令详解之 git update-index">git命令详解之 git update-index</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+</div>
+
+    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/" title="桶排序">桶排序</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/picture/" title="分类于 picture">picture</a>
+</div>
+
+    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
   </li>
 
       
@@ -1006,26 +1029,6 @@ Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有
 </div>
 
     <span><a href="/2021/09/23/rocketMQ/1-04-04.%E6%89%B9%E9%87%8F%E6%B6%88%E6%81%AF/" title="RocketMQ样例:批量消息">RocketMQ样例:批量消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E9%9D%A2%E7%BB%8F/" title="分类于 面经">面经</a>
-</div>
-
-    <span><a href="/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="JDK的内置线程池">JDK的内置线程池</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/07/15/JDK%E6%BA%90%E7%A0%81/README/" title="【目录】JDK源码解读目录">【目录】JDK源码解读目录</a></span>
   </li>
 
   </ul>
@@ -1050,7 +1053,7 @@ Kuboard 提供 Kubernetes 免费安装文档、免费在线答疑，每天约有
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">513k 字</span>
+    <span title="站点总字数">514k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
