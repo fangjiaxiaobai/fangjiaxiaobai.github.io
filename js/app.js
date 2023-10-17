@@ -1111,7 +1111,7 @@ var readmoreHalfHeight = 200;
 var defaultToken = '12345';
 var count = 0;
 var minMaskHeight = 700;
-var hostUrl = 'https://fangjiaxiaobai.cn/_api';
+var hostUrl = 'http://47.92.123.34/_blog';
 var oldIntervalId = null;
 
 const siteReadMore = function (countsss) {
