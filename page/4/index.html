@@ -20,7 +20,7 @@
 <link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
 <link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
           <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></a>
+    <a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" itemprop="url" title="LC:520.检测大写字母"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciukx8a7j20zk0m8aio.jpg"></a>
   </div>
   <div class="info">
     
@@ -136,7 +136,7 @@
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
-    <span>1.2k</span>
+    <span>951</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -147,27 +147,39 @@
   </span>
 </div>
 
-    <h3><a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击">LC:495.提莫攻击</a></h3>
+    <h3><a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" itemprop="url" title="LC:520.检测大写字母">LC:520.检测大写字母</a></h3>
     <div class="excerpt">
         # 题目
-在《英雄联盟》的世界中，有一个叫 “提莫” 的英雄。他的攻击可以让敌方英雄艾希（编者注：寒冰射手）进入中毒状态。
-当提莫攻击艾希，艾希的中毒状态正好持续  duration 秒。
-正式地讲，提莫在 t 发起发起攻击意味着艾希在时间区间 [t, t + duration - 1] （含 t 和 t + duration - 1 ）处于中毒状态。如果提莫在中毒影响结束 前 再次攻击，中毒状态计时器将会 重置 ，在新的攻击之后，中毒影响将会在 duration 秒后结束。
-给你一个 非递减 的整数数组 timeSeries ，其中 timeSeries[i] 表示提莫在...
+我们定义，在以下情况时，单词的大写用法是正确的：
+全部字母都是大写，比如 USA 。
+单词中所有字母都不是大写，比如 leetcode 。
+如果单词不只含有一个字母，只有首字母大写， 比如 Google 。
+给你一个字符串 word 。如果大写用法正确，返回 true ；否则，返回 false 。
+
+# 示例
+# 示例 1
+输入：word = “USA”
+输出：true
+# 示例 2
+输入：word = “FlaG”
+输出：false
+# 提示
+1. 1 &amp;lt;= word.length &amp;lt;= 100
+2. word...
     </div>
     <div class="meta footer">
       <span>
         <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
       </span>
     </div>
-    <a href="/2021/11/13/BQ/LeetCode/0495-teemo-attacking/" itemprop="url" title="LC:495.提莫攻击" class="btn">more...</a>
+    <a href="/2021/11/13/BQ/LeetCode/0520-detect-capital/" itemprop="url" title="LC:520.检测大写字母" class="btn">more...</a>
   </div>
 </article>
 
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" itemprop="url" title="不要再在用JDK11写JDK8的代码了!"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4baakhj20zk0m8h5q.jpg"></a>
+    <a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" itemprop="url" title="不要再在用JDK11写JDK8的代码了!"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></a>
   </div>
   <div class="info">
     
@@ -232,7 +244,7 @@ Flight Recorder
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" itemprop="url" title="LC:268.丢失的数字"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeyonbf9j20zk0m8e81.jpg"></a>
+    <a href="/2021/11/06/BQ/LeetCode/0268-miss-number/" itemprop="url" title="LC:268.丢失的数字"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicis081o9j20zk0m8dmr.jpg"></a>
   </div>
   <div class="info">
     
@@ -282,7 +294,7 @@ Flight Recorder
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" itemprop="url" title="LC:42.接雨水"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></a>
+    <a href="/2021/11/04/BQ/LeetCode/0042.trapping-rain-water/" itemprop="url" title="LC:42.接雨水"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></a>
   </div>
   <div class="info">
     
@@ -332,7 +344,7 @@ Flight Recorder
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" itemprop="url" title="LC:407.接雨水II"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclx29mstj20zk0m8hdt.jpg"></a>
+    <a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" itemprop="url" title="LC:407.接雨水II"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
   </div>
   <div class="info">
     
@@ -384,7 +396,7 @@ Flight Recorder
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" itemprop="url" title="LC:367.有效的完全平方数"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipesng5oej20zk0m87d4.jpg"></a>
+    <a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" itemprop="url" title="LC:367.有效的完全平方数"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxfdlttj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -446,7 +458,7 @@ https://leetcode-cn.com/
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" itemprop="url" title="LC:237.删除链表中的节点"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclize41wj20zk0m87gk.jpg"></a>
+    <a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" itemprop="url" title="LC:237.删除链表中的节点"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciuv0socj20zk0m8qes.jpg"></a>
   </div>
   <div class="info">
     
@@ -497,57 +509,7 @@ https://leetcode-cn.com/
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-11-01 18:18:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-11-01T18:18:18+08:00">2021-11-01</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.2k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列">LC:1218.最长定差子序列</a></h3>
-    <div class="excerpt">
-        # 题目
-给你一个整数数组  arr  和一个整数  difference ，请你找出并返回 arr  中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。
-子序列 是指在不改变其余元素顺序的情况下，通过删除一些元素或不删除任何元素而从 arr 派生出来的序列。
-# 示例
-# 示例 1
-123输入：arr = [1,2,3,4], difference = 1输出：4解释：最长的等差子序列是 [1,2,3,4]。
-# 示例 2
-123输入：arr = [1,3,5,7], difference = 1输出：1解释：最长的等差子序列是任意单个元素。
-# 示例...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
-      </span>
-    </div>
-    <a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" itemprop="url" title="LC:575.分糖果"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></a>
+    <a href="/2021/11/01/BQ/LeetCode/0575-distribute-candies/" itemprop="url" title="LC:575.分糖果"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclize41wj20zk0m87gk.jpg"></a>
   </div>
   <div class="info">
     
@@ -597,7 +559,57 @@ Alice 有 n 枚糖，其中第 i 枚糖的类型为 candyType[i] 。 Alice 注�
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" itemprop="url" title="K-近邻算法(KNN)"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+    <a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexw3o58j20zk0m8e81.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-11-01 18:18:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-11-01T18:18:18+08:00">2021-11-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列">LC:1218.最长定差子序列</a></h3>
+    <div class="excerpt">
+        # 题目
+给你一个整数数组  arr  和一个整数  difference ，请你找出并返回 arr  中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。
+子序列 是指在不改变其余元素顺序的情况下，通过删除一些元素或不删除任何元素而从 arr 派生出来的序列。
+# 示例
+# 示例 1
+123输入：arr = [1,2,3,4], difference = 1输出：4解释：最长的等差子序列是 [1,2,3,4]。
+# 示例 2
+123输入：arr = [1,3,5,7], difference = 1输出：1解释：最长的等差子序列是任意单个元素。
+# 示例...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" itemprop="url" title="LeetCode 系列"><i class="ic i-flag"></i>LeetCode 系列</a>
+      </span>
+    </div>
+    <a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" itemprop="url" title="LC:1218.最长定差子序列" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/10/29/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A002-K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" itemprop="url" title="K-近邻算法(KNN)"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewr8iypj20zk0m8b29.jpg"></a>
   </div>
   <div class="info">
     
@@ -856,7 +868,47 @@ KNN 算法最早是由 Cover 和 Hart 提出的一种分类算法。应用场景
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
+    <span><a href="/2022/05/16/rocketMQ/3-02-reliabllity-msg/" title="RocketMQ 消息可靠性实现原理">RocketMQ 消息可靠性实现原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+</div>
+
+    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
+</div>
+
+    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/" title="Git介绍">Git介绍</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
+</div>
+
+    <span><a href="/2022/09/19/k8s/seris100-kuboard/" title="k8s 监控神器 kuboard">k8s 监控神器 kuboard</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
+</div>
+
+    <span><a href="/2022/02/24/go/go-errors/" title="浅析go的error">浅析go的error</a></span>
   </li>
 
       
@@ -866,37 +918,7 @@ KNN 算法最早是由 Cover 和 Hart 提出的一种分类算法。应用场景
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/28/rocketMQ/2-02-RocketMQ-Arch-Message/" title="RocketMQ系列-架构设计之消息">RocketMQ系列-架构设计之消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/04/rocketMQ/1-04-01.%E5%9F%BA%E6%9C%AC%E6%A0%B7%E4%BE%8B/" title="RocketMQ样例:基本的消息生产和消费">RocketMQ样例:基本的消息生产和消费</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" title="分类于 日拱一卒">日拱一卒</a>
-</div>
-
-    <span><a href="/2023/02/01/onedayday/2023-02-01.ThreadLocal/" title="ThreadLocal 内存溢出">ThreadLocal 内存溢出</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/JDK%E6%BA%90%E7%A0%81/" title="分类于 JDK 源码">JDK 源码</a>
-</div>
-
-    <span><a href="/2021/11/11/JDK%E6%BA%90%E7%A0%81/versions/jdk11/" title="不要再在用JDK11写JDK8的代码了!">不要再在用JDK11写JDK8的代码了!</a></span>
+    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
   </li>
 
       
@@ -906,7 +928,27 @@ KNN 算法最早是由 Cover 和 Hart 提出的一种分类算法。应用场景
 <a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
 </div>
 
-    <span><a href="/2021/11/04/BQ/LeetCode/0407-trapping-rain-water-ii/" title="LC:407.接雨水II">LC:407.接雨水II</a></span>
+    <span><a href="/2021/11/01/BQ/LeetCode/1218-longest-arithmetic-subsequence-of-given-difference/" title="LC:1218.最长定差子序列">LC:1218.最长定差子序列</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%85%A8%E7%AB%99%E5%9C%B0%E5%9B%BE/" title="分类于 全站地图">全站地图</a>
+</div>
+
+    <span><a href="/2021/07/18/RoadMap/" title="全站地图">全站地图</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
+</div>
+
+    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
   </li>
 
       
@@ -916,37 +958,7 @@ KNN 算法最早是由 Cover 和 Hart 提出的一种分类算法。应用场景
 <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
 </div>
 
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" title="Redis数据结构之 List">Redis数据结构之 List</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/01/rocketMQ/1-01-RocketMQ%E7%AE%80%E4%BB%8B/" title="Rocket系列-入门">Rocket系列-入门</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/23/rocketMQ/1-04-06.%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF/" title="RocketMQ样例:事务消息">RocketMQ样例:事务消息</a></span>
+    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" title="Redis 简介">Redis 简介</a></span>
   </li>
 
   </ul>

@@ -7,48 +7,48 @@
         <language>zh-CN</language>
         <pubDate>Mon, 02 Aug 2021 18:18:55 +0800</pubDate>
         <lastBuildDate>Mon, 02 Aug 2021 18:18:55 +0800</lastBuildDate>
-        <category>MySQL</category>
         <category>源码</category>
         <category>目录</category>
         <category>全站地图</category>
+        <category>MySQL</category>
         <category>Redis</category>
+        <category>数据结构</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
         <category>日常</category>
         <category>Springboot</category>
         <category>Netty</category>
-        <category>Elastic Search</category>
-        <category>搜索</category>
-        <category>雪花算法</category>
-        <category>算法</category>
         <category>git</category>
-        <category>数据结构</category>
         <category>go</category>
         <category>go-error</category>
         <category>k8s</category>
         <category>kubernetes</category>
-        <category>日拱一卒</category>
         <category>MachineLearn</category>
         <category>log</category>
         <category>go-log</category>
+        <category>日拱一卒</category>
         <category>猫影视</category>
         <category>图片</category>
-        <category>RocketMQ</category>
-        <category>消息队列</category>
         <category>线程池</category>
         <category>面经</category>
-        <category>leetCode</category>
-        <category>链表</category>
-        <category>面经之算法题</category>
-        <category>数组</category>
-        <category>有点难的算法题</category>
-        <category>动态规划</category>
-        <category>不做也罢的算法题</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
-        <category>String</category>
+        <category>动态规划</category>
+        <category>leetCode</category>
+        <category>数组</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
+        <category>有点难的算法题</category>
+        <category>不做也罢的算法题</category>
+        <category>HashMap</category>
         <category>JDK</category>
         <category>JDK8</category>
-        <category>HashMap</category>
+        <category>String</category>
         <category>数据结构与算法</category>
         <category>哈希算法</category>
         <category>霍夫曼编码</category>
@@ -57,26 +57,26 @@
         <category>递归</category>
         <category>排序</category>
         <category>冒泡排序</category>
-        <category>交换排序</category>
         <category>分治思想排序</category>
-        <category>选择排序</category>
+        <category>交换排序</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
+        <category>选择排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
         <category>go-设计模式</category>
+        <category>模型评估</category>
         <category>Java</category>
         <category>dubbo</category>
-        <category>模型评估</category>
         <category>架构</category>
         <category>笔记</category>
         <category>KNN</category>
         <category>go-runtimes</category>
         <category>JDK版本</category>
         <category>JDK11</category>
+        <category>Stream</category>
         <category>OOM</category>
         <category>JVM</category>
-        <category>Stream</category>
         <item>
             <guid isPermalink="true">https://fangjiaxiaobai.github.io/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/</guid>
             <title>Redis数据结构之详解 ziplist</title>
