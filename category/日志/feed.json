@@ -5,6 +5,17 @@
     "home_page_url": "https://fangjiaxiaobai.github.io",
     "items": [
         {
+            "id": "https://fangjiaxiaobai.github.io/2024/06/27/mp4/about-gpu/",
+            "url": "https://fangjiaxiaobai.github.io/2024/06/27/mp4/about-gpu/",
+            "title": "从零开始认识显卡",
+            "date_published": "2024-06-27T10:18:18.000Z",
+            "content_html": "<p>本文中视频来自  <code>YouTube</code> . <span class=\"red\">侵删～～～～</span>  <span class=\"rainbow\">文章底部公众号即可找到我～</span></p>\n\n\n<div style=\"position: relative; width: 100%; height: 800;\">\n<iframe width=\"100%\" height=\"800\" src=\"https://www.youtube.com/embed/vtR7cgYATdk?si=SQ_jqT1Xry8e9uVa\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>\n</div> \n\n\n<p><span class=\"grey\">视频打不开？？？～</span>  <span class=\"rainbow\">文章底部公众号即可找到我～</span></p>\n<h2 id=\"最后\"><a class=\"markdownIt-Anchor\" href=\"#最后\">#</a> 最后</h2>\n<p>期望与你一起遇见更好的自己</p>\n<p><img data-src=\"/images/qrcode.jpg\" alt=\"期望与你一起遇见更好的自己\"></p>\n",
+            "tags": [
+                "youtube",
+                "gpu"
+            ]
+        },
+        {
             "id": "https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/",
             "url": "https://fangjiaxiaobai.github.io/2022/03/04/mylogs/talk_about_log/",
             "title": "聊聊日志",
