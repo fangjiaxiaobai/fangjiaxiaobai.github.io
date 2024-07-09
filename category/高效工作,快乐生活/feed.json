@@ -1,0 +1,28 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "方家小白 • All posts by \"高效工作,快乐生活\" category",
+    "description": "和你一起遇见更好的自己",
+    "home_page_url": "https://fangjiaxiaobai.github.io",
+    "items": [
+        {
+            "id": "https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewhl-01-iterm/",
+            "url": "https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewhl-01-iterm/",
+            "title": "Iterm 更懂你",
+            "date_published": "2024-07-09T10:18:18.000Z",
+            "content_html": "<h1 id=\"zshrc\"><a class=\"markdownIt-Anchor\" href=\"#zshrc\">#</a> zshrc</h1>\n<p>原内容来自 <code>git</code> :  <code>https://github.com/Innei/zshrc/tree/renovate/configure</code> .</p>\n<h3 id=\"使用方法\"><a class=\"markdownIt-Anchor\" href=\"#使用方法\">#</a> 使用方法</h3>\n<p>执行 init.zsh 即可。</p>\n<h3 id=\"效果展示\"><a class=\"markdownIt-Anchor\" href=\"#效果展示\">#</a> 效果展示</h3>\n<ul>\n<li>普通目录</li>\n</ul>\n<p><img data-src=\"https://fangjiaxiaobai.github.io/images/iterm/normal-images.png\" alt=\"\"></p>\n<ul>\n<li><code>git</code>  仓库目录下</li>\n</ul>\n<p><img data-src=\"https://fangjiaxiaobai.github.io/images/iterm/git-image.png\" alt=\"\"></p>\n<h3 id=\"周边\"><a class=\"markdownIt-Anchor\" href=\"#周边\">#</a> 周边</h3>\n<p><code>theme</code>  文件夹下提供了终端的配色</p>\n<p><code>font</code>  文件夹下提供了我使用的等宽字体。</p>\n<h2 id=\"最后\"><a class=\"markdownIt-Anchor\" href=\"#最后\">#</a> 最后</h2>\n<p>期望与你一起遇见更好的自己</p>\n<p><img data-src=\"/images/qrcode.jpg\" alt=\"期望与你一起遇见更好的自己\"></p>\n",
+            "tags": [
+                "高效工作,快乐生活"
+            ]
+        },
+        {
+            "id": "https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewlh-02-vim/",
+            "url": "https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewlh-02-vim/",
+            "title": "如何使用vim成神",
+            "date_published": "2024-07-09T10:18:18.000Z",
+            "content_html": "<h2 id=\"工欲善其事必先利其器\"><a class=\"markdownIt-Anchor\" href=\"#工欲善其事必先利其器\">#</a> 工欲善其事必先利其器</h2>\n<p>🍺 使用步骤</p>\n<figure class=\"highlight shell\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br><span class=\"line\">2</span><br><span class=\"line\">3</span><br><span class=\"line\">4</span><br><span class=\"line\">5</span><br><span class=\"line\">6</span><br><span class=\"line\">7</span><br></pre></td><td class=\"code\"><pre><span class=\"line\"></span><br><span class=\"line\">git clone -b how-to-use-vim-make-you-god https://gitee.com/fangjiaxiaobai/efficient-work-happy-life.git</span><br><span class=\"line\"></span><br><span class=\"line\">cd efficient-work-happy-life</span><br><span class=\"line\"></span><br><span class=\"line\">bash setup.sh</span><br><span class=\"line\"></span><br></pre></td></tr></table></figure>\n<p>🍺 效果展示</p>\n<p><img data-src=\"https://fangjiaxiaobai.github.io/images/ewhl/vim/show.png\" alt=\"\"></p>\n<h2 id=\"最后\"><a class=\"markdownIt-Anchor\" href=\"#最后\">#</a> 最后</h2>\n<p>期望与你一起遇见更好的自己</p>\n<p><img data-src=\"/images/qrcode.jpg\" alt=\"期望与你一起遇见更好的自己\"></p>\n",
+            "tags": [
+                "高效工作,快乐生活"
+            ]
+        }
+    ]
+}

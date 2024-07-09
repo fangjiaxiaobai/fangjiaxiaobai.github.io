@@ -90,12 +90,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm0n457cj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
         </ul>
       </div>
     </header>
@@ -121,7 +121,151 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" title="Redis数据结构之集合 Set"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" itemprop="url" title="Redis数据结构之 &#96;HyperLogLogs&#96;"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 18:58:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:58:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" itemprop="url" title="Redis数据结构之 &#96;HyperLogLogs&#96;">Redis数据结构之 `HyperLogLogs`</a></h3>
+    <div class="excerpt">
+        # 书接上回
+上一篇我们学习的 bitmap 这一 “数据类型” 。其内部是由 sds 这种种数据结构编码的。
+如果不记得了，那就来坐穿梭机回去看看吧。 开始穿梭
+接下来，我们继续学习一个新的 &amp;quot;数据类型&amp;quot; , 位图， HyperLogLogs .（注意啦，数据类型，我又加了引号！！）
+# HyperLogLogs 简介
+HyperLogLog 是一种概率数据结构，用于对唯一事物进行计数（从技术上讲，这是指估计集合的基数）。
+注意哦， HyperlogLog 其实是一种基数计数算法，并非 Redis...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" itemprop="url" title="Redis数据结构之 &#96;HyperLogLogs&#96;" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" itemprop="url" title="Redis数据结构之位图 BitMap"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 18:48:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:48:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>12k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>11 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" itemprop="url" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></h3>
+    <div class="excerpt">
+        # 书接上回
+上一篇我们学习的 zset 集合这一数据类型。其内部是由 skiplist 和 hashtable 这种两种数据结构编码的。
+如果不记得了，那就来坐穿梭机回去看看吧。 开始穿梭
+接下来，我们继续学习一个新的 &amp;quot;数据类型&amp;quot; , 位图， bitmap .（注意啦，数据类型，我加了引号！！）
+# bitmap 简介
+那么什么是 bitmap , 我们先从名字上来说， bit ，计算机中最小的单位，一个 bit 表示一个二进制位。 map ，映射，图。所以， bitmap 就是表示对二进制位的映射。那具体是怎么回事呢？ bitmap...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" itemprop="url" title="Redis数据结构之位图 BitMap" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2021-08-01 18:38:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2021-08-01T18:38:55+08:00">2021-08-01</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>14k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>13 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></h3>
+    <div class="excerpt">
+        # 书接上回
+上一篇我们学习的 set 集合这一数据类型。其内部是由 inset 和 hashtable 这种两种数据结构编码的。
+如果不记得了，那就来坐穿梭机回去看看吧。 开始穿梭
+接下来，我们继续学习一个新的数据类型，有序集合. zset .
+# zset 简介
+zset , 中文名字叫 有序集合。序这个字，在 Redis 的实现是 score 字段。我们先不急这个字段，后面会介绍。
+在 Redis 中有序的数据类型，还有一个就是我们前面学习的 list 了。 它们还都可以获得某一定范围内的元素。
+而 zset 的优点是： list...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
+      </span>
+    </div>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" itemprop="url" title="Redis数据结构之有序集合 zset" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" itemprop="url" title="Redis数据结构之集合 Set"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclxfdlttj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -169,7 +313,7 @@ OBJ_ENCODING_HT 这种编码方式在上一篇文章...
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" title="Redis数据结构之 Hash"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" itemprop="url" title="Redis数据结构之 Hash"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -216,7 +360,7 @@ hash 实际上就是一个 哈希表。类似于 Java 里的 HashTable 。
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" title="Redis数据结构之 List"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
   </div>
   <div class="info">
     
@@ -264,7 +408,7 @@ list , 一般都会称为列表。在 Redis 中，这种数据结构是一种比
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" itemprop="url" title="Redis数据结构之 String"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></a>
   </div>
   <div class="info">
     
@@ -312,7 +456,7 @@ SET key value...
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipewf5l51j20zk0m8b29.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 多个数据库"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipetlbztpj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -360,7 +504,7 @@ SET key value...
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" itemprop="url" title="Redis 简介"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -412,7 +556,7 @@ LRU 驱逐
         
 <article class="item">
   <div class="cover">
-    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></a>
+    <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" itemprop="url" title="Redis的单机部署"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipew28b65j20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -455,144 +599,6 @@ http://download.redis.io/releases/redis-5.0.7.tar.gz
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/24/MySQL-series/MySQL-1-01.MySQL_version/" itemprop="url" title="01.数据库版本"><img data-src="https://fangjiaxiaobai.github.io/images/MySQL-series/covers/1-01.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-24 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-24T14:48:55+08:00">2021-07-24</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.8k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>2 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/24/MySQL-series/MySQL-1-01.MySQL_version/" itemprop="url" title="01.数据库版本">01.数据库版本</a></h3>
-    <div class="excerpt">
-        # MySQL 数据库的版本
-mysql-5.0 : mysql-5.0 版本之前， myisam 默认支持的表大小为 4G 。从 mysql-5.0 以后， MyISAM 默认支持 256T 的表单数据。 myisam 只缓存索引数据。 2005 年的 5.0 版本又添加了存储过程、服务端游标、触发器、查询优化以及分布式事务功能。
-MySQL5.1 : 2008 年发布的 MySQL 5.1 的版本，基本上就是一个增加了崩溃恢复功能的 MyISAM ，使用表级锁，但可以做到读写不冲突，即在进行任何类型的更新操作的同时都可以进行读操作，但多个写操作不能并发。
-mysql5.5 : 2010 年...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
-      </span>
-    </div>
-    <a href="/2021/07/24/MySQL-series/MySQL-1-01.MySQL_version/" itemprop="url" title="01.数据库版本" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" itemprop="url" title="00.开篇&amp;&amp;说明"><img data-src="https://fangjiaxiaobai.github.io/images/MySQL-series/covers/1-00.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-23 14:48:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:48:55+08:00">2021-07-23</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>58</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" itemprop="url" title="00.开篇&amp;&amp;说明">00.开篇&&说明</a></h3>
-    <div class="excerpt">
-        # 版本说明
-本系列文章，以 MySQL 8.0.20 版本为实验背景进行编写。
-MySQL 手册
-# 最后
-期望与你一起遇见更好的自己
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="MySQL 数据库"><i class="ic i-flag"></i>MySQL 数据库</a>
-      </span>
-    </div>
-    <a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" itemprop="url" title="00.开篇&amp;&amp;说明" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclfdu6exj20zk0m87hw.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-07-23 14:28:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-07-23T14:28:55+08:00">2021-07-23</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>165</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈">Redis 开篇杂谈</a></h3>
-    <div class="excerpt">
-        # 杂谈
-这里说些杂谈吧。
-以下的文章中，同一个名词并非代表的是同一种对象。比如 list。
-在 t_list.c 中，list 的表示的 面向于用户的 Redis 数据结构 List (列表)。而在 adlsit.c 中表示的 Redis 数据结构的底层实现 list (其实是链表这种数据结构 - 此处的数据结构，表示真实的数据结构)。
-# 最后
-期望与你一起遇见更好的自己
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" title="Redis 数据库"><i class="ic i-flag"></i>Redis 数据库</a>
-      </span>
-    </div>
-    <a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" itemprop="url" title="Redis 开篇杂谈" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -628,19 +634,19 @@ MySQL 手册
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">122</span>
+        <span class="count">125</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">24</span>
+        <span class="count">26</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">72</span>
+        <span class="count">74</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -800,60 +806,10 @@ MySQL 手册
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2024/03/18/dataStructuresAndAlgorithms/huffman/huffman/" title="深入解析 Huffman 编码：原理与应用">深入解析 Huffman 编码：原理与应用</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
 </div>
 
-    <span><a href="/2021/10/15/BQ/hdoj/HD-1002/" title="1002 A + B Problem II">1002 A + B Problem II</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis数据结构之 String">Redis数据结构之 String</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
-</div>
-
-    <span><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Java%E7%B3%BB%E5%88%97/" title="分类于 Java 系列">Java 系列</a>
-</div>
-
-    <span><a href="/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/" title="JVM之你没见过的OOM">JVM之你没见过的OOM</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></span>
+    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
   </li>
 
       
@@ -863,17 +819,37 @@ MySQL 手册
 <a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
 </div>
 
-    <span><a href="/2021/07/23/MySQL-series/MySQL-1-00.intro/" title="00.开篇&amp;&amp;说明">00.开篇&&说明</a></span>
+    <span><a href="/2022/11/03/MySQL-series/MySQL-2-01.MySQL-artific/" title="05.体系架构">05.体系架构</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
+<a href="/categories/%E6%97%A5%E6%8B%B1%E4%B8%80%E5%8D%92/" title="分类于 日拱一卒">日拱一卒</a>
 </div>
 
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="动态规划">动态规划</a></span>
+    <span><a href="/2023/02/12/onedayday/2023-02-12.Https/" title="Https连接过程">Https连接过程</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/17/BQ/hdoj/HD-1004/" title="1004 Let the Balloon Rise">1004 Let the Balloon Rise</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
+</div>
+
+    <span><a href="/2021/10/14/BQ/hdoj/HD-1001/" title="1001 Sum Problem">1001 Sum Problem</a></span>
   </li>
 
       
@@ -883,7 +859,37 @@ MySQL 手册
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2021/09/01/rocketMQ/README/" title="RocketMQ系列-开篇">RocketMQ系列-开篇</a></span>
+    <span><a href="/2021/09/28/rocketMQ/2-01-RocketMQ-Arch-Start/" title="RocketMQ系列-架构设计之启动">RocketMQ系列-架构设计之启动</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/11/03/BQ/LeetCode/0367-valid-perfect-square/" title="LC:367.有效的完全平方数">LC:367.有效的完全平方数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
+</div>
+
+    <span><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES栈安装">ES栈安装</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
+</div>
+
+    <span><a href="/2021/08/29/BQ/LeetCode/0002-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="LC:反转链表I">LC:反转链表I</a></span>
   </li>
 
       
@@ -893,7 +899,7 @@ MySQL 手册
 <a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
 </div>
 
-    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
+    <span><a href="/2022/05/16/rocketMQ/3-02-reliabllity-msg/" title="RocketMQ 消息可靠性实现原理">RocketMQ 消息可靠性实现原理</a></span>
   </li>
 
   </ul>

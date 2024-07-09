@@ -9,69 +9,71 @@
         <lastBuildDate>Thu, 27 Jun 2024 18:18:18 +0800</lastBuildDate>
         <category>全站地图</category>
         <category>目录</category>
-        <category>源码</category>
         <category>MySQL</category>
         <category>Redis</category>
         <category>数据结构</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>git</category>
+        <category>源码</category>
+        <category>k8s</category>
+        <category>kubernetes</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>MachineLearn</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>youtube</category>
+        <category>gpu</category>
+        <category>BiliBili</category>
         <category>雪花算法</category>
         <category>算法</category>
         <category>Elastic Search</category>
         <category>搜索</category>
-        <category>git</category>
-        <category>go</category>
-        <category>go-error</category>
-        <category>k8s</category>
-        <category>kubernetes</category>
-        <category>MachineLearn</category>
-        <category>youtube</category>
-        <category>gpu</category>
         <category>日拱一卒</category>
-        <category>日常</category>
-        <category>Springboot</category>
-        <category>Netty</category>
-        <category>log</category>
-        <category>go-log</category>
+        <category>图片</category>
+        <category>线程池</category>
+        <category>面经</category>
         <category>RocketMQ</category>
         <category>消息队列</category>
-        <category>图片</category>
-        <category>HashMap</category>
-        <category>JDK</category>
-        <category>JDK8</category>
+        <category>猫影视</category>
+        <category>高效工作,快乐生活</category>
+        <category>leetCode</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
+        <category>数组</category>
+        <category>有点难的算法题</category>
+        <category>动态规划</category>
+        <category>不做也罢的算法题</category>
         <category>HD</category>
         <category>BQ</category>
         <category>AC</category>
-        <category>leetCode</category>
-        <category>数组</category>
-        <category>面经之算法题</category>
-        <category>链表</category>
-        <category>猫影视</category>
-        <category>线程池</category>
-        <category>面经</category>
-        <category>动态规划</category>
-        <category>不做也罢的算法题</category>
-        <category>有点难的算法题</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
         <category>String</category>
+        <category>go-设计模式</category>
         <category>数据结构与算法</category>
-        <category>哈希算法</category>
-        <category>霍夫曼编码</category>
-        <category>哈夫曼编码</category>
-        <category>C++</category>
         <category>排序</category>
         <category>冒泡排序</category>
-        <category>分治思想排序</category>
-        <category>go-设计模式</category>
         <category>交换排序</category>
+        <category>递归</category>
+        <category>分治思想排序</category>
         <category>快速排序</category>
         <category>分支思想排序</category>
+        <category>哈希算法</category>
+        <category>Java</category>
+        <category>dubbo</category>
         <category>桶排序</category>
         <category>线性思想排序</category>
         <category>选择排序</category>
-        <category>Java</category>
-        <category>dubbo</category>
         <category>模型评估</category>
-        <category>递归</category>
         <category>架构</category>
         <category>笔记</category>
+        <category>霍夫曼编码</category>
+        <category>哈夫曼编码</category>
+        <category>C++</category>
         <category>go-runtimes</category>
         <category>KNN</category>
         <category>JDK版本</category>
@@ -91,6 +93,27 @@
 
 &lt;div style=&#34;position: relative; width: 100%; height: 800;&#34;&gt;
 &lt;iframe width=&#34;100%&#34; height=&#34;800&#34; src=&#34;https://www.youtube.com/embed/vtR7cgYATdk?si=SQ_jqT1Xry8e9uVa&#34; title=&#34;YouTube video player&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt; 
+
+
+&lt;p&gt;&lt;span class=&#34;grey&#34;&gt;视频打不开？？？～&lt;/span&gt;  &lt;span class=&#34;rainbow&#34;&gt;文章底部公众号即可找到我～&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2024/06/27/mp4/c++/</guid>
+            <title>C++ 通关</title>
+            <link>https://fangjiaxiaobai.github.io/2024/06/27/mp4/c++/</link>
+            <category>gpu</category>
+            <category>BiliBili</category>
+            <pubDate>Thu, 27 Jun 2024 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;本文中视频来自  &lt;code&gt;B站&lt;/code&gt; . &lt;span class=&#34;red&#34;&gt;侵删～～～～&lt;/span&gt;  &lt;span class=&#34;rainbow&#34;&gt;文章底部公众号即可找到我～&lt;/span&gt;&lt;/p&gt;
+
+
+&lt;div style=&#34;position: relative; width: 100%; height: 800;&#34;&gt;
+&lt;iframe src=&#34;//player.bilibili.com/player.html?isOutside=true&amp;aid=1054210319&amp;bvid=BV1ZH4y137ws&amp;cid=1596673947&amp;p=1&#34; scrolling=&#34;no&#34; border=&#34;0&#34; frameborder=&#34;no&#34; framespacing=&#34;0&#34; allowfullscreen=&#34;true&#34;&gt;&lt;/iframe&gt;
 &lt;/div&gt; 
 
 

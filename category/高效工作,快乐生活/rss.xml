@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>方家小白 • Posts by &#34;高效工作,快乐生活&#34; category</title>
+        <link>https://fangjiaxiaobai.github.io</link>
+        <description>和你一起遇见更好的自己</description>
+        <language>zh-CN</language>
+        <pubDate>Tue, 09 Jul 2024 18:18:18 +0800</pubDate>
+        <lastBuildDate>Tue, 09 Jul 2024 18:18:18 +0800</lastBuildDate>
+        <category>全站地图</category>
+        <category>目录</category>
+        <category>MySQL</category>
+        <category>Redis</category>
+        <category>数据结构</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>git</category>
+        <category>源码</category>
+        <category>k8s</category>
+        <category>kubernetes</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>MachineLearn</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>youtube</category>
+        <category>gpu</category>
+        <category>BiliBili</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>日拱一卒</category>
+        <category>图片</category>
+        <category>线程池</category>
+        <category>面经</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>猫影视</category>
+        <category>高效工作,快乐生活</category>
+        <category>leetCode</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
+        <category>数组</category>
+        <category>有点难的算法题</category>
+        <category>动态规划</category>
+        <category>不做也罢的算法题</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>String</category>
+        <category>go-设计模式</category>
+        <category>数据结构与算法</category>
+        <category>排序</category>
+        <category>冒泡排序</category>
+        <category>交换排序</category>
+        <category>递归</category>
+        <category>分治思想排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>哈希算法</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>桶排序</category>
+        <category>线性思想排序</category>
+        <category>选择排序</category>
+        <category>模型评估</category>
+        <category>架构</category>
+        <category>笔记</category>
+        <category>霍夫曼编码</category>
+        <category>哈夫曼编码</category>
+        <category>C++</category>
+        <category>go-runtimes</category>
+        <category>KNN</category>
+        <category>JDK版本</category>
+        <category>JDK11</category>
+        <category>OOM</category>
+        <category>JVM</category>
+        <category>Stream</category>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewhl-01-iterm/</guid>
+            <title>Iterm 更懂你</title>
+            <link>https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewhl-01-iterm/</link>
+            <category>高效工作,快乐生活</category>
+            <pubDate>Tue, 09 Jul 2024 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;zshrc&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#zshrc&#34;&gt;#&lt;/a&gt; zshrc&lt;/h1&gt;
+&lt;p&gt;原内容来自 &lt;code&gt;git&lt;/code&gt; :  &lt;code&gt;https://github.com/Innei/zshrc/tree/renovate/configure&lt;/code&gt; .&lt;/p&gt;
+&lt;h3 id=&#34;使用方法&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用方法&#34;&gt;#&lt;/a&gt; 使用方法&lt;/h3&gt;
+&lt;p&gt;执行 init.zsh 即可。&lt;/p&gt;
+&lt;h3 id=&#34;效果展示&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#效果展示&#34;&gt;#&lt;/a&gt; 效果展示&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;普通目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/iterm/normal-images.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git&lt;/code&gt;  仓库目录下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/iterm/git-image.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;周边&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#周边&#34;&gt;#&lt;/a&gt; 周边&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;theme&lt;/code&gt;  文件夹下提供了终端的配色&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;font&lt;/code&gt;  文件夹下提供了我使用的等宽字体。&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewlh-02-vim/</guid>
+            <title>如何使用vim成神</title>
+            <link>https://fangjiaxiaobai.github.io/2024/07/09/efficient-work-happy-life/ewlh-02-vim/</link>
+            <category>高效工作,快乐生活</category>
+            <pubDate>Tue, 09 Jul 2024 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;工欲善其事必先利其器&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#工欲善其事必先利其器&#34;&gt;#&lt;/a&gt; 工欲善其事必先利其器&lt;/h2&gt;
+&lt;p&gt;🍺 使用步骤&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;git clone -b how-to-use-vim-make-you-god https://gitee.com/fangjiaxiaobai/efficient-work-happy-life.git&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;cd efficient-work-happy-life&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;bash setup.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;🍺 效果展示&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://fangjiaxiaobai.github.io/images/ewhl/vim/show.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h2&gt;
+&lt;p&gt;期望与你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;期望与你一起遇见更好的自己&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
