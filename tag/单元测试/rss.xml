@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>方家小白 • Posts by &#34;单元测试&#34; tag</title>
+        <link>https://fangjiaxiaobai.github.io</link>
+        <description>和你一起遇见更好的自己</description>
+        <language>zh-CN</language>
+        <pubDate>Tue, 06 Aug 2024 18:18:18 +0800</pubDate>
+        <lastBuildDate>Tue, 06 Aug 2024 18:18:18 +0800</lastBuildDate>
+        <category>全站地图</category>
+        <category>目录</category>
+        <category>源码</category>
+        <category>MySQL</category>
+        <category>Redis</category>
+        <category>数据结构</category>
+        <category>日常</category>
+        <category>Springboot</category>
+        <category>Netty</category>
+        <category>git</category>
+        <category>高效工作,快乐生活</category>
+        <category>Elastic Search</category>
+        <category>搜索</category>
+        <category>go</category>
+        <category>go-error</category>
+        <category>雪花算法</category>
+        <category>算法</category>
+        <category>MachineLearn</category>
+        <category>youtube</category>
+        <category>gpu</category>
+        <category>BiliBili</category>
+        <category>k8s</category>
+        <category>kubernetes</category>
+        <category>日拱一卒</category>
+        <category>猫影视</category>
+        <category>log</category>
+        <category>go-log</category>
+        <category>图片</category>
+        <category>RocketMQ</category>
+        <category>消息队列</category>
+        <category>单元测试</category>
+        <category>HD</category>
+        <category>BQ</category>
+        <category>AC</category>
+        <category>线程池</category>
+        <category>面经</category>
+        <category>动态规划</category>
+        <category>leetCode</category>
+        <category>数组</category>
+        <category>面经之算法题</category>
+        <category>链表</category>
+        <category>有点难的算法题</category>
+        <category>不做也罢的算法题</category>
+        <category>HashMap</category>
+        <category>JDK</category>
+        <category>JDK8</category>
+        <category>go-设计模式</category>
+        <category>String</category>
+        <category>数据结构与算法</category>
+        <category>递归</category>
+        <category>排序</category>
+        <category>冒泡排序</category>
+        <category>分治思想排序</category>
+        <category>交换排序</category>
+        <category>快速排序</category>
+        <category>分支思想排序</category>
+        <category>桶排序</category>
+        <category>线性思想排序</category>
+        <category>选择排序</category>
+        <category>霍夫曼编码</category>
+        <category>哈夫曼编码</category>
+        <category>C++</category>
+        <category>哈希算法</category>
+        <category>Java</category>
+        <category>dubbo</category>
+        <category>模型评估</category>
+        <category>架构</category>
+        <category>笔记</category>
+        <category>go-runtimes</category>
+        <category>KNN</category>
+        <category>JDK版本</category>
+        <category>JDK11</category>
+        <category>OOM</category>
+        <category>JVM</category>
+        <category>Stream</category>
+        <item>
+            <guid isPermalink="true">https://fangjiaxiaobai.github.io/2024/08/06/unit-test/01-quick-start/</guid>
+            <title>单元测试</title>
+            <link>https://fangjiaxiaobai.github.io/2024/08/06/unit-test/01-quick-start/</link>
+            <category>单元测试</category>
+            <pubDate>Tue, 06 Aug 2024 18:18:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;写在前面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#写在前面&#34;&gt;#&lt;/a&gt; 写在前面&lt;/h1&gt;
+&lt;p&gt;从去年开始，就没静下心来去写点东西了。今天来叨叨一下单元测试。&lt;/p&gt;
+&lt;p&gt;这篇文章，算我是心血来潮想重新开始写点什么的开始。虽然不知道下篇会说些什么，那就直接进入正题吧。&lt;/p&gt;
+&lt;p&gt;JUnit.&lt;/p&gt;
+&lt;p&gt;写 Java 的同学对这个 JUnit 肯定是熟悉的。嗯，大概也就是熟悉 &lt;code&gt;@Test&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;本着务实的态度，作为 JUnit 的第一篇文章，先不说 JUnit 的辉煌历史。兵出奇招，直接看 JUnit 5.&lt;/p&gt;
+&lt;h1 id=&#34;junit-5&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#junit-5&#34;&gt;#&lt;/a&gt; JUnit 5&lt;/h1&gt;
+&lt;p&gt;JUnit 5 不是 JUnit 5.x 版本。JUnit 5 其实是 Junit 的一个代号，可以理解为 JUnit 的第 5 代。&lt;/p&gt;
+&lt;p&gt;JUnit 5 有三个组件  &lt;code&gt;JUnit Platform&lt;/code&gt;  ,  &lt;code&gt;JUnit Jupiter&lt;/code&gt;  ,  &lt;code&gt;JUnit vintage&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;本篇重点: JUnit Jupiter.&lt;/p&gt;
+&lt;h1 id=&#34;junit-jupiter&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#junit-jupiter&#34;&gt;#&lt;/a&gt; JUnit Jupiter&lt;/h1&gt;
+&lt;p&gt;截止今日 (2024 年 8 月 6 日)， JUnit Jupiter 最新版本 5.10.3. 所以&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;org.junit.jupiter&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;junit-jupiter&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;5.10.3&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;scope&lt;/span&gt;&amp;gt;&lt;/span&gt;test&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;scope&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;最佳食用姿势&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最佳食用姿势&#34;&gt;#&lt;/a&gt; 最佳食用姿势&lt;/h2&gt;
+&lt;h3 id=&#34;test&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#test&#34;&gt;#&lt;/a&gt;  &lt;code&gt;@Test&lt;/code&gt;&lt;/h3&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;testSumEqual&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 断言&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Assertions.assertEquals(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;输出内容是&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;org.opentest4j.AssertionFailedError: &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Expected :&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Actual   :&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;Click to see difference&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:&lt;span class=&#34;number&#34;&gt;151&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:&lt;span class=&#34;number&#34;&gt;132&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:&lt;span class=&#34;number&#34;&gt;197&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:&lt;span class=&#34;number&#34;&gt;150&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:&lt;span class=&#34;number&#34;&gt;145&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:&lt;span class=&#34;number&#34;&gt;531&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at com.fxb.ut.JUnitTestCase.testSumEqual(JUnitTestCase.java:&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at java.lang.reflect.Method.invoke(Method.java:&lt;span class=&#34;number&#34;&gt;498&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at java.util.ArrayList.forEach(ArrayList.java:&lt;span class=&#34;number&#34;&gt;1259&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	at java.util.ArrayList.forEach(ArrayList.java:&lt;span class=&#34;number&#34;&gt;1259&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;beforeall&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#beforeall&#34;&gt;#&lt;/a&gt;  &lt;code&gt;@BeforeAll&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;使用 @BeforeAll 可以在单元测试前初始化部分信息。&lt;br&gt;
+@BeforeAll 只能使用在静态方法上，被注解的方法会在测试开始前运行一次。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;int&lt;/span&gt; num1 = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@BeforeAll&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    num1 = &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;showBeforeAllTest&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Assertions.assertEquals(&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;, num1); &lt;span class=&#34;comment&#34;&gt;// 通过&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;beforeeach&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#beforeeach&#34;&gt;#&lt;/a&gt;  &lt;code&gt;@BeforeEach&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;在每个用例执行前执行一次。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@BeforeEach&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;beforeEachTest&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.println(&lt;span class=&#34;string&#34;&gt;&amp;quot;执行case:&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@DisplayName(&amp;quot;演示BeforeEach - 1&amp;quot;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;showBeforeEachTest1&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.println(&lt;span class=&#34;string&#34;&gt;&amp;quot;    =&amp;gt; case1&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@DisplayName(&amp;quot;演示BeforeEach - 2&amp;quot;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;showBeforeEachTest2&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    System.out.println(&lt;span class=&#34;string&#34;&gt;&amp;quot;    =&amp;gt; case2&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;输出结果&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;执行case:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    =&amp;gt; case1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;执行case:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    =&amp;gt; case2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;afterall&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#afterall&#34;&gt;#&lt;/a&gt;  &lt;code&gt;@AfterAll&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;@AfterAll 注解只能使用在静态方法上，被注解的方法会在所有单元测试运行完毕后运行一次。&lt;/p&gt;
+&lt;h3 id=&#34;aftereach&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#aftereach&#34;&gt;#&lt;/a&gt;  &lt;code&gt;@AfterEach&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;使用 @AfterEach 注解的方法，会在每一个 @Test 注解的方法运行结束前运行一次。&lt;/p&gt;
+&lt;h3 id=&#34;disabled&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#disabled&#34;&gt;#&lt;/a&gt; @Disabled&lt;/h3&gt;
+&lt;p&gt;被 @Disabled 注解的方法不在参与测试。&lt;/p&gt;
+&lt;h3 id=&#34;displayname&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#displayname&#34;&gt;#&lt;/a&gt; @DisplayName&lt;/h3&gt;
+&lt;p&gt;使用 @DisplayName 注解可以自定义测试方法的显示名称，下面为两个测试方法自定义名称。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/unit-test/01-01.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;order&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#order&#34;&gt;#&lt;/a&gt; @Order&lt;/h3&gt;
+&lt;p&gt;在类上增加注解 @TestMethodOrder ，然后在方法上使用 @Order 指定顺序，数字越小优先级越搞，可以保证测试方法运行顺序。&lt;/p&gt;
+&lt;h2 id=&#34;断言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#断言&#34;&gt;#&lt;/a&gt; 断言&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Assertions.assertNotNull(xx)&lt;/code&gt; : 检测不为空&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Assertions.assertEquals(expect, actual)&lt;/code&gt; : 判断是否相等&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Assertions.assertNotEquals(expect, actual)&lt;/code&gt; : 判断是否不相等.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Assertions.assertTrue(boolean)&lt;/code&gt; : 判断是否正确&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Assertions.assertFalse(boolean)&lt;/code&gt; : 判断是否错误.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;好啦，今天就到这里吧。知道这几个注解就能应对你工作中 30% 的问题，超过 90% 的 java 程序员啦。&lt;br&gt;
+因为有 91% 的 java 程序员都不写单元测试。虽然他们都知道如何写，就像写这篇文章的人.&lt;/p&gt;
+&lt;p&gt;对了， 那 1% 就是不写单元测试，也不会有 bug 的人。&lt;/p&gt;
+&lt;h1 id=&#34;最后&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#最后&#34;&gt;#&lt;/a&gt; 最后&lt;/h1&gt;
+&lt;p&gt;希望和你一起遇见更好的自己&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;/images/qrcode.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
