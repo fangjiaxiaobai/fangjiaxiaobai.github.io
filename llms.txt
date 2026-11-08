@@ -1,0 +1,95 @@
+# 方家小白
+
+> 和你一起遇见更好的自己。定位「AI 主轴 + 技术底座」：AI Agent 实践为新主轴，Java、后端中间件、算法与工程效率为技术底座。共 125 篇文章，全文永久免费，不设强制关注解锁。
+
+## 许可与使用边界
+
+- 允许：检索、索引、摘要引用、作为 AI 上下文时的引用与链接。
+- 要求：引用须保留作者署名与原文规范链接（canonical）。
+- 不允许：整篇复制、商业性转载、作为模型训练语料；详见 /robots.txt 的 Content-signal 声明与页脚许可（CC BY-NC-SA 4.0）。
+- 本文件仅提供标题、摘要与链接，不包含文章全文；全文请访问对应 URL。
+- 第三方视频转载内容已下线，不再提供正文与嵌入视频；历史链接仅返回下线说明页（noindex），不收录于站点地图与订阅源。
+- 文中涉及第三方产品版本、配置与效果数据的部分为作者当时经验，未经独立验证；标注「归档」的旧文可能含过时版本信息。
+
+## 内容栏目
+
+- [AI Agent 实践](https://fangjiaxiaobai.github.io/columns/ai-agent/): 个人 Agent 系统、规则与 Skill、人在回路、结构化精读（1 篇）
+- [后端与中间件](https://fangjiaxiaobai.github.io/columns/backend/): RocketMQ / Redis / MySQL / Kubernetes / ElasticSearch / Dubbo（50 篇）
+- [Java 与 JVM](https://fangjiaxiaobai.github.io/columns/java/): JDK 源码、并发与 GC、设计模式、面试笔记（9 篇）
+- [算法与数据结构](https://fangjiaxiaobai.github.io/columns/algorithm/): LeetCode、杭电 OJ、排序与哈希、动态规划（29 篇）
+- [工程效率与工具](https://fangjiaxiaobai.github.io/columns/engineering/): Git、终端与编辑器、日拱一卒速记、语言笔记（24 篇）
+- [随笔与归档](https://fangjiaxiaobai.github.io/columns/archive/): 日志、图片与早期笔记，保留可访问性但不进主导航（12 篇）
+
+## 系列目录
+
+- [Agent 观察与复盘](https://fangjiaxiaobai.github.io/series/agent-notes/): 1 篇
+- [Redis 系列](https://fangjiaxiaobai.github.io/series/redis/): 14 篇
+- [MySQL 系列](https://fangjiaxiaobai.github.io/series/mysql/): 6 篇
+- [ElasticSearch 系列](https://fangjiaxiaobai.github.io/series/es/): 5 篇
+- [RocketMQ 系列](https://fangjiaxiaobai.github.io/series/rocketmq/): 16 篇
+- [Dubbo 系列](https://fangjiaxiaobai.github.io/series/s-fefd6605/): 3 篇
+- [Kubernetes 系列](https://fangjiaxiaobai.github.io/series/k8s/): 6 篇
+- [JDK 源码](https://fangjiaxiaobai.github.io/series/jdk/): 5 篇
+- [面试笔记](https://fangjiaxiaobai.github.io/series/s-7dbbeae0/): 1 篇
+- [Java 基础](https://fangjiaxiaobai.github.io/series/s-30a0be29/): 2 篇
+- [设计模式](https://fangjiaxiaobai.github.io/series/s-f09cf215/): 1 篇
+- [算法精讲](https://fangjiaxiaobai.github.io/series/s-7ba21bc3/): 12 篇
+- [LeetCode](https://fangjiaxiaobai.github.io/series/leetcode/): 11 篇
+- [杭电 OJ](https://fangjiaxiaobai.github.io/series/hduoj/): 6 篇
+- [Git 系列](https://fangjiaxiaobai.github.io/series/git/): 14 篇
+- [Go 笔记](https://fangjiaxiaobai.github.io/series/s-fdfc4cce/): 2 篇
+- [日拱一卒](https://fangjiaxiaobai.github.io/series/onedayday/): 6 篇
+- [效率工具](https://fangjiaxiaobai.github.io/series/s-4f61e988/): 2 篇
+- [全站地图](https://fangjiaxiaobai.github.io/series/s-521ae6a4/): 1 篇
+- [图片](https://fangjiaxiaobai.github.io/series/s-be8da62e/): 2 篇
+- [机器学习旧笔记](https://fangjiaxiaobai.github.io/series/s-1e731f57/): 4 篇
+- [日志](https://fangjiaxiaobai.github.io/series/s-4de50894/): 2 篇
+- [笔记](https://fangjiaxiaobai.github.io/series/s-697dbde0/): 1 篇
+- [其他](https://fangjiaxiaobai.github.io/series/s-1a26edf9/): 1 篇
+- [待归类（原分类：）](https://fangjiaxiaobai.github.io/series/s-3683d289/): 1 篇
+
+## 精选文章（标题 + 摘要 + 链接）
+
+- [读完这篇长文，我把「人在回路」重新想了一遍](https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/) [2026-11-08]：一篇关于 Agent 系统与人类注意力的长文复盘：为什么多任务的上限不看模型而看人，事件驱动、中台、CI 边界与人在回路如何把人从起点挪到末端。
+- [深入解析 Huffman 编码：原理与应用](https://fangjiaxiaobai.github.io/2024/03/18/dataStructuresAndAlgorithms/huffman/huffman/) [2024-03-18]：Huffman 编码，作为一种高效的前缀编码方式，由美国计算机科学家 戴维·A·哈夫曼 于 1952 年提出。它在数据压缩领域具有重要地位，尤其适用于文本、音频、视频等数据的压缩处理，其核心优势在于能
+- [JVM GC 分析](https://fangjiaxiaobai.github.io/2023/02/14/onedayday/2023-02-14.jvm-gc/) [2023-02-14]：频繁GC 今天分享一个面试题, 频繁 GC 怎么处理... 且不说为什么频繁 GC , 先聊聊你怎么发现 JVM 频繁 GC 的呢? 告警啊！对的。 第一种就是 FullGC 的告警， 第二种就是 机
+- [线程池工作原理](https://fangjiaxiaobai.github.io/2023/02/02/onedayday/2023-02-02.ThreadPool/) [2023-02-02]：ThreadPoolExecutor 参数说明 ThreadPoolExecutor 构造方法有以下四个，如下图所示： 其中最后一个构造方法有 7 个构造参数，包含了前三个方法的构造参数，这 7 个参
+- [Go设计模式-单例设计模式](https://fangjiaxiaobai.github.io/2022/03/12/design_pattern/go/dp01-singleton/) [2022-03-12]：单例模式解决什么问题 处理资源访问冲突 表示全局唯一. 在整个程序中，某些数据应该存储一份，这样的类，就应该设计成单例类。比如，SpringBoot应用的配置项。再比如 雪花算法的实现类。 实现单例 
+- [快速排序](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/) [2021-09-01]：快速排序思想 快速排序的核心思想也是 分治思想。 快速排序主要要以待排数组中的某个数字为基准。将整个数组中的数据分为小于基准的一组和大于等于基于的一组.(或者是小于等于基准的一组和大于基于的一组),分
+- [桶排序](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%A1%B6%E6%8E%92%E5%BA%8F/) [2021-09-01]：排序思想 把将要排序的数据分到几个有序的桶里,每个同理的数据再单独进行排序, 桶内拍完序之后, 再把每个桶里的数据按照顺序依次取出, 组成的序列就是有序的了. 排序实现逻辑 [:broken hear
+- [选择排序](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/) [2021-09-01]：基本思想 以第一个元素为基准,与后面的元素进行对比.选择最值(最大值/最小值)与当前位置进行交换。对每个元素都为基准比较,这就是排序过程了. 实现过程 代码实现 排序算法的评估 基于比较,交换的排序算
+- [归并排序](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/) [2021-09-01]：将数组从中间分成前后两部分,然后对前后两部分分别进行排序,再将排好序的两部分合并在一起,这样整个数组就是有序的了。 归并体现的思想就是 分治思想 分而治之, 将一个大问题分解成小的问题来解决。小问题解
+- [排序算法](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/) [2021-09-01]：排序算法开篇 排序算法有很多,比如常见的 冒泡排序,插入排序,选择排序,归并排序,快速排序,计数排序,基数排序,桶排序, 还有不常见的猴子排序,睡眠排序,面条排序等。 其中, 冒泡排序,插入排序, 选
+- [冒泡排序](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/) [2021-09-01]：基本思想 每次都操作两个相邻的数据.每次冒泡操作都对相邻的两个数据进行比较,看是否满足大小关系要求,如果不满足,就进行互换。每次冒泡都会冒出一个最小/大值，并移动到它应该在的位置.重复n次,就完成了对
+- [哈希算法](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/) [2021-09-01]：哈希算法 哈希算法，又称为: 散列函数, 散列算法。 哈希算法是指将任意长度的二进制值串映射为固定长度的二进制串的这一规则。 举个例子: Jdk 的 HashMap 中。 看似实现非常简单，但是设计一
+- [一致性哈希算法的实现](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/hash/%E7%AE%97%E6%B3%9502-%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/) [2021-09-01]：上一篇介绍了 哈希算法和一致性哈希算法的原理，我们知道哈希算法在分布式场景应用中存在着定位问题。所有有一致性哈希算法。 今天我们就动手实现以下哈希算法。 可选性 回顾一下 哈希算法和一致性哈希算法 说
+- [动态规划](https://fangjiaxiaobai.github.io/2021/09/01/dataStructuresAndAlgorithms/dynamicPlan/%E7%AE%97%E6%B3%9501-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/) [2021-09-01]：:point right: [动态规划其实就是动态递推]{.label .success}:point left: 要点 递归+记忆化 - 递推(自下而上的递推) 状态的定义,opt[n],dp[n]
+- [JDK的Stream之系列一 初窥流原理](https://fangjiaxiaobai.github.io/2021/08/23/java%E7%B3%BB%E5%88%97/JDK/stream/Stream-basic/) [2021-08-23]：学东西的时候最好是理论先行，为什么?没有理论，想当然的去干，干好了是 瞎猫碰上死耗子，干不好就瞎干，浪费时间，只会弄得身心俱疲。 可是在真正的工作中，很少工作会允许你先弄清原理再去实操。但是不管怎么说
+- [JVM之你没见过的OOM](https://fangjiaxiaobai.github.io/2021/08/19/java%E7%B3%BB%E5%88%97/JVM/OOM/) [2021-08-19]：一文搞懂内存溢出，保内存平安，防止你被祭天:[手动滑稽]: 释义 OOM 的含义，到底是什么意思? 是JVM独有的吗？ linux 是否也会存在,那又是怎么肥事? OOM : Out Of Memor
+- [git系列开篇](https://fangjiaxiaobai.github.io/2021/08/18/git%E7%B3%BB%E5%88%97/%E7%B3%BB%E5%88%97%E5%BC%80%E7%AF%87/) [2021-08-18]：这个是继 Redis , MySQL 之后的第三个系列了。 然而，前两个系列还都没有写完。 so , Redis 和 MySQL pause. 只是暂停~，我会在未来的三年内，将它们全部完成。 叮~ 
+- [JDK的内置线程池](https://fangjiaxiaobai.github.io/2021/08/04/%E9%9D%A2%E7%BB%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0/) [2021-08-04]：线程池是什么？ 线程池可以控制线程运行的数量，处理过程中将任务放到队列中，然后在线程创建后启动这些任务，如果线程数量超过了最大数量，那么超出数量的线程就会排队等候，等其他线程执行完毕，再从队列中取出任
+- [雪花算法](https://fangjiaxiaobai.github.io/2021/07/18/dataStructuresAndAlgorithms/SnowFlake/) [2021-07-18]：介绍 雪花算法是 twitter 开源的由 64 位整数组成的分布式 id 。目的是在分布式系统中产生全局唯一且趋势递增的 ID 。 其核心思想就是： 使用一个 64 bit 的 long 型的数字作
+- [git命令](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/) [2021-07-18]：本章开始学习一些在开发中常用的git命令 先看一下git有多少个命令。 直接在 命令行中输入git即可。 小朋友，你以为git就这几个命令吗？ 太单纯！！！ 还有很多命令！！ 下篇分享（也分享不完） 
+- [git命令3 - 远程仓库](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/06-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A43-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/) [2021-07-18]：远程仓库指的是 托管到因特网或者其他网络中的项目的版本库。 可以使用 git remote 命令来配置远程仓库。 我们先看一下 git remote 命令都有什么子选项. 下面我们只介绍几个常用的远程
+- [git开发模型 - github-flow](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/20-git%E5%BC%80%E5%8F%91%E6%A8%A1%E5%9E%8B/) [2021-07-18]：github flow 参考地址 GitHub flow 是一个轻量级的，基于分支的工作流，它支持定期进行部署的团队和项目。 gitHub flow 主要分为以下步骤： 1.创建分支 在你准备进行开发
+- [git 基础 - 标签 和 别名](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/07-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A44-%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%AB%E5%90%8D/) [2021-07-18]：标签 标签最主要的作用是，人们会使用这个功能来发布节点，作为一个里程碑等特殊意义的标识。 git 中标签使用 tag 来表示。对应着 git tag 这个命令。 先看一下 git tag 命令吧。 老
+- [git基本命令二](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/05-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A42%20git%E6%97%B6%E5%85%89%E6%9C%BA1/) [2021-07-18]：git 的时光机(简化版) git log ：查看历史记录 git commit -amend ：重写上一次的提交历史 git log git 有一个特别实用的功能，可以让我们看到所有的历史更改记录。
+- [git基本使用一](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/) [2021-07-18]：上一篇文章，我们学习了 使用 git 如何创建一个仓库。而且还详细的介绍了 git 各个工作目录的作用。 git : global information tracker git 其实是内容寻址文件系
+- [安装git](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/01-GIt%E5%AE%89%E8%A3%85/) [2021-07-18]：windows下安装 here linux下安装 here mac下安装 here 最后 期望与你一起遇见更好的自己
+- [Git介绍](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/02-Git%E4%BB%8B%E7%BB%8D/) [2021-07-18]：Git 是目前最先进的版本控制管理系统。 本质上讲， git 是一个内容寻址文件系统。其核心部分是一个简单的键值对数据库( key-value data store ).你可以想像 git 仓库中插入
+- [git命令详解之 git update-index](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_update-index/) [2021-07-18]：官方 最后 期望与你一起遇见更好的自己
+- [git命令详解](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/README/) [2021-07-18]：目录 [ ] git update-index 小技巧 某个文件需要被管理，但是要忽略其修改的内容。 git update-index git update-index --no-skip-workt
+- [git命令详解之 git ls-files](https://fangjiaxiaobai.github.io/2021/07/18/git%E7%B3%BB%E5%88%97/git%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/git_ls-files/) [2021-07-18]：最后 期望与你一起遇见更好的自己
+
+## 站点入口
+
+- [首页](https://fangjiaxiaobai.github.io/)
+- [全部系列](https://fangjiaxiaobai.github.io/series/)
+- [全站归档](https://fangjiaxiaobai.github.io/archives/)
+- [关于与版权](https://fangjiaxiaobai.github.io/about/)
+- [sitemap.xml](https://fangjiaxiaobai.github.io/sitemap.xml)
+- [RSS 摘要订阅](https://fangjiaxiaobai.github.io/rss.xml) · [Atom](https://fangjiaxiaobai.github.io/atom.xml) · [JSON Feed](https://fangjiaxiaobai.github.io/feed.json)
+
+## 公众号
+
+「方家小白」（订阅号，已认证）。网站发完整结构化版，公众号发导读与配套资料；回复关键词 AGENT / RULE / BACKEND / JAVA / ALGO / TOOLS / INDEX 领取对应资料包。全文无需关注即可阅读。

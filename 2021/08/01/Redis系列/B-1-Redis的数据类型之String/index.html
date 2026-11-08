@@ -1,804 +1,442 @@
-
-
-
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#FFF"> 
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
-<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
-<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
-
-<link rel="stylesheet" href="//fonts.loli.net/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-
-<link rel="stylesheet" href="/css/app.css?v=0.2.5">
-
-  
-  <meta name="keywords" content="Redis" />
-
-
-<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/">
-
-
-
-  <title>
-Redis 数据结构之 String - Redis 数据库 |
-方家小白 = 和你一起遇见更好的自己</title>
-<meta name="generator" content="Hexo 5.4.0"></head>
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div id="loading">
-    <div class="cat">
-      <div class="body"></div>
-      <div class="head">
-        <div class="face"></div>
-      </div>
-      <div class="foot">
-        <div class="tummy-end"></div>
-        <div class="bottom"></div>
-        <div class="legs left"></div>
-        <div class="legs right"></div>
-      </div>
-      <div class="paw">
-        <div class="hands left"></div>
-        <div class="hands right"></div>
-      </div>
-    </div>
-  </div>
-  <div id="container">
-    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="inner">
-        <div id="brand">
-          <div class="pjax">
-          
-  <h1 itemprop="name headline">Redis 数据结构之 String
-  </h1>
-  
-<div class="meta">
-  <span class="item" title="创建时间：2021-08-01 14:58:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-01T14:58:55+08:00">2021-08-01</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span class="text">本文字数</span>
-    <span>9.6k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span class="text">阅读时长</span>
-    <span>9 分钟</span>
-  </span>
-</div>
-
-
-          </div>
-        </div>
-        <nav id="nav">
-  <div class="inner">
-    <div class="toggle">
-      <div class="lines" aria-label="切换导航栏">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-      </div>
-    </div>
-    <ul class="menu">
-      <li class="item title"><a href="/" rel="start">方家小白</a></li>
-    </ul>
-    <ul class="right">
-      <li class="item theme">
-        <i class="ic i-sun"></i>
-      </li>
-      <li class="item search">
-        <i class="ic i-search"></i>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-      </div>
-      <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
-        </ul>
-      </div>
-    </header>
-    <div id="waves">
-      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" />
-          <use xlink:href="#gentle-wave" x="48" y="3" />
-          <use xlink:href="#gentle-wave" x="48" y="5" />
-          <use xlink:href="#gentle-wave" x="48" y="7" />
-        </g>
-      </svg>
-    </div>
-    <main>
-      <div class="inner">
-        <div id="main" class="pjax">
-          
-  <div class="article wrap">
-    
-<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-<i class="ic i-home"></i>
-<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
-<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="item" rel="index" title="分类于 Redis 数据库"><span itemprop="name">Redis 数据库</span></a>
-<meta itemprop="position" content="1" /></span>
-</div>
-
-    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/">
-
-  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="image" content="/images/avatar.jpg">
-    <meta itemprop="name" content="方小白">
-    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
-  </span>
-
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="方家小白">
-  </span>
-
-  <div class="body md" itemprop="articleBody">
-    
-
-    <div id="fxb_container" class="fxb_container_style">
-      <p>今天来聊聊  <code>Redis</code>  的 <code>string</code> ，这一数据结构。</p>
-<h3 id="string简介"><a class="markdownIt-Anchor" href="#string简介">#</a>  <code>string</code>  简介</h3>
-<p><code>string</code>  是 <code>Redis</code>  中最基本，也是最简单的数据结构。一个键 ( <code>key</code> ) 对应着一个 <code>string</code>  类型的值 ( <code>value</code> ). 我们都知道 <code>redis</code>  是使用 <code>C</code>  语言来编写的，但是  <code>string</code>  这一个数据结构并非是使用 <code>C</code>  语言的  <code>string(char[])</code>  来实现的，要想先了解，那就做电梯吧 -&gt;( <a href="#%60Redis%60%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%99%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">电梯直达</a> ).</p>
-<p>现在，先暂且抛开内部实现，我们先看看有怎么使用这一数据结构。</p>
-<h3 id="string相关常用命令"><a class="markdownIt-Anchor" href="#string相关常用命令">#</a>  <code>string</code>  相关常用命令</h3>
-<h4 id="set命令"><a class="markdownIt-Anchor" href="#set命令">#</a>  <code>set</code>  命令</h4>
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Redis数据结构之 String · 方家小白</title><meta name="description" content="今天来聊聊 Redis 的 string ，这一数据结构。 string 简介 string 是 Redis 中最基本，也是最简单的数据结构。一个键( key ) 对应着一个 string 类型的值( value ). 我们都知道 redis 是使用 C 语言来编写的,但是 string 这一个数据"><meta name="author" content="方家小白"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large"><link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/"><meta property="og:type" content="article"><meta property="og:site_name" content="方家小白"><meta property="og:title" content="Redis数据结构之 String · 方家小白"><meta property="og:description" content="今天来聊聊 Redis 的 string ，这一数据结构。 string 简介 string 是 Redis 中最基本，也是最简单的数据结构。一个键( key ) 对应着一个 string 类型的值( value ). 我们都知道 redis 是使用 C 语言来编写的,但是 string 这一个数据"><meta property="og:url" content="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/"><meta name="twitter:card" content="summary"><link rel="alternate" type="application/rss+xml" title="方家小白 RSS" href="/rss.xml"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis数据结构之 String","description":"今天来聊聊 Redis 的 string ，这一数据结构。 string 简介 string 是 Redis 中最基本，也是最简单的数据结构。一个键( key ) 对应着一个 string 类型的值( value ). 我们都知道 redis 是使用 C 语言来编写的,但是 string 这一个数据","datePublished":"2021-08-01","dateModified":"2021-08-01","author":{"@type":"Person","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"publisher":{"@type":"Organization","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/"},"url":"https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/","inLanguage":"zh-CN","license":"https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans","keywords":"Redis","articleSection":"后端与中间件"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://fangjiaxiaobai.github.io/"},{"@type":"ListItem","position":2,"name":"后端与中间件","item":"https://fangjiaxiaobai.github.io/columns/backend/"},{"@type":"ListItem","position":3,"name":"Redis数据结构之 String","item":"https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/"}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.BjKnYllI.css"></head> <body> <header class="site-header"> <div class="inner"> <div class="brand"> <a class="logo" href="/">方家小白</a> <span class="tagline">和你一起遇见更好的自己</span> </div> <nav class="site-nav" aria-label="主导航"> <a href="/" class>首页</a><a href="/columns/ai-agent/" class>AI Agent 实践</a><a href="/columns/backend/" class>后端与中间件</a><a href="/columns/java/" class>Java 与 JVM</a><a href="/columns/algorithm/" class>算法与数据结构</a><a href="/columns/engineering/" class>工程效率与工具</a><a href="/series/" class>系列</a><a href="/archives/" class>归档</a><a href="/about/" class>关于</a> </nav> </div> </header> <div class="wrap"> <main class="content"><article> <div class="eyebrow">后端与中间件 · 教程</div> <h1>Redis数据结构之 String</h1> <div class="post-meta"> <span>发布于 2021-08-01</span> <span>系列：Redis 系列</span> <span>标签：Redis</span> <span class="tag">归档</span> </div> <div class="note">本文写于 2021 年，涉及的组件版本、配置与数据可能已过时，请按经验材料阅读并核对当前版本。原文链接与内容保持不变。</div> <nav class="toc-box" aria-label="本文目录"> <div class="tt">本文目录</div> <ul> <li style="margin-left:14px"><a href="#string简介">string简介</a></li><li style="margin-left:14px"><a href="#string相关常用命令">string相关常用命令</a></li><li style="margin-left:14px"><a href="#redis如何实现string这一数据结构">Redis如何实现String这一数据结构</a></li><li style="margin-left:14px"><a href="#总结">总结</a></li><li style><a href="#最后">最后</a></li> </ul> </nav> <div class="post-body"><p>今天来聊聊 <code>Redis</code>的<code>string</code>，这一数据结构。</p>
+<h3 id="string简介"><code>string</code>简介</h3>
+<p><code>string</code>是<code>Redis</code>中最基本，也是最简单的数据结构。一个键(<code>key</code>) 对应着一个<code>string</code>类型的值(<code>value</code>). 我们都知道<code>redis</code>是使用<code>C</code>语言来编写的,但是 <code>string</code>这一个数据结构并非是使用<code>C</code>语言的 <code>string(char[])</code> 来实现的,要想先了解，那就做电梯吧->( <a href="#%60Redis%60%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%99%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">电梯直达</a> ).</p>
+<p>现在，先暂且抛开内部实现,我们先看看有怎么使用这一数据结构。</p>
+<h3 id="string相关常用命令"><code>string</code>相关常用命令</h3>
+<h4 id="set命令"><code>set</code>命令</h4>
 <p><code>SET key value [expiration EX seconds|PX milliseconds] [NX|XX]</code></p>
 <p>使用示例:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.设置一个键值对 f1=&gt;f1</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k1 v1</span><br><span class="line">OK</span><br><span class="line"><span class="comment"># 根据键查询值</span></span><br><span class="line">127.0.0.1:6379&gt; get k1</span><br><span class="line"><span class="string">&quot;v1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.设置一个键值对(f2=&gt;f2),设置超时时间为10s</span></span><br><span class="line"><span class="comment"># EX 表示秒</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k2 v2 EX 10</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get k2</span><br><span class="line"><span class="string">&quot;v2&quot;</span></span><br><span class="line"><span class="comment"># 等待10s之后去查询f2</span></span><br><span class="line">127.0.0.1:6379&gt; get k2</span><br><span class="line">(nil)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.设置一个键值对(f3=&gt;f3),设置超时时间为 10000毫秒</span></span><br><span class="line"><span class="comment"># PX 表示为毫秒</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k3 v3 PX 10000</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get k3</span><br><span class="line"><span class="string">&quot;v3&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; get k3</span><br><span class="line">(nil)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.设置键值对k4=&gt;v4,验证&quot;存在相同的key就设置失败&quot;</span></span><br><span class="line"><span class="comment"># setnx 命令也可实现,注意返回值。</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k4 v4 NX</span><br><span class="line">OK</span><br><span class="line"><span class="comment"># 如果存在相同的key就设置失败(与下面的注意对比)</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k4 v4 NX</span><br><span class="line">(nil)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.验证&quot;不存在相同的key就设置失败&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k5 v5 XX</span><br><span class="line">(nil)</span><br><span class="line"><span class="comment"># 先设置一个键值对,</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k5 v5 </span><br><span class="line">OK</span><br><span class="line"><span class="comment"># 设置不存在相同的key就设置失败</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k5 v5 XX</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
-<h4 id="setnx命令"><a class="markdownIt-Anchor" href="#setnx命令">#</a>  <code>setnx</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 1.设置一个键值对 f1=>f1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k1</span><span style="color:#032F62"> v1</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6A737D"># 根据键查询值</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k1</span></span>
+<span class="line"><span style="color:#6F42C1">"v1"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 2.设置一个键值对(f2=>f2),设置超时时间为10s</span></span>
+<span class="line"><span style="color:#6A737D"># EX 表示秒</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k2</span><span style="color:#032F62"> v2</span><span style="color:#032F62"> EX</span><span style="color:#005CC5"> 10</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k2</span></span>
+<span class="line"><span style="color:#6F42C1">"v2"</span></span>
+<span class="line"><span style="color:#6A737D"># 等待10s之后去查询f2</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k2</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 3.设置一个键值对(f3=>f3),设置超时时间为 10000毫秒</span></span>
+<span class="line"><span style="color:#6A737D"># PX 表示为毫秒</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k3</span><span style="color:#032F62"> v3</span><span style="color:#032F62"> PX</span><span style="color:#005CC5"> 10000</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k3</span></span>
+<span class="line"><span style="color:#6F42C1">"v3"</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k3</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 4.设置键值对k4=>v4,验证"存在相同的key就设置失败"</span></span>
+<span class="line"><span style="color:#6A737D"># setnx 命令也可实现,注意返回值。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k4</span><span style="color:#032F62"> v4</span><span style="color:#032F62"> NX</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6A737D"># 如果存在相同的key就设置失败(与下面的注意对比)</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k4</span><span style="color:#032F62"> v4</span><span style="color:#032F62"> NX</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 5.验证"不存在相同的key就设置失败"</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k5</span><span style="color:#032F62"> v5</span><span style="color:#032F62"> XX</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#6A737D"># 先设置一个键值对,</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k5</span><span style="color:#032F62"> v5</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6A737D"># 设置不存在相同的key就设置失败</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k5</span><span style="color:#032F62"> v5</span><span style="color:#032F62"> XX</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span></code></pre>
+<h4 id="setnx命令"><code>setnx</code>命令</h4>
 <p><code>setnx key value</code></p>
-<p><code>set if not exists</code>  的缩写。如果已存在 key, 返回 0, 不存在返回 1. 常用于分布式锁。</p>
+<p><code>set if not exists</code>的缩写。如果已存在key,返回0, 不存在返回1. 常用于分布式锁。</p>
 <p>使用实例</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一个不存在的键值对 k6=&gt;v6</span></span><br><span class="line">127.0.0.1:6379&gt; setnx k6 v6</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"><span class="comment"># 如果key已经存在,则返回0。</span></span><br><span class="line">127.0.0.1:6379&gt; setnx k6 v6</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br></pre></td></tr></table></figure>
-<h4 id="setex-命令"><a class="markdownIt-Anchor" href="#setex-命令">#</a>  <code>setEx</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 设置一个不存在的键值对 k6=>v6</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">setnx</span><span style="color:#032F62"> k6</span><span style="color:#032F62"> v6</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">1</span></span>
+<span class="line"><span style="color:#6A737D"># 如果key已经存在,则返回0。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">setnx</span><span style="color:#032F62"> k6</span><span style="color:#032F62"> v6</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">0</span></span></code></pre>
+<h4 id="setex-命令"><code>setEx</code> 命令</h4>
 <p><code>setex key seconds value</code></p>
-<p>给键值对设置生存时间 (秒级别)。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置k7=&gt;v7这个键值对的生存时间为5s</span></span><br><span class="line">127.0.0.1:6379&gt; setex k7 5 v7</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get k7</span><br><span class="line">&quot;v7&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 过5s秒钟之后,再查看。</span></span><br><span class="line">127.0.0.1:6379&gt; get k7</span><br><span class="line">(nil)</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
-<h4 id="psetex-命令"><a class="markdownIt-Anchor" href="#psetex-命令">#</a>  <code>psetEx</code>  命令</h4>
+<p>给键值对设置生存时间(秒级别)。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#6A737D"># 设置k7=>v7这个键值对的生存时间为5s</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">setex</span><span style="color:#032F62"> k7</span><span style="color:#005CC5"> 5</span><span style="color:#032F62"> v7</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k7</span></span>
+<span class="line"><span style="color:#6F42C1">"v7"</span></span>
+<span class="line"><span style="color:#6A737D"># 过5s秒钟之后,再查看。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k7</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span></span></code></pre>
+<h4 id="psetex-命令"><code>psetEx</code> 命令</h4>
 <p><code>psetex key milliseconds value</code></p>
 <blockquote>
-<p><code>tip</code> : 命令助记:  <code>psetex</code>  ,  <code>p</code>  直接的是毫秒。可以参考 <code>set</code>  命令的 <code>PX</code>  选项。</p>
+<p><code>tip</code>: 命令助记: <code>psetex</code> , <code>p</code>直接的是毫秒。可以参考<code>set</code>命令的<code>PX</code>选项。</p>
 </blockquote>
-<p>给键值对设置生存时间 (毫秒级别)。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置键值对</span></span><br><span class="line">127.0.0.1:6379&gt; psetex k8 5000 v8</span><br><span class="line">OK</span><br><span class="line"><span class="comment"># 获取k8的值</span></span><br><span class="line">127.0.0.1:6379&gt; get k8</span><br><span class="line"><span class="string">&quot;v8&quot;</span></span><br><span class="line"><span class="comment"># 5s之后，获取k8的值</span></span><br><span class="line">127.0.0.1:6379&gt; get k8</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
-<h4 id="get命令"><a class="markdownIt-Anchor" href="#get命令">#</a>  <code>get</code>  命令</h4>
-<p>这个命令不多说了，获取 <code>key</code>  相关联的 <code>value</code> .  <code>get key</code></p>
-<h4 id="getset命令"><a class="markdownIt-Anchor" href="#getset命令">#</a>  <code>getset</code>  命令</h4>
+<p>给键值对设置生存时间(毫秒级别)。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 设置键值对</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">psetex</span><span style="color:#032F62"> k8</span><span style="color:#005CC5"> 5000</span><span style="color:#032F62"> v8</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6A737D"># 获取k8的值</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k8</span></span>
+<span class="line"><span style="color:#6F42C1">"v8"</span></span>
+<span class="line"><span style="color:#6A737D"># 5s之后，获取k8的值</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k8</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span></code></pre>
+<h4 id="get命令"><code>get</code>命令</h4>
+<p>这个命令不多说了, 获取<code>key</code>相关联的<code>value</code>. <code>get key</code></p>
+<h4 id="getset命令"><code>getset</code>命令</h4>
 <p><code>getset key value</code></p>
-<p>设置键值对， <code>key=&gt;value</code> , 如果 <code>key</code>  已经存在，返回旧值。不存在返回  <code>nil</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置键值对</span></span><br><span class="line">127.0.0.1:6379&gt; getset k9 v9</span><br><span class="line">(nil)</span><br><span class="line"><span class="comment"># 获取值</span></span><br><span class="line">127.0.0.1:6379&gt; get k9</span><br><span class="line"><span class="string">&quot;v9&quot;</span></span><br><span class="line"><span class="comment"># 在设置一次k9,值为vv9,返回旧值 v9</span></span><br><span class="line">127.0.0.1:6379&gt; getset k9 vv9</span><br><span class="line"><span class="string">&quot;v9&quot;</span></span><br></pre></td></tr></table></figure>
+<p>设置键值对, <code>key=>value</code>, 如果<code>key</code>已经存在,返回旧值。不存在返回 <code>nil</code></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 设置键值对</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getset</span><span style="color:#032F62"> k9</span><span style="color:#032F62"> v9</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#6A737D"># 获取值</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k9</span></span>
+<span class="line"><span style="color:#6F42C1">"v9"</span></span>
+<span class="line"><span style="color:#6A737D"># 在设置一次k9,值为vv9,返回旧值 v9</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getset</span><span style="color:#032F62"> k9</span><span style="color:#032F62"> vv9</span></span>
+<span class="line"><span style="color:#6F42C1">"v9"</span></span></code></pre>
 <blockquote>
-<p>ps: 如果原来的存在 key，但是 value 的类型与新设置的类型不一致，会抛出命令错误。</p>
+<p>ps: 如果原来的存在key，但是value的类型与新设置的类型不一致，会抛出命令错误。</p>
 </blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置一个list类型，key为k9_1, Value中只有一个元素v9_1</span></span><br><span class="line">127.0.0.1:6379&gt; lpush k9_1 v9_1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line"><span class="comment"># 使用getset命令载设置一次,抛出命令错误。</span></span><br><span class="line">127.0.0.1:6379&gt; getset k9_1 vv9_1</span><br><span class="line">(error) WRONGTYPE Operation against a key holding the wrong kind of value</span><br></pre></td></tr></table></figure>
-<h4 id="strlen-命令"><a class="markdownIt-Anchor" href="#strlen-命令">#</a>  <code>strlen</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 设置一个list类型，key为k9_1, Value中只有一个元素v9_1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">lpush</span><span style="color:#032F62"> k9_1</span><span style="color:#032F62"> v9_1</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">1</span></span>
+<span class="line"><span style="color:#6A737D"># 使用getset命令载设置一次,抛出命令错误。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getset</span><span style="color:#032F62"> k9_1</span><span style="color:#032F62"> vv9_1</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">error</span><span style="color:#24292E">) </span><span style="color:#6F42C1">WRONGTYPE</span><span style="color:#032F62"> Operation</span><span style="color:#032F62"> against</span><span style="color:#032F62"> a</span><span style="color:#032F62"> key</span><span style="color:#032F62"> holding</span><span style="color:#032F62"> the</span><span style="color:#032F62"> wrong</span><span style="color:#032F62"> kind</span><span style="color:#032F62"> of</span><span style="color:#032F62"> value</span></span></code></pre>
+<h4 id="strlen-命令"><code>strlen</code> 命令</h4>
 <p><code>strlen key</code></p>
-<p>返回字符串的长度。如果 key 不存在的时候，返回 0, 如果 key 对应的不是一个字符串时，返回错误.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k10 v10</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; strlen k10</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line"><span class="comment"># 演示报错</span></span><br><span class="line">127.0.0.1:6379&gt; lpush k10_1 v10</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; strlen k10_1</span><br><span class="line">(error) WRONGTYPE Operation against a key holding the wrong kind of value</span><br></pre></td></tr></table></figure>
-<h4 id="append命令"><a class="markdownIt-Anchor" href="#append命令">#</a>  <code>APPEND</code>  命令</h4>
-<p><code>APPEND key value</code>  命令</p>
-<p>根据 key，给 key 对应的值追加字符串。如果 key 不存在，就设置一对键值对。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果key不存在则设置键值对</span></span><br><span class="line">127.0.0.1:6379&gt; append k11 v11</span><br><span class="line">(<span class="built_in">integer</span>) 3</span><br><span class="line">127.0.0.1:6379&gt; get k11</span><br><span class="line"><span class="string">&quot;v11&quot;</span></span><br><span class="line"><span class="comment"># 如果存在，则追加</span></span><br><span class="line">127.0.0.1:6379&gt; append k11 v11</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line">127.0.0.1:6379&gt; get k11</span><br><span class="line"><span class="string">&quot;v11v11&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="setrange命令"><a class="markdownIt-Anchor" href="#setrange命令">#</a>  <code>setrange</code>  命令</h4>
+<p>返回字符串的长度. 如果key不存在的时候,返回0,如果key对应的不是一个字符串时,返回错误.</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k10</span><span style="color:#032F62"> v10</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">strlen</span><span style="color:#032F62"> k10</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">3</span></span>
+<span class="line"><span style="color:#6A737D"># 演示报错</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">lpush</span><span style="color:#032F62"> k10_1</span><span style="color:#032F62"> v10</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">strlen</span><span style="color:#032F62"> k10_1</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">error</span><span style="color:#24292E">) </span><span style="color:#6F42C1">WRONGTYPE</span><span style="color:#032F62"> Operation</span><span style="color:#032F62"> against</span><span style="color:#032F62"> a</span><span style="color:#032F62"> key</span><span style="color:#032F62"> holding</span><span style="color:#032F62"> the</span><span style="color:#032F62"> wrong</span><span style="color:#032F62"> kind</span><span style="color:#032F62"> of</span><span style="color:#032F62"> value</span></span></code></pre>
+<h4 id="append命令"><code>APPEND</code>命令</h4>
+<p><code>APPEND key value</code>命令</p>
+<p>根据key，给key对应的值追加字符串。如果key不存在，就设置一对键值对。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 如果key不存在则设置键值对</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">append</span><span style="color:#032F62"> k11</span><span style="color:#032F62"> v11</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">3</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k11</span></span>
+<span class="line"><span style="color:#6F42C1">"v11"</span></span>
+<span class="line"><span style="color:#6A737D"># 如果存在，则追加</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">append</span><span style="color:#032F62"> k11</span><span style="color:#032F62"> v11</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">6</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k11</span></span>
+<span class="line"><span style="color:#6F42C1">"v11v11"</span></span></code></pre>
+<h4 id="setrange命令"><code>setrange</code>命令</h4>
 <p><code>setrange key offset value</code></p>
-<p>从偏移量  <code>offset</code>  开始覆写原来 <code>key</code>  的值。如果 <code>key</code>  不存的时候当作空字符串处理。返回被设置后 <code>Value</code>  的长度。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置不存在的key</span></span><br><span class="line">127.0.0.1:6379&gt; setrange k12 3 v12</span><br><span class="line">(<span class="built_in">integer</span>) 6</span><br><span class="line"><span class="comment"># 在offset前的空位置会用 \x00 填充</span></span><br><span class="line">127.0.0.1:6379&gt; get k12</span><br><span class="line"><span class="string">&quot;\x00\x00\x00v12&quot;</span></span><br><span class="line"><span class="comment"># 设置已经存在的key</span></span><br><span class="line">127.0.0.1:6379&gt; setrange k12 4 v12</span><br><span class="line">(<span class="built_in">integer</span>) 7</span><br><span class="line">127.0.0.1:6379&gt; get k12</span><br><span class="line"><span class="string">&quot;\x00\x00\x00vv12&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="getrange命令"><a class="markdownIt-Anchor" href="#getrange命令">#</a>  <code>getrange</code>  命令</h4>
+<p>从偏移量 <code>offset</code> 开始覆写原来<code>key</code>的值。如果<code>key</code>不存的时候当作空字符串处理。返回被设置后<code>Value</code>的长度。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 设置不存在的key</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">setrange</span><span style="color:#032F62"> k12</span><span style="color:#005CC5"> 3</span><span style="color:#032F62"> v12</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">6</span></span>
+<span class="line"><span style="color:#6A737D"># 在offset前的空位置会用 \x00 填充</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k12</span></span>
+<span class="line"><span style="color:#6F42C1">"\x00\x00\x00v12"</span></span>
+<span class="line"><span style="color:#6A737D"># 设置已经存在的key</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">setrange</span><span style="color:#032F62"> k12</span><span style="color:#005CC5"> 4</span><span style="color:#032F62"> v12</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">7</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k12</span></span>
+<span class="line"><span style="color:#6F42C1">"\x00\x00\x00vv12"</span></span></code></pre>
+<h4 id="getrange命令"><code>getrange</code>命令</h4>
 <p><code>getrange key start end</code></p>
-<p>获取指定区间的值。报错 start 和 end 位置。索引位置是从 0 开始的。</p>
+<p>获取指定区间的值.报错start和end位置。索引位置是从0开始的。</p>
 <p>负数偏移量表示从字符创的末位开始计数。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k13 v13v13v13</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; getrange k13 2 5</span><br><span class="line"><span class="string">&quot;3v13&quot;</span></span><br><span class="line"><span class="comment"># 从索引为2处，到倒数第4位。</span></span><br><span class="line">127.0.0.1:6379&gt; getrange k13 2 -4</span><br><span class="line"><span class="string">&quot;3v13&quot;</span></span><br><span class="line"><span class="comment"># 如果end大于Value的长度，返回目前start到结束的部分</span></span><br><span class="line">127.0.0.1:6379&gt; getrange k13 3 10</span><br><span class="line"><span class="string">&quot;v13v13&quot;</span></span><br><span class="line"><span class="comment"># 超过Value的长度返回为 &quot;&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; getrange k13 100 120</span><br><span class="line"><span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="incr-命令"><a class="markdownIt-Anchor" href="#incr-命令">#</a>  <code>incr</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k13</span><span style="color:#032F62"> v13v13v13</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getrange</span><span style="color:#032F62"> k13</span><span style="color:#005CC5"> 2</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#6F42C1">"3v13"</span></span>
+<span class="line"><span style="color:#6A737D"># 从索引为2处，到倒数第4位。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getrange</span><span style="color:#032F62"> k13</span><span style="color:#005CC5"> 2</span><span style="color:#005CC5"> -4</span></span>
+<span class="line"><span style="color:#6F42C1">"3v13"</span></span>
+<span class="line"><span style="color:#6A737D"># 如果end大于Value的长度，返回目前start到结束的部分</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getrange</span><span style="color:#032F62"> k13</span><span style="color:#005CC5"> 3</span><span style="color:#005CC5"> 10</span></span>
+<span class="line"><span style="color:#6F42C1">"v13v13"</span></span>
+<span class="line"><span style="color:#6A737D"># 超过Value的长度返回为 ""</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">getrange</span><span style="color:#032F62"> k13</span><span style="color:#005CC5"> 100</span><span style="color:#005CC5"> 120</span></span>
+<span class="line"><span style="color:#6F42C1">""</span></span></code></pre>
+<h4 id="incr-命令"><code>incr</code> 命令</h4>
 <p><code>incr key</code></p>
-<p>在 key 对应的 Value 上进行自增 1. 如果 Value 可以解释为数据，则自增，反之，返回错误。</p>
+<p>在key对应的Value上进行自增1. 如果Value可以解释为数据，则自增，反之，返回错误。</p>
 <p>返回值为自增后的值。</p>
-<p>如果 ke 不存在，则先初始化 key 对应的 Value=0， 然后再自增。</p>
-<p>相对的是: <a href="#%60DECR%60%E5%91%BD%E4%BB%A4"> <code>DECR</code>  命令</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; incr k14</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; get k14</span><br><span class="line"><span class="string">&quot;1&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incr k14</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br></pre></td></tr></table></figure>
-<h4 id="incrby命令"><a class="markdownIt-Anchor" href="#incrby命令">#</a>  <code>incrby</code>  命令</h4>
+<p>如果ke不存在，则先初始化 key对应的Value=0， 然后再自增。</p>
+<p>相对的是: <a href="#%60DECR%60%E5%91%BD%E4%BB%A4"><code>DECR</code>命令</a></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">incr</span><span style="color:#032F62"> k14</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">get</span><span style="color:#032F62"> k14</span></span>
+<span class="line"><span style="color:#6F42C1">"1"</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">incr</span><span style="color:#032F62"> k14</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">2</span></span></code></pre>
+<h4 id="incrby命令"><code>incrby</code>命令</h4>
 <p><code>incrby key increment</code></p>
 <p>带有步长的自增命令。</p>
-<p>相对的命令是: <a href="%60DECRBY%60%E5%91%BD%E4%BB%A4"> <code>DECRBY</code>  命令</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; incrby k15 5</span><br><span class="line">(<span class="built_in">integer</span>) 5</span><br><span class="line">127.0.0.1:6379&gt; INCRBY k15 5</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; INCRBY k15 5</span><br><span class="line">(<span class="built_in">integer</span>) 15</span><br></pre></td></tr></table></figure>
-<h4 id="incrbyfloat命令"><a class="markdownIt-Anchor" href="#incrbyfloat命令">#</a>  <code>INCRBYFLOAT</code>  命令</h4>
+<p>相对的命令是: <a href="%60DECRBY%60%E5%91%BD%E4%BB%A4"><code>DECRBY</code>命令</a></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">incrby</span><span style="color:#032F62"> k15</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">5</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">INCRBY</span><span style="color:#032F62"> k15</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">10</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">INCRBY</span><span style="color:#032F62"> k15</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">15</span></span></code></pre>
+<h4 id="incrbyfloat命令"><code>INCRBYFLOAT</code>命令</h4>
 <p><code>INCRBYFLOAT key increment</code></p>
 <p>带有步长的浮点数自增</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; INCRBYFLOAT k16 5.0</span><br><span class="line"><span class="string">&quot;5&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; INCRBYFLOAT k16 5.2</span><br><span class="line"><span class="string">&quot;10.2&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; INCRBYFLOAT k16 5.4</span><br><span class="line"><span class="string">&quot;15.6&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="decr命令"><a class="markdownIt-Anchor" href="#decr命令">#</a>  <code>DECR</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">INCRBYFLOAT</span><span style="color:#032F62"> k16</span><span style="color:#005CC5"> 5.0</span></span>
+<span class="line"><span style="color:#6F42C1">"5"</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">INCRBYFLOAT</span><span style="color:#032F62"> k16</span><span style="color:#005CC5"> 5.2</span></span>
+<span class="line"><span style="color:#6F42C1">"10.2"</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">INCRBYFLOAT</span><span style="color:#032F62"> k16</span><span style="color:#005CC5"> 5.4</span></span>
+<span class="line"><span style="color:#6F42C1">"15.6"</span></span></code></pre>
+<h4 id="decr命令"><code>DECR</code>命令</h4>
 <p><code>DECR key</code></p>
-<p>自减 <code>1</code> .</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果key，不存在，同样会初始化为0，然后自减1</span></span><br><span class="line">127.0.0.1:6379&gt; DECR k17</span><br><span class="line">(<span class="built_in">integer</span>) -1</span><br><span class="line">127.0.0.1:6379&gt; DECR k17</span><br><span class="line">(<span class="built_in">integer</span>) -2</span><br><span class="line">127.0.0.1:6379&gt; DECR k17</span><br><span class="line">(<span class="built_in">integer</span>) -3</span><br></pre></td></tr></table></figure>
-<h4 id="decrby命令"><a class="markdownIt-Anchor" href="#decrby命令">#</a>  <code>DECRBY</code>  命令</h4>
-<p>带有步长的自减命令，与 <a href="%60INCRBY%60%E5%91%BD%E4%BB%A4"> <code>INCRBY</code>  命令</a>相对。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果key不存在，会初始化为0，在进行自减。</span></span><br><span class="line">127.0.0.1:6379&gt; DECRBY k18 5</span><br><span class="line">(<span class="built_in">integer</span>) -5</span><br><span class="line">127.0.0.1:6379&gt; DECRBY k18 5</span><br><span class="line">(<span class="built_in">integer</span>) -10</span><br></pre></td></tr></table></figure>
-<h4 id="mget命令"><a class="markdownIt-Anchor" href="#mget命令">#</a>  <code>mget</code>  命令</h4>
+<p>自减<code>1</code>.</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 如果key，不存在，同样会初始化为0，然后自减1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">DECR</span><span style="color:#032F62"> k17</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">-1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">DECR</span><span style="color:#032F62"> k17</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">-2</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">DECR</span><span style="color:#032F62"> k17</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">-3</span></span></code></pre>
+<h4 id="decrby命令"><code>DECRBY</code>命令</h4>
+<p>带有步长的自减命令, 与 <a href="%60INCRBY%60%E5%91%BD%E4%BB%A4"><code>INCRBY</code>命令</a>相对。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 如果key不存在，会初始化为0，在进行自减。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">DECRBY</span><span style="color:#032F62"> k18</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">-5</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">DECRBY</span><span style="color:#032F62"> k18</span><span style="color:#005CC5"> 5</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">-10</span></span></code></pre>
+<h4 id="mget命令"><code>mget</code>命令</h4>
 <p><code>mget key [key ...]</code></p>
-<p>一次性返回多个 <code>key</code>  的值。 如果 <code>key</code>  不存在，返回  <code>(nil)</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k19_0 v19_0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> k19_1 v19_1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget k19_0 k19_1</span><br><span class="line">1) <span class="string">&quot;v19_0&quot;</span></span><br><span class="line">2) <span class="string">&quot;v19_1&quot;</span></span><br><span class="line"><span class="comment"># 如果key不存在的时候，返回 (nil)</span></span><br><span class="line">127.0.0.1:6379&gt; mget k19_0 k19_1 k10_2</span><br><span class="line">1) <span class="string">&quot;v19_0&quot;</span></span><br><span class="line">2) <span class="string">&quot;v19_1&quot;</span></span><br><span class="line">3) (nil)</span><br></pre></td></tr></table></figure>
-<h4 id="mset命令"><a class="markdownIt-Anchor" href="#mset命令">#</a>  <code>mset</code>  命令</h4>
-<p>同时为设置多个键值对。 如果 key 已经存在，直接覆盖掉。</p>
-<p>注意： 这个原子性操作。所有给定的 key 都会在同一时间内被设置。</p>
+<p>一次性返回多个<code>key</code>的值。 如果<code>key</code>不存在，返回 <code>(nil)</code></p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k19_0</span><span style="color:#032F62"> v19_0</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">set</span><span style="color:#032F62"> k19_1</span><span style="color:#032F62"> v19_1</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mget</span><span style="color:#032F62"> k19_0</span><span style="color:#032F62"> k19_1</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"v19_0"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) </span><span style="color:#032F62">"v19_1"</span></span>
+<span class="line"><span style="color:#6A737D"># 如果key不存在的时候，返回 (nil)</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mget</span><span style="color:#032F62"> k19_0</span><span style="color:#032F62"> k19_1</span><span style="color:#032F62"> k10_2</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"v19_0"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) </span><span style="color:#032F62">"v19_1"</span></span>
+<span class="line"><span style="color:#6F42C1">3</span><span style="color:#24292E">) (</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span></code></pre>
+<h4 id="mset命令"><code>mset</code>命令</h4>
+<p>同时为设置多个键值对。 如果key已经存在，直接覆盖掉。</p>
+<p>注意： 这个原子性操作. 所有给定的key都会在同一时间内被设置。</p>
 <blockquote>
-<p>tips: 如果希望，已经存在的 key 不被覆盖，可以参考 <a href="#%60msetnx%60%E5%91%BD%E4%BB%A4"> <code>msetnx</code>  命令</a></p>
+<p>tips: 如果希望，已经存在的key不被覆盖，可以参考 <a href="#%60msetnx%60%E5%91%BD%E4%BB%A4"><code>msetnx</code>命令</a></p>
 </blockquote>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一下设置三对</span></span><br><span class="line">127.0.0.1:6379&gt; mset k20_0 v20_0 k20_1 v20_1 k20_2 v20_2</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget k20_0 k20_1 k20_2</span><br><span class="line">1) <span class="string">&quot;v20_0&quot;</span></span><br><span class="line">2) <span class="string">&quot;v20_1&quot;</span></span><br><span class="line">3) <span class="string">&quot;v20_2&quot;</span></span><br><span class="line"><span class="comment"># 演示已有的key对应的值会被覆盖掉。</span></span><br><span class="line">127.0.0.1:6379&gt; mset k20_2 vv20_2 k20_3 v20_3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; mget k20_2 k20_3</span><br><span class="line">1) <span class="string">&quot;vv20_2&quot;</span></span><br><span class="line">2) <span class="string">&quot;v20_3&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="msetnx命令"><a class="markdownIt-Anchor" href="#msetnx命令">#</a>  <code>msetnx</code>  命令</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 一下设置三对</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mset</span><span style="color:#032F62"> k20_0</span><span style="color:#032F62"> v20_0</span><span style="color:#032F62"> k20_1</span><span style="color:#032F62"> v20_1</span><span style="color:#032F62"> k20_2</span><span style="color:#032F62"> v20_2</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mget</span><span style="color:#032F62"> k20_0</span><span style="color:#032F62"> k20_1</span><span style="color:#032F62"> k20_2</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"v20_0"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) </span><span style="color:#032F62">"v20_1"</span></span>
+<span class="line"><span style="color:#6F42C1">3</span><span style="color:#24292E">) </span><span style="color:#032F62">"v20_2"</span></span>
+<span class="line"><span style="color:#6A737D"># 演示已有的key对应的值会被覆盖掉。</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mset</span><span style="color:#032F62"> k20_2</span><span style="color:#032F62"> vv20_2</span><span style="color:#032F62"> k20_3</span><span style="color:#032F62"> v20_3</span></span>
+<span class="line"><span style="color:#6F42C1">OK</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">mget</span><span style="color:#032F62"> k20_2</span><span style="color:#032F62"> k20_3</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"vv20_2"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) </span><span style="color:#032F62">"v20_3"</span></span></code></pre>
+<h4 id="msetnx命令"><code>msetnx</code>命令</h4>
 <p><code>MSETNX key value [key value ...]</code></p>
-<p>当且仅当所有给定的 key 不存在的时候，才会设置键值对。即使有一个 key 存在，该命令也不会设置其他的 key 对应的键值对.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 演示设置成功</span></span><br><span class="line">127.0.0.1:6379&gt; MSETNX k21_0 v21_0 k21_1 v21_1</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; MGET k21_0 k21_1</span><br><span class="line">1) <span class="string">&quot;v21_0&quot;</span></span><br><span class="line">2) <span class="string">&quot;v21_1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 存在其中的一个给定key，就不能设置成功</span></span><br><span class="line">127.0.0.1:6379&gt; msetnx k21_1 vv21_1 k21_2 v21_2</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; MGET k21_1 k21_2</span><br><span class="line">1) <span class="string">&quot;v21_1&quot;</span></span><br><span class="line">2) (nil)</span><br></pre></td></tr></table></figure>
-<h3 id="redis如何实现string这一数据结构"><a class="markdownIt-Anchor" href="#redis如何实现string这一数据结构">#</a>  <code>Redis</code>  如何实现 <code>String</code>  这一数据结构</h3>
-<p>在  <code>string</code>  的相关命令介绍的时候，我其实使用一个错误的描述。就是将 <code>Redis</code>  的 <code>String</code>  类型称为字符串。这种说法其实不正确的。</p>
-<p>在  <code>redis</code>  中， <code>string</code>  这一数据结构使用 <code>sds</code>  来表示的。</p>
-<h4 id="sds"><a class="markdownIt-Anchor" href="#sds">#</a>  <code>sds</code></h4>
-<p><code>sds</code>  是  <code>simple dynamic string</code>  的简称。 意思是  <code>简单的动态字符串</code> 。 这里面的 <code>string</code>  就是实打实的 <code>C</code>  语言中的字符串 ( <code>char[]</code> ).  <code>Redis</code>  也并非一点也没有使用  <code>C</code>  语言的字符串，像一些字面量常亮，日志都是使用 <code>C</code>  语言的字符串。</p>
-<p>那  <code>sds</code>  到底是一个什么样的结构呢？</p>
-<p>在源码的  <code>src</code>  目录下，我找到了  <code>sds.h</code>  这样一个文件。这里规定了  <code>sds</code>  结构。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr64</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表示已使用的长度,即buf[]的长度。</span></span><br><span class="line">    <span class="keyword">uint64_t</span> len; </span><br><span class="line">    <span class="comment">// 已分配的长度(包括未使用的长度)</span></span><br><span class="line">    <span class="comment">// alloc-len,对应着之前版本的free</span></span><br><span class="line">    <span class="keyword">uint64_t</span> alloc; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags; </span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当且仅当所有给定的key不存在的时候，才会设置键值对。即使有一个key存在，该命令也不会设置其他的key对应的键值对.</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D"># 演示设置成功</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">MSETNX</span><span style="color:#032F62"> k21_0</span><span style="color:#032F62"> v21_0</span><span style="color:#032F62"> k21_1</span><span style="color:#032F62"> v21_1</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">1</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">MGET</span><span style="color:#032F62"> k21_0</span><span style="color:#032F62"> k21_1</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"v21_0"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) </span><span style="color:#032F62">"v21_1"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 存在其中的一个给定key，就不能设置成功</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">msetnx</span><span style="color:#032F62"> k21_1</span><span style="color:#032F62"> vv21_1</span><span style="color:#032F62"> k21_2</span><span style="color:#032F62"> v21_2</span></span>
+<span class="line"><span style="color:#24292E">(</span><span style="color:#6F42C1">integer</span><span style="color:#24292E">) </span><span style="color:#6F42C1">0</span></span>
+<span class="line"><span style="color:#6F42C1">127.0.0.1:6379</span><span style="color:#24292E">> </span><span style="color:#032F62">MGET</span><span style="color:#032F62"> k21_1</span><span style="color:#032F62"> k21_2</span></span>
+<span class="line"><span style="color:#6F42C1">1</span><span style="color:#24292E">) </span><span style="color:#032F62">"v21_1"</span></span>
+<span class="line"><span style="color:#6F42C1">2</span><span style="color:#24292E">) (</span><span style="color:#6F42C1">nil</span><span style="color:#24292E">)</span></span></code></pre>
+<h3 id="redis如何实现string这一数据结构"><code>Redis</code>如何实现<code>String</code>这一数据结构</h3>
+<p>在 <code>string</code> 的相关命令介绍的时候，我其实使用一个错误的描述。就是将<code>Redis</code>的<code>String</code>类型称为字符串。这种说法其实不正确的。</p>
+<p>在 <code>redis</code> 中, <code>string</code> 这一数据结构使用<code>sds</code>来表示的。</p>
+<h4 id="sds"><code>sds</code></h4>
+<p><code>sds</code> 是 <code>simple dynamic string</code> 的简称。 意思是 <code>简单的动态字符串</code>。 这里面的<code>string</code>就是实打实的<code>C</code>语言中的字符串(<code>char[]</code>). <code>Redis</code>也并非一点也没有使用 <code>C</code> 语言的字符串，像一些字面量常亮，日志都是使用<code>C</code>语言的字符串。</p>
+<p>那 <code>sds</code> 到底是一个什么样的结构呢?</p>
+<p>在源码的 <code>src</code> 目录下，我找到了 <code>sds.h</code> 这样一个文件。这里规定了 <code>sds</code> 结构。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#D73A49">struct</span><span style="color:#6F42C1"> __attribute__</span><span style="color:#24292E"> ((__packed__)) sdshdr64 {</span></span>
+<span class="line"><span style="color:#6A737D">    // 表示已使用的长度,即buf[]的长度。</span></span>
+<span class="line"><span style="color:#D73A49">    uint64_t</span><span style="color:#24292E"> len; </span></span>
+<span class="line"><span style="color:#6A737D">    // 已分配的长度(包括未使用的长度)</span></span>
+<span class="line"><span style="color:#6A737D">    // alloc-len,对应着之前版本的free</span></span>
+<span class="line"><span style="color:#D73A49">    uint64_t</span><span style="color:#24292E"> alloc; </span></span>
+<span class="line"><span style="color:#D73A49">    unsigned</span><span style="color:#D73A49"> char</span><span style="color:#24292E"> flags; </span></span>
+<span class="line"><span style="color:#D73A49">    char</span><span style="color:#24292E"> buf</span><span style="color:#D73A49">[]</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#24292E">};</span></span></code></pre>
 <blockquote>
-<p>tips: 如果你注意到了这个结构体的命名。那么来看下<a href="">这篇文章</a>吧。</p>
+<p>tips: 如果你注意到了这个结构体的命名.那么来看下<a href="">这篇文章</a>吧。</p>
 </blockquote>
-<p><code>sds</code>  保留了  <code>C</code>  字符串以空字符结尾的惯例。保留的这个空字符的长度不会保存在  <code>len</code>  字段中。保留这一惯例的好处就是可以使用 <code>C</code>  字符串函数库的一些方法。</p>
-<p>假设我们分配了 <code>10</code>  个字节空间，只保存了  <code>redis</code>  这个 <code>C</code>  字符串，那么 在 <code>sds</code>  中，是这么表示的：</p>
-<p><img data-src="/images/Redis%E7%B3%BB%E5%88%97/images/01-01-sds%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="01-01-sds示意图.png"></p>
-<h4 id="使用sds比使用c字符串有什么好处呢"><a class="markdownIt-Anchor" href="#使用sds比使用c字符串有什么好处呢">#</a> 使用 <code>sds</code>  比使用 <code>C</code>  字符串有什么好处呢？</h4>
-<h5 id="获取字符长度的时间复杂度为-o1"><a class="markdownIt-Anchor" href="#获取字符长度的时间复杂度为-o1">#</a> 获取字符长度的时间复杂度为  <code>O(1)</code></h5>
-<p><code>C</code>  语言获取一个字符串的长度为  <code>O(N)</code> . 需要遍历字符串并累加，判断字符是否为  <code>'\0'</code>  来获得字符串的长度。</p>
-<p><code>sds</code>  只需要根据  <code>len</code>  字段获取即可。怎么获取的呢？</p>
+<p><code>sds</code> 保留了 <code>C</code>字符串以空字符结尾的惯例。保留的这个空字符的长度不会保存在 <code>len</code> 字段中。保留这一惯例的好处就是可以使用<code>C</code>字符串函数库的一些方法。</p>
+<p>假设我们分配了<code>10</code>个字节空间,只保存了 <code>redis</code> 这个<code>C</code>字符串，那么 在<code>sds</code>中，是这么表示的：</p>
+<p><img src="/images/Redis%E7%B3%BB%E5%88%97/images/01-01-sds%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="01-01-sds示意图.png"></p>
+<h4 id="使用sds比使用c字符串有什么好处呢">使用<code>sds</code>比使用<code>C</code>字符串有什么好处呢?</h4>
+<h5 id="获取字符长度的时间复杂度为-o1">获取字符长度的时间复杂度为 <code>O(1)</code></h5>
+<p><code>C</code>语言获取一个字符串的长度为 <code>O(N)</code>. 需要遍历字符串并累加，判断字符是否为 <code>'\0'</code>来获得字符串的长度。</p>
+<p><code>sds</code>只需要根据 <code>len</code> 字段获取即可。怎么获取的呢?</p>
 <p>我们来看下源码。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义char类型的指针类型。</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *sds;</span><br><span class="line"><span class="comment">// 获取长度的结构体指针的宏.</span></span><br><span class="line"><span class="comment">// 可根据指向buf的指针返回指向sdshdr结构体首地址的宏</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_HDR(T,s) ((struct sdshdr##T *)((s)-(sizeof(struct sdshdr##T))))</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sds 直接指向结构体里的buf</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">size_t</span> <span class="title">sdslen</span><span class="params">(<span class="keyword">const</span> sds s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// sds是直接指向结构体里的buf数据, 当获取len等字段的信息,只需要减去结构体长度，回退一下指针就可以了。</span></span><br><span class="line">    <span class="comment">// 这里使用的尾指针法。</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags = s[<span class="number">-1</span>];</span><br><span class="line">    <span class="comment">// 判断属于那种 sdshdr,对应减去不同的地址。</span></span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span>(flags&amp;SDS_TYPE_MASK) &#123;</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_5:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">SDS_TYPE_5_LEN</span>(flags);</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_8:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">SDS_HDR</span>(<span class="number">8</span>,s)-&gt;len;</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_16:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">SDS_HDR</span>(<span class="number">16</span>,s)-&gt;len;</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_32:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">SDS_HDR</span>(<span class="number">32</span>,s)-&gt;len;</span><br><span class="line">        <span class="keyword">case</span> SDS_TYPE_64:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">SDS_HDR</span>(<span class="number">64</span>,s)-&gt;len;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="可以杜绝缓冲区溢出"><a class="markdownIt-Anchor" href="#可以杜绝缓冲区溢出">#</a> 可以杜绝缓冲区溢出</h5>
-<p><code>C</code>  语言是不会判断数组是否越界的。比如  <code>strcat</code>  方法，如果当前的数据不能容纳拼接之后字符时，必然会发生缓存区溢出。<br>
-但是  <code>sds</code>  则不会。我们来看下  <code>sds</code>  的字符串拼接的方法  <code>sdscat</code> 。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// s 原来的字符串，t是要拼接的字符串</span></span><br><span class="line"><span class="function">sds <span class="title">sdscat</span><span class="params">(sds s, <span class="keyword">const</span> <span class="keyword">char</span> *t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sdscatlen</span>(s, t, <span class="built_in">strlen</span>(t));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">sds <span class="title">sdscatlen</span><span class="params">(sds s, <span class="keyword">const</span> <span class="keyword">void</span> *t, <span class="keyword">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取原来字符串的长度。(见上面的方法)</span></span><br><span class="line">    <span class="keyword">size_t</span> curlen = <span class="built_in">sdslen</span>(s);</span><br><span class="line">    <span class="comment">// 扩大sds字符串末尾的可用空间，</span></span><br><span class="line">    <span class="comment">//以便调用者确保在调用此函数后可以覆盖字符串末尾的addlen字节，</span></span><br><span class="line">    <span class="comment">//再为null项再加上一个字节。 具体实现，参考源码(sds.c:204)。</span></span><br><span class="line">    s = <span class="built_in">sdsMakeRoomFor</span>(s,len);</span><br><span class="line">    <span class="comment">// 如果内存分配失败，就会返回null</span></span><br><span class="line">    <span class="keyword">if</span> (s == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 调用C语言的分配</span></span><br><span class="line">    <span class="built_in">memcpy</span>(s+curlen, t, len);</span><br><span class="line">    <span class="comment">// sds设置 sdshdr的len字段的值。</span></span><br><span class="line">    <span class="built_in">sdssetlen</span>(s, curlen+len);</span><br><span class="line">    <span class="comment">// 添加最后一个字符为: &#x27;\0&#x27;</span></span><br><span class="line">    s[curlen+len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="sds-优化了c语言的内存分配策略"><a class="markdownIt-Anchor" href="#sds-优化了c语言的内存分配策略">#</a> sds 优化了 C 语言的内存分配策略</h5>
-<h6 id="空间预分配"><a class="markdownIt-Anchor" href="#空间预分配">#</a> 空间预分配</h6>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// 定义char类型的指针类型。</span></span>
+<span class="line"><span style="color:#D73A49">typedef</span><span style="color:#D73A49"> char</span><span style="color:#D73A49"> *</span><span style="color:#24292E">sds;</span></span>
+<span class="line"><span style="color:#6A737D">// 获取长度的结构体指针的宏.</span></span>
+<span class="line"><span style="color:#6A737D">// 可根据指向buf的指针返回指向sdshdr结构体首地址的宏</span></span>
+<span class="line"><span style="color:#D73A49">#define</span><span style="color:#6F42C1"> SDS_HDR</span><span style="color:#24292E">(</span><span style="color:#E36209">T</span><span style="color:#24292E">,</span><span style="color:#E36209">s</span><span style="color:#24292E">) ((</span><span style="color:#D73A49">struct</span><span style="color:#24292E"> sdshdr##T </span><span style="color:#D73A49">*</span><span style="color:#24292E">)((s)</span><span style="color:#D73A49">-</span><span style="color:#24292E">(</span><span style="color:#D73A49">sizeof</span><span style="color:#24292E">(</span><span style="color:#D73A49">struct</span><span style="color:#24292E"> sdshdr##T))))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// sds 直接指向结构体里的buf</span></span>
+<span class="line"><span style="color:#D73A49">static</span><span style="color:#D73A49"> inline</span><span style="color:#D73A49"> size_t</span><span style="color:#6F42C1"> sdslen</span><span style="color:#24292E">(</span><span style="color:#D73A49">const</span><span style="color:#24292E"> sds </span><span style="color:#E36209">s</span><span style="color:#24292E">) {</span></span>
+<span class="line"><span style="color:#6A737D">    // sds是直接指向结构体里的buf数据, 当获取len等字段的信息,只需要减去结构体长度，回退一下指针就可以了。</span></span>
+<span class="line"><span style="color:#6A737D">    // 这里使用的尾指针法。</span></span>
+<span class="line"><span style="color:#D73A49">    unsigned</span><span style="color:#D73A49"> char</span><span style="color:#24292E"> flags </span><span style="color:#D73A49">=</span><span style="color:#E36209"> s</span><span style="color:#24292E">[</span><span style="color:#D73A49">-</span><span style="color:#005CC5">1</span><span style="color:#24292E">];</span></span>
+<span class="line"><span style="color:#6A737D">    // 判断属于那种 sdshdr,对应减去不同的地址。</span></span>
+<span class="line"><span style="color:#D73A49">    switch</span><span style="color:#24292E">(flags</span><span style="color:#D73A49">&#x26;</span><span style="color:#24292E">SDS_TYPE_MASK) {</span></span>
+<span class="line"><span style="color:#D73A49">        case</span><span style="color:#24292E"> SDS_TYPE_5:</span></span>
+<span class="line"><span style="color:#D73A49">            return</span><span style="color:#6F42C1"> SDS_TYPE_5_LEN</span><span style="color:#24292E">(flags);</span></span>
+<span class="line"><span style="color:#D73A49">        case</span><span style="color:#24292E"> SDS_TYPE_8:</span></span>
+<span class="line"><span style="color:#D73A49">            return</span><span style="color:#6F42C1"> SDS_HDR</span><span style="color:#24292E">(</span><span style="color:#005CC5">8</span><span style="color:#24292E">,s)</span><span style="color:#D73A49">-></span><span style="color:#24292E">len;</span></span>
+<span class="line"><span style="color:#D73A49">        case</span><span style="color:#24292E"> SDS_TYPE_16:</span></span>
+<span class="line"><span style="color:#D73A49">            return</span><span style="color:#6F42C1"> SDS_HDR</span><span style="color:#24292E">(</span><span style="color:#005CC5">16</span><span style="color:#24292E">,s)</span><span style="color:#D73A49">-></span><span style="color:#24292E">len;</span></span>
+<span class="line"><span style="color:#D73A49">        case</span><span style="color:#24292E"> SDS_TYPE_32:</span></span>
+<span class="line"><span style="color:#D73A49">            return</span><span style="color:#6F42C1"> SDS_HDR</span><span style="color:#24292E">(</span><span style="color:#005CC5">32</span><span style="color:#24292E">,s)</span><span style="color:#D73A49">-></span><span style="color:#24292E">len;</span></span>
+<span class="line"><span style="color:#D73A49">        case</span><span style="color:#24292E"> SDS_TYPE_64:</span></span>
+<span class="line"><span style="color:#D73A49">            return</span><span style="color:#6F42C1"> SDS_HDR</span><span style="color:#24292E">(</span><span style="color:#005CC5">64</span><span style="color:#24292E">,s)</span><span style="color:#D73A49">-></span><span style="color:#24292E">len;</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"><span style="color:#D73A49">    return</span><span style="color:#005CC5"> 0</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<h5 id="可以杜绝缓冲区溢出">可以杜绝缓冲区溢出</h5>
+<p><code>C</code>语言是不会判断数组是否越界的。比如 <code>strcat</code> 方法, 如果当前的数据不能容纳拼接之后字符时,必然会发生缓存区溢出。
+但是 <code>sds</code> 则不会。我们来看下 <code>sds</code> 的字符串拼接的方法 <code>sdscat</code>。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// s 原来的字符串，t是要拼接的字符串</span></span>
+<span class="line"><span style="color:#24292E">sds </span><span style="color:#6F42C1">sdscat</span><span style="color:#24292E">(sds </span><span style="color:#E36209">s</span><span style="color:#24292E">, </span><span style="color:#D73A49">const</span><span style="color:#D73A49"> char</span><span style="color:#D73A49"> *</span><span style="color:#E36209">t</span><span style="color:#24292E">) {</span></span>
+<span class="line"><span style="color:#D73A49">    return</span><span style="color:#6F42C1"> sdscatlen</span><span style="color:#24292E">(s, t, </span><span style="color:#6F42C1">strlen</span><span style="color:#24292E">(t));</span></span>
+<span class="line"><span style="color:#24292E">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">sds </span><span style="color:#6F42C1">sdscatlen</span><span style="color:#24292E">(sds </span><span style="color:#E36209">s</span><span style="color:#24292E">, </span><span style="color:#D73A49">const</span><span style="color:#D73A49"> void</span><span style="color:#D73A49"> *</span><span style="color:#E36209">t</span><span style="color:#24292E">, </span><span style="color:#D73A49">size_t</span><span style="color:#E36209"> len</span><span style="color:#24292E">) {</span></span>
+<span class="line"><span style="color:#6A737D">    // 获取原来字符串的长度。(见上面的方法)</span></span>
+<span class="line"><span style="color:#D73A49">    size_t</span><span style="color:#24292E"> curlen </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdslen</span><span style="color:#24292E">(s);</span></span>
+<span class="line"><span style="color:#6A737D">    // 扩大sds字符串末尾的可用空间，</span></span>
+<span class="line"><span style="color:#6A737D">    //以便调用者确保在调用此函数后可以覆盖字符串末尾的addlen字节，</span></span>
+<span class="line"><span style="color:#6A737D">    //再为null项再加上一个字节。 具体实现，参考源码(sds.c:204)。</span></span>
+<span class="line"><span style="color:#24292E">    s </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdsMakeRoomFor</span><span style="color:#24292E">(s,len);</span></span>
+<span class="line"><span style="color:#6A737D">    // 如果内存分配失败，就会返回null</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (s </span><span style="color:#D73A49">==</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">) </span><span style="color:#D73A49">return</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#6A737D">    // 调用C语言的分配</span></span>
+<span class="line"><span style="color:#6F42C1">    memcpy</span><span style="color:#24292E">(s</span><span style="color:#D73A49">+</span><span style="color:#24292E">curlen, t, len);</span></span>
+<span class="line"><span style="color:#6A737D">    // sds设置 sdshdr的len字段的值。</span></span>
+<span class="line"><span style="color:#6F42C1">    sdssetlen</span><span style="color:#24292E">(s, curlen</span><span style="color:#D73A49">+</span><span style="color:#24292E">len);</span></span>
+<span class="line"><span style="color:#6A737D">    // 添加最后一个字符为: '\0'</span></span>
+<span class="line"><span style="color:#E36209">    s</span><span style="color:#24292E">[curlen</span><span style="color:#D73A49">+</span><span style="color:#24292E">len] </span><span style="color:#D73A49">=</span><span style="color:#032F62"> '</span><span style="color:#005CC5">\0</span><span style="color:#032F62">'</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#D73A49">    return</span><span style="color:#24292E"> s;</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<h5 id="sds-优化了c语言的内存分配策略">sds 优化了C语言的内存分配策略</h5>
+<h6 id="空间预分配">空间预分配</h6>
 <p>空间预分配策略遵循下面的公式:</p>
 <ul>
-<li>如果 <code>SDS</code>  的长度小于最大的预分配空间 ( <code>1MB</code> ), 那么会分配两倍的新空间，再加上结尾的空字符 <code>'\0'</code>  举个例子：原有的 <code>sds</code>  的 <code>len</code>  为 <code>5</code> , <code>alloc</code>  为 <code>5</code> , 要拼接的字符串长度为 <code>15</code> , 那么新分配的空间大小是:  <code>(5byte+15byte)*2 + 1byte = 41byte</code> .</li>
-<li>如果 <code>sds</code>  的长度大于等于默认的预分配空间，那么就在新分配的空间大小基础上，在分配 <code>1MB</code>  的空间。如果修改后的， <code>SDS</code>  的 <code>len</code>  是  <code>20M</code> ，那么 <code>alloc</code>  就是  <code>20M + 1M + 1byte</code></li>
+<li>如果<code>SDS</code>的长度小于最大的预分配空间(<code>1MB</code>),那么会分配两倍的新空间,再加上结尾的空字符<code>'\0'</code> 举个例子: 原有的<code>sds</code>的<code>len</code>为<code>5</code>,<code>alloc</code>为<code>5</code>, 要拼接的字符串长度为<code>15</code>, 那么新分配的空间大小是: <code>(5byte+15byte)*2 + 1byte = 41byte</code>.</li>
+<li>如果<code>sds</code>的长度大于等于默认的预分配空间, 那么就在新分配的空间大小基础上，在分配<code>1MB</code>的空间。如果修改后的，<code>SDS</code>的<code>len</code>是 <code>20M</code>，那么<code>alloc</code>就是 <code>20M + 1M + 1byte</code></li>
 </ul>
 <p>具体分配过程见下面的源码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SDS 默认最大的预分配空间为1M</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SDS_MAX_PREALLOC (1024*1024)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sds 预分配空间</span></span><br><span class="line"><span class="function">sds <span class="title">sdsMakeRoomFor</span><span class="params">(sds s, <span class="keyword">size_t</span> addlen)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *sh, *newsh;</span><br><span class="line">    <span class="keyword">size_t</span> avail = <span class="built_in">sdsavail</span>(s);</span><br><span class="line">    <span class="keyword">size_t</span> len, newlen;</span><br><span class="line">    <span class="keyword">char</span> type, oldtype = s[<span class="number">-1</span>] &amp; SDS_TYPE_MASK;</span><br><span class="line">    <span class="keyword">int</span> hdrlen;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 如果空间足够，直接返回 */</span></span><br><span class="line">    <span class="keyword">if</span> (avail &gt;= addlen) <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">    len = <span class="built_in">sdslen</span>(s);</span><br><span class="line">    sh = (<span class="keyword">char</span>*)s-<span class="built_in">sdsHdrSize</span>(oldtype);</span><br><span class="line">    newlen = (len+addlen);</span><br><span class="line">    <span class="keyword">if</span> (newlen &lt; SDS_MAX_PREALLOC)</span><br><span class="line">        newlen *= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        newlen += SDS_MAX_PREALLOC;</span><br><span class="line"></span><br><span class="line">    type = <span class="built_in">sdsReqType</span>(newlen);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Don&#x27;t use type 5: the user is appending to the string and type 5 is</span></span><br><span class="line"><span class="comment">     * not able to remember empty space, so sdsMakeRoomFor() must be called</span></span><br><span class="line"><span class="comment">     * at every appending operation. */</span></span><br><span class="line">    <span class="keyword">if</span> (type == SDS_TYPE_5) type = SDS_TYPE_8;</span><br><span class="line"></span><br><span class="line">    hdrlen = <span class="built_in">sdsHdrSize</span>(type);</span><br><span class="line">    <span class="keyword">if</span> (oldtype==type) &#123;</span><br><span class="line">        newsh = <span class="built_in">s_realloc</span>(sh, hdrlen+newlen+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+hdrlen;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">/* Since the header size changes, need to move the string forward,</span></span><br><span class="line"><span class="comment">         * and can&#x27;t use realloc */</span></span><br><span class="line">        newsh = <span class="built_in">s_malloc</span>(hdrlen+newlen+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (newsh == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">memcpy</span>((<span class="keyword">char</span>*)newsh+hdrlen, s, len+<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">s_free</span>(sh);</span><br><span class="line">        s = (<span class="keyword">char</span>*)newsh+hdrlen;</span><br><span class="line">        s[<span class="number">-1</span>] = type;</span><br><span class="line">        <span class="built_in">sdssetlen</span>(s, len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sdssetalloc</span>(s, newlen);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="惰性空间释放"><a class="markdownIt-Anchor" href="#惰性空间释放">#</a> 惰性空间释放</h6>
-<p>当对 sds 进行缩短操作时，程序并不会立马对内存重分配来回收收缩的空间，而是仅仅改变 <code>len</code>  属性，并且在队对应的位置上将字符设置为:  <code>'\0'</code></p>
-<p>以 函数  <code>sdstrim</code>  为例。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">sds <span class="title">sdstrim</span><span class="params">(sds s, <span class="keyword">const</span> <span class="keyword">char</span> *cset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *start, *end, *sp, *ep;</span><br><span class="line">    <span class="keyword">size_t</span> len;</span><br><span class="line"></span><br><span class="line">    sp = start = s;</span><br><span class="line">    ep = end = s+<span class="built_in">sdslen</span>(s)<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(sp &lt;= end &amp;&amp; <span class="built_in">strchr</span>(cset, *sp)) sp++;</span><br><span class="line">    <span class="keyword">while</span>(ep &gt; sp &amp;&amp; <span class="built_in">strchr</span>(cset, *ep)) ep--;</span><br><span class="line">    len = (sp &gt; ep) ? <span class="number">0</span> : ((ep-sp)+<span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 进行移位</span></span><br><span class="line">    <span class="keyword">if</span> (s != sp) <span class="built_in">memmove</span>(s, sp, len);</span><br><span class="line">    <span class="comment">// 设置字符串结束符</span></span><br><span class="line">    s[len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="comment">// 设置len字段的值</span></span><br><span class="line">    <span class="built_in">sdssetlen</span>(s,len);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述实现中，并没有进行内存回收。 <code>sds</code>  也提供了内存回收的函数 <code>sds_free</code> . 具体可以看 <code>Redis 5.0.7</code>  版源码.  <code>sds.c</code>  第 <code>1120</code>  行。这里不再深入学习了。</p>
-<h4 id="二进制安全"><a class="markdownIt-Anchor" href="#二进制安全">#</a> 二进制安全</h4>
-<p><code>sds</code>  的 <code>API</code>  都是二进制安全的。因为 <code>Redis</code>  对  <code>sds</code>  结构中的 <code>buf</code>  数组中的数据都是以二进制的方式处理的。</p>
-<h4 id="兼容部分的c字符串函数"><a class="markdownIt-Anchor" href="#兼容部分的c字符串函数">#</a> 兼容部分的 <code>C</code>  字符串函数</h4>
-<p><code>Redis</code>  还是遵循了 <code>C</code>  字符串以  <code>'\0'</code>  结尾的习惯，所以保存了文本数据的 <code>sds</code>  是可以复用  <code>&lt;string.h&gt;</code>  库中的函数。</p>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结">#</a> 总结</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// SDS 默认最大的预分配空间为1M</span></span>
+<span class="line"><span style="color:#D73A49">#define</span><span style="color:#6F42C1"> SDS_MAX_PREALLOC</span><span style="color:#24292E"> (</span><span style="color:#005CC5">1024</span><span style="color:#D73A49">*</span><span style="color:#005CC5">1024</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// sds 预分配空间</span></span>
+<span class="line"><span style="color:#24292E">sds </span><span style="color:#6F42C1">sdsMakeRoomFor</span><span style="color:#24292E">(sds </span><span style="color:#E36209">s</span><span style="color:#24292E">, </span><span style="color:#D73A49">size_t</span><span style="color:#E36209"> addlen</span><span style="color:#24292E">) {</span></span>
+<span class="line"><span style="color:#D73A49">    void</span><span style="color:#D73A49"> *</span><span style="color:#24292E">sh, </span><span style="color:#D73A49">*</span><span style="color:#24292E">newsh;</span></span>
+<span class="line"><span style="color:#D73A49">    size_t</span><span style="color:#24292E"> avail </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdsavail</span><span style="color:#24292E">(s);</span></span>
+<span class="line"><span style="color:#D73A49">    size_t</span><span style="color:#24292E"> len, newlen;</span></span>
+<span class="line"><span style="color:#D73A49">    char</span><span style="color:#24292E"> type, oldtype </span><span style="color:#D73A49">=</span><span style="color:#E36209"> s</span><span style="color:#24292E">[</span><span style="color:#D73A49">-</span><span style="color:#005CC5">1</span><span style="color:#24292E">] </span><span style="color:#D73A49">&#x26;</span><span style="color:#24292E"> SDS_TYPE_MASK;</span></span>
+<span class="line"><span style="color:#D73A49">    int</span><span style="color:#24292E"> hdrlen;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    /* 如果空间足够，直接返回 */</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (avail </span><span style="color:#D73A49">>=</span><span style="color:#24292E"> addlen) </span><span style="color:#D73A49">return</span><span style="color:#24292E"> s;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">    len </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdslen</span><span style="color:#24292E">(s);</span></span>
+<span class="line"><span style="color:#24292E">    sh </span><span style="color:#D73A49">=</span><span style="color:#24292E"> (</span><span style="color:#D73A49">char*</span><span style="color:#24292E">)s</span><span style="color:#D73A49">-</span><span style="color:#6F42C1">sdsHdrSize</span><span style="color:#24292E">(oldtype);</span></span>
+<span class="line"><span style="color:#24292E">    newlen </span><span style="color:#D73A49">=</span><span style="color:#24292E"> (len</span><span style="color:#D73A49">+</span><span style="color:#24292E">addlen);</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (newlen </span><span style="color:#D73A49">&#x3C;</span><span style="color:#24292E"> SDS_MAX_PREALLOC)</span></span>
+<span class="line"><span style="color:#24292E">        newlen </span><span style="color:#D73A49">*=</span><span style="color:#005CC5"> 2</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#D73A49">    else</span></span>
+<span class="line"><span style="color:#24292E">        newlen </span><span style="color:#D73A49">+=</span><span style="color:#24292E"> SDS_MAX_PREALLOC;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">    type </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdsReqType</span><span style="color:#24292E">(newlen);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    /* Don't use type 5: the user is appending to the string and type 5 is</span></span>
+<span class="line"><span style="color:#6A737D">     * not able to remember empty space, so sdsMakeRoomFor() must be called</span></span>
+<span class="line"><span style="color:#6A737D">     * at every appending operation. */</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (type </span><span style="color:#D73A49">==</span><span style="color:#24292E"> SDS_TYPE_5) type </span><span style="color:#D73A49">=</span><span style="color:#24292E"> SDS_TYPE_8;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">    hdrlen </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> sdsHdrSize</span><span style="color:#24292E">(type);</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (oldtype</span><span style="color:#D73A49">==</span><span style="color:#24292E">type) {</span></span>
+<span class="line"><span style="color:#24292E">        newsh </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> s_realloc</span><span style="color:#24292E">(sh, hdrlen</span><span style="color:#D73A49">+</span><span style="color:#24292E">newlen</span><span style="color:#D73A49">+</span><span style="color:#005CC5">1</span><span style="color:#24292E">);</span></span>
+<span class="line"><span style="color:#D73A49">        if</span><span style="color:#24292E"> (newsh </span><span style="color:#D73A49">==</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">) </span><span style="color:#D73A49">return</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#24292E">        s </span><span style="color:#D73A49">=</span><span style="color:#24292E"> (</span><span style="color:#D73A49">char*</span><span style="color:#24292E">)newsh</span><span style="color:#D73A49">+</span><span style="color:#24292E">hdrlen;</span></span>
+<span class="line"><span style="color:#24292E">    } </span><span style="color:#D73A49">else</span><span style="color:#24292E"> {</span></span>
+<span class="line"><span style="color:#6A737D">        /* Since the header size changes, need to move the string forward,</span></span>
+<span class="line"><span style="color:#6A737D">         * and can't use realloc */</span></span>
+<span class="line"><span style="color:#24292E">        newsh </span><span style="color:#D73A49">=</span><span style="color:#6F42C1"> s_malloc</span><span style="color:#24292E">(hdrlen</span><span style="color:#D73A49">+</span><span style="color:#24292E">newlen</span><span style="color:#D73A49">+</span><span style="color:#005CC5">1</span><span style="color:#24292E">);</span></span>
+<span class="line"><span style="color:#D73A49">        if</span><span style="color:#24292E"> (newsh </span><span style="color:#D73A49">==</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">) </span><span style="color:#D73A49">return</span><span style="color:#005CC5"> NULL</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#6F42C1">        memcpy</span><span style="color:#24292E">((</span><span style="color:#D73A49">char*</span><span style="color:#24292E">)newsh</span><span style="color:#D73A49">+</span><span style="color:#24292E">hdrlen, s, len</span><span style="color:#D73A49">+</span><span style="color:#005CC5">1</span><span style="color:#24292E">);</span></span>
+<span class="line"><span style="color:#6F42C1">        s_free</span><span style="color:#24292E">(sh);</span></span>
+<span class="line"><span style="color:#24292E">        s </span><span style="color:#D73A49">=</span><span style="color:#24292E"> (</span><span style="color:#D73A49">char*</span><span style="color:#24292E">)newsh</span><span style="color:#D73A49">+</span><span style="color:#24292E">hdrlen;</span></span>
+<span class="line"><span style="color:#E36209">        s</span><span style="color:#24292E">[</span><span style="color:#D73A49">-</span><span style="color:#005CC5">1</span><span style="color:#24292E">] </span><span style="color:#D73A49">=</span><span style="color:#24292E"> type;</span></span>
+<span class="line"><span style="color:#6F42C1">        sdssetlen</span><span style="color:#24292E">(s, len);</span></span>
+<span class="line"><span style="color:#24292E">    }</span></span>
+<span class="line"><span style="color:#6F42C1">    sdssetalloc</span><span style="color:#24292E">(s, newlen);</span></span>
+<span class="line"><span style="color:#D73A49">    return</span><span style="color:#24292E"> s;</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<h6 id="惰性空间释放">惰性空间释放</h6>
+<p>当对sds进行缩短操作时，程序并不会立马对内存重分配来回收收缩的空间，而是仅仅改变<code>len</code>属性，并且在队对应的位置上将字符设置为: <code>'\0'</code></p>
+<p>以 函数 <code>sdstrim</code> 为例。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#24292E">sds </span><span style="color:#6F42C1">sdstrim</span><span style="color:#24292E">(sds </span><span style="color:#E36209">s</span><span style="color:#24292E">, </span><span style="color:#D73A49">const</span><span style="color:#D73A49"> char</span><span style="color:#D73A49"> *</span><span style="color:#E36209">cset</span><span style="color:#24292E">) {</span></span>
+<span class="line"><span style="color:#D73A49">    char</span><span style="color:#D73A49"> *</span><span style="color:#24292E">start, </span><span style="color:#D73A49">*</span><span style="color:#24292E">end, </span><span style="color:#D73A49">*</span><span style="color:#24292E">sp, </span><span style="color:#D73A49">*</span><span style="color:#24292E">ep;</span></span>
+<span class="line"><span style="color:#D73A49">    size_t</span><span style="color:#24292E"> len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">    sp </span><span style="color:#D73A49">=</span><span style="color:#24292E"> start </span><span style="color:#D73A49">=</span><span style="color:#24292E"> s;</span></span>
+<span class="line"><span style="color:#24292E">    ep </span><span style="color:#D73A49">=</span><span style="color:#24292E"> end </span><span style="color:#D73A49">=</span><span style="color:#24292E"> s</span><span style="color:#D73A49">+</span><span style="color:#6F42C1">sdslen</span><span style="color:#24292E">(s)</span><span style="color:#D73A49">-</span><span style="color:#005CC5">1</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#D73A49">    while</span><span style="color:#24292E">(sp </span><span style="color:#D73A49">&#x3C;=</span><span style="color:#24292E"> end </span><span style="color:#D73A49">&#x26;&#x26;</span><span style="color:#6F42C1"> strchr</span><span style="color:#24292E">(cset, </span><span style="color:#D73A49">*</span><span style="color:#24292E">sp)) sp</span><span style="color:#D73A49">++</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#D73A49">    while</span><span style="color:#24292E">(ep </span><span style="color:#D73A49">></span><span style="color:#24292E"> sp </span><span style="color:#D73A49">&#x26;&#x26;</span><span style="color:#6F42C1"> strchr</span><span style="color:#24292E">(cset, </span><span style="color:#D73A49">*</span><span style="color:#24292E">ep)) ep</span><span style="color:#D73A49">--</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#24292E">    len </span><span style="color:#D73A49">=</span><span style="color:#24292E"> (sp </span><span style="color:#D73A49">></span><span style="color:#24292E"> ep) </span><span style="color:#D73A49">?</span><span style="color:#005CC5"> 0</span><span style="color:#D73A49"> :</span><span style="color:#24292E"> ((ep</span><span style="color:#D73A49">-</span><span style="color:#24292E">sp)</span><span style="color:#D73A49">+</span><span style="color:#005CC5">1</span><span style="color:#24292E">);</span></span>
+<span class="line"><span style="color:#6A737D">    // 进行移位</span></span>
+<span class="line"><span style="color:#D73A49">    if</span><span style="color:#24292E"> (s </span><span style="color:#D73A49">!=</span><span style="color:#24292E"> sp) </span><span style="color:#6F42C1">memmove</span><span style="color:#24292E">(s, sp, len);</span></span>
+<span class="line"><span style="color:#6A737D">    // 设置字符串结束符</span></span>
+<span class="line"><span style="color:#E36209">    s</span><span style="color:#24292E">[len] </span><span style="color:#D73A49">=</span><span style="color:#032F62"> '</span><span style="color:#005CC5">\0</span><span style="color:#032F62">'</span><span style="color:#24292E">;</span></span>
+<span class="line"><span style="color:#6A737D">    // 设置len字段的值</span></span>
+<span class="line"><span style="color:#6F42C1">    sdssetlen</span><span style="color:#24292E">(s,len);</span></span>
+<span class="line"><span style="color:#D73A49">    return</span><span style="color:#24292E"> s;</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<p>上述实现中，并没有进行内存回收。<code>sds</code>也提供了内存回收的函数<code>sds_free</code>.具体可以看<code>Redis 5.0.7</code> 版源码. <code>sds.c</code>第<code>1120</code>行。这里不再深入学习了。</p>
+<h4 id="二进制安全">二进制安全</h4>
+<p><code>sds</code>的<code>API</code>都是二进制安全的。因为<code>Redis</code>对 <code>sds</code>结构中的<code>buf</code>数组中的数据都是以二进制的方式处理的。</p>
+<h4 id="兼容部分的c字符串函数">兼容部分的<code>C</code>字符串函数</h4>
+<p><code>Redis</code>还是遵循了<code>C</code>字符串以 <code>'\0'</code>结尾的习惯，所以保存了文本数据的<code>sds</code>是可以复用 <code>&#x3C;string.h></code>库中的函数。</p>
+<h3 id="总结">总结</h3>
 <ul>
 <li>
-<p><code>string</code>  是 <code>redis</code>  中最简单的数据结构.  <code>string</code>  不是 <code>C</code>  字符串，而是对 <code>C</code>  字符串进行了封装.</p>
+<p><code>string</code>是<code>redis</code>中最简单的数据结构. <code>string</code>不是<code>C</code>字符串，而是对<code>C</code>字符串进行了封装.</p>
 </li>
 <li>
-<p>学习了 <code>string</code>  类型相关的 <code>api</code> 。  <code>set</code> , <code>setnx</code> , <code>setex</code> ,  <code>get</code> ,  <code>getset</code> ,  <code>incr</code> ,  <code>decr</code> ,…</p>
+<p>学习了<code>string</code>类型相关的<code>api</code>。 <code>set</code>,<code>setnx</code>,<code>setex</code>, <code>get</code>, <code>getset</code>, <code>incr</code>, <code>decr</code>,…</p>
 </li>
 <li>
-<p><code>sds</code>  这种设计的好处，提高了性能，优化内存分配，二进制安全，兼容 <code>C</code>  字符串。</p>
+<p><code>sds</code>这种设计的好处,提高了性能,优化内存分配，二进制安全，兼容<code>C</code>字符串。</p>
 </li>
 </ul>
-<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<h2 id="最后">最后</h2>
 <p>期望与你一起遇见更好的自己</p>
-<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
-
-      <div class="asb asb-post-01" style="display:none;">
-        <div class="mask"></div>
-        <div class="info">
-          <div>
-              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
-          </div>
-          <div>
-              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
-          </div>
-          <div>
-              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
-          </div>
-          <div>
-            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
-          </div>
-      </div>
-    </div>
-      <div class="tags">
-          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
-      </div>
-  </div>
-
-   <footer>
-
-    <div class="meta">
-  <span class="item">
-    <span class="icon">
-      <i class="ic i-calendar-check"></i>
-    </span>
-    <span class="text">更新于</span>
-    <time title="修改时间：2021-08-19 12:38:43" itemprop="dateModified" datetime="2021-08-19T12:38:43+08:00">2021-08-19</time>
-  </span>
-  <span id="2021/08/01/Redis系列/B-1-Redis的数据类型之String/" class="item leancloud_visitors" data-flag-title="Redis 数据结构之 String" title="阅读次数">
-      <span class="icon">
-        <i class="ic i-eye"></i>
-      </span>
-      <span class="text">阅读次数</span>
-      <span class="leancloud-visitors-count"></span>
-      <span class="text">次</span>
-  </span>
-</div>
-
-      
-<div class="reward">
-  <button><i class="ic i-heartbeat"></i> 支持一下</button>
-  <p>请我喝[咖啡]~(￣▽￣)~*</p>
-  <div id="qr">
-      
-      <div>
-        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div>
-        <img data-src="/images/alipay.png" alt="方小白 支付宝">
-        <p>支付宝</p>
-      </div>
-      <div>
-        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
-        <p>numberpay</p>
-      </div>
-  </div>
-</div>
-
-      
-
-<div id="copyright">
-<ul>
-  <li class="author">
-    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
-  </li>
-  <li class="link">
-    <strong>本文链接：</strong>
-    <a href="https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" title="Redis 数据结构之 String">https://fangjiaxiaobai.github.io/2021/08/01/Redis系列/B-1-Redis的数据类型之String/</a>
-  </li>
-  <li class="license">
-    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-  </footer>
-
-</article>
-
-  </div>
-  
-
-<div class="post-nav">
-    <div class="item left">
-      
-
-  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitht3xtj20zk0m8k5v.jpg" title="Redis 多个数据库">
-  <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
-  <h3>Redis 多个数据库</h3>
-  </a>
-
-    </div>
-    <div class="item right">
-      
-
-  <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeu7txpzj20zk0m81kx.jpg" title="Redis数据结构之 List">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> Redis 数据库</span>
-  <h3>Redis数据结构之 List</h3>
-  </a>
-
-    </div>
-</div>
-
-  
-  <div class="wrap" id="comments"></div>
-
-
-        </div>
-        <div id="sidebar">
-          
-
-<div class="inner">
-
-  <div class="panels">
-    <div class="inner">
-      <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">  string  简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9B%B8%E5%85%B3%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">  string  相关常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#set%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.</span> <span class="toc-text">  set  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setnx%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">  setnx  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setex-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">  setEx  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#psetex-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.4.</span> <span class="toc-text">  psetEx  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get%E5%91%BD%E4%BB%A4"><span class="toc-number">2.5.</span> <span class="toc-text">  get  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getset%E5%91%BD%E4%BB%A4"><span class="toc-number">2.6.</span> <span class="toc-text">  getset  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#strlen-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.7.</span> <span class="toc-text">  strlen  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#append%E5%91%BD%E4%BB%A4"><span class="toc-number">2.8.</span> <span class="toc-text">  APPEND  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setrange%E5%91%BD%E4%BB%A4"><span class="toc-number">2.9.</span> <span class="toc-text">  setrange  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getrange%E5%91%BD%E4%BB%A4"><span class="toc-number">2.10.</span> <span class="toc-text">  getrange  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#incr-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.11.</span> <span class="toc-text">  incr  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#incrby%E5%91%BD%E4%BB%A4"><span class="toc-number">2.12.</span> <span class="toc-text">  incrby  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#incrbyfloat%E5%91%BD%E4%BB%A4"><span class="toc-number">2.13.</span> <span class="toc-text">  INCRBYFLOAT  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#decr%E5%91%BD%E4%BB%A4"><span class="toc-number">2.14.</span> <span class="toc-text">  DECR  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#decrby%E5%91%BD%E4%BB%A4"><span class="toc-number">2.15.</span> <span class="toc-text">  DECRBY  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mget%E5%91%BD%E4%BB%A4"><span class="toc-number">2.16.</span> <span class="toc-text">  mget  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mset%E5%91%BD%E4%BB%A4"><span class="toc-number">2.17.</span> <span class="toc-text">  mset  命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#msetnx%E5%91%BD%E4%BB%A4"><span class="toc-number">2.18.</span> <span class="toc-text">  msetnx  命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0string%E8%BF%99%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">  Redis  如何实现 String  这一数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sds"><span class="toc-number">3.1.</span> <span class="toc-text">  sds</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8sds%E6%AF%94%E4%BD%BF%E7%94%A8c%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84%E5%91%A2"><span class="toc-number">3.2.</span> <span class="toc-text"> 使用 sds  比使用 C  字符串有什么好处呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E9%95%BF%E5%BA%A6%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%BA-o1"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 获取字符长度的时间复杂度为  O(1)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E4%BB%A5%E6%9D%9C%E7%BB%9D%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 可以杜绝缓冲区溢出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sds-%E4%BC%98%E5%8C%96%E4%BA%86c%E8%AF%AD%E8%A8%80%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.3.</span> <span class="toc-text"> sds 优化了 C 语言的内存分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E9%A2%84%E5%88%86%E9%85%8D"><span class="toc-number">3.2.3.1.</span> <span class="toc-text"> 空间预分配</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%83%B0%E6%80%A7%E7%A9%BA%E9%97%B4%E9%87%8A%E6%94%BE"><span class="toc-number">3.2.3.2.</span> <span class="toc-text"> 惰性空间释放</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8"><span class="toc-number">3.3.</span> <span class="toc-text"> 二进制安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E9%83%A8%E5%88%86%E7%9A%84c%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="toc-number">3.4.</span> <span class="toc-text"> 兼容部分的 C  字符串函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text"> 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number"></span> <span class="toc-text"> 最后</span></a>
-      </div>
-      <div class="related panel pjax" data-title="系列文章">
-        <ul>
-          <li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E7%9B%AE%E5%BD%95/" rel="bookmark" title="Redis 开篇 & 说明">Redis 开篇 & 说明</a></li><li><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" rel="bookmark" title="Redis 开篇杂谈">Redis 开篇杂谈</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88Redis/" rel="bookmark" title="Redis的单机部署">Redis的单机部署</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/01-Redis%E7%AE%80%E4%BB%8B%E4%BB%A5%E5%8F%8A%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94/" rel="bookmark" title="Redis 简介">Redis 简介</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="bookmark" title="Redis 多个数据库">Redis 多个数据库</a></li><li class="active"><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/" rel="bookmark" title="Redis数据结构之 String">Redis数据结构之 String</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="bookmark" title="Redis数据结构之 List">Redis数据结构之 List</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-3-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Bhash/" rel="bookmark" title="Redis数据结构之 Hash">Redis数据结构之 Hash</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-4-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%9B%86%E5%90%88set/" rel="bookmark" title="Redis数据结构之集合 Set">Redis数据结构之集合 Set</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-5-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88zset/" rel="bookmark" title="Redis数据结构之有序集合 zset">Redis数据结构之有序集合 zset</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-6-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8B%E4%BD%8D%E5%9B%BEbitmap/" rel="bookmark" title="Redis数据结构之位图 BitMap">Redis数据结构之位图 BitMap</a></li><li><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-7-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BHyperLogLogs/" rel="bookmark" title="Redis数据结构之 `HyperLogLogs`">Redis数据结构之 `HyperLogLogs`</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-4-%E8%B7%B3%E8%A1%A8/" rel="bookmark" title="Redis中的数据结构之跳表及其原理">Redis中的数据结构之跳表及其原理</a></li><li><a href="/2021/08/02/Redis%E7%B3%BB%E5%88%97/C-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8Bziplist/" rel="bookmark" title="Redis数据结构之详解 ziplist">Redis数据结构之详解 ziplist</a></li>
-        </ul>
-      </div>
-      <div class="overview panel" data-title="站点概览">
-        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="image" itemprop="image" alt="方小白"
-      data-src="/images/avatar.jpg">
-  <p class="name" itemprop="name">方小白</p>
-  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
-</div>
-
-<nav class="state">
-    <div class="item posts">
-      <a href="/archives/">
-        <span class="count">126</span>
-        <span class="name">文章</span>
-      </a>
-    </div>
-    <div class="item categories">
-      <a href="/categories/">
-        <span class="count">26</span>
-        <span class="name">分类</span>
-      </a>
-    </div>
-    <div class="item tags">
-      <a href="/tags/">
-        <span class="count">75</span>
-        <span class="name">标签</span>
-      </a>
-    </div>
-</nav>
-
-<div class="social">
-      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
-      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
-      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
-      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
-      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
-</div>
-
-<ul class="menu">
-  
-    
-  <li class="item">
-    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
-  </li>
-
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
-  </li>
-
-  </ul>
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/series/onedayday" rel="section"><i class="ic i-stars"></i>日拱一卒系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
-  </li>
-
-  </ul>
-    
-  <li class="item">
-    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
-  </li>
-
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
-  </li>
-
-  </ul>
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
-  </li>
-
-  </ul>
-
-</ul>
-
-      </div>
-    </div>
-  </div>
-
-  <ul id="quick">
-    <li class="prev pjax">
-        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
-    </li>
-    <li class="up"><i class="ic i-arrow-up"></i></li>
-    <li class="down"><i class="ic i-arrow-down"></i></li>
-    <li class="next pjax">
-        <a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-2-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8Blist/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
-    </li>
-    <li class="percent"></li>
-  </ul>
-</div>
-
-
-        </div>
-        <div class="dimmer"></div>
-      </div>
-    </main>
-    <footer id="footer">
-      <div class="inner">
-        <div class="widgets">
-          
-<div class="rpost pjax">
-  <h2>随机文章</h2>
-  <ul>
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 MySQL 数据库">MySQL 数据库</a>
-</div>
-
-    <span><a href="/2021/07/24/MySQL-series/MySQL-1-01.MySQL_version/" title="01.数据库版本">01.数据库版本</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/13-git%E5%91%BD%E4%BB%A4/" title="git命令">git命令</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
-</div>
-
-    <span><a href="/2021/11/17/machine-learn/Model-evaluation/01-overview/" title="模型评估概述">模型评估概述</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
-</div>
-
-    <span><a href="/2021/10/28/machine-learn/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A001-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E5%92%8C%E4%BA%86%E8%A7%A3/" title="机器学习-简介">机器学习-简介</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/07/23/Redis%E7%B3%BB%E5%88%97/00-%E5%89%8D%E8%A8%80/" title="Redis 开篇杂谈">Redis 开篇杂谈</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
-</div>
-
-    <span><a href="/2022/07/22/k8s/pit01.incompatible-CNI-versions/" title="k8s-incompatible CNI versions">k8s-incompatible CNI versions</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/git%E7%B3%BB%E5%88%97/" title="分类于 git 系列">git 系列</a>
-</div>
-
-    <span><a href="/2021/07/18/git%E7%B3%BB%E5%88%97/04-git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A41/" title="git基本使用一">git基本使用一</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" title="分类于 搜索之 Es">搜索之 Es</a>
-</div>
-
-    <span><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="Elastic Search基本概念">Elastic Search基本概念</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
-</div>
-
-    <span><a href="/2022/09/18/k8s/seris05-service/" title="k8s-Service">k8s-Service</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/k8s/" title="分类于 k8s">k8s</a>
-</div>
-
-    <span><a href="/2022/07/17/k8s/seris02-how-to-build/" title="k8s-搭建K8s集群">k8s-搭建K8s集群</a></span>
-  </li>
-
-  </ul>
-</div>
-<div>
-  <h2>最新评论</h2>
-  <ul class="leancloud-recent-comment"></ul>
-</div>
-
-        </div>
-        <div class="status">
-  <div class="copyright">
-    
-    &copy; 2021 – 
-    <span itemprop="copyrightYear">2024</span>
-    <span class="with-love">
-      <i class="ic i-sakura rotate"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
-  </div>
-  <div class="count">
-    <span class="post-meta-item-icon">
-      <i class="ic i-chart-area"></i>
-    </span>
-    <span title="站点总字数">526k 字</span>
-
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="ic i-coffee"></i>
-    </span>
-    <span title="站点阅读时长">7:58</span>
-  </div>
-  <div class="powered-by">
-    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
-  </div>
-</div>
-
-      </div>
-    </footer>
-  </div>
-<script data-config type="text/javascript">
-  var LOCAL = {
-    path: '2021/08/01/Redis系列/B-1-Redis的数据类型之String/',
-    favicon: {
-      show: "方家小白",
-      hide: "方家小白"
-    },
-    search : {
-      placeholder: "文章搜索",
-      empty: "关于 「 ${query} 」，什么也没搜到",
-      stats: "${time} ms 内找到 ${hits} 条结果"
-    },
-    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
-    ignores : [
-      function(uri) {
-        return uri.includes('#');
-      },
-      function(uri) {
-        return new RegExp(LOCAL.path+"$").test(uri);
-      }
-    ]
-  };
-</script>
-
-<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
-
-<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
-
-<script src="/js/app.js?v=0.2.5"></script>
-
-
-
-
-</body>
-</html>
+<p><img src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p></div> <div class="cta-card"> <div class="ct">配套资料 · 免费领取</div> <div class="cd">本文属于「BACKEND」资料包范围：中间件源码阅读路线图。按 RocketMQ / Redis / MySQL 分章节的完整路线。</div> <div class="cd">在公众号「方家小白」回复关键词 <span class="kw">BACKEND</span> 即可领取。全文无需关注即可阅读。</div> <span class="ckw">BACKEND</span> </div> <div class="copyright-block"> <strong>版权与引用</strong>：本文由 方家小白 原创，首发于 <a href="/2021/08/01/Redis系列/B-1-Redis的数据类型之String/">https://fangjiaxiaobai.github.io/2021/08/01/Redis%E7%B3%BB%E5%88%97/B-1-Redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B9%8BString/</a>。
+        采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a> 许可：允许非商业性转载与引用，须保留作者署名与原文链接，禁止全文复制用于商业用途或模型训练语料。
+<br>内容指纹：<code>95cd017a79f2651d</code>（用于溯源与侵权举证）。
+</div> </article></main> <aside class="sidebar"><div class="side-card"> <h3>公众号 · 方家小白</h3> <img class="qr" src="/images/qrcode.jpg" alt="公众号「方家小白」二维码" loading="lazy"> <p class="hint">全文永久免费。回复关键词 <span class="kw">INDEX</span> 领取全站资料包索引。</p> <p class="hint">网站发完整结构化版，公众号发导读、判断与配套资料。</p> </div> <div class="side-card"> <h3>内容栏目</h3> <ul> <li><a href="/columns/ai-agent/">AI Agent 实践</a></li><li><a href="/columns/backend/">后端与中间件</a></li><li><a href="/columns/java/">Java 与 JVM</a></li><li><a href="/columns/algorithm/">算法与数据结构</a></li><li><a href="/columns/engineering/">工程效率与工具</a></li> <li><a href="/archives/">随笔与归档</a></li> </ul> </div> <div class="side-card"> <h3>增值资料包</h3> <p class="hint">按栏目回复关键词领取配套清单、合订版与模板包：</p> <p class="hint"><span class="kw">AGENT</span> <span class="kw">RULE</span> <span class="kw">BACKEND</span> <span class="kw">JAVA</span> <span class="kw">ALGO</span> <span class="kw">TOOLS</span> <span class="kw">INDEX</span></p> <p class="hint">关键词同时用于来源归因，便于判断哪类内容真正带来关注。</p> </div></aside> </div> <footer class="site-footer"> <div class="fin"> <span>© 2026 方家小白</span> <span>内容许可：<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a>（转载须署名并附原文链接，禁止商业使用）</span> <span>公众号「方家小白」</span> <span><a href="/robots.txt">robots.txt</a> · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/llms.txt">llms.txt</a> · <a href="/rss.xml">RSS</a></span> </div> </footer> </body></html>

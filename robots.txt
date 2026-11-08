@@ -1,0 +1,18 @@
+# 方家小白 · 抓取与许可策略
+# 全文免费开放，欢迎搜索引擎与 AI 检索；不接受整篇复制与商业训练语料使用。
+
+User-agent: *
+Allow: /
+Content-signal: search=yes, ai-train=no, use=reference
+
+# 对个人站无引用价值的 SEO 采集器，声明不欢迎（仅对遵守协议的爬虫有效）
+User-agent: AhrefsBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+
+Sitemap: https://fangjiaxiaobai.github.io/sitemap.xml

@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>读完这篇长文，我把「人在回路」重新想了一遍 · 方家小白</title><meta name="description" content="一篇关于 Agent 系统与人类注意力的长文复盘：为什么多任务的上限不看模型而看人，事件驱动、中台、CI 边界与人在回路如何把人从起点挪到末端。"><meta name="author" content="方家小白"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large"><link rel="canonical" href="https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/"><meta property="og:type" content="article"><meta property="og:site_name" content="方家小白"><meta property="og:title" content="读完这篇长文，我把「人在回路」重新想了一遍 · 方家小白"><meta property="og:description" content="一篇关于 Agent 系统与人类注意力的长文复盘：为什么多任务的上限不看模型而看人，事件驱动、中台、CI 边界与人在回路如何把人从起点挪到末端。"><meta property="og:url" content="https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/"><meta name="twitter:card" content="summary"><link rel="alternate" type="application/rss+xml" title="方家小白 RSS" href="/rss.xml"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"读完这篇长文，我把「人在回路」重新想了一遍","description":"一篇关于 Agent 系统与人类注意力的长文复盘：为什么多任务的上限不看模型而看人，事件驱动、中台、CI 边界与人在回路如何把人从起点挪到末端。","datePublished":"2026-11-08","dateModified":"2026-11-08","author":{"@type":"Person","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"publisher":{"@type":"Organization","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/"},"url":"https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/","inLanguage":"zh-CN","license":"https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans","keywords":"Agent, 人在回路, 自动化, 注意力","articleSection":"AI Agent 实践"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://fangjiaxiaobai.github.io/"},{"@type":"ListItem","position":2,"name":"AI Agent 实践","item":"https://fangjiaxiaobai.github.io/columns/ai-agent/"},{"@type":"ListItem","position":3,"name":"读完这篇长文，我把「人在回路」重新想了一遍","item":"https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/"}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.BjKnYllI.css"></head> <body> <header class="site-header"> <div class="inner"> <div class="brand"> <a class="logo" href="/">方家小白</a> <span class="tagline">和你一起遇见更好的自己</span> </div> <nav class="site-nav" aria-label="主导航"> <a href="/" class>首页</a><a href="/columns/ai-agent/" class>AI Agent 实践</a><a href="/columns/backend/" class>后端与中间件</a><a href="/columns/java/" class>Java 与 JVM</a><a href="/columns/algorithm/" class>算法与数据结构</a><a href="/columns/engineering/" class>工程效率与工具</a><a href="/series/" class>系列</a><a href="/archives/" class>归档</a><a href="/about/" class>关于</a> </nav> </div> </header> <div class="wrap"> <main class="content"><article> <div class="eyebrow">AI Agent 实践 · 随笔</div> <h1>读完这篇长文，我把「人在回路」重新想了一遍</h1> <div class="post-meta"> <span>发布于 2026-11-08</span> <span>系列：Agent 观察与复盘</span> <span>标签：Agent / 人在回路 / 自动化 / 注意力</span>  </div>  <nav class="toc-box" aria-label="本文目录"> <div class="tt">本文目录</div> <ul> <li style><a href="#一个六百年前的瓶颈">一个六百年前的瓶颈</a></li><li style><a href="#我们其实还在用最原始的方式派活">我们其实还在用最原始的方式派活</a></li><li style><a href="#让我最服气的是中台而不是模型">让我最服气的，是中台而不是模型</a></li><li style><a href="#让-agent-写的代码不能由-agent-自己上线">让 Agent 写的代码，不能由 Agent 自己上线</a></li><li style><a href="#一张卡片和一份不该问第二遍的清单">一张卡片，和一份不该问第二遍的清单</a></li><li style><a href="#我打算拿走什么以及我的保留意见">我打算拿走什么，以及我的保留意见</a></li> </ul> </nav> <div class="post-body"><blockquote>
+<p>单任务的上限取决于模型能力，多任务的上限取决于人的注意力。</p>
+<p>—— 引自 DeepSeek《Super-agent 设计探索》，经原文转引</p>
+</blockquote>
+<p>这几天我读完了一篇很长的文章：数字生命卡兹克在 2026 年 11 月 2 日发在 X 上的《折腾了整整 1 年，毫无保留地分享一下我这套 Agent 自动化系统。》。</p>
+<p>按理说，晒工作流的内容我见过不少，多数是工具清单加截图。这一篇不一样。它没有把重心放在哪个模型更强、哪句提示词更巧，而是开篇就把一个问题钉死：<strong>人的注意力，才是整套系统里最贵的资源</strong>。</p>
+<p>我想用我的话把这套系统讲一遍，也说说我读完之后的判断：哪些设计值得抄，哪些其实有门槛。先把话说清楚，系统是作者的，不是我搭的；下面出现的模型版本、配置和效果数字，都是作者自述，我按原文转述，没有做独立验证，读者当经验材料看就好。</p>
+<hr>
+<h2 id="一个六百年前的瓶颈">一个六百年前的瓶颈</h2>
+<p>文章借了 DeepSeek 一句判断作起点：一个人通常只能同时跟进三到五个活跃会话，所以单任务的上限看模型，多任务的上限看人。</p>
+<p>接着它讲了一段明初的事。1380 年，朱元璋废掉中书省和丞相，六部直接对皇帝负责，天下大事全部直通他本人。洪武十七年九月，给事中张文辅报了一笔账：十四日到二十一日，八天里各衙门送来奏札 1660 件，涉及三千多件事，平均一天两百多份奏札、一个人要处理四百多件事。朱元璋自己都绷不住，说了一句「朕一人处此多务，岂能一一周遍」。</p>
+<p>我觉得这个类比精准的地方，不在于「事情太多」，而在于「所有事情都被设计成必须流经同一个人」。六百多年后，六部换成了 Agent，奏折换成了事件和通知，结构其实没变：只要流量还是全部汇到一个人身上，模型再强也只是在给这个瓶颈加速。</p>
+<p>原文把设计这套调度系统的能力叫领导力。我更愿意叫它<strong>接口设计</strong>：人和系统之间，究竟留几个口子，什么样的事才配经过这个口子。</p>
+<h2 id="我们其实还在用最原始的方式派活">我们其实还在用最原始的方式派活</h2>
+<p>作者先描述了多数人的用法：打开 Claude Code 或 Codex，给一个任务，看着它干，检查一遍，再给下一个。</p>
+<p>这句话我看得有点脸热。因为它的要害不是效率高低，而是<strong>所有事情的起点都是人</strong>。只要我不打开那个窗口，什么都不会发生。于是无论模型多强，我一天能推进的事，始终等于我盯得过来的那几个窗口。过去我还把「多开几个会话」当成并行，现在想想，那只是把同一份注意力切得更碎而已。</p>
+<p>作者给的转向很干脆：把任务发生的起点从人身上拿掉，用各种信号触发 Agent，而不是等人下命令。他打了个带团队的比方——好的团队不会事事汇报，能自己处理的自己处理掉，只有拿不准、必须上升的决策才推到你面前。人要给的是充分信任。</p>
+<p>读到这里我意识到一个更朴素的标准：<strong>判断一套 Agent 系统好不好，不是看它能同时跑多少个任务，而是看我不在的时候，有多少事会自己开始。</strong></p>
+<h2 id="让我最服气的是中台而不是模型">让我最服气的，是中台而不是模型</h2>
+<p>既然要把人拿出去，「什么时候、什么信号该唤醒谁」就成了必须设计的东西，原文把它统一叫事件。定时任务是对事件的搜寻，Webhook 是事件发生时主动推过来，飞书消息、邮件、系统告警，本质都一样。</p>
+<p>作者举了几个自己的常规定时任务：每天下午让 Agent 从微信群、X、小红书、抖音等平台搜一遍对产品的讨论，汇总成带评估建议的报告；每周操控浏览器去各家 AI 平台问一遍 GEO 问题；项目开源后，每天傍晚扫一次 GitHub 上的建议和合并请求。但轮询天生不及时，线上突然报错、同事刚提完意见，就得靠 Webhook 一发生就把 Agent 叫醒。</p>
+<p>真正让我停下来的，是他为这些事件建的那个很小的中台。所有事件先统一成一条短消息，只写清从哪来、什么类型、对象是谁、一句话摘要、回到原处的链接；路由规则集中写在一个规则文件里。示意一下这个思路：</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#24292E">{</span></span>
+<span class="line"><span style="color:#005CC5">  "event"</span><span style="color:#24292E">: </span><span style="color:#032F62">"feedback.new"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">  "agent"</span><span style="color:#24292E">: </span><span style="color:#032F62">"claude-code"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">  "skill"</span><span style="color:#24292E">: </span><span style="color:#032F62">"hub-feedback"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">  "concurrency"</span><span style="color:#24292E">: </span><span style="color:#032F62">"同一条意见只跑一轮"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">  "notify"</span><span style="color:#24292E">: </span><span style="color:#032F62">"只在需要人决策时通知"</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<p>这不是原文代码，只是我按他的描述还原的结构。它的价值在于两个判断：接第十种事件源时，不用再写第十套脚本，只加一条规则；明天想把这类事换给另一个模型，也只改一行字。</p>
+<p>还有个细节我很喜欢。中台在公网，Agent 跑在家里和办公室的内网 Mac 上，推不进去。于是他反过来做：每台 Mac 上挂一个接单程序，一直连在中台等活，一次最长等 50 秒，有活立刻接走，没活再挂上去。机器不必暴露到公网，速度又接近实时。这种「不跟约束硬碰、绕一下就通」的处理，比堆功能漂亮得多。</p>
+<p>中台顺手解决了三件我特别在意的事：<strong>去重</strong>，避免网络重发或同一条意见连着补图，把一件事派给几个 Agent 同时改；<strong>单出口</strong>，不管哪个 Agent 找人，都只走同一个飞书助手，且规则写明只在必须判断时才说；<strong>留痕</strong>，每件事从哪来、交给谁、结论是什么、后来怎么解决都存着，还能跳回当时 Agent 干活的会话。攒久了，换模型、改规则才有依据，而不是凭感觉。</p>
+<h2 id="让-agent-写的代码不能由-agent-自己上线">让 Agent 写的代码，不能由 Agent 自己上线</h2>
+<p>这一段对不写代码的读者，我先补一句：CI 指的是代码写完以后，自动审查、测试、上线的那套流水线。</p>
+<p>作者单独把 CI 做成一个中台，理由很实在——量太大。他自述单个项目一个月合入近一千个合并请求，平均一天二三十个，每个还要来回跑几遍检查，继续用平台自带的额度，每月超额费用要 50 美元以上。于是用家里一台闲置的 Mac mini 自建，机器现成，跑得还更快。</p>
+<p>流程被切成五步：审查、检查、合并、发布、核实。<strong>最值得说的是边界：Agent 的活干到提交代码、开一个合并请求就结束，它自己不能上线。</strong></p>
+<p>审查这一步尤其见功力。代码由 Claude 写，但每个合并请求合入前都要过一遍另一个模型的交叉审查，规矩定得很死：只读，不能改，连不了网，读不到任何密钥；只报真会出错的问题，不报代码风格；最多审三轮，避免两个模型互相挑刺到天荒地老。作者自述最近两周四个项目审了 298 个合并请求，报出 333 条问题，其中 306 条在合并前被修掉，51 条属于最严重的一档；一次审查中位耗时两分多钟。</p>
+<p>检查则强调隔离：每个任务开一台全新虚拟机，跑完连机器带身份一起删掉，Agent 写的代码从不直接跑在作者本机上。合并规则写死在 GitHub 上，没审过、没检查过的代码，任何工具都合不进主干。发布完成后还要再去线上问一遍，当前版本是否真的包含了这次改动，确认了才把结果写回去。</p>
+<p>我的判断是：<strong>这里最值得抄的不是两三分钟上线的速度，而是把不能妥协的规则写在了系统里，而不是写在提示词里。</strong> 提示词会被模型忽略，规则不会。承认模型会犯错，再用一道只读的、有次数上限的审查去兜底，这比任何「AI 全自动开发」的口号都更接近工程。</p>
+<h2 id="一张卡片和一份不该问第二遍的清单">一张卡片，和一份不该问第二遍的清单</h2>
+<p>能自动解决的都自动解决，最后推到人面前的，只剩需要拍板的事。作者把它叫「批奏折」，也借了明代票拟与批红的比喻：内阁把处理意见写在小票上贴好，皇帝看一眼同意，用红笔批下去。飞书里那张决定卡片，就是 Agent 写好的票拟，人只点一下，等审批的 Agent 接着往下干。</p>
+<p>但原文自己也承认踩过坑：曾经一天推几十条，反而把注意力吃光。所以最关键的从来不是卡片做得好不好看，而是<strong>到底什么事情配推到我面前</strong>。现在必须先问人的只剩几类：</p>
+<ul>
+<li>删数据、停服、花钱</li>
+<li>对外发消息、改产品方向</li>
+<li>新建或轮换密钥、修改权限</li>
+</ul>
+<p>其余一律由 Agent 全权做完上线。还有一条我很喜欢的规矩：定过的事，不问第二遍。仓库里放着两份文件，一份只记本人亲口做过的决定，带原话和日期；另一份记被拒绝过的方向，以后再碰到直接照着回答。</p>
+<p>唯一没有交出去的是用户反馈：每条亲自看，有价值的亲自发给 Agent 去执行，解决完再给对方回一封真诚的信。作者说这是「最后的一种仪式感」。我倒觉得这是全文最清醒的一处——<strong>自动化不是把人删掉，而是把人放到真正需要人的位置上</strong>。前面所有架构，说到底都是为了把「什么值得占用我」这个问题的答案，收窄到一张卡片上。</p>
+<h2 id="我打算拿走什么以及我的保留意见">我打算拿走什么，以及我的保留意见</h2>
+<p>如果照着改自己的工作流，我不会一上来就搭中台，会先做三件不花钱的事：</p>
+<ol>
+<li>把所有「必须由我打开窗口才会开始」的任务列出来，挑出其中能改成事件触发的。</li>
+<li>写一份审批白名单和一份决策档案。这两样不需要任何基础设施，但能立刻减少重复决策和反复请示。</li>
+<li>给每个重复任务配一份 Skill，也就是给 Agent 用的标准作业说明，以后改行为只改这一个文件。</li>
+</ol>
+<p>保留意见也得说清楚。第一，文中的模型版本、配置和效果数据都是作者自述，我没有独立验证，不宜当成行业基准。第二，这套系统对个人是有门槛的：两台常开的本地机器、多份模型订阅、能把规则写死在 CI 上的工程能力；对多数人而言，先做「统一事件格式、审批白名单、决策档案」这三件更现实。第三，也是我读完最强烈的一点感受——把人从起点挪到末端，并不意味着人可以不再理解这套系统。恰恰相反，事件怎么定义、什么必须上升、哪条规则不能妥协，全都要由人来定。<strong>自动化程度越高，这些判断越值钱。</strong></p>
+<p>原文结尾写，愿我们永远对世界保持好奇。我想补一句：也愿我们在把事情交出去之前，先想清楚哪一件必须留给自己。</p></div> <div class="cta-card"> <div class="ct">配套资料 · 免费领取</div> <div class="cd">本文属于「AGENT」资料包范围：个人 Agent 落地清单 + 8 条改造清单。适合想搭一套自己的 Agent 系统的读者。</div> <div class="cd">在公众号「方家小白」回复关键词 <span class="kw">AGENT</span> 即可领取。全文无需关注即可阅读。</div> <span class="ckw">AGENT</span> </div> <div class="copyright-block"> <strong>版权与引用</strong>：本文由 方家小白 原创，首发于 <a href="/2026/11/08/agent-human-in-the-loop/">https://fangjiaxiaobai.github.io/2026/11/08/agent-human-in-the-loop/</a>。
+        采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a> 许可：允许非商业性转载与引用，须保留作者署名与原文链接，禁止全文复制用于商业用途或模型训练语料。
+<br>内容指纹：<code>5286fb9284b37f8e</code>（用于溯源与侵权举证）。
+</div> </article></main> <aside class="sidebar"><div class="side-card"> <h3>公众号 · 方家小白</h3> <img class="qr" src="/images/qrcode.jpg" alt="公众号「方家小白」二维码" loading="lazy"> <p class="hint">全文永久免费。回复关键词 <span class="kw">INDEX</span> 领取全站资料包索引。</p> <p class="hint">网站发完整结构化版，公众号发导读、判断与配套资料。</p> </div> <div class="side-card"> <h3>内容栏目</h3> <ul> <li><a href="/columns/ai-agent/">AI Agent 实践</a></li><li><a href="/columns/backend/">后端与中间件</a></li><li><a href="/columns/java/">Java 与 JVM</a></li><li><a href="/columns/algorithm/">算法与数据结构</a></li><li><a href="/columns/engineering/">工程效率与工具</a></li> <li><a href="/archives/">随笔与归档</a></li> </ul> </div> <div class="side-card"> <h3>增值资料包</h3> <p class="hint">按栏目回复关键词领取配套清单、合订版与模板包：</p> <p class="hint"><span class="kw">AGENT</span> <span class="kw">RULE</span> <span class="kw">BACKEND</span> <span class="kw">JAVA</span> <span class="kw">ALGO</span> <span class="kw">TOOLS</span> <span class="kw">INDEX</span></p> <p class="hint">关键词同时用于来源归因，便于判断哪类内容真正带来关注。</p> </div></aside> </div> <footer class="site-footer"> <div class="fin"> <span>© 2026 方家小白</span> <span>内容许可：<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a>（转载须署名并附原文链接，禁止商业使用）</span> <span>公众号「方家小白」</span> <span><a href="/robots.txt">robots.txt</a> · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/llms.txt">llms.txt</a> · <a href="/rss.xml">RSS</a></span> </div> </footer> </body></html>

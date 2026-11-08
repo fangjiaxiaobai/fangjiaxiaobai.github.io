@@ -1,709 +1,92 @@
-
-
-
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#FFF"> 
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-<link rel="alternate" type="application/rss+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/rss.xml" />
-<link rel="alternate" type="application/atom+xml" title="方家小白" href="https://fangjiaxiaobai.github.io/atom.xml" />
-<link rel="alternate" type="application/json" title="方家小白" href="https://fangjiaxiaobai.github.io/feed.json" />
-
-<link rel="stylesheet" href="//fonts.loli.net/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-
-<link rel="stylesheet" href="/css/app.css?v=0.2.5">
-
-  
-  <meta name="keywords" content="Elastic Search,搜索" />
-
-
-<link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/">
-
-
-
-  <title>
-ES 栈安装 - 搜索之 Es |
-方家小白 = 和你一起遇见更好的自己</title>
-<meta name="generator" content="Hexo 5.4.0"></head>
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div id="loading">
-    <div class="cat">
-      <div class="body"></div>
-      <div class="head">
-        <div class="face"></div>
-      </div>
-      <div class="foot">
-        <div class="tummy-end"></div>
-        <div class="bottom"></div>
-        <div class="legs left"></div>
-        <div class="legs right"></div>
-      </div>
-      <div class="paw">
-        <div class="hands left"></div>
-        <div class="hands right"></div>
-      </div>
-    </div>
-  </div>
-  <div id="container">
-    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="inner">
-        <div id="brand">
-          <div class="pjax">
-          
-  <h1 itemprop="name headline">ES 栈安装
-  </h1>
-  
-<div class="meta">
-  <span class="item" title="创建时间：2021-08-31 15:20:55">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2021-08-31T15:20:55+08:00">2021-08-31</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span class="text">本文字数</span>
-    <span>3k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span class="text">阅读时长</span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-
-          </div>
-        </div>
-        <nav id="nav">
-  <div class="inner">
-    <div class="toggle">
-      <div class="lines" aria-label="切换导航栏">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-      </div>
-    </div>
-    <ul class="menu">
-      <li class="item title"><a href="/" rel="start">方家小白</a></li>
-    </ul>
-    <ul class="right">
-      <li class="item theme">
-        <i class="ic i-sun"></i>
-      </li>
-      <li class="item search">
-        <i class="ic i-search"></i>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-      </div>
-      <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
-        </ul>
-      </div>
-    </header>
-    <div id="waves">
-      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" />
-          <use xlink:href="#gentle-wave" x="48" y="3" />
-          <use xlink:href="#gentle-wave" x="48" y="5" />
-          <use xlink:href="#gentle-wave" x="48" y="7" />
-        </g>
-      </svg>
-    </div>
-    <main>
-      <div class="inner">
-        <div id="main" class="pjax">
-          
-  <div class="article wrap">
-    
-<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-<i class="ic i-home"></i>
-<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
-<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%90%9C%E7%B4%A2%E4%B9%8BEs/" itemprop="item" rel="index" title="分类于 搜索之 Es"><span itemprop="name">搜索之 Es</span></a>
-<meta itemprop="position" content="1" /></span>
-</div>
-
-    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/">
-
-  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="image" content="/images/avatar.jpg">
-    <meta itemprop="name" content="方小白">
-    <meta itemprop="description" content="和你一起遇见更好的自己, 和你一起遇见更好的自己">
-  </span>
-
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="方家小白">
-  </span>
-
-  <div class="body md" itemprop="articleBody">
-    
-
-    <div id="fxb_container" class="fxb_container_style">
-      <h2 id="安装-elasticsearch-7101"><a class="markdownIt-Anchor" href="#安装-elasticsearch-7101">#</a> 安装 ElasticSearch 7.10.1</h2>
-<h3 id="下载安装包"><a class="markdownIt-Anchor" href="#下载安装包">#</a> 下载安装包</h3>
-<p>我们在 <code>es</code>  的<span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS83LjEwL2dldHRpbmctc3RhcnRlZC1pbnN0YWxsLmh0bWw=">官网</span>上可以找到 ES 软件的下载地址，我放到下面:</p>
-<p><code>LINUX</code> : <span class="exturl" data-url="aHR0cHM6Ly9hcnRpZmFjdHMuZWxhc3RpYy5jby9kb3dubG9hZHMvZWxhc3RpY3NlYXJjaC9lbGFzdGljc2VhcmNoLTcuMTAuMS1saW51eC14ODZfNjQudGFyLmd6">elasticsearch-7.10.1-linux-x86_64.tar.gz</span><br>
- <code>MACOS</code> : <span class="exturl" data-url="aHR0cHM6Ly9hcnRpZmFjdHMuZWxhc3RpYy5jby9kb3dubG9hZHMvZWxhc3RpY3NlYXJjaC9lbGFzdGljc2VhcmNoLTcuMTAuMS1kYXJ3aW4teDg2XzY0LnRhci5neg==">elasticsearch-7.10.1-darwin-x86_64.tar.gz</span><br>
- <code>Windows</code> : <span class="exturl" data-url="aHR0cHM6Ly9hcnRpZmFjdHMuZWxhc3RpYy5jby9kb3dubG9hZHMvZWxhc3RpY3NlYXJjaC9lbGFzdGljc2VhcmNoLTcuMTAuMS13aW5kb3dzLXg4Nl82NC56aXA=">elasticsearch-7.10.1-windows-x86_64.zip</span></p>
-<p><code>ps</code> : 我试了下好像需要 科学上网 。 你可以可以通过公众号中 回复  <code>es-系统名称</code>  就可以获取到对应的下载连接了。下拉到底哦～</p>
-<h3 id="解压安装包"><a class="markdownIt-Anchor" href="#解压安装包">#</a> 解压安装包</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Linux:</span></span></span><br><span class="line">tar -xvf elasticsearch-7.10.1-linux-x86_64.tar.gz</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># macOS:</span></span></span><br><span class="line">tar -xvf elasticsearch-7.10.1-darwin-x86_64.tar.gz</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Windows PowerShell:</span></span></span><br><span class="line">Expand-Archive elasticsearch-7.10.1-windows-x86_64.zip</span><br></pre></td></tr></table></figure>
-<h3 id="启动-elasticsearch"><a class="markdownIt-Anchor" href="#启动-elasticsearch">#</a> 启动  <code>ElasticSearch</code></h3>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Linux and macOS:</span></span><br><span class="line"><span class="built_in">cd</span> elasticsearch-7.10.1/bin</span><br><span class="line">./elasticsearch</span><br><span class="line"></span><br><span class="line"><span class="comment">## Windows:</span></span><br><span class="line"><span class="built_in">cd</span> elasticsearch-7.10.1\bin</span><br><span class="line">.\elasticsearch.bat</span><br></pre></td></tr></table></figure>
-<p>这样就启动了单实例的 <code>ElasticSearch</code>  了。默认端口是 9200。</p>
-<p>我们可以在浏览器上访问 :  <code>http://localhost:9200</code>  查看  <code>ES</code>  情况。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">name: <span class="string">&quot;bjhldeMacBook-Pro.local&quot;</span>,</span><br><span class="line">cluster_name: <span class="string">&quot;elasticsearch&quot;</span>,</span><br><span class="line">cluster_uuid: <span class="string">&quot;nAay2-T3STS8BVc3-OkOaw&quot;</span>,</span><br><span class="line">version: &#123;</span><br><span class="line">number: <span class="string">&quot;7.10.1&quot;</span>,</span><br><span class="line">build_flavor: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">build_type: <span class="string">&quot;tar&quot;</span>,</span><br><span class="line">build_hash: <span class="string">&quot;1c34507e66d7db1211f66f3513706fdf548736aa&quot;</span>,</span><br><span class="line">build_date: <span class="string">&quot;2020-12-05T01:00:33.671820Z&quot;</span>,</span><br><span class="line">build_snapshot: <span class="literal">false</span>,</span><br><span class="line">lucene_version: <span class="string">&quot;8.7.0&quot;</span>,</span><br><span class="line">minimum_wire_compatibility_version: <span class="string">&quot;6.8.0&quot;</span>,</span><br><span class="line">minimum_index_compatibility_version: <span class="string">&quot;6.0.0-beta1&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line">tagline: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以通过  <code>http://localhost:9200/_cat/health?v</code>  查看集群运行情况。</p>
-<p>如果想启动多个 <code>ElasticSearch</code>  实例，搭建起 ES 集群，就需要每个实例指定单独的数据文件地址和日志文件地址。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Linux and macOS:</span></span><br><span class="line">./elasticsearch -Epath.data=data2 -Epath.logs=log2</span><br><span class="line">./elasticsearch -Epath.data=data3 -Epath.logs=log3</span><br><span class="line"></span><br><span class="line"><span class="comment">## Windows:</span></span><br><span class="line">.\elasticsearch.bat -E path.data=data2 -E path.logs=log2</span><br><span class="line">.\elasticsearch.bat -E path.data=data3 -E path.logs=log3</span><br></pre></td></tr></table></figure>
-<h2 id="安装-kibana"><a class="markdownIt-Anchor" href="#安装-kibana">#</a> 安装  <code>Kibana</code></h2>
-<p><code>Kibana</code>  是一个开源的分析和可视化平台。使用 <code>Kibana</code>  来探索你的 <code>Elasticsearch</code>  数据，然后建立漂亮的可视化和仪表板。<br>
- <code>Kibana</code>  具有管理弹性栈的 UI。管理您的安全设置，分配用户角色，拍摄快照，卷起您的数据，以及更多，都从一个 <code>Kibana UI</code>  的便利。<br>
- <code>Elastic</code>  栈解决方案的集中式中心。从日志分析到文档发现.</p>
-<h3 id="mac-or-linux"><a class="markdownIt-Anchor" href="#mac-or-linux">#</a>  <code>Mac or linux</code></h3>
-<h4 id="下载-kibana-安装包"><a class="markdownIt-Anchor" href="#下载-kibana-安装包">#</a> 下载  <code>kibana</code>  安装包</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-darwin-x86_64.tar.gz</span><br><span class="line">curl https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-darwin-x86_64.tar.gz.sha512 | shasum -a 512 -c - </span><br><span class="line">tar -xzf kibana-7.10.1-darwin-x86_64.tar.gz</span><br><span class="line"><span class="built_in">cd</span> kibana-7.10.1-darwin-x86_64/ </span><br></pre></td></tr></table></figure>
-<h4 id="启动-kibana"><a class="markdownIt-Anchor" href="#启动-kibana">#</a> 启动  <code>kibana</code></h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/kibana</span><br></pre></td></tr></table></figure>
-<h3 id="windows"><a class="markdownIt-Anchor" href="#windows">#</a>  <code>Windows</code></h3>
-<h4 id="下载"><a class="markdownIt-Anchor" href="#下载">#</a> 下载</h4>
-<p>点击链接 <span class="exturl" data-url="aHR0cHM6Ly9hcnRpZmFjdHMuZWxhc3RpYy5jby9kb3dubG9hZHMva2liYW5hL2tpYmFuYS03LjEwLjEtd2luZG93cy14ODZfNjQuemlw">https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-windows-x86_64.zip</span>  下载 kibana 后，解压文件。</p>
-<h4 id="启动"><a class="markdownIt-Anchor" href="#启动">#</a> 启动</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\kibana.bat</span><br></pre></td></tr></table></figure>
-<h3 id="验证"><a class="markdownIt-Anchor" href="#验证">#</a> 验证</h3>
-<p>访问  <code>localhost:5601</code>  页面，就可以访问 kibana 的页面了.</p>
-<p><img data-src="/images/es-series/WX20210108-190528.png" alt="WX20210108-190528.png"></p>
-<p>我们接下来的学习，主要是依赖 kibana 的 devTool 功能。因为 devTools 给我们提供建非常方便的 Rest API 调用方式。</p>
-<p><img data-src="/images/es-series/kibana-devTool.png" alt="kibana-devTool"></p>
-<h2 id="安装-logstash"><a class="markdownIt-Anchor" href="#安装-logstash">#</a> 安装  <code>logstash</code></h2>
-<p><code>Logstash</code>  是一个具有实时管道功能的开源数据收集引擎。 <code>Logstash</code>  可以动态地统一来自不同数据源的数据，并将数据规范化到您选择的目的地。为各种高级下游分析和可视化用例清理和民主化所有数据。虽然 <code>Logstash</code>  最初推动了日志收集方面的创新，但它的功能远远超出了这个用例。任何类型的事件都可以通过大量的输入、过滤和输出插件来丰富和转换，并且使用许多本地编解码器进一步简化了吸收过程。</p>
-<h3 id="下载-2"><a class="markdownIt-Anchor" href="#下载-2">#</a> 下载</h3>
-<p>可以在  <code>https://www.elastic.co/cn/downloads/logstash</code>  页面上下载所需的 安装包。进行解压。</p>
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ES栈安装 · 方家小白</title><meta name="description" content="安装 ElasticSearch 7.10.1 下载安装包 我们在 es 的官网上可以找到ES软件的下载地址，我放到下面: LINUX : elasticsearch-7.10.1-linux-x86 64.tar.gz MACOS : elasticsearch-7.10.1-darwin-x86"><meta name="author" content="方家小白"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large"><link rel="canonical" href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/"><meta property="og:type" content="article"><meta property="og:site_name" content="方家小白"><meta property="og:title" content="ES栈安装 · 方家小白"><meta property="og:description" content="安装 ElasticSearch 7.10.1 下载安装包 我们在 es 的官网上可以找到ES软件的下载地址，我放到下面: LINUX : elasticsearch-7.10.1-linux-x86 64.tar.gz MACOS : elasticsearch-7.10.1-darwin-x86"><meta property="og:url" content="https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/"><meta name="twitter:card" content="summary"><link rel="alternate" type="application/rss+xml" title="方家小白 RSS" href="/rss.xml"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ES栈安装","description":"安装 ElasticSearch 7.10.1 下载安装包 我们在 es 的官网上可以找到ES软件的下载地址，我放到下面: LINUX : elasticsearch-7.10.1-linux-x86 64.tar.gz MACOS : elasticsearch-7.10.1-darwin-x86","datePublished":"2021-08-31","dateModified":"2021-08-31","author":{"@type":"Person","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"publisher":{"@type":"Organization","name":"方家小白","url":"https://fangjiaxiaobai.github.io"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/"},"url":"https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/","inLanguage":"zh-CN","license":"https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans","keywords":"Elastic Search, 搜索","articleSection":"后端与中间件"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://fangjiaxiaobai.github.io/"},{"@type":"ListItem","position":2,"name":"后端与中间件","item":"https://fangjiaxiaobai.github.io/columns/backend/"},{"@type":"ListItem","position":3,"name":"ES栈安装","item":"https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/"}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.BjKnYllI.css"></head> <body> <header class="site-header"> <div class="inner"> <div class="brand"> <a class="logo" href="/">方家小白</a> <span class="tagline">和你一起遇见更好的自己</span> </div> <nav class="site-nav" aria-label="主导航"> <a href="/" class>首页</a><a href="/columns/ai-agent/" class>AI Agent 实践</a><a href="/columns/backend/" class>后端与中间件</a><a href="/columns/java/" class>Java 与 JVM</a><a href="/columns/algorithm/" class>算法与数据结构</a><a href="/columns/engineering/" class>工程效率与工具</a><a href="/series/" class>系列</a><a href="/archives/" class>归档</a><a href="/about/" class>关于</a> </nav> </div> </header> <div class="wrap"> <main class="content"><article> <div class="eyebrow">后端与中间件 · 教程</div> <h1>ES栈安装</h1> <div class="post-meta"> <span>发布于 2021-08-31</span> <span>系列：ElasticSearch 系列</span> <span>标签：Elastic Search / 搜索</span> <span class="tag">归档</span> </div> <div class="note">本文写于 2021 年，涉及的组件版本、配置与数据可能已过时，请按经验材料阅读并核对当前版本。原文链接与内容保持不变。</div> <nav class="toc-box" aria-label="本文目录"> <div class="tt">本文目录</div> <ul> <li style><a href="#安装-elasticsearch-7101">安装 ElasticSearch 7.10.1</a></li><li style="margin-left:14px"><a href="#下载安装包">下载安装包</a></li><li style="margin-left:14px"><a href="#解压安装包">解压安装包</a></li><li style="margin-left:14px"><a href="#启动-elasticsearch">启动 ElasticSearch</a></li><li style><a href="#安装-kibana">安装 Kibana</a></li><li style="margin-left:14px"><a href="#mac-or-linux">Mac or linux</a></li><li style="margin-left:14px"><a href="#windows">Windows</a></li><li style="margin-left:14px"><a href="#验证">验证</a></li><li style><a href="#安装-logstash">安装 logstash</a></li><li style="margin-left:14px"><a href="#下载-1">下载</a></li><li style><a href="#beats">Beats</a></li><li style><a href="#其他">其他</a></li><li style><a href="#最后">最后</a></li> </ul> </nav> <div class="post-body"><h2 id="安装-elasticsearch-7101">安装 ElasticSearch 7.10.1</h2>
+<h3 id="下载安装包">下载安装包</h3>
+<p>我们在<code>es</code>的<a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.10/getting-started-install.html">官网</a>上可以找到ES软件的下载地址，我放到下面:</p>
+<p><code>LINUX</code>: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.1-linux-x86_64.tar.gz">elasticsearch-7.10.1-linux-x86_64.tar.gz</a>
+<code>MACOS</code>: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.1-darwin-x86_64.tar.gz">elasticsearch-7.10.1-darwin-x86_64.tar.gz</a>
+<code>Windows</code>: <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.1-windows-x86_64.zip">elasticsearch-7.10.1-windows-x86_64.zip</a></p>
+<p><code>ps</code>: 我试了下好像需要 科学上网 。 你可以可以通过公众号中 回复 <code>es-系统名称</code> 就可以获取到对应的下载连接了。下拉到底哦~</p>
+<h3 id="解压安装包">解压安装包</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="shell"><code><span class="line"><span style="color:#6A737D">## Linux:</span></span>
+<span class="line"><span style="color:#6F42C1">tar</span><span style="color:#005CC5"> -xvf</span><span style="color:#032F62"> elasticsearch-7.10.1-linux-x86_64.tar.gz</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## macOS:</span></span>
+<span class="line"><span style="color:#6F42C1">tar</span><span style="color:#005CC5"> -xvf</span><span style="color:#032F62"> elasticsearch-7.10.1-darwin-x86_64.tar.gz</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## Windows PowerShell:</span></span>
+<span class="line"><span style="color:#6F42C1">Expand-Archive</span><span style="color:#032F62"> elasticsearch-7.10.1-windows-x86_64.zip</span></span></code></pre>
+<h3 id="启动-elasticsearch">启动 <code>ElasticSearch</code></h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D">## Linux and macOS:</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> elasticsearch-7.10.1/bin</span></span>
+<span class="line"><span style="color:#6F42C1">./elasticsearch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## Windows:</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> elasticsearch-7.10.1</span><span style="color:#005CC5">\b</span><span style="color:#032F62">in</span></span>
+<span class="line"><span style="color:#005CC5">.</span><span style="color:#24292E">\</span><span style="color:#032F62">elasticsearch.bat</span></span></code></pre>
+<p>这样就启动了单实例的<code>ElasticSearch</code>了。默认端口是 9200。</p>
+<p>我们可以在浏览器上访问 : <code>http://localhost:9200</code> 查看 <code>ES</code> 情况。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#24292E">{</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">name</span><span style="color:#24292E">: </span><span style="color:#032F62">"bjhldeMacBook-Pro.local"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">cluster_name</span><span style="color:#24292E">: </span><span style="color:#032F62">"elasticsearch"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">cluster_uuid</span><span style="color:#24292E">: </span><span style="color:#032F62">"nAay2-T3STS8BVc3-OkOaw"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">version</span><span style="color:#24292E">: {</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">number</span><span style="color:#24292E">: </span><span style="color:#032F62">"7.10.1"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">build_flavor</span><span style="color:#24292E">: </span><span style="color:#032F62">"default"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">build_type</span><span style="color:#24292E">: </span><span style="color:#032F62">"tar"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">build_hash</span><span style="color:#24292E">: </span><span style="color:#032F62">"1c34507e66d7db1211f66f3513706fdf548736aa"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">build_date</span><span style="color:#24292E">: </span><span style="color:#032F62">"2020-12-05T01:00:33.671820Z"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">build_snapshot</span><span style="color:#24292E">: </span><span style="color:#005CC5">false</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">lucene_version</span><span style="color:#24292E">: </span><span style="color:#032F62">"8.7.0"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">minimum_wire_compatibility_version</span><span style="color:#24292E">: </span><span style="color:#032F62">"6.8.0"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">minimum_index_compatibility_version</span><span style="color:#24292E">: </span><span style="color:#032F62">"6.0.0-beta1"</span></span>
+<span class="line"><span style="color:#24292E">},</span></span>
+<span class="line"><span style="color:#B31D28;font-style:italic">tagline</span><span style="color:#24292E">: </span><span style="color:#032F62">"You Know, for Search"</span></span>
+<span class="line"><span style="color:#24292E">}</span></span></code></pre>
+<p>也可以通过 <code>http://localhost:9200/_cat/health?v</code> 查看集群运行情况。</p>
+<p>如果想启动多个<code>ElasticSearch</code>实例，搭建起ES集群，就需要每个实例指定单独的数据文件地址和日志文件地址。</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6A737D">## Linux and macOS:</span></span>
+<span class="line"><span style="color:#6F42C1">./elasticsearch</span><span style="color:#005CC5"> -Epath.data=data2</span><span style="color:#005CC5"> -Epath.logs=log2</span></span>
+<span class="line"><span style="color:#6F42C1">./elasticsearch</span><span style="color:#005CC5"> -Epath.data=data3</span><span style="color:#005CC5"> -Epath.logs=log3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## Windows:</span></span>
+<span class="line"><span style="color:#005CC5">.</span><span style="color:#24292E">\</span><span style="color:#032F62">elasticsearch.bat</span><span style="color:#005CC5"> -E</span><span style="color:#032F62"> path.data=data2</span><span style="color:#005CC5"> -E</span><span style="color:#032F62"> path.logs=log2</span></span>
+<span class="line"><span style="color:#005CC5">.</span><span style="color:#24292E">\</span><span style="color:#032F62">elasticsearch.bat</span><span style="color:#005CC5"> -E</span><span style="color:#032F62"> path.data=data3</span><span style="color:#005CC5"> -E</span><span style="color:#032F62"> path.logs=log3</span></span></code></pre>
+<h2 id="安装-kibana">安装 <code>Kibana</code></h2>
+<p><code>Kibana</code>是一个开源的分析和可视化平台。使用<code>Kibana</code>来探索你的<code>Elasticsearch</code>数据，然后建立漂亮的可视化和仪表板。
+<code>Kibana</code>具有管理弹性栈的UI。管理您的安全设置，分配用户角色，拍摄快照，卷起您的数据，以及更多，都从一个<code>Kibana UI</code>的便利。
+<code>Elastic</code>栈解决方案的集中式中心。从日志分析到文档发现.</p>
+<h3 id="mac-or-linux"><code>Mac or linux</code></h3>
+<h4 id="下载-kibana-安装包">下载 <code>kibana</code> 安装包</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">curl</span><span style="color:#005CC5"> -O</span><span style="color:#032F62"> https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-darwin-x86_64.tar.gz</span></span>
+<span class="line"><span style="color:#6F42C1">curl</span><span style="color:#032F62"> https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-darwin-x86_64.tar.gz.sha512</span><span style="color:#D73A49"> |</span><span style="color:#6F42C1"> shasum</span><span style="color:#005CC5"> -a</span><span style="color:#005CC5"> 512</span><span style="color:#005CC5"> -c</span><span style="color:#032F62"> -</span><span style="color:#24292E"> </span></span>
+<span class="line"><span style="color:#6F42C1">tar</span><span style="color:#005CC5"> -xzf</span><span style="color:#032F62"> kibana-7.10.1-darwin-x86_64.tar.gz</span></span>
+<span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> kibana-7.10.1-darwin-x86_64/</span><span style="color:#24292E"> </span></span></code></pre>
+<h4 id="启动-kibana">启动 <code>kibana</code></h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#6F42C1">./bin/kibana</span></span></code></pre>
+<h3 id="windows"><code>Windows</code></h3>
+<h4 id="下载">下载</h4>
+<p>点击链接 <a href="https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-windows-x86_64.zip">https://artifacts.elastic.co/downloads/kibana/kibana-7.10.1-windows-x86_64.zip</a>  下载kibana 后，解压文件。</p>
+<h4 id="启动">启动</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#005CC5">.</span><span style="color:#24292E">\</span><span style="color:#032F62">bin</span><span style="color:#24292E">\</span><span style="color:#032F62">kibana.bat</span></span></code></pre>
+<h3 id="验证">验证</h3>
+<p>访问 <code>localhost:5601</code> 页面，就可以访问 kibana 的页面了.</p>
+<p><img src="/images/es-series/WX20210108-190528.png" alt="WX20210108-190528.png"></p>
+<p>我们接下来的学习，主要是依赖kibana的 devTool 功能。因为 devTools 给我们提供建非常方便的 Rest API 调用方式。</p>
+<p><img src="/images/es-series/kibana-devTool.png" alt="kibana-devTool"></p>
+<h2 id="安装-logstash">安装 <code>logstash</code></h2>
+<p><code>Logstash</code>是一个具有实时管道功能的开源数据收集引擎。<code>Logstash</code>可以动态地统一来自不同数据源的数据，并将数据规范化到您选择的目的地。为各种高级下游分析和可视化用例清理和民主化所有数据。虽然<code>Logstash</code>最初推动了日志收集方面的创新，但它的功能远远超出了这个用例。任何类型的事件都可以通过大量的输入、过滤和输出插件来丰富和转换，并且使用许多本地编解码器进一步简化了吸收过程。</p>
+<h3 id="下载-1">下载</h3>
+<p>可以在 <code>https://www.elastic.co/cn/downloads/logstash</code> 页面上下载所需的 安装包。进行解压。</p>
 <p>后面我们会专门介绍 logStash 的使用。 这里就不过多介绍了。</p>
-<p>至此，我们了解了著名的  <code>ELK</code>  日志收集处理套装。</p>
-<h2 id="beats"><a class="markdownIt-Anchor" href="#beats">#</a> Beats</h2>
-<p><code>Beats</code>  是您作为代理安装在服务器上的开源数据发送者，用于将运营数据发送到 <code>Elasticsearch</code> 。其提供了数据审核，日志文件，云数据，可用性，系统日志，指标，网络流量， <code>Windows</code>  事件记录等功能。 <code>Beats</code>  可以将数据直接发送到 <code>Elasticsearch</code>  或通过 <code>Logstash</code>  发送，您可以在此处进一步处理和增强数据，然后再在 <code>Kibana</code>  中进行可视化。<br>
- <code>beats</code>  为不同的功能，提供了不同的组件，可以根据自己的需求，安装特定的产品，这里不多介绍。</p>
-<h2 id="其他"><a class="markdownIt-Anchor" href="#其他">#</a> 其他</h2>
-<p>除了  <code>ElasticSearch</code> ,  <code>logStash</code> ,  <code>kibana</code> ,  <code>Beats</code>  之外， <code>Elastic</code>  还提供了其他的产品，比如： <code>APM Server</code> ,  <code>ElasticSearch Hoop</code> 。 可以根据自己的兴趣进行学习。</p>
-<p>在后面的一段时间里，我们常用到的是  <code>ElasticSearch</code>  和  <code>Kibana</code>  . 所以将这两个软件安装好就可以啦。</p>
-<h2 id="最后"><a class="markdownIt-Anchor" href="#最后">#</a> 最后</h2>
+<p>至此，我们了解了著名的 <code>ELK</code> 日志收集处理套装。</p>
+<h2 id="beats">Beats</h2>
+<p><code>Beats</code>是您作为代理安装在服务器上的开源数据发送者，用于将运营数据发送到<code>Elasticsearch</code>。其提供了数据审核,日志文件，云数据,可用性,系统日志，指标，网络流量，<code>Windows</code>事件记录等功能。<code>Beats</code>可以将数据直接发送到<code>Elasticsearch</code>或通过<code>Logstash</code>发送，您可以在此处进一步处理和增强数据，然后再在<code>Kibana</code>中进行可视化。
+<code>beats</code> 为不同的功能，提供了不同的组件，可以根据自己的需求，安装特定的产品，这里不多介绍。</p>
+<h2 id="其他">其他</h2>
+<p>除了 <code>ElasticSearch</code>, <code>logStash</code>, <code>kibana</code>, <code>Beats</code> 之外，<code>Elastic</code> 还提供了其他的产品，比如：<code>APM Server</code>, <code>ElasticSearch Hoop</code>。 可以根据自己的兴趣进行学习。</p>
+<p>在后面的一段时间里，我们常用到的是 <code>ElasticSearch</code> 和 <code>Kibana</code> .所以将这两个软件安装好就可以啦。</p>
+<h2 id="最后">最后</h2>
 <p>期望与你一起遇见更好的自己</p>
-<p><img data-src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p>
-
-      <div class="asb asb-post-01" style="display:none;">
-        <div class="mask"></div>
-        <div class="info">
-          <div>
-              扫码或搜索：<span style="color: #E9405A; font-weight: bold;">方家小白</span>
-          </div>
-          <div>
-              <span>发送 </span><span id="readmore_uniq_code" class="token" style="color: #e9415a; font-weight: bold; font-size: 17px; margin-bottom: 45px;">290992</span>
-          </div>
-          <div>
-              即可<span style="color: #e9415a; font-weight: bold;">立即永久</span>解锁本站全部文章
-          </div>
-          <div>
-            <img class="code-img" style="width: 300px;display:unset" src="https://fangjiaxiaobai.github.io/images/qrcode.jpg">
-          </div>
-      </div>
-    </div>
-      <div class="tags">
-          <a href="/tags/Elastic-Search/" rel="tag"><i class="ic i-tag"></i> Elastic Search</a>
-          <a href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag"><i class="ic i-tag"></i> 搜索</a>
-      </div>
-  </div>
-
-   <footer>
-
-    <div class="meta">
-  <span class="item">
-    <span class="icon">
-      <i class="ic i-calendar-check"></i>
-    </span>
-    <span class="text">更新于</span>
-    <time title="修改时间：2021-08-31 17:43:33" itemprop="dateModified" datetime="2021-08-31T17:43:33+08:00">2021-08-31</time>
-  </span>
-  <span id="2021/08/31/es-series/02.ES安装/" class="item leancloud_visitors" data-flag-title="ES 栈安装" title="阅读次数">
-      <span class="icon">
-        <i class="ic i-eye"></i>
-      </span>
-      <span class="text">阅读次数</span>
-      <span class="leancloud-visitors-count"></span>
-      <span class="text">次</span>
-  </span>
-</div>
-
-      
-<div class="reward">
-  <button><i class="ic i-heartbeat"></i> 支持一下</button>
-  <p>请我喝[咖啡]~(￣▽￣)~*</p>
-  <div id="qr">
-      
-      <div>
-        <img data-src="/images/wechatpay.png" alt="方小白 微信支付">
-        <p>微信支付</p>
-      </div>
-      
-      <div>
-        <img data-src="/images/alipay.png" alt="方小白 支付宝">
-        <p>支付宝</p>
-      </div>
-      <div>
-        <img data-src="/images/numberpay.jpg" alt="方小白 numberpay">
-        <p>numberpay</p>
-      </div>
-  </div>
-</div>
-
-      
-
-<div id="copyright">
-<ul>
-  <li class="author">
-    <strong>本文作者： </strong>方小白 <i class="ic i-at"><em>@</em></i>方家小白
-  </li>
-  <li class="link">
-    <strong>本文链接：</strong>
-    <a href="https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" title="ES 栈安装">https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES安装/</a>
-  </li>
-  <li class="license">
-    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-  </footer>
-
-</article>
-
-  </div>
-  
-
-<div class="post-nav">
-    <div class="item left">
-      
-
-  <a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipew8gmvyj20zk0m87wh.jpg" title="Elastic Search简介">
-  <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
-  <h3>Elastic Search简介</h3>
-  </a>
-
-    </div>
-    <div class="item right">
-      
-
-  <a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeyhsblkj20zk0m81kx.jpg" title="Elastic Search配置">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 搜索之 Es</span>
-  <h3>Elastic Search配置</h3>
-  </a>
-
-    </div>
-</div>
-
-  
-  <div class="wrap" id="comments"></div>
-
-
-        </div>
-        <div id="sidebar">
-          
-
-<div class="inner">
-
-  <div class="panels">
-    <div class="inner">
-      <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-elasticsearch-7101"><span class="toc-number">1.</span> <span class="toc-text"> 安装 ElasticSearch 7.10.1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text"> 下载安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.2.</span> <span class="toc-text"> 解压安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-elasticsearch"><span class="toc-number">1.3.</span> <span class="toc-text"> 启动  ElasticSearch</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-kibana"><span class="toc-number">2.</span> <span class="toc-text"> 安装  Kibana</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mac-or-linux"><span class="toc-number">2.1.</span> <span class="toc-text">  Mac or linux</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-kibana-%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 下载  kibana  安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-kibana"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 启动  kibana</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#windows"><span class="toc-number">2.2.</span> <span class="toc-text">  Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">2.3.</span> <span class="toc-text"> 验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-logstash"><span class="toc-number">3.</span> <span class="toc-text"> 安装  logstash</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-2"><span class="toc-number">3.1.</span> <span class="toc-text"> 下载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#beats"><span class="toc-number">4.</span> <span class="toc-text"> Beats</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">5.</span> <span class="toc-text"> 其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">6.</span> <span class="toc-text"> 最后</span></a></li></ol>
-      </div>
-      <div class="related panel pjax" data-title="系列文章">
-        <ul>
-          <li><a href="/2021/08/31/es-series/README/" rel="bookmark" title="Elastic Search 目录">Elastic Search 目录</a></li><li><a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" rel="bookmark" title="Elastic Search简介">Elastic Search简介</a></li><li class="active"><a href="/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/" rel="bookmark" title="ES栈安装">ES栈安装</a></li><li><a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" rel="bookmark" title="Elastic Search配置">Elastic Search配置</a></li><li><a href="/2021/08/31/es-series/04.ES%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="bookmark" title="Elastic Search基本概念">Elastic Search基本概念</a></li>
-        </ul>
-      </div>
-      <div class="overview panel" data-title="站点概览">
-        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="image" itemprop="image" alt="方小白"
-      data-src="/images/avatar.jpg">
-  <p class="name" itemprop="name">方小白</p>
-  <div class="description" itemprop="description">和你一起遇见更好的自己</div>
-</div>
-
-<nav class="state">
-    <div class="item posts">
-      <a href="/archives/">
-        <span class="count">126</span>
-        <span class="name">文章</span>
-      </a>
-    </div>
-    <div class="item categories">
-      <a href="/categories/">
-        <span class="count">26</span>
-        <span class="name">分类</span>
-      </a>
-    </div>
-    <div class="item tags">
-      <a href="/tags/">
-        <span class="count">75</span>
-        <span class="name">标签</span>
-      </a>
-    </div>
-</nav>
-
-<div class="social">
-      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ZhbmdqaWF4aWFvYmFp" title="https:&#x2F;&#x2F;github.com&#x2F;fangjiaxiaobai"><i class="ic i-github"></i></span>
-      <span class="exturl item twitter" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;twitter.com&#x2F;fangjiaxiaobai"><i class="ic i-twitter"></i></span>
-      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9mYW5namlheGlhb2JhaQ==" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;fangjiaxiaobai"><i class="ic i-zhihu"></i></span>
-      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTc3NDY2OTM3" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;77466937"><i class="ic i-cloud-music"></i></span>
-      <span class="exturl item email" data-url="bWFpbHRvOmZhbmdqaWF4aWFvYmFpQDE2My5jb20=" title="mailto:fangjiaxiaobai@163.com"><i class="ic i-envelope"></i></span>
-</div>
-
-<ul class="menu">
-  
-    
-  <li class="item">
-    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
-  </li>
-
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
-  </li>
-
-  </ul>
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-magic"></i>系列</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/series/onedayday" rel="section"><i class="ic i-stars"></i>日拱一卒系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/leetcode" rel="section"><i class="ic i-music"></i>LeetCode系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/MySQL" rel="section"><i class="ic i-sakura"></i>MySQL系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/Redis" rel="section"><i class="ic i-snapchat-ghost"></i>Redis系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/Netty" rel="section"><i class="ic i-clipboard"></i>Netty系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/java" rel="section"><i class="ic i-coffee"></i>Java系列</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/series/git" rel="section"><i class="ic i-link-alt"></i>Git系列</a>
-  </li>
-
-  </ul>
-    
-  <li class="item">
-    <a href="/links" rel="section"><i class="ic i-magic"></i>链接</a>
-  </li>
-
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-chart-area"></i>推广</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/promotions/geekbang" rel="section"><i class="ic i-envelope"></i>极客时间</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/promotions/vpn" rel="section"><i class="ic i-thumbtack"></i>科学上网</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/promotions/common" rel="section"><i class="ic i-times"></i>书籍资料</a>
-  </li>
-
-  </ul>
-        
-  <li class="item dropdown">
-      <a href="javascript:void(0);"><i class="ic i-user"></i>关于</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/about/me" rel="section"><i class="ic i-user"></i>关于我</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/about/love" rel="section"><i class="ic i-heart"></i>关于她</a>
-  </li>
-
-  </ul>
-
-</ul>
-
-      </div>
-    </div>
-  </div>
-
-  <ul id="quick">
-    <li class="prev pjax">
-        <a href="/2021/08/31/es-series/01.ES%E7%AE%80%E4%BB%8B/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
-    </li>
-    <li class="up"><i class="ic i-arrow-up"></i></li>
-    <li class="down"><i class="ic i-arrow-down"></i></li>
-    <li class="next pjax">
-        <a href="/2021/08/31/es-series/03.ES%E9%85%8D%E7%BD%AE/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
-    </li>
-    <li class="percent"></li>
-  </ul>
-</div>
-
-
-        </div>
-        <div class="dimmer"></div>
-      </div>
-    </main>
-    <footer id="footer">
-      <div class="inner">
-        <div class="widgets">
-          
-<div class="rpost pjax">
-  <h2>随机文章</h2>
-  <ul>
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="分类于 数据结构与算法">数据结构与算法</a>
-</div>
-
-    <span><a href="/2021/09/01/dataStructuresAndAlgorithms/sort/%E7%AE%97%E6%B3%9503-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" title="归并排序">归并排序</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2022/01/02/rocketMQ/3-01-RocketMQ-Transaction-msg/" title="RocketMQ事务实现原理">RocketMQ事务实现原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/RocketMQ%E7%B3%BB%E5%88%97/" title="分类于 RocketMQ 系列">RocketMQ 系列</a>
-</div>
-
-    <span><a href="/2021/09/23/rocketMQ/1-04-03.%E5%BB%B6%E6%97%B6%E6%B6%88%E6%81%AF/" title="RocketMQ样例:延时消息">RocketMQ样例:延时消息</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/picture/" title="分类于 picture">picture</a>
-</div>
-
-    <span><a href="/2021/07/23/pictures/pic20220127-super/" title="图片二-8K">图片二-8K</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/18/BQ/hdoj/HD-1005/" title="1005 Number Sequence">1005 Number Sequence</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/Redis%E6%95%B0%E6%8D%AE%E5%BA%93/" title="分类于 Redis 数据库">Redis 数据库</a>
-</div>
-
-    <span><a href="/2021/08/01/Redis%E7%B3%BB%E5%88%97/02-Redis%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93/" title="Redis 多个数据库">Redis 多个数据库</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/go%E7%B3%BB%E5%88%97/" title="分类于 go 系列">go 系列</a>
-</div>
-
-    <span><a href="/2022/03/12/go/goroutine_runtime/" title="Go 运行时">Go 运行时</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/MachineLearn/" title="分类于 MachineLearn">MachineLearn</a>
-</div>
-
-    <span><a href="/2021/11/17/machine-learn/Model-evaluation/01-overview/" title="模型评估概述">模型评估概述</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%AD%E7%94%B5Oj/" title="分类于 杭电 Oj">杭电 Oj</a>
-</div>
-
-    <span><a href="/2021/10/13/BQ/hdoj/HD-1000/" title="1000 A + B Problem">1000 A + B Problem</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/LeetCode%E7%B3%BB%E5%88%97/" title="分类于 LeetCode 系列">LeetCode 系列</a>
-</div>
-
-    <span><a href="/2021/11/02/BQ/LeetCode/0237-delete-node-in-a-linked-list/" title="LC:237.删除链表中的节点">LC:237.删除链表中的节点</a></span>
-  </li>
-
-  </ul>
-</div>
-<div>
-  <h2>最新评论</h2>
-  <ul class="leancloud-recent-comment"></ul>
-</div>
-
-        </div>
-        <div class="status">
-  <div class="copyright">
-    
-    &copy; 2021 – 
-    <span itemprop="copyrightYear">2024</span>
-    <span class="with-love">
-      <i class="ic i-sakura rotate"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">方小白 @ 方家小白</span>
-  </div>
-  <div class="count">
-    <span class="post-meta-item-icon">
-      <i class="ic i-chart-area"></i>
-    </span>
-    <span title="站点总字数">526k 字</span>
-
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="ic i-coffee"></i>
-    </span>
-    <span title="站点阅读时长">7:58</span>
-  </div>
-  <div class="powered-by">
-    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
-  </div>
-</div>
-
-      </div>
-    </footer>
-  </div>
-<script data-config type="text/javascript">
-  var LOCAL = {
-    path: '2021/08/31/es-series/02.ES安装/',
-    favicon: {
-      show: "方家小白",
-      hide: "方家小白"
-    },
-    search : {
-      placeholder: "文章搜索",
-      empty: "关于 「 ${query} 」，什么也没搜到",
-      stats: "${time} ms 内找到 ${hits} 条结果"
-    },
-    valine: true,fancybox: true,copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
-    ignores : [
-      function(uri) {
-        return uri.includes('#');
-      },
-      function(uri) {
-        return new RegExp(LOCAL.path+"$").test(uri);
-      }
-    ]
-  };
-</script>
-
-<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
-
-<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
-
-<script src="/js/app.js?v=0.2.5"></script>
-
-
-
-
-</body>
-</html>
+<p><img src="/images/qrcode.jpg" alt="期望与你一起遇见更好的自己"></p></div> <div class="cta-card"> <div class="ct">配套资料 · 免费领取</div> <div class="cd">本文属于「BACKEND」资料包范围：中间件源码阅读路线图。按 RocketMQ / Redis / MySQL 分章节的完整路线。</div> <div class="cd">在公众号「方家小白」回复关键词 <span class="kw">BACKEND</span> 即可领取。全文无需关注即可阅读。</div> <span class="ckw">BACKEND</span> </div> <div class="copyright-block"> <strong>版权与引用</strong>：本文由 方家小白 原创，首发于 <a href="/2021/08/31/es-series/02.ES安装/">https://fangjiaxiaobai.github.io/2021/08/31/es-series/02.ES%E5%AE%89%E8%A3%85/</a>。
+        采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a> 许可：允许非商业性转载与引用，须保留作者署名与原文链接，禁止全文复制用于商业用途或模型训练语料。
+<br>内容指纹：<code>4ec46de7ba72135f</code>（用于溯源与侵权举证）。
+</div> </article></main> <aside class="sidebar"><div class="side-card"> <h3>公众号 · 方家小白</h3> <img class="qr" src="/images/qrcode.jpg" alt="公众号「方家小白」二维码" loading="lazy"> <p class="hint">全文永久免费。回复关键词 <span class="kw">INDEX</span> 领取全站资料包索引。</p> <p class="hint">网站发完整结构化版，公众号发导读、判断与配套资料。</p> </div> <div class="side-card"> <h3>内容栏目</h3> <ul> <li><a href="/columns/ai-agent/">AI Agent 实践</a></li><li><a href="/columns/backend/">后端与中间件</a></li><li><a href="/columns/java/">Java 与 JVM</a></li><li><a href="/columns/algorithm/">算法与数据结构</a></li><li><a href="/columns/engineering/">工程效率与工具</a></li> <li><a href="/archives/">随笔与归档</a></li> </ul> </div> <div class="side-card"> <h3>增值资料包</h3> <p class="hint">按栏目回复关键词领取配套清单、合订版与模板包：</p> <p class="hint"><span class="kw">AGENT</span> <span class="kw">RULE</span> <span class="kw">BACKEND</span> <span class="kw">JAVA</span> <span class="kw">ALGO</span> <span class="kw">TOOLS</span> <span class="kw">INDEX</span></p> <p class="hint">关键词同时用于来源归因，便于判断哪类内容真正带来关注。</p> </div></aside> </div> <footer class="site-footer"> <div class="fin"> <span>© 2026 方家小白</span> <span>内容许可：<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="license nofollow">CC BY-NC-SA 4.0</a>（转载须署名并附原文链接，禁止商业使用）</span> <span>公众号「方家小白」</span> <span><a href="/robots.txt">robots.txt</a> · <a href="/sitemap.xml">sitemap.xml</a> · <a href="/llms.txt">llms.txt</a> · <a href="/rss.xml">RSS</a></span> </div> </footer> </body></html>
